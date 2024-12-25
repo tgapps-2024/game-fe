@@ -1,0 +1,54 @@
+{
+  "COMMON": {
+    "LOCALE_SWITCHER": {
+      "RUSSIAN": "Русский",
+      "ENGLISH": "English"
+    },
+    "ROUTES": {
+      "HOME": "Главная",
+      "SETTINGS": "Настройки"
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Настройки",
+    "WALLET": {
+      "TITLE": "Кошелек",
+      "CONNECT": "Подключить кошелек"
+    },
+    "BALANCE": {
+      "TITLE": "Баланс",
+      "STARS": "Звезды",
+      "TON": "Toncoin"
+    },
+    "GENERAL_SETTINGS": {
+      "TITLE": "Основные настройки",
+      "SOUND": "Звуковое сопровождение",
+      "VIBRATIONS": "Вибрации"
+    },
+    "ABOUT_THE_APP": {
+      "TITLE": "Об игре",
+      "RULES": "Правила игры",
+      "SUPPORT": "Поддержка"
+    },
+    "COMMUNITY": {
+      "TITLE": "Коммьюнити",
+      "SUBSCRIBE": "Подписаться на канал",
+      "LEARN_MORE": "Узнать больше про игру"
+    },
+    "LANGUAGE": {
+      "TITLE": "Язык"
+    }
+  },
+  "ASSIGNMENTS": {
+    "HEADER": {
+      "BALANCE": {
+        "TITLE": "Баланс",
+        "STARS": "Звезд"
+      }
+    },
+    "TYPES": {
+      "DAILY": "Ежедневные",
+      "ONE_OFF": "Разовые задания"
+    }
+  }
+}

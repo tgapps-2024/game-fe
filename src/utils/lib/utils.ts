@@ -1,0 +1,20 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export const formatValue = (value: number): string => {
+  const suffixes = ["", "k", "M", "B", "T", "P", "E"];
+  let index = 0;
+
+  while (value >= 1000 && index < suffixes.length - 1) {
+    value /= 1000;
+    index++;
+  }
+
+  const formattedValue = value.toFixed(0);
+
+  return formattedValue + suffixes[index];
+};
