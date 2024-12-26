@@ -1,4 +1,5 @@
 import { FC, FunctionComponent, SVGProps } from "react";
+
 import { Section } from "./components/section/Section";
 
 type SectionsProps = {
@@ -14,7 +15,7 @@ type SectionsProps = {
 
 export const Sections: FC<SectionsProps> = ({ items }) => {
   return (
-    <div className="w-full min-h-[70px] flex flex-col gap-y-[14px]">
+    <div className="flex min-h-[70px] w-full flex-col gap-y-[14px]">
       {items.map(({ text, icon, children, isLink, onClick }, index) => (
         <Section
           key={index}

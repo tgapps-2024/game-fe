@@ -1,12 +1,15 @@
-import "@/styles/globals.css";
-import { NextIntlClientProvider } from "next-intl";
-import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { Rubik, Inter } from "next/font/google";
-import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
-import { SettingsProvider } from "@/context";
+import { NextIntlClientProvider } from "next-intl";
+
+import type { AppProps } from "next/app";
+import { Inter, Rubik } from "next/font/google";
 import Head from "next/head";
+
+import { SettingsProvider } from "@/context";
+import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+
+import "@/styles/globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
               />
             </Head>
             <div
-              className={`${inter.variable} ${rubik.variable} flex flex-col items-center justify-center min-h-screen font-[family-name:var(--font-rubik)]`}
+              className={`${inter.variable} ${rubik.variable} flex min-h-screen flex-col items-center justify-center font-[family-name:var(--font-rubik)]`}
             >
               <Component {...pageProps} />
             </div>

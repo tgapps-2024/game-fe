@@ -1,8 +1,11 @@
-import React, { createElement, FC, FunctionComponent, SVGProps } from "react";
-import classNames from "classnames";
+import { createElement, FC, FunctionComponent, SVGProps } from "react";
+
 import { useTranslations } from "next-intl";
-import { formatValue } from "@/utils/lib/utils";
+
+import classNames from "classnames";
+
 import { NS } from "@/constants/ns";
+import { formatValue } from "@/utils/lib/utils";
 
 type ItemProps = {
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
@@ -12,7 +15,7 @@ type ItemProps = {
 };
 
 export const ProfileBalance: FC<{ items: ItemProps[] }> = ({ items }) => (
-  <div className="w-full h-7 grid grid-cols-3 relative mb-6">
+  <div className="relative mb-6 grid h-7 w-full grid-cols-3">
     {items.map(({ icon, tidKey, value, postfix }, index) => (
       <ProfileBalanceItem
         key={index}
@@ -36,20 +39,20 @@ const ProfileBalanceItem: FC<ItemProps> = ({
   return (
     <div
       className={classNames(
-        "h-full flex flex-row justify-between items-center flex-grow px-3",
+        "flex h-full flex-grow flex-row items-center justify-between px-3",
         "first:border-r first:border-solid first:border-white/10 first:pl-0",
-        "last:border-l last:border-solid last:border-white/10 last:pr-0"
+        "last:border-l last:border-solid last:border-white/10 last:pr-0",
       )}
     >
-      <div className="w-full h-full flex flex-row gap-x-[9px] justify-center items-center flex-1">
+      <div className="flex h-full w-full flex-1 flex-row items-center justify-center gap-x-[9px]">
         {createElement(icon, {
           className: "col-span-1 row-span-2 size-8 object-contain",
         })}
-        <div className="flex flex-col w-fit h-full gap-y-1">
-          <p className="text-xs text-gray-550 font-inter font-medium ">
+        <div className="flex h-full w-fit flex-col gap-y-1">
+          <p className="font-inter text-xs font-medium text-gray-550">
             {t(tidKey)}
           </p>
-          <p className="text-base leading-none font-black tracking-[0.04em] text-nowrap text-white text-stroke-1 text-shadow-sm">
+          <p className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
             {formatValue(value)} {postfix && postfix}
           </p>
         </div>

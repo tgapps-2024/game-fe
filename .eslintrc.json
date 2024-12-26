@@ -1,3 +1,40 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // 1. React first, including named imports like hooks
+              ["^react$", "^react(/.*)?$"],
+              // 2. Next.js second
+              ["^next/router$", "^next-intl$"],
+              // 3. External libraries like classnames, etc.
+              ["^[a-z]", "^classnames"],
+              // 4. Packages starting with `@`
+              ["^@"],
+              // 5. Packages starting with `~`
+              ["^~"],
+              // 6. Imports starting with `../`
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // 7. Imports starting with `./`
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // 8. Style imports
+              ["^.+\\.s?css$"],
+              // 9. Side effect imports
+              ["^\\u0000"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
