@@ -1,6 +1,6 @@
-import { Settings } from "@/components/pages";
 import { GetStaticProps } from "next";
-import React from "react";
+
+import { Settings } from "@/components/pages";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;

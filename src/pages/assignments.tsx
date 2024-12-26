@@ -1,6 +1,6 @@
-import { Assignments } from "@/components/pages";
 import { GetStaticProps } from "next";
-import React from "react";
+
+import { Assignments } from "@/components/pages";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;

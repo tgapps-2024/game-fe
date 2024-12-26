@@ -1,5 +1,6 @@
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useCallback } from "react";
+
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 export const useTonWallet = () => {
   const [tonConnectUI] = useTonConnectUI();

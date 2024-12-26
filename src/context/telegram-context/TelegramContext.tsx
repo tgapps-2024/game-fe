@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+
+import { useRouter } from "next/router";
+
+import { useRouter as useNextRouter } from "next/navigation";
+import Script from "next/script";
+
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";
 import { IWebApp, WebAppUser } from "@/types/telegram";
-import { useRouter } from "next/router";
-import { useRouter as useNextRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import Script from "next/script";
 
 export interface ITelegramContext {
   webApp?: IWebApp;
