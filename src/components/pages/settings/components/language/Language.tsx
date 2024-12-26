@@ -1,11 +1,13 @@
-import { LocaleSwitcher } from "@/components/common/language-switcher/LanguageSwitcher";
+import { FC } from "react";
+
+import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+
+import { LocaleSwitcher } from "@/components/common";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LOCALES } from "@/constants/locale";
 import { NS } from "@/constants/ns";
 import { useSettings } from "@/context";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
-import { FC } from "react";
 
 export const Language: FC = () => {
   const t_settings = useTranslations(NS.PAGES.SETTINGS.ROOT);
@@ -21,16 +23,16 @@ export const Language: FC = () => {
   };
 
   return (
-    <div className="w-full h-max flex flex-col gap-y-5">
-      <h2 className="text-xl font-black text-shadowed bold-stroke">
+    <div className="flex h-max w-full flex-col gap-y-5">
+      <h2 className="text-shadowed bold-stroke text-xl font-black">
         {t_settings(
-          `${NS.PAGES.SETTINGS.LANGUAGE.ROOT}.${NS.PAGES.SETTINGS.LANGUAGE.TITLE}`
+          `${NS.PAGES.SETTINGS.LANGUAGE.ROOT}.${NS.PAGES.SETTINGS.LANGUAGE.TITLE}`,
         )}
       </h2>
-      <div className="w-full min-h-[70px] flex flex-col gap-y-[14px]">
+      <div className="flex min-h-[70px] w-full flex-col gap-y-[14px]">
         <LocaleSwitcher route={route} locale={LOCALES.RU}>
           <div
-            className="w-full flex flex-row justify-between items-center cursor-pointer"
+            className="flex w-full cursor-pointer flex-row items-center justify-between"
             onClick={() => handleLanguageChange()}
           >
             <p className="text-base font-medium text-white">Русский</p>
@@ -39,7 +41,7 @@ export const Language: FC = () => {
         </LocaleSwitcher>
         <LocaleSwitcher route={route} locale={LOCALES.EN}>
           <div
-            className="w-full flex flex-row justify-between items-center cursor-pointer"
+            className="flex w-full cursor-pointer flex-row items-center justify-between"
             onClick={() => handleLanguageChange()}
           >
             <p className="text-base font-medium text-white">English</p>

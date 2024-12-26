@@ -1,11 +1,16 @@
+import { FC, useEffect, useRef, useState } from "react";
+
+import { useTranslations } from "next-intl";
+
+import classNames from "classnames";
+import { motion } from "framer-motion";
+
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useModalVisibility } from "@/hooks/useModalVisibility";
 import WalletIcon from "@/public/assets/svg/wallet.svg";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-import classNames from "classnames";
-import { useTranslations } from "next-intl";
-import { FC, useEffect, useRef, useState } from "react";
+
 import { LevelIndicator } from "./components/level-indicator/LevelIndicator";
 import { ProfileBalance } from "./components/profile-balance/ProfileBalance";
 import { ProfileHeader } from "./components/profile-header/ProfileHeader";
@@ -30,7 +35,6 @@ export const Settings: FC = () => {
   useEffect(() => {
     const loadData = async () => {
       if (webApp) {
-        // Симуляция загрузки данных
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setIsLoading(false);
       } else {
@@ -59,17 +63,17 @@ export const Settings: FC = () => {
   const { first_name, photo_url } = webApp.initDataUnsafe.user;
 
   return (
-    <div className="h-screen bg-settings-pattern overflow-y-auto overscroll-contain w-full">
-      <div className="pt-10 flex flex-col items-center relative">
+    <div className="h-screen w-full overflow-y-auto overscroll-contain bg-settings-pattern">
+      <div className="relative flex flex-col items-center pt-10">
         <div className="h-34" />
         <div className="w-full">
           <div
             className={classNames(
-              "bg-blue-800 rounded-t-[32px] transition-all duration-500 ease-in-out transform",
-              isModalVisible ? "translate-y-0" : "translate-y-20"
+              "transform rounded-t-[32px] bg-blue-800 transition-all duration-500 ease-in-out",
+              isModalVisible ? "translate-y-0" : "translate-y-20",
             )}
           >
-            <div className={classNames("p-4 pt-[78px] relative")}>
+            <div className={classNames("relative p-4 pt-[78px]")}>
               <ProfileHeader
                 first_name={first_name}
                 photo_url={photo_url || ""}
@@ -80,55 +84,56 @@ export const Settings: FC = () => {
                 progress={MOCK_DATA.progress}
                 isLoading={isLoading}
               />
-              <div
+              <motion.div
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className={classNames(
-                  "w-full mb-6 h-14 pb-[3px] rounded-2xl bg-[#0655a4] overflow-hidden border border-black cursor-pointer group transition-all duration-300 ease-in-out",
-                  "hover:scale-[0.98]",
-                  { "bg-[rgb(27,48,68)]": address.length }
+                  "group mb-6 h-14 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
+                  { "bg-[rgb(27,48,68)]": address.length },
                 )}
                 onClick={() => (address ? handleDisconnect() : handleOpenTon())}
                 ref={buttonRef}
               >
                 <div
                   className={classNames(
-                    "w-full h-full rounded-xl bg-[#0075ff] pb-1 shadow-inner-btn flex justify-center items-center p-[3px]",
+                    "shadow-inner-btn flex h-full w-full items-center justify-center rounded-xl bg-[#0075ff] p-[3px] pb-1",
                     {
-                      "bg-[#1B3044] shadow-inner-btn": address.length,
-                    }
+                      "shadow-inner-btn bg-[#1B3044]": address.length,
+                    },
                   )}
                 >
                   <div
                     className={classNames(
-                      "w-full h-full p-3 rounded-xl shadow-a flex items-center",
+                      "shadow-a flex h-full w-full items-center rounded-xl p-3",
                       address.length
                         ? "justify-between bg-white/5"
-                        : "justify-center bg-white/20"
+                        : "justify-center bg-white/20",
                     )}
                   >
                     {address.length ? (
                       <>
-                        <div className="w-full h-full flex flex-row text-sm leading-none gap-x-2 justify-start items-center">
+                        <div className="flex h-full w-full flex-row items-center justify-start gap-x-2 text-sm leading-none">
                           <WalletIcon />
-                          <p className="text-white leading-none tracking-wide flex items-center font-extrabold text-shadowed uppercase">
+                          <p className="text-shadowed flex items-center font-extrabold uppercase leading-none tracking-wide text-white">
                             {t(
-                              `${NS.PAGES.SETTINGS.WALLET.ROOT}.${NS.PAGES.SETTINGS.WALLET.TITLE}`
+                              `${NS.PAGES.SETTINGS.WALLET.ROOT}.${NS.PAGES.SETTINGS.WALLET.TITLE}`,
                             )}
                           </p>
                         </div>
-                        <p className="text-white/30 text-nowrap font-black text-sm leading-none tracking-wide">
+                        <p className="text-nowrap text-sm font-black leading-none tracking-wide text-white/30">
                           {`${address.slice(0, 5)}...${address.slice(-5)}`}
                         </p>
                       </>
                     ) : (
-                      <p className="text-white text-lg text-nowrap leading-[19.8px] tracking-wide font-black text-stroke-half text-shadow uppercase">
+                      <p className="text-stroke-half text-nowrap text-lg font-black uppercase leading-[19.8px] tracking-wide text-white text-shadow">
                         {t(
-                          `${NS.PAGES.SETTINGS.WALLET.ROOT}.${NS.PAGES.SETTINGS.WALLET.CONNECT_WALLET}`
+                          `${NS.PAGES.SETTINGS.WALLET.ROOT}.${NS.PAGES.SETTINGS.WALLET.CONNECT_WALLET}`,
                         )}
                       </p>
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
               <ProfileBalance items={PROFILE_BALANCE_ITEMS} />
               <ProfileLink />
             </div>

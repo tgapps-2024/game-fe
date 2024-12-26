@@ -1,5 +1,7 @@
+import { FunctionComponent, ReactNode } from "react";
+
 import classNames from "classnames";
-import React, { FunctionComponent, ReactNode } from "react";
+
 import { HeaderInfo } from "../header-info/HeaderInfo";
 
 type Props = {
@@ -15,11 +17,11 @@ export const HeaderItem: FunctionComponent<Props> = ({
 }) => (
   <div
     className={classNames(
-      "h-full flex flex-row justify-between items-center flex-grow px-3",
-      "last:border-l last:border-solid last:border-white/10 last:pr-0"
+      "flex h-full flex-grow flex-row items-center justify-between px-3",
+      "last:border-l last:border-solid last:border-white/10 last:pr-0",
     )}
   >
-    <div className="w-full h-full flex flex-row gap-x-[9px] justify-center items-center flex-1">
+    <div className="flex h-full w-full flex-1 flex-row items-center justify-center gap-x-[9px]">
       {imageNode}
       <HeaderInfo
         topComponent={topInfoComponent}

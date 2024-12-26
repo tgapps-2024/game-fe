@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+
 import { Home } from "@/components/pages";
 
 export const getStaticProps: GetStaticProps = async (context) => {

@@ -1,15 +1,17 @@
+import { FunctionComponent, useCallback, useEffect } from "react";
+
+import AutoPlay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import React, { FunctionComponent, useCallback, useEffect } from "react";
 import AssignementsBg from "@/public/assets/png/assignments-bg.png";
-import Image from "next/image";
-import AutoPlay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import StarSVG from "@/public/assets/svg/star.svg";
 import ChestSVG from "@/public/assets/svg/chest.svg";
+import StarSVG from "@/public/assets/svg/star.svg";
 
 export const AssignmentsCarousel: FunctionComponent = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -18,7 +20,7 @@ export const AssignmentsCarousel: FunctionComponent = () => {
     (emblaApi: { slidesInView: () => unknown }) => {
       console.log("🚀 ~ emblaApi:", emblaApi.slidesInView());
     },
-    []
+    [],
   );
 
   useEffect(() => {
@@ -30,33 +32,33 @@ export const AssignmentsCarousel: FunctionComponent = () => {
       orientation="horizontal"
       opts={{ loop: true }}
       plugins={[AutoPlay({ delay: 7500 })]}
-      className="w-full mb-6"
+      className="mb-6 w-full"
     >
       <CarouselContent className="-ml-1 touch-action-carousel" ref={emblaRef}>
         {[1, 2, 3].map((i) => (
-          <CarouselItem key={i} className="pl-1 flex-[0_0_90%]">
+          <CarouselItem key={i} className="flex-[0_0_90%] pl-1">
             <div className="px-1">
-              <div className="p-4 rounded-2xl relative border border-solid border-white">
-                <div className="absolute top-0 left-0 w-full h-full">
+              <div className="relative rounded-2xl border border-solid border-white p-4">
+                <div className="absolute left-0 top-0 h-full w-full">
                   <Image src={AssignementsBg} alt="bg" fill />
                 </div>
 
-                <div className="w-full h-full pt-5.5 relative z-10 flex flex-col gap-1">
-                  <div className="flex px-3 self-start py-1 rounded-full bg-blue-800/50 border border-solid border-[#363A3D] gap-2">
-                    <div className="flex gap-1 items-center">
+                <div className="relative z-10 flex h-full w-full flex-col gap-1 pt-5.5">
+                  <div className="flex gap-2 self-start rounded-full border border-solid border-[#363A3D] bg-blue-800/50 px-3 py-1">
+                    <div className="flex items-center gap-1">
                       <StarSVG className="size-4" />
-                      <span className="font-rubik font-extrabold text-xs text-shadow-sm text-stroke-half">
+                      <span className="text-stroke-half font-rubik text-xs font-extrabold text-shadow-sm">
                         +50.000
                       </span>
                     </div>
-                    <div className="flex gap-1 items-center">
-                      <ChestSVG className="w-4.5 h-4" />
-                      <span className="font-rubik font-extrabold text-xs text-shadow-sm text-stroke-half">
+                    <div className="flex items-center gap-1">
+                      <ChestSVG className="h-4 w-4.5" />
+                      <span className="text-stroke-half font-rubik text-xs font-extrabold text-shadow-sm">
                         +1
                       </span>
                     </div>
                   </div>
-                  <p className="font-rubik font-black tracking-wider text-shadow-sm text-stroke-1 mr-28">
+                  <p className="text-stroke-1 mr-28 font-rubik font-black tracking-wider text-shadow-sm">
                     Купите 1 пакет и получите 2 бесплатно
                   </p>
                 </div>

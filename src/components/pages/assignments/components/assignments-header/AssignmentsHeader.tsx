@@ -1,22 +1,24 @@
-import React from "react";
-import { HeaderItem } from "./components/header-item/HeaderItem";
-import { useTelegram } from "@/context";
-import Image from "next/image";
-import { Level } from "@/components/ui";
-import StarSVG from "@/public/assets/svg/star.svg";
 import { useTranslations } from "next-intl";
+
+import Image from "next/image";
+
+import { Level } from "@/components/ui";
 import { NS } from "@/constants/ns";
-import { TopComponent } from "./components/top-component/TopComponent";
+import { useTelegram } from "@/context";
+import StarSVG from "@/public/assets/svg/star.svg";
+
 import { BottomComponent } from "./components/bottom-component/BottomComponent";
+import { HeaderItem } from "./components/header-item/HeaderItem";
+import { TopComponent } from "./components/top-component/TopComponent";
 
 export const AssignmentsHeader = () => {
   const { user } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
 
   return (
-    <div className="px-4 pt-15 grid grid-cols-3 mb-4">
-      <div className="grid grid-cols-[40px_1fr] gap-x-1 justify-center items-center border-r border-solid border-white/10">
-        <div className="!size-10 relative overflow-hidden rounded-full border-2 border-solid border-white object-cover">
+    <div className="mb-4 grid grid-cols-3 px-4 pt-15">
+      <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
+        <div className="relative !size-10 overflow-hidden rounded-full border-2 border-solid border-white object-cover">
           {user?.photo_url ? (
             <Image
               src={user?.photo_url}
@@ -27,20 +29,20 @@ export const AssignmentsHeader = () => {
             />
           ) : null}
         </div>
-        <div className="flex flex-col gap-y-1 relative">
-          <p className="text-base leading-none font-black tracking-[0.04em] text-nowrap text-white text-stroke-1 text-shadow-sm">
+        <div className="relative flex flex-col gap-y-1">
+          <p className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
             {user?.first_name}
           </p>
-          <div className="flex items-center relative -left-5 h-5">
-            <div className="w-8.5 h-5 absolute z-10">
-              <Level className="w-8.5 h-5" />
-              <p className="text-xs -tracking-wide font-bold absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10 text-white level-text">
+          <div className="relative -left-5 flex h-5 items-center">
+            <div className="absolute z-10 h-5 w-8.5">
+              <Level className="h-5 w-8.5" />
+              <p className="level-text absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-xs font-bold -tracking-wide text-white">
                 {38}
               </p>
             </div>
-            <div className="w-full h-2.5 bg-blue-900 relative rounded-full overflow-hidden ml-7">
+            <div className="relative ml-7 h-2.5 w-full overflow-hidden rounded-full bg-blue-900">
               <div
-                className="absolute h-full shadow-green-shadow rounded-full bg-gradient-to-b from-[#F9E50F] via-[#F9E50F] to-[#EFC609] transition-width duration-300"
+                className="transition-width absolute h-full rounded-full bg-gradient-to-b from-[#F9E50F] via-[#F9E50F] to-[#EFC609] shadow-green-shadow duration-300"
                 style={{
                   width: `${45}%`,
                 }}
@@ -53,7 +55,7 @@ export const AssignmentsHeader = () => {
         topInfoComponent={
           <TopComponent
             text={t(
-              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.TITLE}`
+              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.TITLE}`,
             )}
           />
         }
@@ -66,7 +68,7 @@ export const AssignmentsHeader = () => {
         topInfoComponent={
           <TopComponent
             text={t(
-              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`
+              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
             )}
           />
         }

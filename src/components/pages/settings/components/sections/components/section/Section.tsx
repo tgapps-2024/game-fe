@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
 import { createElement, FC, FunctionComponent, SVGProps } from "react";
+
+import { motion } from "framer-motion";
+
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
 
 type SectionProps = {
@@ -18,14 +20,14 @@ export const Section: FC<SectionProps> = ({
   isLink,
 }) => (
   <motion.div
-    className="w-full min-h-[24px] flex flex-row justify-between items-center gap-y-3"
+    className="flex min-h-[24px] w-full flex-row items-center justify-between gap-y-3"
     whileTap={{ scale: 0.98 }}
     transition={{ type: "spring", stiffness: 200, damping: 20 }}
     onClick={onClick}
   >
-    <div className="w-fit h-fit flex flex-row items-center gap-x-3 self-center">
+    <div className="flex h-fit w-fit flex-row items-center gap-x-3 self-center">
       {icon && (
-        <div className="size-7 flex justify-center items-center">
+        <div className="flex size-7 items-center justify-center">
           {createElement(icon)}
         </div>
       )}
