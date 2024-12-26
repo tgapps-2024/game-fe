@@ -1,16 +1,16 @@
-import classNames from "classnames";
-import { FC, useEffect, useRef, useState } from "react";
-import WalletIcon from "@/public/assets/svg/wallet.svg";
-import { useTelegram } from "@/context";
-import { useTranslations } from "next-intl";
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useModalVisibility } from "@/hooks/useModalVisibility";
-import { PROFILE_BALANCE_ITEMS } from "./constants";
-import { ProfileHeader } from "./components/profile-header/ProfileHeader";
+import WalletIcon from "@/public/assets/svg/wallet.svg";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import classNames from "classnames";
+import { useTranslations } from "next-intl";
+import { FC, useEffect, useRef, useState } from "react";
 import { LevelIndicator } from "./components/level-indicator/LevelIndicator";
 import { ProfileBalance } from "./components/profile-balance/ProfileBalance";
+import { ProfileHeader } from "./components/profile-header/ProfileHeader";
 import { ProfileLink } from "./components/profile-link/ProfileLink";
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { PROFILE_BALANCE_ITEMS } from "./constants";
 
 const MOCK_DATA = {
   currentLevel: 32,
@@ -44,17 +44,12 @@ export const Settings: FC = () => {
     loadData();
   }, [webApp]);
 
-  // if (isLoading) {
-  //   return <Skeleton />;
-  // }
-
   if (!webApp || !webApp.initDataUnsafe?.user) {
     return null;
   }
 
   const handleOpenTon = () => {
     tonConnectUI?.openModal();
-    console.log("🚀 ~ handleOpenTon ~ handleOpenTon:");
   };
 
   const handleDisconnect = () => {
@@ -66,7 +61,7 @@ export const Settings: FC = () => {
   const isDesktop = ["tdesktop"].includes(webApp.platform);
 
   return (
-    <div className="max-h-screen bg-settings-pattern overflow-y-auto overscroll-contain w-full">
+    <div className="h-screen bg-settings-pattern overflow-y-auto overscroll-contain w-full">
       <div className="pt-10 flex flex-col items-center relative">
         <div className="h-34" />
         <div className="w-full">
@@ -128,7 +123,7 @@ export const Settings: FC = () => {
                             )}
                           </p>
                         </div>
-                        <p className="text-white/30 text-nowrap font-black">
+                        <p className="text-white/30 text-nowrap font-black text-sm leading-none tracking-wide">
                           {`${address.slice(0, 5)}...${address.slice(-5)}`}
                         </p>
                       </>
