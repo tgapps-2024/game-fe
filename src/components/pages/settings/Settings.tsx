@@ -58,8 +58,6 @@ export const Settings: FC = () => {
 
   const { first_name, photo_url } = webApp.initDataUnsafe.user;
 
-  const isDesktop = ["tdesktop"].includes(webApp.platform);
-
   return (
     <div className="h-screen bg-settings-pattern overflow-y-auto overscroll-contain w-full">
       <div className="pt-10 flex flex-col items-center relative">
@@ -68,16 +66,10 @@ export const Settings: FC = () => {
           <div
             className={classNames(
               "bg-blue-800 rounded-t-[32px] transition-all duration-500 ease-in-out transform",
-              isModalVisible ? "translate-y-0" : "translate-y-20",
-              isDesktop && "rounded-b-[32px]"
+              isModalVisible ? "translate-y-0" : "translate-y-20"
             )}
           >
-            <div
-              className={classNames(
-                "p-4 pt-[78px] relative",
-                isDesktop && "p-5"
-              )}
-            >
+            <div className={classNames("p-4 pt-[78px] relative")}>
               <ProfileHeader
                 first_name={first_name}
                 photo_url={photo_url || ""}
