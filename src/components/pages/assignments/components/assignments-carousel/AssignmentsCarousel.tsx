@@ -1,73 +1,119 @@
-import { FunctionComponent, useCallback, useEffect } from "react";
+import {
+  createElement,
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
-import Image from "next/image";
-
+import classNames from "classnames";
+import { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import AutoPlay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import AssignementsBg from "@/public/assets/png/assignments-bg.png";
+import PrimaryBackground from "@/public/assets/svg/assignments/bg-1.svg";
+import SecondaryBackground from "@/public/assets/svg/assignments/bg-2.svg";
+import TertiaryBackground from "@/public/assets/svg/assignments/bg-3.svg";
 import ChestSVG from "@/public/assets/svg/chest.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
-export const AssignmentsCarousel: FunctionComponent = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+import { Modal } from "./ModalComponent";
 
-  const logSlidesInView = useCallback(
-    (emblaApi: { slidesInView: () => unknown }) => {
-      console.log("🚀 ~ emblaApi:", emblaApi.slidesInView());
-    },
-    [],
-  );
+const OPTIONS: EmblaOptionsType = { loop: true };
+const SLIDE_COUNT = 5;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+type BackgroundMapType = {
+  [key: number]: string;
+};
+
+const MAP_BACKGROUNDS: BackgroundMapType = {
+  0: PrimaryBackground,
+  1: SecondaryBackground,
+  2: TertiaryBackground,
+  3: PrimaryBackground,
+  4: SecondaryBackground,
+};
+
+export const AssignmentsCarousel: FunctionComponent = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, [AutoPlay()]);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  // State for modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  const logActiveSlide = useCallback((emblaApi: EmblaCarouselType) => {
+    const activeIndex = emblaApi.selectedScrollSnap();
+
+    setActiveSlide(activeIndex);
+  }, []);
 
   useEffect(() => {
-    if (emblaApi) emblaApi.on("slidesInView", logSlidesInView);
-  }, [emblaApi, logSlidesInView]);
+    if (emblaApi) {
+      emblaApi.on("select", () => logActiveSlide(emblaApi));
+    }
+  }, [emblaApi, logActiveSlide]);
+
+  const handleSlideClick = (index: number) => {
+    setModalContent(`Content for slide ${index + 1}`); // Customize this as needed
+    setIsModalOpen(true);
+  };
 
   return (
-    <Carousel
-      orientation="horizontal"
-      opts={{ loop: true }}
-      plugins={[AutoPlay({ delay: 7500 })]}
-      className="mb-6 w-full"
-    >
-      <CarouselContent className="-ml-1 touch-action-carousel" ref={emblaRef}>
-        {[1, 2, 3].map((i) => (
-          <CarouselItem key={i} className="flex-[0_0_90%] pl-1">
-            <div className="px-1">
-              <div className="relative rounded-2xl border border-solid border-white p-4">
-                <div className="absolute left-0 top-0 h-full w-full">
-                  <Image src={AssignementsBg} alt="bg" fill />
-                </div>
-
+    <section className="mx-0 w-full">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="ml-[calc(0.8rem_*_-1)] flex touch-action-carousel">
+          {SLIDES.map((index) => (
+            <div
+              className="translate-z-0 min-w-0 flex-[0_0_90%] transform pl-3"
+              key={index}
+              onClick={() => handleSlideClick(index)}
+            >
+              <div
+                className={classNames(
+                  "relative z-10 overflow-hidden rounded-2xl border-2 border-solid border-white p-4 transition-opacity duration-300 ease-in-out",
+                  { "opacity-30": index !== activeSlide },
+                )}
+              >
+                {createElement(MAP_BACKGROUNDS[index], {
+                  className:
+                    "absolute left-[1px] right-[1px] top-[1px] z-0 rounded-2xl object-cover",
+                })}
                 <div className="relative z-10 flex h-full w-full flex-col gap-1 pt-5.5">
-                  <div className="flex gap-2 self-start rounded-full border border-solid border-[#363A3D] bg-blue-800/50 px-3 py-1">
+                  <div
+                    className={classNames(
+                      "flex gap-2 self-start rounded-full border border-solid border-[#363A3D] bg-blue-800/50 px-3 py-1",
+                    )}
+                  >
                     <div className="flex items-center gap-1">
                       <StarSVG className="size-4" />
-                      <span className="text-stroke-half font-rubik text-xs font-extrabold text-shadow-sm">
+                      <span className="font-rubik text-xs font-extrabold">
                         +50.000
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
                       <ChestSVG className="h-4 w-4.5" />
-                      <span className="text-stroke-half font-rubik text-xs font-extrabold text-shadow-sm">
+                      <span className="font-rubik text-xs font-extrabold">
                         +1
                       </span>
                     </div>
                   </div>
-                  <p className="text-stroke-1 mr-28 font-rubik font-black tracking-wider text-shadow-sm">
+                  <p className="text-stroke-1 mr-20 text-left font-rubik !text-base font-black uppercase tracking-wider text-shadow-sm">
                     Купите 1 пакет и получите 2 бесплатно
                   </p>
                 </div>
               </div>
             </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-    </Carousel>
+          ))}
+        </div>
+      </div>
+      {/* Render the modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        content={modalContent}
+      />
+    </section>
   );
 };
