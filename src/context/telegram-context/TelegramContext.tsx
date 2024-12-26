@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import { useRouter } from "next/router";
-
 import { useRouter as useNextRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import Script from "next/script";
 
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";

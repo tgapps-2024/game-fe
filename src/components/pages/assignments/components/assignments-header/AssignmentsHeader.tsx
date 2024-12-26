@@ -1,6 +1,5 @@
-import { useTranslations } from "next-intl";
-
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { Level } from "@/components/ui";
 import { NS } from "@/constants/ns";

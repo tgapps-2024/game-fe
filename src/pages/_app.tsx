@@ -1,9 +1,8 @@
-import { useRouter } from "next/router";
-import { NextIntlClientProvider } from "next-intl";
-
 import type { AppProps } from "next/app";
 import { Inter, Rubik } from "next/font/google";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { NextIntlClientProvider } from "next-intl";
 
 import { SettingsProvider } from "@/context";
 import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
