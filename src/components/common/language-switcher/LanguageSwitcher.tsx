@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Props = {
   children: React.ReactNode;
@@ -13,9 +13,15 @@ export const LocaleSwitcher: FunctionComponent<Props> = ({
   locale,
   route,
 }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.replace(route, undefined, { locale });
+  };
+
   return (
-    <Link href={route} locale={locale}>
+    <button onClick={handleClick} style={{ all: "unset", cursor: "pointer" }}>
       {children}
-    </Link>
+    </button>
   );
 };
