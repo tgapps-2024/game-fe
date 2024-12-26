@@ -13,24 +13,20 @@
           "error",
           {
             "groups": [
-              // 1. React first, including named imports like hooks
-              ["^react$", "^react(/.*)?$"],
-              // 2. Next.js second
-              ["^next/router$", "^next-intl$"],
-              // 3. External libraries like classnames, etc.
-              ["^[a-z]", "^classnames"],
-              // 4. Packages starting with `@`
+              // `react` first, `next` second, then packages starting with a character
+              ["^react$"],
+              ["^next"],
+              ["^[a-z]"],
+              // Packages starting with `@`
               ["^@"],
-              // 5. Packages starting with `~`
+              // Packages starting with `~`
               ["^~"],
-              // 6. Imports starting with `../`
+              // Imports starting with `../`
               ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-              // 7. Imports starting with `./`
+              // Imports starting with `./`
               ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-              // 8. Style imports
-              ["^.+\\.s?css$"],
-              // 9. Side effect imports
-              ["^\\u0000"]
+              // Style imports
+              ["^.+\\.s?css$"]
             ]
           }
         ]

@@ -3,6 +3,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
+import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
@@ -83,7 +84,9 @@ export const Settings: FC = () => {
                 progress={MOCK_DATA.progress}
                 isLoading={isLoading}
               />
-              <div
+              <motion.div
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className={classNames(
                   "group mb-6 h-14 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
                   { "bg-[rgb(27,48,68)]": address.length },
@@ -130,7 +133,7 @@ export const Settings: FC = () => {
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
               <ProfileBalance items={PROFILE_BALANCE_ITEMS} />
               <ProfileLink />
             </div>
