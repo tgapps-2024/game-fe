@@ -1,30 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import classNames from "classnames";
+import { motion } from "framer-motion";
+
+import CloseIcon from "@/public/assets/svg/close.svg";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  content: React.ReactNode; // Изменяем тип на React.ReactNode для поддержки любого контента
+  content: React.ReactNode;
+  contentWrapperClassName?: string;
+  contentClassName?: string;
 }
 
 export const Modal: React.FunctionComponent<ModalProps> = ({
   isOpen,
   onClose,
   content,
+  contentWrapperClassName,
+  contentClassName,
 }) => {
-  if (!isOpen) return null;
+  const [isVisible, setIsVisible] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(onClose, 300);
+  };
 
   return (
-    <div className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50">
-      <div className="w-full max-w-md translate-y-0 transform rounded-t-lg bg-white p-5 shadow-lg transition-transform">
-        <h2 className="text-lg font-bold">Содержимое слайда</h2>
-        <div>{content}</div>
+    <div
+      className={`fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50 ${
+        isOpen ? "visible opacity-100" : "invisible opacity-0"
+      } transition-opacity duration-300`}
+    >
+      <motion.div
+        className={classNames(
+          "relative w-full rounded-t-lg shadow-lg",
+          contentWrapperClassName,
+        )}
+        initial={{ opacity: 0, translateY: 100 }}
+        animate={{
+          opacity: isVisible ? 1 : 0,
+          translateY: isVisible ? 0 : 100,
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className={contentClassName}>{content}</div>
         <button
-          onClick={onClose}
-          className="mt-4 rounded bg-blue-500 p-2 text-white"
+          onClick={handleClose}
+          className="absolute right-4 top-4 flex size-6 items-center justify-center rounded-full bg-white/5"
         >
-          Закрыть
+          <CloseIcon className="size-2.5" />
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 };
