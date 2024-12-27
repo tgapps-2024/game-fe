@@ -1,6 +1,7 @@
 import {
   createElement,
   FunctionComponent,
+  ReactNode,
   useCallback,
   useEffect,
   useState,
@@ -11,37 +12,23 @@ import { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import AutoPlay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
-import PrimaryBackground from "@/public/assets/svg/assignments/bg-1.svg";
-import SecondaryBackground from "@/public/assets/svg/assignments/bg-2.svg";
-import TertiaryBackground from "@/public/assets/svg/assignments/bg-3.svg";
 import ChestSVG from "@/public/assets/svg/chest.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
+import { MAP_MODALS_CONTENT } from "./proposal-modals-content/ProposalModalsContent";
+import { MAP_BACKGROUNDS } from "./constants";
 import { Modal } from "./ModalComponent";
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 const SLIDE_COUNT = 5;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
-type BackgroundMapType = {
-  [key: number]: string;
-};
-
-const MAP_BACKGROUNDS: BackgroundMapType = {
-  0: PrimaryBackground,
-  1: SecondaryBackground,
-  2: TertiaryBackground,
-  3: PrimaryBackground,
-  4: SecondaryBackground,
-};
-
 export const AssignmentsCarousel: FunctionComponent = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, [AutoPlay()]);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState<null | ReactNode>(null);
 
   const logActiveSlide = useCallback((emblaApi: EmblaCarouselType) => {
     const activeIndex = emblaApi.selectedScrollSnap();
@@ -56,7 +43,7 @@ export const AssignmentsCarousel: FunctionComponent = () => {
   }, [emblaApi, logActiveSlide]);
 
   const handleSlideClick = (index: number) => {
-    setModalContent(`Content for slide ${index + 1}`); // Customize this as needed
+    setModalContent(MAP_MODALS_CONTENT[index]);
     setIsModalOpen(true);
   };
 
@@ -99,7 +86,7 @@ export const AssignmentsCarousel: FunctionComponent = () => {
                       </span>
                     </div>
                   </div>
-                  <p className="text-stroke-1 mr-20 text-left font-rubik !text-base font-black uppercase tracking-wider text-shadow-sm">
+                  <p className="mr-20 text-left font-rubik !text-base font-black uppercase tracking-wider">
                     Купите 1 пакет и получите 2 бесплатно
                   </p>
                 </div>
@@ -108,7 +95,6 @@ export const AssignmentsCarousel: FunctionComponent = () => {
           ))}
         </div>
       </div>
-      {/* Render the modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

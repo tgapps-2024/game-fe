@@ -25,10 +25,10 @@ export const AssignmentsList: FunctionComponent<Props> = ({
   return (
     <div className="mt-6 flex flex-col gap-4 px-4">
       <div className="flex items-center justify-between">
-        <div className="text-stroke-1 text-nowrap text-2xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+        <div className="text-nowrap text-2xl font-black leading-none tracking-[0.04em] text-white">
           {t(`${NS.PAGES.ASSIGNMENTS.TYPES.ROOT}.${type}`)}
         </div>
-        <div className="text-stroke-1 text-nowrap rounded-[20px] bg-blue-700 px-3 py-1 text-xs font-black tracking-[0.04em] text-white text-shadow-sm">
+        <div className="text-nowrap rounded-[20px] bg-blue-700 px-3 py-1 text-xs font-black tracking-[0.04em] text-white">
           {list.length}
         </div>
       </div>
@@ -46,14 +46,14 @@ export const AssignmentsList: FunctionComponent<Props> = ({
               className: "size-8 rounded-full object-contain",
             })}
             <div className="flex flex-col gap-1">
-              <p className="text-stroke-half text-sm font-black leading-none tracking-wide text-shadow-sm">
+              <p className="text-stroke-half text-sm font-black leading-none tracking-wide">
                 {title}
               </p>
               <div className="flex gap-2">
                 {rewards.map(({ count, type }) => (
                   <div
                     key={type}
-                    className="text-stroke-half flex items-center gap-1 text-xs font-extrabold text-yellow-500 text-shadow-sm"
+                    className="text-stroke-half flex items-center gap-1 text-xs font-extrabold text-yellow-500"
                   >
                     {createElement(REWARD_ICONS[type], {
                       className: "size-4",
