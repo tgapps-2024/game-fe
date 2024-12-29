@@ -8,6 +8,7 @@ import { AssignmentsHeader } from "./components/assignments-header/AssignmentsHe
 import { AssignmentsList } from "./components/assignments-list/AssignmentsList";
 import { PowerUpModal } from "./components/power-up-modal/PowerUpModal";
 import { ASSIGNMENTS_LIST } from "./constants";
+import { AssignmentType } from "./components/assignments-list/types";
 
 export const Assignments = () => {
   const { webApp } = useTelegram();
@@ -18,12 +19,12 @@ export const Assignments = () => {
   useEffect(() => {
     const loadData = async () => {
       if (webApp) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setIsLoading(false);
       } else {
         const timer = setTimeout(() => {
           setIsLoading(false);
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timer);
       }
     };
@@ -46,12 +47,16 @@ export const Assignments = () => {
 
   return (
     //TODO: investigate why scroll doesn't work
-    <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800 py-10">
-      <div className="flex flex-col">
+    <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
+      <div className="flex flex-col py-10">
         <AssignmentsHeader />
         <AssignmentsCarousel onSlideClick={handleSlideClick} />
         <div className="flex flex-col gap-4">
           <AssignmentsList list={ASSIGNMENTS_LIST} />
+          <AssignmentsList
+            list={ASSIGNMENTS_LIST}
+            type={AssignmentType.ONE_OFF}
+          />
         </div>
       </div>
       <PowerUpModal
