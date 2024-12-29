@@ -15,7 +15,7 @@ export const AssignmentsHeader = () => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
 
   return (
-    <div className="mb-4 grid grid-cols-3 px-4 pt-15">
+    <div className="relative mb-4 mt-15 grid h-10 grid-cols-3 px-4">
       <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
         <div className="relative !size-10 overflow-hidden rounded-full border-2 border-solid border-white object-cover">
           {user?.photo_url ? (
