@@ -71,13 +71,13 @@ export const AssignmentsCarousel: FunctionComponent<Props> = ({
                     >
                       <div className="flex items-center gap-1">
                         <StarSVG className="size-4" />
-                        <span className="text-stroke-half inline-block text-xs font-extrabold text-shadow-sm">
+                        <span className="text-stroke-half inline-block text-xs font-extrabold text-white text-shadow-sm">
                           +50.000
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
                         <ChestSVG className="h-4 w-4.5" />
-                        <span className="text-stroke-half inline-block text-xs font-extrabold text-shadow-sm">
+                        <span className="text-stroke-half inline-block text-xs font-extrabold text-white text-shadow-sm">
                           +1
                         </span>
                       </div>
