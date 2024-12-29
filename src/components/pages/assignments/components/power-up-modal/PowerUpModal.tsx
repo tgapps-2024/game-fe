@@ -40,14 +40,14 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
         >
           <div className="flex items-center gap-1">
             <StarSVG className="size-6" />
-            <span className="text-base font-extrabold">+50.000</span>
+            <span className="text-base font-extrabold text-white">+50.000</span>
           </div>
           <div className="flex items-center gap-1">
             <ChestSVG className="h-5 w-6" />
-            <span className="text-base font-extrabold">+1</span>
+            <span className="text-base font-extrabold text-white">+1</span>
           </div>
         </div>
-        <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-shadow-sm">
+        <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-white text-shadow-sm">
           Получи 15.000 спинов по супер скидке!
         </div>
         <p className="text-center text-xs font-medium tracking-wide text-gray-550">
@@ -74,7 +74,7 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
             <span>Приобрести за </span>
             <div className="flex items-center gap-1">
               <StarSVG className="size-[26px]" />
-              <span className="text-base font-extrabold">1000</span>
+              <span className="text-base font-extrabold text-white">1000</span>
             </div>
           </div>
         </div>

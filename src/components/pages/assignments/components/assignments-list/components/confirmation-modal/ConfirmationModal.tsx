@@ -40,7 +40,7 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
         <Image src={ErrorImage} alt="error" fill />
       </div>
 
-      <h3 className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase text-shadow-sm">
+      <h3 className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase text-white text-shadow-sm">
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.TITLE}`,
         )}
@@ -50,7 +50,7 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DESCRIPTION}`,
         )}
       </p>
-      <div className="mb-8 grid w-full grid-cols-[1fr_32px_1fr] items-center rounded-2xl bg-white/5 p-4">
+      <div className="mb-8 grid w-full grid-cols-[1fr_32px_1fr] items-center rounded-2xl bg-white/5 p-4 text-white">
         <div className="flex flex-col items-center justify-center gap-2">
           <StarSVG className="size-7" />
           <span className="text-stroke-1 text-center font-extrabold uppercase leading-none text-yellow-500 text-shadow-sm">
@@ -96,7 +96,7 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
         >
           <div
             className={classNames(
-              "text-stroke-1 shadow-link flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-white/15 p-3 text-center font-black uppercase tracking-wide text-shadow-sm",
+              "text-stroke-1 shadow-link flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-white/15 p-3 text-center font-black uppercase tracking-wide text-white text-shadow-sm",
             )}
           >
             {t(
