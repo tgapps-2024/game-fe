@@ -86,12 +86,8 @@ export const AssignmentsList: FunctionComponent<Props> = ({
                 title={title}
                 rewards={rewards}
                 isOpen={openModalId === id}
-                setIsOpen={(isOpen) => {
-                  if (!isOpen) {
-                    setOpenModalId(null);
-                  }
-                }}
-                setIsSecondaryModalOpen={setIsSecondaryModalOpen}
+                onClose={() => setOpenModalId(null)}
+                onConfirmationModalOpen={() => setIsSecondaryModalOpen(true)}
               />
             </li>
           ))}
