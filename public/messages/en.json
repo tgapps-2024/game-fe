@@ -49,6 +49,19 @@
     "TYPES": {
       "DAILY": "Ежедневные",
       "ONE_OFF": "Разовые задания"
+    },
+    "MODALS": {
+      "CHECK_ASSIGNMENTS": {
+        "BUTTON": "Check assignments"
+      },
+      "CONFIRMATION_MODAL": {
+        "TITLE": "Make sure you have completed the task",
+        "DESCRIPTION": "If we see that you are not performing the conditions of the task (You must be subscribed to the channel at least 5 days), we will refund the money in double",
+        "AWARD": "Award",
+        "PENALTY": "Penalty",
+        "BUTTON": "Yes, I have completed",
+        "DOUBLE_CHECK": "Double check"
+      }
     }
   }
 }

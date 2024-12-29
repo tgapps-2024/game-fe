@@ -28,8 +28,10 @@ export default {
         5.5: "22px",
         6.5: "26px",
         8.5: "34px",
+        9.5: "38px",
         11.5: "46px",
         13: "52px",
+        23: "92px",
         75: "300px",
       },
       colors: {
@@ -38,6 +40,9 @@ export default {
         },
         yellow: {
           "500": "#FFEA00",
+        },
+        red: {
+          550: "#FF453A",
         },
         blue: {
           "500": "#0075FF",
@@ -90,6 +95,10 @@ export default {
         "text-shadow": "0px 0.6px 0px 0px #000000",
         "green-shadow": "0px 0px 4px 0px #4FEA4F99",
         "inset-base": "inset 0 0 0 1px #FFFFFF",
+        "inset-black":
+          "inset 0 0 0 1px black, inset 0 2px 4px rgba(0, 0, 0, 0.05)",
+        "inset-btn": "inset 0px -1px 0.5px rgba(255, 255, 255, 0.2)",
+        link: "0px 1px 1px rgba(0, 0, 0, 0.2)",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
@@ -111,6 +120,7 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "4xl": "32px",
       },
     },
   },

@@ -11,9 +11,9 @@ import StarSVG from "@/public/assets/svg/star.svg";
 
 export const MainModal = () => {
   return (
-    <div className="pt-75 relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl px-4 pb-8">
+    <div className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75">
       <div className="absolute inset-0 z-0">
-        <Image src={BackgroundImage} alt="" fill objectFit="cover" />
+        <Image src={BackgroundImage} alt="" fill objectFit="cover" priority />
       </div>
       <div className="z-10 mb-6 flex flex-col items-center gap-3">
         <div
@@ -46,7 +46,7 @@ export const MainModal = () => {
       >
         <div
           className={classNames(
-            "shadow-inner-btn h-13 flex w-full items-center justify-center rounded-xl bg-[#EFC609] p-[3px] pb-1",
+            "shadow-inner-btn flex h-13 w-full items-center justify-center rounded-xl bg-[#EFC609] p-[3px] pb-1",
           )}
         >
           <div
