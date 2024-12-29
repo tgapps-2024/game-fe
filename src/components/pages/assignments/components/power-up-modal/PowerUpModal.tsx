@@ -5,13 +5,30 @@ import Image from "next/image";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
+import { Modal } from "@/components/common";
 import BackgroundImage from "@/public/assets/png/proposal/1.png";
 import ChestSVG from "@/public/assets/svg/chest.svg";
+import CloseIcon from "@/public/assets/svg/close.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
-export const MainModal = () => {
+interface IPowerUpModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
   return (
-    <div className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75">
+    <Modal
+      isVisible={isOpen}
+      onClose={onClose}
+      className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75 font-rubik"
+    >
+      <button
+        onClick={onClose}
+        className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
+      >
+        <CloseIcon className="size-2.5" />
+      </button>
       <div className="absolute inset-0 z-0">
         <Image src={BackgroundImage} alt="" fill objectFit="cover" priority />
       </div>
@@ -30,7 +47,7 @@ export const MainModal = () => {
             <span className="text-base font-extrabold">+1</span>
           </div>
         </div>
-        <div className="text-stroke-1 px-5 text-center text-3xl font-black leading-none text-shadow-sm">
+        <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-shadow-sm">
           Получи 15.000 спинов по супер скидке!
         </div>
         <p className="text-center text-xs font-medium tracking-wide text-gray-550">
@@ -62,6 +79,6 @@ export const MainModal = () => {
           </div>
         </div>
       </motion.div>
-    </div>
+    </Modal>
   );
 };

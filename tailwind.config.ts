@@ -101,8 +101,8 @@ export default {
         link: "0px 1px 1px rgba(0, 0, 0, 0.2)",
       },
       fontFamily: {
-        rubik: ["Rubik", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
+        rubik: ["Rubik, sans-serif"],
+        inter: ["Inter, sans-serif"],
       },
       fontSize: {
         x: ["10px", "10px"],
