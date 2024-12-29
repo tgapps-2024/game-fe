@@ -38,7 +38,7 @@ export const AssignmentCheckModal = ({
       >
         <CloseIcon className="size-2.5" />
       </button>
-      <div className="mb-6 flex size-23 items-center justify-center rounded-full bg-white/20 object-contain text-sm">
+      <div className="mb-6 flex size-23 items-center justify-center rounded-full bg-white/20 object-contain text-sm text-white">
         Place for icon
       </div>
 
@@ -78,7 +78,7 @@ export const AssignmentCheckModal = ({
                       setIsClicked(true);
                       window.open("https://t.me/noname_channel", "_blank");
                     }}
-                    className="text-stroke-1 flex items-start gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-shadow-sm"
+                    className="text-stroke-1 flex items-start gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
                   >
                     boost noname channel
                     <ExternalSVG className="size-4" />
@@ -121,7 +121,7 @@ export const AssignmentCheckModal = ({
           >
             <div
               className={classNames(
-                "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl p-3 text-center font-black uppercase tracking-wide text-shadow-sm",
+                "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl p-3 text-center font-black uppercase tracking-wide text-white text-shadow-sm",
                 { "bg-blue-800/100 shadow-none": !isClicked },
                 { "shadow-link bg-white/15": isClicked },
               )}
