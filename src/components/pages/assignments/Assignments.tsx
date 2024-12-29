@@ -6,9 +6,9 @@ import { useTelegram } from "@/context";
 import { AssignmentsCarousel } from "./components/assignments-carousel/AssignmentsCarousel";
 import { AssignmentsHeader } from "./components/assignments-header/AssignmentsHeader";
 import { AssignmentsList } from "./components/assignments-list/AssignmentsList";
+import { AssignmentType } from "./components/assignments-list/types";
 import { PowerUpModal } from "./components/power-up-modal/PowerUpModal";
 import { ASSIGNMENTS_LIST } from "./constants";
-import { AssignmentType } from "./components/assignments-list/types";
 
 export const Assignments = () => {
   const { webApp } = useTelegram();
