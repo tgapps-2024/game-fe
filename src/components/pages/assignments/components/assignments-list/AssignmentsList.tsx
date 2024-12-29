@@ -60,7 +60,7 @@ export const AssignmentsList: FunctionComponent<Props> = ({
                   className: "size-8 rounded-full object-contain",
                 })}
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-black leading-none tracking-wide">
+                  <p className="text-sm font-black leading-none tracking-wide text-white">
                     {title}
                   </p>
                   <div className="flex gap-2">
