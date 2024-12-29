@@ -63,6 +63,22 @@ export const NS = {
         DAILY: "DAILY",
         ONE_OFF: "ONE_OFF",
       },
+      MODALS: {
+        ROOT: "MODALS",
+        CHECK_ASSIGNMENTS: {
+          ROOT: "CHECK_ASSIGNMENTS",
+          BUTTON: "BUTTON",
+        },
+        CONFIRMATION_MODAL: {
+          ROOT: "CONFIRMATION_MODAL",
+          TITLE: "TITLE",
+          DESCRIPTION: "DESCRIPTION",
+          AWARD: "AWARD",
+          PENALTY: "PENALTY",
+          BUTTON: "BUTTON",
+          DOUBLE_CHECK: "DOUBLE_CHECK",
+        },
+      },
     },
   },
 };

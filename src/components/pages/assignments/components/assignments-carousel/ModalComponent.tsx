@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
@@ -13,7 +13,7 @@ interface ModalProps {
   contentClassName?: string;
 }
 
-export const Modal: React.FunctionComponent<ModalProps> = ({
+export const Modal: FunctionComponent<ModalProps> = ({
   isOpen,
   onClose,
   content,
@@ -30,26 +30,26 @@ export const Modal: React.FunctionComponent<ModalProps> = ({
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onClose, 300);
+    setTimeout(onClose, 500);
   };
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50 ${
-        isOpen ? "visible opacity-100" : "invisible opacity-0"
-      } transition-opacity duration-300`}
+      className={classNames(
+        "fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50",
+        isOpen ? "visible" : "invisible",
+      )}
     >
       <motion.div
         className={classNames(
           "relative w-full rounded-t-lg shadow-lg",
           contentWrapperClassName,
         )}
-        initial={{ opacity: 0, translateY: 100 }}
+        initial={{ translateY: "100%" }}
         animate={{
-          opacity: isVisible ? 1 : 0,
-          translateY: isVisible ? 0 : 100,
+          translateY: isVisible ? "0%" : "100%",
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5 }}
       >
         <div className={contentClassName}>{content}</div>
         <button

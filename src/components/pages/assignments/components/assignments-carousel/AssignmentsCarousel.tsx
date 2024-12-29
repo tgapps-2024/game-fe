@@ -12,7 +12,7 @@ import { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import AutoPlay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
-import ChestSVG from "@/public/assets/svg/chest.svg";
+import ChestSVG from "@/public/assets/svg/chest-light.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
 import { MAP_MODALS_CONTENT } from "./proposal-modals-content/ProposalModalsContent";
@@ -75,18 +75,18 @@ export const AssignmentsCarousel: FunctionComponent = () => {
                   >
                     <div className="flex items-center gap-1">
                       <StarSVG className="size-4" />
-                      <span className="font-rubik text-xs font-extrabold">
+                      <span className="text-stroke-half inline-block text-xs font-extrabold text-shadow-sm">
                         +50.000
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
                       <ChestSVG className="h-4 w-4.5" />
-                      <span className="font-rubik text-xs font-extrabold">
+                      <span className="text-stroke-half inline-block text-xs font-extrabold text-shadow-sm">
                         +1
                       </span>
                     </div>
                   </div>
-                  <p className="mr-20 text-left font-rubik !text-base font-black uppercase tracking-wider">
+                  <p className="text-stroke-1 mr-28 text-left !text-base font-black uppercase tracking-wider text-shadow-sm">
                     Купите 1 пакет и получите 2 бесплатно
                   </p>
                 </div>
