@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { Spinner } from "@/components/common/spinner/Spinner";
 import { useTelegram } from "@/context";
 
 import { AssignmentsCarousel } from "./components/assignments-carousel/AssignmentsCarousel";
@@ -19,7 +20,7 @@ export const Assignments = () => {
       } else {
         const timer = setTimeout(() => {
           setIsLoading(false);
-        }, 5000);
+        }, 3000);
         return () => clearTimeout(timer);
       }
     };
@@ -28,7 +29,11 @@ export const Assignments = () => {
   }, [webApp]);
 
   if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
-    return null;
+    return (
+      <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
+        <Spinner className="mx-auto" />
+      </div>
+    );
   }
 
   return (
