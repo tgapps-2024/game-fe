@@ -40,7 +40,7 @@ export const Assignments = () => {
   if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
-        <Spinner className="mx-auto" />
+        <Spinner className="mx-auto stroke-white" />
       </div>
     );
   }

@@ -82,7 +82,7 @@ export const AssignmentsCarousel: FunctionComponent<Props> = ({
                         </span>
                       </div>
                     </div>
-                    <p className="text-stroke-1 mr-20 text-left !text-base font-black uppercase tracking-wider text-shadow-sm">
+                    <p className="text-stroke-1 mr-20 text-left !text-base font-black uppercase tracking-wider text-white text-shadow-sm">
                       Купите 1 пакет и получите 2 бесплатно
                     </p>
                   </div>
