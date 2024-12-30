@@ -107,7 +107,7 @@ export const AssignmentCheckModal = ({
           }}
           disabled={!isClicked}
           className={classNames(
-            "shadow-inset-black group z-10 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl",
+            "group z-10 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl shadow-inset-black",
             { "bg-blue-800 pb-0": !isClicked },
             { "bg-[#0655a4] pb-[3px]": isClicked },
           )}
@@ -116,14 +116,14 @@ export const AssignmentCheckModal = ({
             className={classNames(
               "flex h-13 w-full items-center justify-center rounded-xl p-[3px] pb-1",
               { "bg-blue-800 shadow-none": !isClicked },
-              { "shadow-inset-btn bg-[#0075ff]": isClicked },
+              { "bg-[#0075ff] shadow-inset-btn": isClicked },
             )}
           >
             <div
               className={classNames(
                 "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl p-3 text-center font-black uppercase tracking-wide text-white text-shadow-sm",
                 { "bg-blue-800/100 shadow-none": !isClicked },
-                { "shadow-link bg-white/15": isClicked },
+                { "bg-white/15 shadow-link": isClicked },
               )}
               onClick={onConfirmationModalOpen}
             >
