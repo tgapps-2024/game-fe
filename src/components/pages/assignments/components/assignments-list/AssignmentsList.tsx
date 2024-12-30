@@ -24,7 +24,7 @@ export const AssignmentsList: FunctionComponent<Props> = ({
   list,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
-  const [openModalId, setOpenModalId] = useState<string | null>(null); // Состояние для хранения ID открытого модального окна
+  const [openModalId, setOpenModalId] = useState<string | null>(null);
   const [isSecondaryModalOpen, setIsSecondaryModalOpen] = useState(false);
 
   return (
