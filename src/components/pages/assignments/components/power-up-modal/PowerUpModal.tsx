@@ -47,7 +47,7 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
             <span className="text-base font-extrabold text-white">+1</span>
           </div>
         </div>
-        <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-white text-shadow-sm">
+        <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-white text-shadow">
           Получи 15.000 спинов по супер скидке!
         </div>
         <p className="text-center text-xs font-medium tracking-wide text-gray-550">
@@ -68,13 +68,17 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
         >
           <div
             className={classNames(
-              "shadow-a text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-[#F7DE2D] p-3 text-center font-black uppercase tracking-wide text-shadow-sm",
+              "shadow-a flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-[#F7DE2D] p-3 text-center font-black uppercase tracking-wide",
             )}
           >
-            <span>Приобрести за </span>
+            <span className="text-stroke-1 text-base font-extrabold text-white text-shadow">
+              Приобрести за
+            </span>
             <div className="flex items-center gap-1">
               <StarSVG className="size-[26px]" />
-              <span className="text-base font-extrabold text-white">1000</span>
+              <span className="text-stroke-1 text-base font-extrabold text-white text-shadow">
+                1000
+              </span>
             </div>
           </div>
         </div>
