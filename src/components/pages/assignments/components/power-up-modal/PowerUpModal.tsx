@@ -71,12 +71,12 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
               "shadow-a flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-[#F7DE2D] p-3 text-center font-black uppercase tracking-wide",
             )}
           >
-            <span className="text-stroke-1 text-base font-extrabold text-white text-shadow">
+            <span className="text-stroke-half text-base font-black text-white text-shadow-sm">
               Приобрести за
             </span>
             <div className="flex items-center gap-1">
               <StarSVG className="size-[26px]" />
-              <span className="text-stroke-1 text-base font-extrabold text-white text-shadow">
+              <span className="text-stroke-half text-base font-black text-white text-shadow-sm">
                 1000
               </span>
             </div>
