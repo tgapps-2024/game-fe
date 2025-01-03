@@ -49,7 +49,7 @@ const ProfileBalanceItem: FC<ItemProps> = ({
           className: "col-span-1 row-span-2 size-8 object-contain",
         })}
         <div className="flex h-full w-fit flex-col gap-y-1">
-          <p className="font-inter text-xs font-medium text-gray-550">
+          <p className="font-inter text-x font-medium text-gray-550 text-shadow-sm">
             {t(tidKey)}
           </p>
           <p className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">

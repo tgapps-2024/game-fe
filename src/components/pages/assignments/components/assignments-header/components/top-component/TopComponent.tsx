@@ -6,7 +6,7 @@ type Props = {
 
 export const TopComponent: FunctionComponent<Props> = ({ text }) => {
   return (
-    <p className="font-inter text-xs font-medium text-gray-550 text-shadow-sm">
+    <p className="font-inter text-x font-medium text-gray-550 text-shadow-sm">
       {text}
     </p>
   );
