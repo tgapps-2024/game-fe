@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
 
-import BackgroundImage from "@/public/assets/png/battle-pass/bp-bg.png";
-import Image from "next/image";
 import { BattlePassHeader } from "./components/battle-pass-header/BattlePassHeader";
 
 export const BattlePass = () => {

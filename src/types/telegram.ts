@@ -50,6 +50,26 @@ interface IBackButton {
   hide(): void;
 }
 
+export enum NotificationEnum {
+  ERROR = "error",
+  SUCCESS = "success",
+  WARNING = "warning",
+}
+
+export enum ImpactStyleEnum {
+  LIGHT = "light",
+  MEDIUM = "medium",
+  HEAVY = "heavy",
+  RIGID = "rigid",
+  SOFT = "soft",
+}
+
+interface HapticFeedback {
+  impactOccurred(style: ImpactStyleEnum): () => void;
+  notificationOccurred(type: NotificationEnum): () => void;
+  selectionChanged(): void;
+}
+
 export interface IWebApp {
   initData: string;
   initDataUnsafe: IWebAppInitData;
@@ -63,7 +83,7 @@ export interface IWebApp {
   backgroundColor: string;
   openLink: (url: string, options?: { try_instant_view?: boolean }) => void;
   SettingsButton: ISettingsButton;
-  HapticFeedback: any;
+  HapticFeedback: HapticFeedback;
   lockOrientation: () => void;
   ready: () => void;
   requestFullscreen: () => void;

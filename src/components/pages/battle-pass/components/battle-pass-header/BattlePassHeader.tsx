@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import BPHeader from "@/public/assets/png/battle-pass/bp-header.png";
 import ClockImage from "@/public/assets/png/battle-pass/clock.webp";
-import ClockSVG from "@/public/assets/svg/battle-pass/clock.svg";
 
 export const BattlePassHeader = () => {
   return (

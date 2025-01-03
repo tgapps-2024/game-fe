@@ -30,7 +30,7 @@ export const AssignmentCheckModal = ({
     <Modal
       isVisible={isOpen}
       onClose={onClose}
-      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
+      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
     >
       <button
         onClick={onClose}
@@ -114,7 +114,7 @@ export const AssignmentCheckModal = ({
         >
           <div
             className={classNames(
-              "flex h-13 w-full items-center justify-center rounded-xl p-[3px] pb-1",
+              "mx-auto flex h-13 w-[99%] items-center justify-center rounded-xl p-[3px] pb-1",
               { "bg-blue-800 shadow-none": !isClicked },
               { "bg-[#0075ff] shadow-inset-btn": isClicked },
             )}
