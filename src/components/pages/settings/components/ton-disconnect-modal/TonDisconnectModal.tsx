@@ -32,16 +32,6 @@ export const TonDisconnectModal = ({
     onClose();
   };
 
-  const handleDisconnect = () => {
-    if (isChecked) {
-      handleNotificationOccurred(NotificationEnum.SUCCESS);
-      onDisconnect();
-      handleClose();
-    } else {
-      handleNotificationOccurred(NotificationEnum.ERROR);
-    }
-  };
-
   const handleSelectionChanged = () => {
     if (webApp) {
       webApp.HapticFeedback.selectionChanged();
@@ -51,6 +41,16 @@ export const TonDisconnectModal = ({
   const handleNotificationOccurred = (type: NotificationEnum) => {
     if (webApp) {
       webApp.HapticFeedback.notificationOccurred(type);
+    }
+  };
+
+  const handleDisconnect = () => {
+    if (isChecked) {
+      handleNotificationOccurred(NotificationEnum.SUCCESS);
+      onDisconnect();
+      handleClose();
+    } else {
+      handleNotificationOccurred(NotificationEnum.ERROR);
     }
   };
 
