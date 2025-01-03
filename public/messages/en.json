@@ -37,6 +37,12 @@
     },
     "LANGUAGE": {
       "TITLE": "Language"
+    },
+    "DISCONNECT_MODAL": {
+      "TITLE": "Disconnect",
+      "DESCRIPTION": "Wallet will be completely removed from the app",
+      "AGGREEMENT": "I understand that once the wallet is unlinked, all wallet data will be deleted from the app.",
+      "BUTTON": "Unlink wallet"
     }
   },
   "ASSIGNMENTS": {

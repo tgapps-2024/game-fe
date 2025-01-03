@@ -47,6 +47,13 @@ export const NS = {
         ROOT: "LANGUAGE",
         TITLE: "TITLE",
       },
+      DISCONNECT_MODAL: {
+        ROOT: "DISCONNECT_MODAL",
+        TITLE: "TITLE",
+        DESCRIPTION: "DESCRIPTION",
+        AGGREEMENT: "AGGREEMENT",
+        BUTTON: "BUTTON",
+      },
     },
     ASSIGNMENTS: {
       ROOT: "ASSIGNMENTS",
