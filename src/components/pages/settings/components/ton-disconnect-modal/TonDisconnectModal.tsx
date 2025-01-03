@@ -8,7 +8,9 @@ import { motion } from "framer-motion";
 import { Modal } from "@/components/common";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import CloseIcon from "@/public/assets/svg/close.svg";
+import { NotificationEnum } from "@/types/telegram";
 
 interface ITonDisconnectModalProps {
   isOpen: boolean;
@@ -22,20 +24,44 @@ export const TonDisconnectModal = ({
   onDisconnect,
 }: ITonDisconnectModalProps) => {
   const t = useTranslations(NS.PAGES.SETTINGS.ROOT);
+  const { webApp } = useTelegram();
   const [isChecked, setIsChecked] = useState(false);
-  const handleDisconnect = () => {
-    onDisconnect();
+
+  const handleClose = () => {
+    setIsChecked(false);
     onClose();
+  };
+
+  const handleDisconnect = () => {
+    if (isChecked) {
+      handleNotificationOccurred(NotificationEnum.SUCCESS);
+      onDisconnect();
+      handleClose();
+    } else {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    }
+  };
+
+  const handleSelectionChanged = () => {
+    if (webApp) {
+      webApp.HapticFeedback.selectionChanged();
+    }
+  };
+
+  const handleNotificationOccurred = (type: NotificationEnum) => {
+    if (webApp) {
+      webApp.HapticFeedback.notificationOccurred(type);
+    }
   };
 
   return (
     <Modal
       isVisible={isOpen}
-      onClose={onClose}
-      className="shadow-modal relative flex w-full flex-col items-center rounded-t-4xl border-2 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
+      onClose={handleClose}
+      className="shadow-modal relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
     >
       <button
-        onClick={onClose}
+        onClick={handleClose}
         className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
       >
         <CloseIcon className="size-2.5" />
@@ -56,11 +82,17 @@ export const TonDisconnectModal = ({
           <Checkbox
             className="size-6"
             checked={isChecked}
-            onCheckedChange={(checked) => setIsChecked(!!checked)}
+            onCheckedChange={(checked) => {
+              setIsChecked(!!checked);
+              handleSelectionChanged();
+            }}
           />
           <p
             className="text-sm font-medium leading-none tracking-wide text-white"
-            onClick={() => setIsChecked(!isChecked)}
+            onClick={() => {
+              setIsChecked(!isChecked);
+              handleSelectionChanged();
+            }}
           >
             {t(
               `${NS.PAGES.SETTINGS.DISCONNECT_MODAL.ROOT}.${NS.PAGES.SETTINGS.DISCONNECT_MODAL.AGGREEMENT}`,
@@ -76,6 +108,7 @@ export const TonDisconnectModal = ({
           damping: 20,
         }}
         disabled={!isChecked}
+        onClick={handleDisconnect}
         className={classNames(
           "group z-10 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl shadow-inset-black",
           { "bg-blue-800 pb-0": !isChecked },
@@ -84,7 +117,7 @@ export const TonDisconnectModal = ({
       >
         <div
           className={classNames(
-            "flex h-13 w-full items-center justify-center rounded-xl p-[3px] pb-1",
+            "mx-auto flex h-13 w-[99%] items-center justify-center rounded-xl p-[3px] pb-1",
             { "bg-blue-800 shadow-none": !isChecked },
             { "bg-[#FF453A] shadow-inset-btn": isChecked },
           )}
@@ -95,7 +128,6 @@ export const TonDisconnectModal = ({
               { "bg-blue-800/100 shadow-none": !isChecked },
               { "bg-white/15 shadow-link": isChecked },
             )}
-            onClick={handleDisconnect}
           >
             {t(
               `${NS.PAGES.SETTINGS.DISCONNECT_MODAL.ROOT}.${NS.PAGES.SETTINGS.DISCONNECT_MODAL.BUTTON}`,

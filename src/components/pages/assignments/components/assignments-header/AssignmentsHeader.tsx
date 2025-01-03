@@ -1,8 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import { Level } from "@/components/ui";
 import { NS } from "@/constants/ns";
+import { ROUTES } from "@/constants/routes";
 import { useTelegram } from "@/context";
 import StarSVG from "@/public/assets/svg/star.svg";
 
@@ -16,7 +18,10 @@ export const AssignmentsHeader = () => {
 
   return (
     <div className="relative mb-4 mt-15 grid h-10 grid-cols-3 px-4">
-      <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
+      <Link
+        href={ROUTES.SETTINGS}
+        className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10"
+      >
         <div className="relative !size-10 overflow-hidden rounded-full border-2 border-solid border-white object-cover">
           {user?.photo_url ? (
             <Image
@@ -49,7 +54,7 @@ export const AssignmentsHeader = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
       <HeaderItem
         topInfoComponent={
           <TopComponent
@@ -60,7 +65,7 @@ export const AssignmentsHeader = () => {
         }
         bottomInfoComponent={<BottomComponent value={3000} />}
         imageNode={
-          <StarSVG className="col-span-1 row-span-2 size-7 object-contain" />
+          <StarSVG className="col-span-1 row-span-2 size-[26px] object-contain" />
         }
       />
       <HeaderItem

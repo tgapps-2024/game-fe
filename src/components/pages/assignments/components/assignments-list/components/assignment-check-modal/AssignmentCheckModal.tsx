@@ -30,7 +30,7 @@ export const AssignmentCheckModal = ({
     <Modal
       isVisible={isOpen}
       onClose={onClose}
-      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
+      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
     >
       <button
         onClick={onClose}
@@ -42,7 +42,7 @@ export const AssignmentCheckModal = ({
         Place for icon
       </div>
 
-      <h3 className="text-stroke-1 mb-3 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] text-white text-shadow-sm">
+      <h3 className="text-stroke-1 mb-3 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] text-white text-shadow">
         {title}
       </h3>
       <div
@@ -78,7 +78,7 @@ export const AssignmentCheckModal = ({
                       setIsClicked(true);
                       window.open("https://t.me/noname_channel", "_blank");
                     }}
-                    className="text-stroke-1 flex items-start gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
+                    className="text-stroke-1 flex items-baseline gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
                   >
                     boost noname channel
                     <ExternalSVG className="size-4" />
@@ -114,7 +114,7 @@ export const AssignmentCheckModal = ({
         >
           <div
             className={classNames(
-              "flex h-13 w-full items-center justify-center rounded-xl p-[3px] pb-1",
+              "mx-auto flex h-13 w-[99%] items-center justify-center rounded-xl p-[3px] pb-1",
               { "bg-blue-800 shadow-none": !isClicked },
               { "bg-[#0075ff] shadow-inset-btn": isClicked },
             )}
