@@ -15,6 +15,7 @@ import { LevelIndicator } from "./components/level-indicator/LevelIndicator";
 import { ProfileBalance } from "./components/profile-balance/ProfileBalance";
 import { ProfileHeader } from "./components/profile-header/ProfileHeader";
 import { ProfileLink } from "./components/profile-link/ProfileLink";
+import { TonDisconnectModal } from "./components/ton-disconnect-modal/TonDisconnectModal";
 import { PROFILE_BALANCE_ITEMS } from "./constants";
 
 const MOCK_DATA = {
@@ -31,6 +32,8 @@ export const Settings: FC = () => {
   const { isModalVisible } = useModalVisibility();
   const { webApp } = useTelegram();
   const [isLoading, setIsLoading] = useState(true);
+  const [isTonDisconnectModalVisible, setTonDisconnectModalVisible] =
+    useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -91,7 +94,9 @@ export const Settings: FC = () => {
                   "group mb-6 h-14 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
                   { "bg-[rgb(27,48,68)]": address.length },
                 )}
-                onClick={() => (address ? handleDisconnect() : handleOpenTon())}
+                onClick={() =>
+                  address ? setTonDisconnectModalVisible(true) : handleOpenTon()
+                }
                 ref={buttonRef}
               >
                 <div
@@ -140,6 +145,11 @@ export const Settings: FC = () => {
           </div>
         </div>
       </div>
+      <TonDisconnectModal
+        isOpen={isTonDisconnectModalVisible}
+        onClose={() => setTonDisconnectModalVisible(false)}
+        onDisconnect={handleDisconnect}
+      />
     </div>
   );
 };

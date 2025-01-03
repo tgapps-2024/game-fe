@@ -94,6 +94,7 @@ export default {
       boxShadow: {
         "text-shadow": "0px 0.6px 0px 0px #000000",
         "green-shadow": "0px 0px 4px 0px #4FEA4F99",
+        modal: "0 -8px 12px 0 rgba(5, 22, 37, .6)",
         "inset-base": "inset 0 0 0 1px #FFFFFF",
         "inset-black":
           "inset 0 0 0 1px black, inset 0 2px 4px rgba(0, 0, 0, 0.05)",
