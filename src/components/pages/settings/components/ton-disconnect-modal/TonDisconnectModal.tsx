@@ -107,7 +107,6 @@ export const TonDisconnectModal = ({
           stiffness: 200,
           damping: 20,
         }}
-        disabled={!isChecked}
         onClick={handleDisconnect}
         className={classNames(
           "group z-10 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl shadow-inset-black",
