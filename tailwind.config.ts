@@ -27,11 +27,14 @@ export default {
         4.5: "18px",
         5.5: "22px",
         6.5: "26px",
+        7.5: "30px",
         8.5: "34px",
         9.5: "38px",
         11.5: "46px",
         13: "52px",
+        17: "68px",
         23: "92px",
+        60: "240px",
         75: "300px",
       },
       colors: {
@@ -39,16 +42,18 @@ export default {
           "550": "#A8A8A8",
         },
         yellow: {
-          "500": "#FFEA00",
+          450: "#FFCE08",
+          500: "#FFEA00",
         },
         red: {
           550: "#FF453A",
         },
+        orange: { 550: "#E88C0E" },
         blue: {
-          "500": "#0075FF",
-          "700": "#203950",
-          "800": "#192632",
-          "900": "#051625",
+          500: "#0075FF",
+          700: "#203950",
+          800: "#192632",
+          900: "#051625",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -99,6 +104,13 @@ export default {
           "inset 0 0 0 1px black, inset 0 2px 4px rgba(0, 0, 0, 0.05)",
         "inset-btn": "inset 0px -1px 0.5px rgba(255, 255, 255, 0.2)",
         link: "0px 1px 1px rgba(0, 0, 0, 0.2)",
+        "inner-light-top": "inset 0 2px 1px rgba(255, 255, 255, 0.3)",
+        "inner-light-bottom":
+          "inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
+        "battle-pass-combined":
+          "inset 0 1.5px 0.5px rgba(136, 51, 8, 0.6), inset 0 -1.5px 0.5px rgba(136, 51, 8, 0.6), -1px 1px 1px rgba(255, 255, 255, 0.6), 1px 1px 1px rgba(255, 255,255 ,0.6)",
+        "inner-light":
+          "inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],

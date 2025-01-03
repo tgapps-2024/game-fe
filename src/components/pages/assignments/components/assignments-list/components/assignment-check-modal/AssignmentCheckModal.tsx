@@ -42,7 +42,7 @@ export const AssignmentCheckModal = ({
         Place for icon
       </div>
 
-      <h3 className="text-stroke-1 mb-3 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] text-white text-shadow-sm">
+      <h3 className="text-stroke-1 mb-3 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] text-white text-shadow">
         {title}
       </h3>
       <div
@@ -78,7 +78,7 @@ export const AssignmentCheckModal = ({
                       setIsClicked(true);
                       window.open("https://t.me/noname_channel", "_blank");
                     }}
-                    className="text-stroke-1 flex items-start gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
+                    className="text-stroke-1 flex items-baseline gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
                   >
                     boost noname channel
                     <ExternalSVG className="size-4" />

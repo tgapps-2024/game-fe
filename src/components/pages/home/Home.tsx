@@ -11,13 +11,18 @@ export const Home = () => {
       </h1>
       <div className="flex flex-col gap-4">
         <Link href={ROUTES.ASSIGNMENTS}>
-          <Button variant="outline" className="w-full text-white">
+          <Button variant="link" className="w-full text-white">
             Задания
           </Button>
         </Link>
         <Link href={ROUTES.SETTINGS}>
-          <Button variant="outline" className="w-full text-white">
+          <Button variant="link" className="w-full text-white">
             Настройки
+          </Button>
+        </Link>
+        <Link href={ROUTES.BATTLE_PASS}>
+          <Button variant="link" className="w-full text-white">
+            Battle pass
           </Button>
         </Link>
       </div>
