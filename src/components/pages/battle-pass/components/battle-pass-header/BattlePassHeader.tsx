@@ -2,20 +2,31 @@ import React from "react";
 
 import Image from "next/image";
 
-import BPHeader from "@/public/assets/png/battle-pass/bp-header.png";
-import ClockImage from "@/public/assets/png/battle-pass/clock.webp";
+import classNames from "classnames";
+
+import BPBackground from "@/public/assets/png/battle-pass/bp-bg.png";
 
 export const BattlePassHeader = () => {
   return (
-    <div className="absolute -top-13 h-[14vw] w-full">
-      <Image src={BPHeader} alt="Battle Pass Header" fill priority />
-      <span className="text-stroke-1 relative left-1/2 top-3 z-10 inline-block -translate-x-1/2 text-2xl font-black uppercase tracking-wide text-shadow">
-        Battle Pass
-      </span>
-      {/* <ClockSVG className="relative left-1/2 top-3 w-[24.359vw] -translate-x-1/2" /> */}
-
-      <div className="relative left-1/2 top-3 h-[7.3vw] w-[24.359vw] -translate-x-1/2">
-        <Image src={ClockImage} alt="Clock" fill priority />
+    <div className="relative w-full">
+      <div className="relative aspect-[13/8] object-contain">
+        <Image src={BPBackground} fill priority alt="" />
+      </div>
+      <div className="absolute bottom-0 w-full">
+        <div className="mx-auto w-fit rounded-t-2xl bg-[#FFCE08] p-1">
+          <div
+            className={classNames(
+              "bg-orange-550 shadow-battle-pass-combined w-fit rounded-b-md rounded-t-xl px-[30px] py-3",
+              "text-stroke-1 text-2xl font-black uppercase tracking-wide text-white text-shadow",
+            )}
+          >
+            Battle Pass
+          </div>
+        </div>
+        <div className="absolute bottom-0 w-full">
+          <div className="shadow-inner-light h-1.5 w-full bg-[#FFCE08]" />
+          <div className="relative h-0.5 w-full bg-[#E88C0E]" />
+        </div>
       </div>
     </div>
   );

@@ -65,7 +65,7 @@ export const AssignmentsHeader = () => {
         }
         bottomInfoComponent={<BottomComponent value={3000} />}
         imageNode={
-          <StarSVG className="col-span-1 row-span-2 size-[26px] object-contain" />
+          <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
         }
       />
       <HeaderItem
@@ -78,7 +78,7 @@ export const AssignmentsHeader = () => {
         }
         bottomInfoComponent={<BottomComponent value={50000} />}
         imageNode={
-          <StarSVG className="col-span-1 row-span-2 size-7 object-contain" />
+          <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
         }
       />
     </div>
