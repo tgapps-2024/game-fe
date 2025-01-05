@@ -8,7 +8,7 @@ type Props = {
 
 export const BottomComponent: FunctionComponent<Props> = ({ value }) => {
   return (
-    <p className="text-stroke-1 text-nowrap text-xs font-black tracking-[0.04em] text-white text-shadow-sm">
+    <p className="text-stroke-1 text-nowrap font-black tracking-[0.04em] text-white text-shadow-sm">
       {formatValue(value)}
     </p>
   );

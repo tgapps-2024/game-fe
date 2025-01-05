@@ -69,5 +69,11 @@
         "DOUBLE_CHECK": "Double check"
       }
     }
+  },
+  "BATTLE_PASS": {
+    "BUTTONS": {
+      "IMPROVE": "Improve",
+      "COLLECT": "Collect"
+    }
   }
 }

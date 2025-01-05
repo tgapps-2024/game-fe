@@ -4,6 +4,9 @@ import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
 
 import { BattlePassHeader } from "./components/battle-pass-header/BattlePassHeader";
+import { Timer } from "./components/battle-pass-header/timer/Timer";
+import { ChestBoard } from "./components/chest-board/ChestBoard";
+import { LevelComponent } from "./components/level-component/LevelComponent";
 
 export const BattlePass = () => {
   const { webApp } = useTelegram();
@@ -35,13 +38,10 @@ export const BattlePass = () => {
 
   return (
     <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
-      <div className="absolute inset-0 bg-[url('/assets/png/battle-pass/bp-bg.png')] bg-[length:100%_30vh] bg-fixed bg-top bg-no-repeat" />
-
-      <div className="relative z-10 pt-[30vh]">
-        <div className="relative flex flex-col items-center gap-4 bg-blue-800">
-          <BattlePassHeader />
-        </div>
-      </div>
+      <BattlePassHeader />
+      <Timer />
+      <LevelComponent />
+      <ChestBoard />
     </div>
   );
 };

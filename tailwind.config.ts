@@ -109,7 +109,7 @@ export default {
         "inner-light-bottom":
           "inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
         "battle-pass-combined":
-          "inset 0 1.5px 0.5px rgba(136, 51, 8, 0.6), inset 0 -1.5px 0.5px rgba(136, 51, 8, 0.6), -1px 1px 1px rgba(255, 255, 255, 0.6), 1px 1px 1px rgba(255, 255,255 ,0.6)",
+          "inset 0 1.5px 0.5px rgba(136, 51, 8, 0.6), -1px 1px 1px rgba(255, 255, 255, 0.6), 1px 1px 1px rgba(255, 255,255 ,0.6)",
         "inner-light":
           "inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
       },

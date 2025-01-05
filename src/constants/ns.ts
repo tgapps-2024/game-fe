@@ -87,5 +87,13 @@ export const NS = {
         },
       },
     },
+    BATTLE_PASS: {
+      ROOT: "BATTLE_PASS",
+      BUTTONS: {
+        ROOT: "BUTTONS",
+        IMPROVE: "IMPROVE",
+        COLLECT: "COLLECT",
+      },
+    },
   },
 };

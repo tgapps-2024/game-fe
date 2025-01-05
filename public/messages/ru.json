@@ -69,5 +69,11 @@
         "DOUBLE_CHECK": "Проверить еще раз"
       }
     }
+  },
+  "BATTLE_PASS": {
+    "BUTTONS": {
+      "IMPROVE": "Улучшить",
+      "COLLECT": "Забрать"
+    }
   }
 }
