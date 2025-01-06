@@ -16,7 +16,6 @@ type Props = {
   level: number;
   onChangePosition: () => void;
   onCollect: () => void;
-  hasCollectButtons?: boolean;
   currentLevel: number;
 };
 
@@ -24,7 +23,6 @@ export const ChestRow: FunctionComponent<Props> = ({
   level,
   onChangePosition,
   onCollect,
-  hasCollectButtons = false,
   currentLevel,
 }) => {
   const t = useTranslations(NS.PAGES.BATTLE_PASS.ROOT);
@@ -52,14 +50,17 @@ export const ChestRow: FunctionComponent<Props> = ({
           ease: "easeInOut",
         }}
       >
-        {hasCollectButtons && (
+        {!isLowerLevel && (
           <motion.button
-            className="absolute -top-2 flex items-center justify-center"
+            className="absolute -top-2 z-20 flex items-center justify-center"
             whileTap={{ scale: 0.98 }}
+            animate={{
+              y: [0, -5, 0], // Перемещение вверх на 10 пикселей и обратно
+            }}
             transition={{
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
+              duration: 1, // Длительность одного цикла анимации
+              repeat: Infinity, // Бесконечное повторение
+              ease: "easeInOut", // Плавность анимации
             }}
             onClick={handleCollect}
           >
@@ -106,14 +107,17 @@ export const ChestRow: FunctionComponent<Props> = ({
           ease: "easeInOut",
         }}
       >
-        {hasCollectButtons && (
+        {!isLowerLevel && (
           <motion.button
-            className="absolute -top-2 flex items-center justify-center"
+            className="absolute -top-2 z-20 flex items-center justify-center"
             whileTap={{ scale: 0.98 }}
+            animate={{
+              y: [0, -5, 0], // Перемещение вверх на 10 пикселей и обратно
+            }}
             transition={{
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
+              duration: 1, // Длительность одного цикла анимации
+              repeat: Infinity, // Бесконечное повторение
+              ease: "easeInOut", // Плавность анимации
             }}
           >
             <PentagonLockedXS />
