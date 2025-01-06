@@ -65,7 +65,7 @@ export const ChestRow: FunctionComponent<Props> = ({
             onClick={handleCollect}
           >
             <PentagonXS />
-            <span className="text-stroke-1 absolute z-10 mb-2.5 text-[11px] font-black leading-none tracking-wide text-white text-shadow">
+            <span className="text-stroke-1 absolute z-10 mb-2.5 text-[11px] font-black leading-none tracking-wide text-white text-shadow-sm">
               {t(
                 `${NS.PAGES.BATTLE_PASS.BUTTONS.ROOT}.${NS.PAGES.BATTLE_PASS.BUTTONS.COLLECT}`,
               )}
@@ -84,7 +84,7 @@ export const ChestRow: FunctionComponent<Props> = ({
           )}
           <span
             className={classNames(
-              "text-stroke-1 relative z-10 text-sm font-black leading-none text-white text-shadow",
+              "text-stroke-1 relative z-10 text-sm font-black leading-none text-white text-shadow-sm",
               { "ml-0.5 mt-0.5": isLowerLevel },
             )}
           >
@@ -112,12 +112,12 @@ export const ChestRow: FunctionComponent<Props> = ({
             className="absolute -top-2 z-20 flex items-center justify-center"
             whileTap={{ scale: 0.98 }}
             animate={{
-              y: [0, -5, 0], // Перемещение вверх на 10 пикселей и обратно
+              y: [0, -5, 0],
             }}
             transition={{
-              duration: 1, // Длительность одного цикла анимации
-              repeat: Infinity, // Бесконечное повторение
-              ease: "easeInOut", // Плавность анимации
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
           >
             <PentagonLockedXS />
