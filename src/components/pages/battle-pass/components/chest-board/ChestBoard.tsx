@@ -30,7 +30,6 @@ export const ChestBoard = () => {
       .fill(null)
       .map((_, index) => {
         const tempLevel = index + 1;
-        const isLastLevel = tempLevel === MAX_LEVEL;
 
         console.log("🚀 ~ .map ~ tempLevel:", level);
         return (
@@ -38,7 +37,6 @@ export const ChestBoard = () => {
             key={`level-${tempLevel}`}
             level={tempLevel}
             currentLevel={level}
-            hasCollectButtons={!isLastLevel && tempLevel === level}
             onCollect={handleChangeLevel}
             onChangePosition={handlePrizeCollect}
           />
