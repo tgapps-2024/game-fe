@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 
 import { motion } from "framer-motion";
@@ -8,21 +9,23 @@ import { ChestRow } from "./components/chest-row/ChestRow";
 
 const INITIAL_POSITION = 116;
 const STEP_POSITION = 122;
-const CURRENT_LEVEL = 1;
-const MAX_LEVEL = 20; // Задаем максимальный уровень
+const CURRENT_LEVEL = 6;
+const MAX_LEVEL = 20;
 
 export const ChestBoard = () => {
   const [level, setLevel] = useState(CURRENT_LEVEL);
-  const [collectedPrizes, setCollectedPrizes] = useState(INITIAL_POSITION);
+  const [collectedPrizes, setCollectedPrizes] = useState(
+    INITIAL_POSITION + STEP_POSITION * (CURRENT_LEVEL - 1),
+  );
 
   const handlePrizeCollect = () => {
-    setCollectedPrizes((prev) => prev + STEP_POSITION);
+    // setCollectedPrizes((prev) => prev + STEP_POSITION);
   };
 
   const handleChangeLevel = () => {
-    if (level < MAX_LEVEL) {
-      setLevel((prev) => prev + 1);
-    }
+    // if (level < MAX_LEVEL) {
+    //   setLevel((prev) => prev + 1);
+    // }
   };
 
   const renderChestRows = (totalLevels: number) =>
@@ -31,14 +34,12 @@ export const ChestBoard = () => {
       .map((_, index) => {
         const tempLevel = index + 1;
 
-        console.log("🚀 ~ .map ~ tempLevel:", level);
         return (
           <ChestRow
             key={`level-${tempLevel}`}
             level={tempLevel}
             currentLevel={level}
             onCollect={handleChangeLevel}
-            onChangePosition={handlePrizeCollect}
           />
         );
       });
