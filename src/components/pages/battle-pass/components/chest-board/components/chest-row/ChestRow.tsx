@@ -14,21 +14,18 @@ import RegularChest from "@/public/assets/svg/battle-pass/regular-chest.svg";
 
 type Props = {
   level: number;
-  onChangePosition: () => void;
   onCollect: () => void;
   currentLevel: number;
 };
 
 export const ChestRow: FunctionComponent<Props> = ({
   level,
-  onChangePosition,
   onCollect,
   currentLevel,
 }) => {
   const t = useTranslations(NS.PAGES.BATTLE_PASS.ROOT);
 
   const handleCollect = () => {
-    onChangePosition();
     onCollect();
   };
   const isLowerLevel = currentLevel < level;
@@ -55,12 +52,12 @@ export const ChestRow: FunctionComponent<Props> = ({
             className="absolute -top-2 z-20 flex items-center justify-center"
             whileTap={{ scale: 0.98 }}
             animate={{
-              y: [0, -5, 0], // Перемещение вверх на 10 пикселей и обратно
+              y: [0, -5, 0],
             }}
             transition={{
-              duration: 1, // Длительность одного цикла анимации
-              repeat: Infinity, // Бесконечное повторение
-              ease: "easeInOut", // Плавность анимации
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
             onClick={handleCollect}
           >
