@@ -25,6 +25,11 @@ export const Home = () => {
             Battle pass
           </Button>
         </Link>
+        <Link href={ROUTES.FRIENDS}>
+          <Button variant="link" className="w-full text-white">
+            Friends
+          </Button>
+        </Link>
       </div>
     </div>
   );

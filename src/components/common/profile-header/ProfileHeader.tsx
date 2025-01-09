@@ -12,12 +12,12 @@ import { BottomComponent } from "./components/bottom-component/BottomComponent";
 import { HeaderItem } from "./components/header-item/HeaderItem";
 import { TopComponent } from "./components/top-component/TopComponent";
 
-export const AssignmentsHeader = () => {
+export const ProfileHeader = () => {
   const { user } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
 
   return (
-    <div className="relative mb-4 mt-15 grid h-10 grid-cols-3 px-4">
+    <div className="relative grid h-10 grid-cols-3 px-4">
       <Link
         href={ROUTES.SETTINGS}
         className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10"

@@ -95,5 +95,18 @@ export const NS = {
         COLLECT: "COLLECT",
       },
     },
+    FRIENDS: {
+      ROOT: "FRIENDS",
+      TITLE: "TITLE",
+      PROPOSAL: "PROPOSAL",
+      INVITE_FRIEND: "INVITE_FRIEND",
+      INVITE_DESCRIPTION: "INVITE_DESCRIPTION",
+      INVITE_BUTTON_TEXT: "INVITE_BUTTON_TEXT",
+      INVITED: "INVITED",
+      COLLECT_PRIZE: "COLLECT_PRIZE",
+      PROFIT: "PROFIT",
+      GET_FRIENDS: "GET_FRIENDS",
+      CAN_COLLECT: "CAN_COLLECT",
+    },
   },
 };
