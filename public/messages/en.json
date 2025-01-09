@@ -75,5 +75,17 @@
       "IMPROVE": "Improve",
       "COLLECT": "Collect"
     }
+  },
+  "FRIENDS": {
+    "TITLE": "Friends",
+    "PROPOSAL": "Get 20% of your friends' income",
+    "INVITE_FRIEND": "Invite a friend",
+    "INVITE_DESCRIPTION": "For you and your friend",
+    "INVITE_BUTTON_TEXT": "Invite a friend",
+    "INVITED": "Invited",
+    "COLLECT_PRIZE": "Receive",
+    "PROFIT": "Profit per hour:",
+    "GET_FRIENDS": "Get some friends",
+    "CAN_COLLECT": "You can put together"
   }
 }
