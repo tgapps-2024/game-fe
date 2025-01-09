@@ -1,7 +1,10 @@
-import classNames from "classnames";
 import React from "react";
-import { motion } from "framer-motion";
+
 import { useTranslations } from "next-intl";
+
+import classNames from "classnames";
+import { motion } from "framer-motion";
+
 import { NS } from "@/constants/ns";
 
 export const InviteButton = () => {
