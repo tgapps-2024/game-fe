@@ -32,8 +32,7 @@ export const Assignments = () => {
     loadData();
   }, [webApp]);
 
-  const handleSlideClick = (index: number) => {
-    console.log("🚀 ~ handleSlideClick ~ index:", index);
+  const handleSlideClick = () => {
     setModalVisible(true);
   };
 
