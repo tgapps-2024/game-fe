@@ -40,9 +40,7 @@ export const TelegramProvider = ({
       const authFetcher = async () => {
         try {
           await login(app.initData);
-        } catch (error) {
-          console.log("🚀 ~ authFetcher ~ error:", error);
-        }
+        } catch {}
       };
 
       authFetcher();
