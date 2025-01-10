@@ -7,6 +7,7 @@ import Script from "next/script";
 
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";
 import { IWebApp, WebAppUser } from "@/types/telegram";
+import { login } from "@/services/auth/fetcher";
 
 export interface ITelegramContext {
   webApp?: IWebApp;
@@ -35,6 +36,17 @@ export const TelegramProvider = ({
         push(ROUTES.SETTINGS);
       });
       app.lockOrientation();
+
+      const authFetcher = async () => {
+        console.log("🚀 ~ authFetcher ~ app.initData:", app.initData);
+        try {
+          await login(app.initData);
+        } catch (error) {
+          console.log("🚀 ~ authFetcher ~ error:", error);
+        }
+      };
+
+      authFetcher();
     }
   }, []);
 

@@ -44,7 +44,7 @@ export const AssignmentsCarousel: FunctionComponent<Props> = ({
 
   return (
     <>
-      <section className="mx-0 w-full">
+      <section className="mx-0 mt-4 w-full">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="ml-[calc(0.8rem_*_-1)] flex touch-action-carousel">
             {SLIDES.map((index) => (

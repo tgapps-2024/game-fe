@@ -9,6 +9,8 @@ import { ProfileHeader, Spinner } from "@/components/common";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import TopBackground from "@/public/assets/png/friends/friends-bg.webp";
+import { useGetProfile } from "@/services/profile/queries";
+import { IProfile } from "@/services/profile/types";
 
 import { FriendsList } from "./components/friends-list/FriendsList";
 import { InviteBoard } from "./components/invite-board/InviteBoard";
@@ -18,6 +20,7 @@ export const Friends = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { webApp } = useTelegram();
   const [isLoading, setIsLoading] = useState(true);
+  const { data, isPending } = useGetProfile();
 
   useEffect(() => {
     const loadData = async () => {
@@ -35,7 +38,7 @@ export const Friends = () => {
     loadData();
   }, [webApp]);
 
-  if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
+  if (!webApp || !webApp.initDataUnsafe?.user || isLoading || isPending) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
         <Spinner className="mx-auto stroke-white" />
@@ -51,7 +54,7 @@ export const Friends = () => {
             <Image src={TopBackground} fill priority alt="" />
           </div>
           <div className="absolute bottom-1/4 w-full">
-            <ProfileHeader />
+            <ProfileHeader profileData={data || ({} as IProfile)} />
             <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
               {t(`${NS.PAGES.FRIENDS.PROPOSAL}`)}
             </p>
