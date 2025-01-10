@@ -75,5 +75,17 @@
       "IMPROVE": "Улучшить",
       "COLLECT": "Забрать"
     }
+  },
+  "FRIENDS": {
+    "TITLE": "Друзья",
+    "PROPOSAL": "Получай 20% от дохода друзей",
+    "INVITE_FRIEND": "Пригласить друга",
+    "INVITE_DESCRIPTION": "Для тебя и твоего друга",
+    "INVITE_BUTTON_TEXT": "Пригласить друга",
+    "INVITED": "Приглашено",
+    "COLLECT_PRIZE": "Получить",
+    "PROFIT": "Прибыль в час:",
+    "GET_FRIENDS": "Приоберсти друзей",
+    "CAN_COLLECT": "Можешь собрать"
   }
 }
