@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";
-import { IWebApp, WebAppUser } from "@/types/telegram";
 import { login } from "@/services/auth/fetcher";
+import { IWebApp, WebAppUser } from "@/types/telegram";
 
 export interface ITelegramContext {
   webApp?: IWebApp;
