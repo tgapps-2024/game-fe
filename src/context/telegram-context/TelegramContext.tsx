@@ -37,8 +37,7 @@ export const TelegramProvider = ({
       });
       app.lockOrientation();
 
-      const authFetcher = async () => {
-        console.log("🚀 ~ authFetcher ~ app.initData:", app.initData);
+      const authFetcher = async () => {]
         try {
           await login(app.initData);
         } catch (error) {
