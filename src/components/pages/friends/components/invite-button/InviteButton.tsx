@@ -27,7 +27,7 @@ export const InviteButton = () => {
         >
           <div
             className={classNames(
-              "shadow-a text-stroke-1 flex h-full w-full items-center rounded-xl px-5 text-lg font-black uppercase leading-none tracking-wide text-shadow-sm",
+              "shadow-a text-stroke-1 flex h-full w-full items-center rounded-xl px-5 text-lg font-black uppercase leading-none tracking-wide text-white text-shadow-sm",
               "justify-center bg-white/20",
             )}
           >

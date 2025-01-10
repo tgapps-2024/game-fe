@@ -1,14 +1,20 @@
+import Cookies from "js-cookie";
+
 import apiClient from "@/api/api-client";
-import { API_ENDPOINTS } from "@/constants/api";
+import { API_ENDPOINTS, AUTH_COOKIE_TOKEN } from "@/constants/api";
 
 const login = async (initData: string) => {
-  console.log("🚀 ~ login ~ initData:", initData);
-  const { data } = await apiClient.get(API_ENDPOINTS.GET.AUTH, {
-    data: {
+  try {
+    const { data } = await apiClient.post(API_ENDPOINTS.POST.AUTH, {
       initDataRaw: initData,
-    },
-  });
-  console.log(data);
+    });
+
+    if (data.userToken) {
+      Cookies.set(AUTH_COOKIE_TOKEN, data.userToken, { expires: 7 });
+    }
+  } catch (error) {
+    console.error("Login failed:", error);
+  }
 };
 
 export { login };

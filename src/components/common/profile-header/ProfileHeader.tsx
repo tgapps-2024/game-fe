@@ -1,3 +1,5 @@
+import { FunctionComponent } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -7,12 +9,19 @@ import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
 import { useTelegram } from "@/context";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { IProfile } from "@/services/profile/types";
 
 import { BottomComponent } from "./components/bottom-component/BottomComponent";
 import { HeaderItem } from "./components/header-item/HeaderItem";
 import { TopComponent } from "./components/top-component/TopComponent";
 
-export const ProfileHeader = () => {
+type Props = {
+  profileData: IProfile;
+};
+
+export const ProfileHeader: FunctionComponent<Props> = ({
+  profileData: { level, coins, stars },
+}) => {
   const { user } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
 
@@ -41,7 +50,7 @@ export const ProfileHeader = () => {
             <div className="absolute z-10 h-5 w-8.5">
               <Level className="h-5 w-8.5" />
               <p className="level-text absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-xs font-bold -tracking-wide text-white">
-                {38}
+                {level}
               </p>
             </div>
             <div className="relative ml-7 h-2.5 w-full overflow-hidden rounded-full bg-blue-900">
@@ -63,7 +72,7 @@ export const ProfileHeader = () => {
             )}
           />
         }
-        bottomInfoComponent={<BottomComponent value={3000} />}
+        bottomInfoComponent={<BottomComponent value={coins ?? 0} />}
         imageNode={
           <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
         }
@@ -76,7 +85,7 @@ export const ProfileHeader = () => {
             )}
           />
         }
-        bottomInfoComponent={<BottomComponent value={50000} />}
+        bottomInfoComponent={<BottomComponent value={stars ?? 0} />}
         imageNode={
           <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
         }
