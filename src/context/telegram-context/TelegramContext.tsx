@@ -5,6 +5,9 @@ import { useRouter as useNextRouter } from "next/navigation";
 import { useRouter } from "next/router";
 import Script from "next/script";
 
+import Cookies from "js-cookie";
+
+import { AUTH_COOKIE_TOKEN } from "@/constants/api";
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";
 import { login } from "@/services/auth/fetcher";
 import { IWebApp, WebAppUser } from "@/types/telegram";
@@ -39,6 +42,12 @@ export const TelegramProvider = ({
 
       const authFetcher = async () => {
         try {
+          const token = Cookies.get(AUTH_COOKIE_TOKEN);
+
+          if (token) {
+            return;
+          }
+
           await login(app.initData);
         } catch {}
       };
