@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import Lottie from "lottie-react";
 
 import { PentagonLockedXS, PentagonXS } from "@/components/ui";
 import { NS } from "@/constants/ns";
@@ -11,6 +12,9 @@ import LevelSvg from "@/public/assets/svg/battle-pass/bp-level.svg";
 import InactiveLevel from "@/public/assets/svg/battle-pass/inactive-level.svg";
 import MysteryChest from "@/public/assets/svg/battle-pass/mystery-chest.svg";
 import RegularChest from "@/public/assets/svg/battle-pass/regular-chest.svg";
+
+import ParticlesPrimary from "../../../../assets/1_particles.json";
+import ParticlesSecondary from "../../../../assets/2_particles.json";
 
 type Props = {
   level: number;
@@ -28,6 +32,7 @@ export const ChestRow: FunctionComponent<Props> = ({
   const handleCollect = () => {
     onCollect();
   };
+
   const isLowerLevel = currentLevel < level;
 
   return (
@@ -70,7 +75,11 @@ export const ChestRow: FunctionComponent<Props> = ({
           </motion.button>
         )}
 
-        <div className={classNames("relative flex flex-col items-center")}>
+        <div
+          className={classNames(
+            "relative flex h-full w-full flex-col items-center",
+          )}
+        >
           <RegularChest />
         </div>
         <div className="absolute -right-5 z-10 flex size-10 items-center justify-center">
@@ -120,7 +129,15 @@ export const ChestRow: FunctionComponent<Props> = ({
             <PentagonLockedXS />
           </motion.button>
         )}
-        <MysteryChest />
+        <div className="relative flex h-full w-full flex-col items-center">
+          <MysteryChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute left-1/2 top-1/2 z-10 h-full w-full -translate-x-1/2 -translate-y-1/2">
+            <Lottie animationData={ParticlesPrimary} loop />
+          </div>
+          <div className="absolute left-1/2 top-1/2 z-20 h-full w-full -translate-x-1/2 -translate-y-1/2">
+            <Lottie animationData={ParticlesSecondary} loop />
+          </div>
+        </div>
       </motion.div>
     </div>
   );
