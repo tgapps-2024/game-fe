@@ -13,7 +13,7 @@ export const FriendsList = () => {
 
   return (
     <motion.div
-      className="relative -top-4 px-4 text-white"
+      className="relative -top-4 px-4 pb-20 text-white"
       initial={{ y: "100%" }}
       animate={{ y: "0%" }}
       transition={{ type: "spring", stiffness: 80, damping: 15 }}
