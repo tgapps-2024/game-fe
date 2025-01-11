@@ -15,11 +15,13 @@ import { IProfile } from "@/services/profile/types";
 import { FriendsList } from "./components/friends-list/FriendsList";
 import { InviteBoard } from "./components/invite-board/InviteBoard";
 import { InviteButton } from "./components/invite-button/InviteButton";
+import { InviteModal } from "./components/invite-modal/InviteModal";
 
 export const Friends = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { webApp } = useTelegram();
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalVisible, setModalVisible] = useState(false);
   const { data, isPending } = useGetProfile();
 
   useEffect(() => {
@@ -69,10 +71,15 @@ export const Friends = () => {
           >
             <InviteBoard />
             <FriendsList />
-            <InviteButton />
           </motion.div>
         </div>
+
+        <InviteButton onClick={() => setModalVisible(true)} />
       </div>
+      <InviteModal
+        isOpen={isModalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </div>
   );
 };

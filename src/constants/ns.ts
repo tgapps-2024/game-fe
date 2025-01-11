@@ -107,6 +107,14 @@ export const NS = {
       PROFIT: "PROFIT",
       GET_FRIENDS: "GET_FRIENDS",
       CAN_COLLECT: "CAN_COLLECT",
+      MODAL: {
+        ROOT: "MODAL",
+        TITLE: "TITLE",
+        DESCRIPTION: "DESCRIPTION",
+        BUTTON: "BUTTON",
+        SALE: "SALE",
+        FRIENDS: "FRIENDS",
+      },
     },
   },
 };

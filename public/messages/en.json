@@ -86,6 +86,13 @@
     "COLLECT_PRIZE": "Receive",
     "PROFIT": "Profit per hour:",
     "GET_FRIENDS": "Get some friends",
-    "CAN_COLLECT": "You can put together"
+    "CAN_COLLECT": "You can put together",
+    "MODAL": {
+      "TITLE": "Buying friends",
+      "DESCRIPTION": "You can make friends who will bring you passive income.",
+      "BUTTON": "Buy",
+      "SALE": "Sale",
+      "FRIENDS": "{number} Friends"
+    }
   }
 }
