@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -9,6 +9,7 @@ import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useModalVisibility } from "@/hooks/useModalVisibility";
 import WalletIcon from "@/public/assets/svg/wallet.svg";
+import { useGetProfile } from "@/services/profile/queries";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 import { LevelIndicator } from "./components/level-indicator/LevelIndicator";
@@ -31,25 +32,10 @@ export const Settings: FC = () => {
 
   const { isModalVisible } = useModalVisibility();
   const { webApp } = useTelegram();
-  const [isLoading, setIsLoading] = useState(true);
   const [isTonDisconnectModalVisible, setTonDisconnectModalVisible] =
     useState(false);
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (webApp) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        setIsLoading(false);
-      } else {
-        const timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 5000);
-        return () => clearTimeout(timer);
-      }
-    };
-
-    loadData();
-  }, [webApp]);
+  const { data } = useGetProfile();
 
   if (!webApp || !webApp.initDataUnsafe?.user) {
     return null;
@@ -80,12 +66,10 @@ export const Settings: FC = () => {
               <ProfileHeader
                 first_name={first_name}
                 photo_url={photo_url || ""}
-                isLoading={isLoading}
               />
               <LevelIndicator
-                currentLevel={MOCK_DATA.currentLevel}
+                currentLevel={data?.level || 1}
                 progress={MOCK_DATA.progress}
-                isLoading={isLoading}
               />
               <motion.div
                 whileTap={{ scale: 0.98 }}
@@ -139,7 +123,13 @@ export const Settings: FC = () => {
                   </div>
                 </div>
               </motion.div>
-              <ProfileBalance items={PROFILE_BALANCE_ITEMS} />
+              <ProfileBalance
+                items={PROFILE_BALANCE_ITEMS({
+                  coins: data?.coins ?? 0,
+                  stars: data?.stars ?? 0,
+                  ton: 0,
+                })}
+              />
               <ProfileLink />
             </div>
           </div>

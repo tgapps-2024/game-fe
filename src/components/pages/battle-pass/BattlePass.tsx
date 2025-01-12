@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
@@ -10,25 +10,8 @@ import { LevelComponent } from "./components/level-component/LevelComponent";
 
 export const BattlePass = () => {
   const { webApp } = useTelegram();
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (webApp) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setIsLoading(false);
-      } else {
-        const timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-        return () => clearTimeout(timer);
-      }
-    };
-
-    loadData();
-  }, [webApp]);
-
-  if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
+  if (!webApp || !webApp.initDataUnsafe?.user) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
         <Spinner className="mx-auto stroke-white" />

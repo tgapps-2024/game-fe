@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ProfileHeader } from "@/components/common";
 import { Spinner } from "@/components/common/spinner/Spinner";
@@ -14,32 +14,15 @@ import { ASSIGNMENTS_LIST } from "./constants";
 
 export const Assignments = () => {
   const { webApp } = useTelegram();
-  const [isLoading, setIsLoading] = useState(true);
   const { data, isPending } = useGetProfile();
 
   const [isModalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    const loadData = async () => {
-      if (webApp) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setIsLoading(false);
-      } else {
-        const timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-      }
-    };
-
-    loadData();
-  }, [webApp]);
 
   const handleSlideClick = () => {
     setModalVisible(true);
   };
 
-  if (!webApp || !webApp.initDataUnsafe?.user || isLoading || isPending) {
+  if (!webApp || !webApp.initDataUnsafe?.user || isPending) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
         <Spinner className="mx-auto stroke-white" />
@@ -48,7 +31,6 @@ export const Assignments = () => {
   }
 
   return (
-    //TODO: investigate why scroll doesn't work
     <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
       <div className="flex flex-col py-10 pt-15">
         <ProfileHeader profileData={data ?? ({} as IProfile)} />

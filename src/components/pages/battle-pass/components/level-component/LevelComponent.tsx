@@ -20,7 +20,7 @@ export const LevelComponent = () => {
         <div className="relative flex w-full max-w-[180px] items-center justify-between justify-self-end">
           <div className="relative z-20 flex size-10 items-center justify-center">
             <LevelSvg className="absolute inset-0" />
-            <span className="text-stroke-1 relative z-10 text-sm font-black leading-none text-white text-shadow-sm">
+            <span className="text-stroke-1 relative z-10 ml-1 mt-1 text-sm font-black leading-none text-white text-shadow-sm">
               {CURRENT_LEVEL}
             </span>
           </div>
@@ -33,7 +33,7 @@ export const LevelComponent = () => {
           </div>
           <div className="relative -right-5 z-20 flex size-10 items-center justify-center">
             <LevelSvg className="absolute inset-0" />
-            <span className="text-stroke-1 relative z-10 text-sm font-black leading-none text-white text-shadow-sm">
+            <span className="text-stroke-1 relative z-10 ml-1 mt-1 text-sm font-black leading-none text-white text-shadow-sm">
               {CURRENT_LEVEL + 1}
             </span>
           </div>
