@@ -40,15 +40,15 @@ export const Modal = ({
           <motion.div
             className="fixed inset-0 z-50 overflow-y-auto"
             initial={{
-              y: 100,
+              y: "100%",
             }}
             animate={{
               y: 0,
-              transition: { duration: 0.2 },
+              transition: { duration: 0.25 },
             }}
             exit={{
-              y: 100,
-              transition: { duration: 0.2 },
+              y: "100%",
+              transition: { duration: 0.25 },
             }}
           >
             <motion.div className="box-border flex min-h-full items-end justify-center font-rubik">

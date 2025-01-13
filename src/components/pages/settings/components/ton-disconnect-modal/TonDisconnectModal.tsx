@@ -58,14 +58,16 @@ export const TonDisconnectModal = ({
     <Modal
       isVisible={isOpen}
       onClose={handleClose}
-      className="shadow-modal relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
+      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12 shadow-modal"
     >
-      <button
-        onClick={handleClose}
-        className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        onClick={onClose}
+        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
       >
-        <CloseIcon className="size-2.5" />
-      </button>
+        <CloseIcon />
+      </motion.button>
       <div className="z-10 mb-6 flex w-full flex-col items-center gap-3">
         <h4 className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-white text-shadow-sm">
           {t(

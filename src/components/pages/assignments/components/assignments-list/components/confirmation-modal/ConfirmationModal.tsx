@@ -30,12 +30,14 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
       onClose={onClose}
       className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
     >
-      <button
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
+        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
       >
-        <CloseIcon className="size-2.5" />
-      </button>
+        <CloseIcon />
+      </motion.button>
       <div className="relative mb-6 aspect-video w-full">
         <Image src={ErrorImage} alt="error" fill />
       </div>
@@ -86,17 +88,17 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
         }}
         onClick={onClose}
         className={classNames(
-          "shadow-inset-black group z-10 mb-4 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl bg-[#0655a4] pb-[3px]",
+          "group z-10 mb-4 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl bg-[#0655a4] pb-[3px] shadow-inset-black",
         )}
       >
         <div
           className={classNames(
-            "shadow-inset-btn flex h-13 w-full items-center justify-center rounded-xl bg-[#0075ff] p-[3px] pb-1",
+            "flex h-13 w-full items-center justify-center rounded-xl bg-[#0075ff] p-[3px] pb-1 shadow-inset-btn",
           )}
         >
           <div
             className={classNames(
-              "text-stroke-1 shadow-link flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-white/15 p-3 text-center font-black uppercase tracking-wide text-white text-shadow-sm",
+              "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-white/15 p-3 text-center font-black uppercase tracking-wide text-white shadow-link text-shadow-sm",
             )}
           >
             {t(
