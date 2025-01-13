@@ -52,8 +52,8 @@ export const TelegramProvider = ({
 
           await login(app.initData);
         } catch {
-          const code = 401;
-          const message = "Authentication failed. Please try again.";
+          // const code = 401;
+          // const message = "Authentication failed. Please try again.";
           // push(`/error?code=${code}&message=${encodeURIComponent(message)}`);
         }
       };
