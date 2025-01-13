@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import cx from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,6 +20,9 @@ export const Modal = ({
   onClose,
 }: IModalProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const [dragY, setDragY] = useState(0);
 
   useEffect(() => {
     setIsMounted(true);
@@ -33,7 +36,10 @@ export const Modal = ({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className={cx("fixed inset-0 z-40 bg-black/60", overlayClassName)}
+          className={cx("fixed inset-0 z-40 bg-blue-800/80", overlayClassName)}
+          style={{
+            backdropFilter: `blur(${8 - dragY / 50}px)`,
+          }}
           onClick={onClose}
           initial={{
             opacity: 0,
@@ -62,13 +68,22 @@ export const Modal = ({
             }}
           >
             <motion.div
+              ref={modalRef}
               className="box-border flex min-h-full items-end justify-center font-rubik"
               drag="y"
+              dragElastic={{
+                top: 0,
+                bottom: 0.3,
+              }}
               dragConstraints={{ top: 0, bottom: 0 }}
-              onDragEnd={(event, info) => {
+              onDrag={(event, info) => {
+                setDragY(info.offset.y);
+              }}
+              onDragEnd={(_, info) => {
                 if (info.offset.y > 100) {
                   onClose();
                 }
+                setDragY(0);
               }}
             >
               <div
