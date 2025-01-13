@@ -23,12 +23,14 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
       onClose={onClose}
       className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75 font-rubik"
     >
-      <button
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
+        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
       >
-        <CloseIcon className="size-2.5" />
-      </button>
+        <CloseIcon />
+      </motion.button>
       <div className="absolute inset-0 z-0">
         <Image src={BackgroundImage} alt="" fill objectFit="cover" priority />
       </div>

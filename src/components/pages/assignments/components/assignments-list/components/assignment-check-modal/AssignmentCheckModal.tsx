@@ -32,12 +32,14 @@ export const AssignmentCheckModal = ({
       onClose={onClose}
       className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-12"
     >
-      <button
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-6 items-center justify-center rounded-full bg-white/5"
+        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
       >
-        <CloseIcon className="size-2.5" />
-      </button>
+        <CloseIcon />
+      </motion.button>
       <div className="mb-6 flex size-23 items-center justify-center rounded-full bg-white/20 object-contain text-sm text-white">
         Place for icon
       </div>
