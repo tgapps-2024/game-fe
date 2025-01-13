@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { PentagonXS } from "@/components/ui";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BGImage from "@/public/assets/png/card-bg.png";
 
 export enum CardType {
@@ -31,6 +32,17 @@ export const Card: FunctionComponent<Props> = ({
   type = CardType.BLUE,
   onClick,
 }) => {
+  const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleClick = () => {
+    handleSelectionChanged();
+    onClick();
+  };
+
+  const handleGetPrizes = () => {
+    handleSelectionChanged();
+  };
+
   return (
     <div
       className={classNames(
@@ -42,13 +54,14 @@ export const Card: FunctionComponent<Props> = ({
           "scale-105": isSelected,
         },
       )}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="absolute -top-1 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center">
         <motion.button
           className="relative flex items-center justify-center"
           whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          onClick={handleGetPrizes}
         >
           <PentagonXS />
           <span className="text-stroke-1 absolute z-10 mb-2.5 text-[11px] font-black leading-none tracking-wide text-white text-shadow-sm">

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { ConfirmationModal } from "@/components/common";
 import { NS } from "@/constants/ns";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
 import { formatNumber } from "@/utils/number";
 
@@ -26,6 +27,17 @@ export const AssignmentsList: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const [openModalId, setOpenModalId] = useState<string | null>(null);
   const [isSecondaryModalOpen, setIsSecondaryModalOpen] = useState(false);
+  const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleConfirmationModalOpen = () => {
+    handleSelectionChanged();
+    setIsSecondaryModalOpen(true);
+  };
+
+  const handleConfirmationModalClose = () => {
+    handleSelectionChanged();
+    setOpenModalId(null);
+  };
 
   return (
     <>
@@ -86,8 +98,8 @@ export const AssignmentsList: FunctionComponent<Props> = ({
                 title={title}
                 rewards={rewards}
                 isOpen={openModalId === id}
-                onClose={() => setOpenModalId(null)}
-                onConfirmationModalOpen={() => setIsSecondaryModalOpen(true)}
+                onClose={handleConfirmationModalClose}
+                onConfirmationModalOpen={handleConfirmationModalOpen}
               />
             </li>
           ))}
@@ -96,7 +108,7 @@ export const AssignmentsList: FunctionComponent<Props> = ({
 
       <ConfirmationModal
         isOpen={isSecondaryModalOpen}
-        onClose={() => setIsSecondaryModalOpen(false)}
+        onClose={handleConfirmationModalOpen}
       />
     </>
   );

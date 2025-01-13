@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ProfileHeader } from "@/components/common";
 import { Spinner } from "@/components/common/spinner/Spinner";
 import { useTelegram } from "@/context";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useGetProfile } from "@/services/profile/queries";
 import { IProfile } from "@/services/profile/types";
 
@@ -15,11 +16,18 @@ import { ASSIGNMENTS_LIST } from "./constants";
 export const Assignments = () => {
   const { webApp } = useTelegram();
   const { data, isLoading } = useGetProfile();
+  const { handleSelectionChanged } = useHapticFeedback();
 
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleSlideClick = () => {
+    handleSelectionChanged();
     setModalVisible(true);
+  };
+
+  const handleClose = () => {
+    handleSelectionChanged();
+    setModalVisible(false);
   };
 
   if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
@@ -43,10 +51,7 @@ export const Assignments = () => {
           />
         </div>
       </div>
-      <PowerUpModal
-        isOpen={isModalVisible}
-        onClose={() => setModalVisible(false)}
-      />
+      <PowerUpModal isOpen={isModalVisible} onClose={handleClose} />
     </div>
   );
 };

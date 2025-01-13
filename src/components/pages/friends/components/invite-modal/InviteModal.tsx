@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { Card, Modal } from "@/components/common";
 import { NS } from "@/constants/ns";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CargoImage from "@/public/assets/png/cargo.svg";
 import CloseIcon from "@/public/assets/svg/close.svg";
 
@@ -30,6 +31,12 @@ const animationVariants = {
 export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleCardClick = (index: number) => {
+    handleSelectionChanged();
+    setSelectedCard(index);
+  };
 
   return (
     <Modal
@@ -72,7 +79,7 @@ export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
                 type={card.type}
                 isSelected={index === selectedCard}
                 badgeComponent={<Badge value={card.badgeValue} />}
-                onClick={() => setSelectedCard(index)}
+                onClick={() => handleCardClick(index)}
               >
                 <div className="relative h-full w-full overflow-hidden rounded-xl">
                   {index === 0 && (
@@ -102,6 +109,9 @@ export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
             { "bg-blue-800 pb-0": selectedCard === null },
             { "bg-[#0655a4] pb-[3px]": selectedCard !== null },
           )}
+          onClick={() => {
+            handleSelectionChanged();
+          }}
         >
           <div
             className={classNames(

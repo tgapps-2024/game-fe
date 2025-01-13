@@ -6,10 +6,12 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import StarSVG from "@/public/assets/svg/star.svg";
 
 export const FriendsList = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
+  const { handleSelectionChanged } = useHapticFeedback();
 
   return (
     <motion.div
@@ -49,7 +51,9 @@ export const FriendsList = () => {
           className={classNames(
             "group h-10 cursor-pointer overflow-hidden rounded-xl border border-black bg-[#0655a4] pb-[3px]",
           )}
-          onClick={() => {}}
+          onClick={() => {
+            handleSelectionChanged();
+          }}
         >
           <div
             className={classNames(

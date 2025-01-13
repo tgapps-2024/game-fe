@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { ProfileHeader, Spinner } from "@/components/common";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import TopBackground from "@/public/assets/png/friends/friends-bg.webp";
 import { useGetProfile } from "@/services/profile/queries";
 import { IProfile } from "@/services/profile/types";
@@ -22,6 +23,17 @@ export const Friends = () => {
   const { webApp } = useTelegram();
   const [isModalVisible, setModalVisible] = useState(false);
   const { data, isPending } = useGetProfile();
+  const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleInviteModalOpen = () => {
+    handleSelectionChanged();
+    setModalVisible(true);
+  };
+
+  const handleInviteModalClose = () => {
+    handleSelectionChanged();
+    setModalVisible(false);
+  };
 
   if (!webApp || !webApp.initDataUnsafe?.user || isPending) {
     return (
@@ -57,12 +69,9 @@ export const Friends = () => {
           </motion.div>
         </div>
 
-        <InviteButton onClick={() => setModalVisible(true)} />
+        <InviteButton onClick={handleInviteModalOpen} />
       </div>
-      <InviteModal
-        isOpen={isModalVisible}
-        onClose={() => setModalVisible(false)}
-      />
+      <InviteModal isOpen={isModalVisible} onClose={handleInviteModalClose} />
     </div>
   );
 };

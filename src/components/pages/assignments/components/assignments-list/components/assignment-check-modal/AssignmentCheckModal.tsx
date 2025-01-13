@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { Modal, Timeline } from "@/components/common";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import ExternalSVG from "@/public/assets/svg/external.svg";
 import { formatNumber } from "@/utils/number";
@@ -25,6 +26,12 @@ export const AssignmentCheckModal = ({
   onConfirmationModalOpen,
 }: Props) => {
   const [isClicked, setIsClicked] = useState(false);
+  const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleClicked = () => {
+    handleSelectionChanged();
+    setIsClicked(true);
+  };
 
   return (
     <Modal
@@ -77,7 +84,7 @@ export const AssignmentCheckModal = ({
                   <button
                     onClick={(event) => {
                       event.preventDefault();
-                      setIsClicked(true);
+                      handleClicked();
                       window.open("https://t.me/noname_channel", "_blank");
                     }}
                     className="text-stroke-1 flex items-baseline gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"

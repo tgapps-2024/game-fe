@@ -6,11 +6,14 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CopySVG from "@/public/assets/svg/friends/copy.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
 export const InviteBoard = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
+  const { handleSelectionChanged } = useHapticFeedback();
+
   return (
     <motion.div
       className={classNames(
@@ -43,7 +46,9 @@ export const InviteBoard = () => {
             className={classNames(
               "group h-13 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
             )}
-            onClick={() => {}}
+            onClick={() => {
+              handleSelectionChanged();
+            }}
           >
             <div
               className={classNames(
@@ -66,7 +71,9 @@ export const InviteBoard = () => {
             className={classNames(
               "group h-13 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
             )}
-            onClick={() => {}}
+            onClick={() => {
+              handleSelectionChanged();
+            }}
           >
             <div
               className={classNames(

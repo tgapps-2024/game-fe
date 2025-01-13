@@ -4,6 +4,8 @@ import cx from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+
 interface IModalProps {
   isVisible: boolean;
   children?: React.ReactNode;
@@ -21,12 +23,18 @@ export const Modal = ({
 }: IModalProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const { handleSelectionChanged } = useHapticFeedback();
 
   const [dragY, setDragY] = useState(0);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const handleClose = () => {
+    handleSelectionChanged();
+    onClose();
+  };
 
   if (!isMounted) {
     return null;
@@ -40,7 +48,7 @@ export const Modal = ({
           style={{
             backdropFilter: `blur(${8 - dragY / 50}px)`,
           }}
-          onClick={onClose}
+          onClick={handleClose}
           initial={{
             opacity: 0,
           }}
@@ -81,7 +89,7 @@ export const Modal = ({
               }}
               onDragEnd={(_, info) => {
                 if (info.offset.y > 100) {
-                  onClose();
+                  handleClose();
                 }
                 setDragY(0);
               }}
