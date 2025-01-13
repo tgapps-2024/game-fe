@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useModalVisibility } from "@/hooks/useModalVisibility";
 import WalletIcon from "@/public/assets/svg/wallet.svg";
 import { useGetProfile } from "@/services/profile/queries";
@@ -36,16 +37,19 @@ export const Settings: FC = () => {
     useState(false);
 
   const { data } = useGetProfile();
+  const { handleSelectionChanged } = useHapticFeedback();
 
   if (!webApp || !webApp.initDataUnsafe?.user) {
     return null;
   }
 
   const handleOpenTon = () => {
+    handleSelectionChanged();
     tonConnectUI?.openModal();
   };
 
   const handleDisconnect = () => {
+    handleSelectionChanged();
     tonConnectUI?.disconnect();
   };
 
