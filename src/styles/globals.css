@@ -5,10 +5,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --tg-safe-area-inset-top: 40px;
 }
 
-::-webkit-scrollbar {
-  width: 0;
+
+body::-webkit-scrollbar {
+  display: none; 
 }
 
 html,
@@ -16,12 +18,12 @@ body {
   @apply font-rubik;
   height: 100%;
   overflow: hidden;
-  overscroll-behavior: none;
+  overscroll-behavior: none;scrollbar-width: none;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #192632;
     --foreground: #ededed;
   }
 }

@@ -4,22 +4,18 @@ import apiClient from "@/api/api-client";
 import { API_ENDPOINTS, AUTH_COOKIE_TOKEN } from "@/constants/api";
 
 const login = async (initData: string) => {
-  try {
-    const { data } = await apiClient.post(
-      API_ENDPOINTS.POST.AUTH,
-      {
-        initDataRaw: initData,
-      },
-      {
-        skipAuth: true,
-      },
-    );
+  const { data } = await apiClient.post(
+    API_ENDPOINTS.POST.AUTH,
+    {
+      initDataRaw: initData,
+    },
+    {
+      skipAuth: true,
+    },
+  );
 
-    if (data.userToken) {
-      Cookies.set(AUTH_COOKIE_TOKEN, data.userToken, { expires: 1 / 8 });
-    }
-  } catch (error) {
-    console.error("Login failed:", error);
+  if (data.userToken) {
+    Cookies.set(AUTH_COOKIE_TOKEN, data.userToken, { expires: 1 / 8 });
   }
 };
 

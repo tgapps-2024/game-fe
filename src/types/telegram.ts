@@ -88,4 +88,6 @@ export interface IWebApp {
   ready: () => void;
   requestFullscreen: () => void;
   BackButton: IBackButton;
+  disableVerticalSwipes: () => void;
+  enableClosingConfirmation(): void;
 }

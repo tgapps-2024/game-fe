@@ -39,6 +39,8 @@ export const TelegramProvider = ({
         push(ROUTES.SETTINGS);
       });
       app.lockOrientation();
+      app.disableVerticalSwipes();
+      app.enableClosingConfirmation();
 
       const authFetcher = async () => {
         try {
@@ -49,7 +51,11 @@ export const TelegramProvider = ({
           }
 
           await login(app.initData);
-        } catch {}
+        } catch {
+          const code = 401;
+          const message = "Authentication failed. Please try again.";
+          // push(`/error?code=${code}&message=${encodeURIComponent(message)}`);
+        }
       };
 
       authFetcher();

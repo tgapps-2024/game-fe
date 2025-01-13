@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import cx from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
@@ -17,14 +19,22 @@ export const Modal = ({
   overlayClassName,
   onClose,
 }: IModalProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return createPortal(
     <AnimatePresence>
       {isVisible && (
         <motion.div
           className={cx("fixed inset-0 z-40 bg-black/60", overlayClassName)}
-          onClick={() => {
-            onClose();
-          }}
+          onClick={onClose}
           initial={{
             opacity: 0,
           }}
@@ -51,7 +61,16 @@ export const Modal = ({
               transition: { duration: 0.25 },
             }}
           >
-            <motion.div className="box-border flex min-h-full items-end justify-center font-rubik">
+            <motion.div
+              className="box-border flex min-h-full items-end justify-center font-rubik"
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              onDragEnd={(event, info) => {
+                if (info.offset.y > 100) {
+                  onClose();
+                }
+              }}
+            >
               <div
                 className={className}
                 onClick={(e) => {

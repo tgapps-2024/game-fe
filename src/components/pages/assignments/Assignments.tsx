@@ -14,7 +14,7 @@ import { ASSIGNMENTS_LIST } from "./constants";
 
 export const Assignments = () => {
   const { webApp } = useTelegram();
-  const { data, isPending } = useGetProfile();
+  const { data, isLoading } = useGetProfile();
 
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -22,7 +22,7 @@ export const Assignments = () => {
     setModalVisible(true);
   };
 
-  if (!webApp || !webApp.initDataUnsafe?.user || isPending) {
+  if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
         <Spinner className="mx-auto stroke-white" />
@@ -32,7 +32,7 @@ export const Assignments = () => {
 
   return (
     <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
-      <div className="flex flex-col py-10 pt-15">
+      <div className="flex flex-col py-10 pt-28">
         <ProfileHeader profileData={data ?? ({} as IProfile)} />
         <AssignmentsCarousel onSlideClick={handleSlideClick} />
         <div className="flex flex-col gap-4">
