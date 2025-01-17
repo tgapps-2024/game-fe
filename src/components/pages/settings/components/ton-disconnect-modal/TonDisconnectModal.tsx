@@ -58,7 +58,7 @@ export const TonDisconnectModal = ({
     <Modal
       isVisible={isOpen}
       onClose={handleClose}
-      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-9 shadow-modal"
+      className="relative flex w-full flex-col items-center rounded-t-4xl border border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-9 shadow-modal"
     >
       <motion.button
         whileTap={{ scale: 0.98 }}

@@ -37,7 +37,7 @@ export const AssignmentCheckModal = ({
     <Modal
       isVisible={isOpen}
       onClose={onClose}
-      className="relative flex w-full flex-col items-center rounded-t-4xl border-2 border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-9"
+      className="relative flex w-full flex-col items-center rounded-t-4xl border border-b-0 border-white/10 bg-blue-700 px-4 pb-8 pt-9"
     >
       <motion.button
         whileTap={{ scale: 0.98 }}

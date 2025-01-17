@@ -9,13 +9,19 @@ import { NS } from "@/constants/ns";
 
 type Props = {
   onClick: () => void;
+  isModalVisible: boolean;
 };
 
-export const InviteButton = ({ onClick }: Props) => {
+export const InviteButton = ({ onClick, isModalVisible }: Props) => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-gradient-to-b from-[#192632]/0 via-[#192632]/50 to-[#192632]/100 px-4 pb-8 pt-18">
+    <div
+      className={classNames(
+        "fixed bottom-0 left-0 w-full bg-gradient-to-b from-[#192632]/0 via-[#192632]/50 to-[#192632]/100 px-4 pb-8 pt-18",
+        !isModalVisible && "z-50",
+      )}
+    >
       <motion.button
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}

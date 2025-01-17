@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -6,19 +6,37 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import CopySVG from "@/public/assets/svg/friends/copy.svg";
+import CopySVG from "@/public/assets/svg/friends/share.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { IReferals } from "@/services/profile/types";
+import { getLinkToApp } from "@/utils/lib/tg";
 
-export const InviteBoard = () => {
+type Props = {
+  referalsData: IReferals;
+  isModalVisible: boolean;
+};
+
+export const InviteBoard: FunctionComponent<Props> = ({
+  referalsData,
+  isModalVisible,
+}) => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
+  const { webApp } = useTelegram();
+
+  const handleCopyClipboard = () => {
+    handleSelectionChanged();
+    navigator.clipboard.writeText(getLinkToApp(referalsData.link));
+  };
 
   return (
     <motion.div
       className={classNames(
         "border-b-solid relative -top-10 mx-4 rounded-2xl border-b border-b-black bg-blue-900 pb-[3px]",
         "shadow-[0_2px_0_0_rgba(0,0,0,0.5)]",
+        !isModalVisible && "z-50",
       )}
       initial={{ y: "10%" }}
       animate={{ y: "0%" }}
@@ -48,6 +66,9 @@ export const InviteBoard = () => {
             )}
             onClick={() => {
               handleSelectionChanged();
+              webApp?.openTelegramLink(
+                `https://t.me/share/url?url=${getLinkToApp(referalsData.link)}`,
+              );
             }}
           >
             <div
@@ -71,9 +92,7 @@ export const InviteBoard = () => {
             className={classNames(
               "group h-13 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
             )}
-            onClick={() => {
-              handleSelectionChanged();
-            }}
+            onClick={handleCopyClipboard}
           >
             <div
               className={classNames(
