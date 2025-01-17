@@ -54,37 +54,37 @@ export const Modal = ({
           }}
           animate={{
             opacity: 1,
-            transition: { duration: 0.2 },
+            transition: { duration: 0.1 },
           }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.2 },
+            transition: { duration: 0.1 },
           }}
         >
           <motion.div
-            className="fixed inset-0 z-50 overflow-y-auto"
+            className={cx("fixed inset-0 z-50 overflow-y-auto")}
             initial={{
               y: "100%",
             }}
             animate={{
               y: 0,
-              transition: { duration: 0.25 },
+              transition: { duration: 0.2 },
             }}
             exit={{
               y: "100%",
-              transition: { duration: 0.25 },
+              transition: { duration: 0.2 },
             }}
           >
             <motion.div
               ref={modalRef}
-              className="box-border flex min-h-full items-end justify-center font-rubik"
+              className="box-border flex min-h-screen items-end justify-center font-rubik"
               drag="y"
               dragElastic={{
-                top: 0,
+                top: 0.3,
                 bottom: 0.3,
               }}
               dragConstraints={{ top: 0, bottom: 0 }}
-              onDrag={(event, info) => {
+              onDrag={(_, info) => {
                 setDragY(info.offset.y);
               }}
               onDragEnd={(_, info) => {

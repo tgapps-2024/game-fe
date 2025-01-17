@@ -19,3 +19,17 @@ export interface IProfile {
   auto: number;
   haveBattlePass: boolean;
 }
+
+export type Referal = {
+  name: string;
+  photo_url: string;
+  reward: number;
+  reward_per_hour: number;
+};
+
+export interface IReferals {
+  count: number;
+  friends: Referal[];
+  link: string;
+  reward: number;
+}

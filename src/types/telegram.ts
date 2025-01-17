@@ -89,5 +89,6 @@ export interface IWebApp {
   requestFullscreen: () => void;
   BackButton: IBackButton;
   disableVerticalSwipes: () => void;
-  enableClosingConfirmation(): void;
+  enableClosingConfirmation: () => void;
+  openTelegramLink: (url: string) => void;
 }

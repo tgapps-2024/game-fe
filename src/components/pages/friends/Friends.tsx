@@ -10,8 +10,8 @@ import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import TopBackground from "@/public/assets/png/friends/friends-bg.webp";
-import { useGetProfile } from "@/services/profile/queries";
-import { IProfile } from "@/services/profile/types";
+import { useGetProfile, useGetReferals } from "@/services/profile/queries";
+import { IProfile, IReferals } from "@/services/profile/types";
 
 import { FriendsList } from "./components/friends-list/FriendsList";
 import { InviteBoard } from "./components/invite-board/InviteBoard";
@@ -23,6 +23,8 @@ export const Friends = () => {
   const { webApp } = useTelegram();
   const [isModalVisible, setModalVisible] = useState(false);
   const { data, isPending } = useGetProfile();
+  const { data: referalData, isPending: isPendingReferalData } =
+    useGetReferals();
   const { handleSelectionChanged } = useHapticFeedback();
 
   const handleInviteModalOpen = () => {
@@ -35,7 +37,12 @@ export const Friends = () => {
     setModalVisible(false);
   };
 
-  if (!webApp || !webApp.initDataUnsafe?.user || isPending) {
+  if (
+    !webApp ||
+    !webApp.initDataUnsafe?.user ||
+    isPending ||
+    isPendingReferalData
+  ) {
     return (
       <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
         <Spinner className="mx-auto stroke-white" />
@@ -64,12 +71,17 @@ export const Friends = () => {
             animate={{ y: "-16px" }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
           >
-            <InviteBoard />
-            <FriendsList />
+            <InviteBoard
+              referalsData={referalData || ({} as IReferals)}
+              isModalVisible={isModalVisible}
+            />
+            <FriendsList referalsData={referalData || ({} as IReferals)} />
           </motion.div>
         </div>
-
-        <InviteButton onClick={handleInviteModalOpen} />
+        <InviteButton
+          isModalVisible={isModalVisible}
+          onClick={handleInviteModalOpen}
+        />
       </div>
       <InviteModal isOpen={isModalVisible} onClose={handleInviteModalClose} />
     </div>

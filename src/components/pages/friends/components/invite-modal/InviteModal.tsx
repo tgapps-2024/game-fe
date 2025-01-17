@@ -42,7 +42,7 @@ export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
     <Modal
       isVisible={isOpen}
       onClose={onClose}
-      className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl border-2 border-solid border-white/10 bg-blue-700 px-4 pb-8 pt-14 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]"
+      className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl border border-solid border-white/10 bg-blue-700 px-4 pb-8 pt-14 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]"
     >
       <motion.button
         whileTap={{ scale: 0.98 }}
