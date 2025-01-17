@@ -54,11 +54,11 @@ export const Modal = ({
           }}
           animate={{
             opacity: 1,
-            transition: { duration: 0.1 },
+            transition: { duration: 0.2 },
           }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.1 },
+            transition: { duration: 0.2 },
           }}
         >
           <motion.div
@@ -80,7 +80,7 @@ export const Modal = ({
               className="box-border flex min-h-screen items-end justify-center font-rubik"
               drag="y"
               dragElastic={{
-                top: 0.3,
+                top: 0,
                 bottom: 0.3,
               }}
               dragConstraints={{ top: 0, bottom: 0 }}
