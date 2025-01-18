@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { NextIntlClientProvider } from "next-intl";
 
+import { Toaster } from "@/components/ui/toaster";
 import { SettingsProvider } from "@/context";
 import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
 import {
@@ -13,6 +14,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/styles/globals.css";
 
@@ -41,6 +43,8 @@ export default function App({ Component, pageProps }: AppProps) {
                   className={`flex min-h-screen flex-col items-center justify-center font-[family-name:var(--font-rubik)]`}
                 >
                   <Component {...pageProps} />
+                  <SpeedInsights />
+                  <Toaster />
                 </div>
               </SettingsProvider>
             </TelegramProvider>

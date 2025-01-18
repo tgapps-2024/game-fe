@@ -7,6 +7,11 @@
     "ROUTES": {
       "HOME": "Home",
       "SETTINGS": "Settings"
+    },
+    "TOAST": {
+      "DESTRUCTIVE": "I'm notified of an error. Just do something about it.",
+      "DONE": "I'm notified of success. All good, no errors there.",
+      "WARNING": "I'm a warning toast. Just take a look."
     }
   },
   "SETTINGS": {
@@ -84,6 +89,7 @@
     "INVITE_BUTTON_TEXT": "Invite a friend",
     "INVITED": "Invited",
     "COLLECT_PRIZE": "Receive",
+    "LINK_COPIED": "Link copied",
     "PROFIT": "Profit per hour:",
     "GET_FRIENDS": "Get some friends",
     "CAN_COLLECT": "You can put together",
