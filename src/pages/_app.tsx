@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { NextIntlClientProvider } from "next-intl";
 
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { SettingsProvider } from "@/context";
 import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
 import {
