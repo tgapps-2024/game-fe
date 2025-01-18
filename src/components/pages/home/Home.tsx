@@ -3,17 +3,16 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 import { Modal } from "@/components/common";
 import { Button } from "@/components/ui/button";
+import { Toast } from "@/components/ui/toast";
 import { ROUTES } from "@/constants/routes";
-import { useToast } from "@/hooks/use-toast";
 import CloseIcon from "@/public/assets/svg/close.svg";
 
 export const Home = () => {
   const [isModalVisible, setModalVisible] = useState(false);
-
-  const { toast } = useToast();
 
   return (
     <div className="flex h-screen max-h-screen w-full flex-col items-center justify-center overflow-y-auto overscroll-contain bg-blue-800">
@@ -51,10 +50,7 @@ export const Home = () => {
         </Button>
         <Button
           onClick={() => {
-            toast({
-              variant: "warning",
-              description: "Тестовое уведомление",
-            });
+            toast(<Toast type="warning" text="Test toast 🚀" />);
           }}
           variant="link"
           className="text-white"

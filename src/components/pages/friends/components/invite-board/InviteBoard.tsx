@@ -4,10 +4,11 @@ import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
-import { useToast } from "@/hooks/use-toast";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CopySVG from "@/public/assets/svg/friends/share.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
@@ -26,15 +27,11 @@ export const InviteBoard: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
-  const { toast } = useToast();
 
   const handleCopyClipboard = () => {
     handleSelectionChanged();
     navigator.clipboard.writeText(getLinkToApp(referalsData.link));
-    toast({
-      variant: "done",
-      description: t(NS.PAGES.FRIENDS.LINK_COPIED),
-    });
+    toast(<Toast type="done" text={t(NS.PAGES.FRIENDS.LINK_COPIED)} />);
   };
 
   return (
