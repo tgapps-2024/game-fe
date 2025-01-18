@@ -78,43 +78,45 @@ export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
         </motion.button>
       </motion.div>
       <div className="flex flex-col gap-4">
-        {referalsData.friends.map((friend, index) => (
-          <motion.div
-            key={index}
-            className="relative flex items-center justify-between rounded-2xl bg-blue-700 px-4 py-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]"
-          >
-            <div className="grid grid-cols-[32px_1fr] gap-2">
-              <div className="relative size-8 items-center justify-center overflow-hidden rounded-full bg-white/10">
-                {friend.photo_url ? (
-                  <Image
-                    src={friend.photo_url}
-                    alt={friend.name}
-                    fill
-                    objectFit="cover"
-                  />
-                ) : (
-                  <span className="text-stroke-1 text-xs font-extrabold uppercase text-white text-shadow-sm">
-                    {friend.name[0]}
+        {referalsData?.friends
+          ? referalsData.friends.map((friend, index) => (
+              <motion.div
+                key={index}
+                className="relative flex items-center justify-between rounded-2xl bg-blue-700 px-4 py-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]"
+              >
+                <div className="grid grid-cols-[32px_1fr] gap-2">
+                  <div className="relative size-8 items-center justify-center overflow-hidden rounded-full bg-white/10">
+                    {friend.photo_url ? (
+                      <Image
+                        src={friend.photo_url}
+                        alt={friend.name}
+                        fill
+                        objectFit="cover"
+                      />
+                    ) : (
+                      <span className="text-stroke-1 text-xs font-extrabold uppercase text-white text-shadow-sm">
+                        {friend.name[0]}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col justify-center gap-1">
+                    <span className="text-stroke-1 text-xs font-black tracking-wide text-white text-shadow-sm">
+                      {friend.name}
+                    </span>
+                    <span className="text-x font-medium text-gray-550">
+                      Прибыль в час: +{friend.reward_per_hour}
+                    </span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-[20px_1fr] items-center gap-2 rounded-full bg-white/10 px-2 py-1">
+                  <StarSVG className="size-5" />
+                  <span className="text-stroke-1 text-xs font-extrabold text-white text-shadow-sm">
+                    +{friend.reward}
                   </span>
-                )}
-              </div>
-              <div className="flex flex-col justify-center gap-1">
-                <span className="text-stroke-1 text-xs font-black tracking-wide text-white text-shadow-sm">
-                  {friend.name}
-                </span>
-                <span className="text-x font-medium text-gray-550">
-                  Прибыль в час: +{friend.reward_per_hour}
-                </span>
-              </div>
-            </div>
-            <div className="grid grid-cols-[20px_1fr] items-center gap-2 rounded-full bg-white/10 px-2 py-1">
-              <StarSVG className="size-5" />
-              <span className="text-stroke-1 text-xs font-extrabold text-white text-shadow-sm">
-                +{friend.reward}
-              </span>
-            </div>
-          </motion.div>
-        ))}
+                </div>
+              </motion.div>
+            ))
+          : null}
       </div>
     </motion.div>
   );

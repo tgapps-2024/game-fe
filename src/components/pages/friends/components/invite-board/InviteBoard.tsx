@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
+import { useToast } from "@/hooks/use-toast";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CopySVG from "@/public/assets/svg/friends/share.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
@@ -25,10 +26,15 @@ export const InviteBoard: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
+  const { toast } = useToast();
 
   const handleCopyClipboard = () => {
     handleSelectionChanged();
     navigator.clipboard.writeText(getLinkToApp(referalsData.link));
+    toast({
+      variant: "done",
+      description: t(NS.PAGES.FRIENDS.LINK_COPIED),
+    });
   };
 
   return (

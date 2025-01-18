@@ -10,6 +10,12 @@ export const NS = {
       ROOT: "ROUTES",
       SETTINGS: "SETTINGS",
     },
+    TOAST: {
+      ROOT: "TOAST",
+      DESTRUCTIVE: "DESTRUCTIVE",
+      DONE: "DONE",
+      WARNING: "WARNING",
+    },
   },
   PAGES: {
     SETTINGS: {
@@ -104,6 +110,7 @@ export const NS = {
       INVITE_BUTTON_TEXT: "INVITE_BUTTON_TEXT",
       INVITED: "INVITED",
       COLLECT_PRIZE: "COLLECT_PRIZE",
+      LINK_COPIED: "LINK_COPIED",
       PROFIT: "PROFIT",
       GET_FRIENDS: "GET_FRIENDS",
       CAN_COLLECT: "CAN_COLLECT",
