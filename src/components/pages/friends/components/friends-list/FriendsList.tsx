@@ -87,12 +87,7 @@ export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
                 <div className="grid grid-cols-[32px_1fr] gap-2">
                   <div className="relative size-8 items-center justify-center overflow-hidden rounded-full bg-white/10">
                     {friend.photo_url ? (
-                      <Image
-                        src={friend.photo_url}
-                        alt={friend.name}
-                        fill
-                        objectFit="cover"
-                      />
+                      <Image src={friend.photo_url} alt={friend.name} fill />
                     ) : (
                       <span className="text-stroke-1 text-xs font-extrabold uppercase text-white text-shadow-sm">
                         {friend.name[0]}

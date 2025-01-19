@@ -46,7 +46,7 @@ export const Card: FunctionComponent<Props> = ({
   return (
     <div
       className={classNames(
-        "relative h-38 w-full rounded-xl border border-solid border-black pb-1 text-white transition-all",
+        "relative aspect-[3/4] rounded-xl border border-solid border-black pb-1 text-white transition-all",
         {
           "bg-[#0069B1]": type === CardType.BLUE,
           "bg-[#403BB7]": type === CardType.INDIGO,
