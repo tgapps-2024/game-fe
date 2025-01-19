@@ -44,7 +44,10 @@ export const Modal = ({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className={cx("fixed inset-0 z-40 bg-blue-800/80", overlayClassName)}
+          className={cx(
+            "fixed inset-0 z-40 bg-blue-800/80 backdrop-blur",
+            overlayClassName,
+          )}
           style={{
             backdropFilter: `blur(${8 - dragY / 50}px)`,
           }}

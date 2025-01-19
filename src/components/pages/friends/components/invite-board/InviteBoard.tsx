@@ -17,13 +17,9 @@ import { getLinkToApp } from "@/utils/lib/tg";
 
 type Props = {
   referalsData: IReferals;
-  isModalVisible: boolean;
 };
 
-export const InviteBoard: FunctionComponent<Props> = ({
-  referalsData,
-  isModalVisible,
-}) => {
+export const InviteBoard: FunctionComponent<Props> = ({ referalsData }) => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
@@ -39,7 +35,6 @@ export const InviteBoard: FunctionComponent<Props> = ({
       className={classNames(
         "border-b-solid relative -top-10 mx-4 rounded-2xl border-b border-b-black bg-blue-900 pb-[3px]",
         "shadow-[0_2px_0_0_rgba(0,0,0,0.5)]",
-        !isModalVisible && "z-50",
       )}
       initial={{ y: "10%" }}
       animate={{ y: "0%" }}

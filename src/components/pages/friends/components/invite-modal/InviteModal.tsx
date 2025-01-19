@@ -1,34 +1,27 @@
 import React, { useState } from "react";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
-import { Card, Modal } from "@/components/common";
+import { Card } from "@/components/common";
+import {
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import CargoImage from "@/public/assets/png/cargo.svg";
+import CargoImage from "@/public/assets/png/cargo.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
 
 import { Badge } from "./components/badge/Badge";
 import { CARDS } from "./cards.data";
 
-interface IInviteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const animationVariants = {
-  hidden: { opacity: 0, y: 50 }, // Карточка скрыта и находится ниже
-  visible: {
-    opacity: 1,
-    y: 0, // Карточка "выезжает" вверх
-    transition: { duration: 0.5 },
-  },
-};
-
-export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
+export const InviteModal = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const { handleSelectionChanged } = useHapticFeedback();
@@ -39,61 +32,50 @@ export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
   };
 
   return (
-    <Modal
-      isVisible={isOpen}
-      onClose={onClose}
-      className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl border border-solid border-white/10 bg-blue-700 px-4 pb-8 pt-14 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]"
-    >
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
-      >
-        <CloseIcon />
-      </motion.button>
-      <div className="flex flex-col items-center">
-        <h2 className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase leading-none tracking-wide text-white text-shadow-sm">
-          {t(`${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.TITLE}`)}
-        </h2>
-        <p className="mb-6 text-center text-sm font-medium leading-3 tracking-wide text-gray-550">
-          {t(
-            `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.DESCRIPTION}`,
-          )}
-        </p>
+    <DrawerContent className="flex w-full flex-col items-center rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
+      <DrawerClose>
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
+        >
+          <CloseIcon />
+        </motion.button>
+      </DrawerClose>
+
+      <DrawerTitle className="!text-stroke-1 mb-3 text-center !text-2xl !font-black uppercase leading-none !tracking-wide text-white !text-shadow-sm">
+        {t(`${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.TITLE}`)}
+      </DrawerTitle>
+      <DrawerDescription className="mb-6 text-center text-sm font-medium leading-3 tracking-wide text-gray-550">
+        {t(
+          `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.DESCRIPTION}`,
+        )}
+      </DrawerDescription>
+      <div className="flex w-full flex-col items-center">
         <div className="relative mb-8 grid w-full grid-cols-3 gap-2">
           {CARDS.map((card, index) => (
-            <motion.div
-              key={index}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={animationVariants}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.2,
-              }}
+            <Card
+              key={`buy_friends_card_${index}`}
+              buttonText={card.buttonText}
+              type={card.type}
+              isSelected={index === selectedCard}
+              badgeComponent={<Badge value={card.badgeValue} />}
+              onClick={() => handleCardClick(index)}
             >
-              <Card
-                buttonText={card.buttonText}
-                type={card.type}
-                isSelected={index === selectedCard}
-                badgeComponent={<Badge value={card.badgeValue} />}
-                onClick={() => handleCardClick(index)}
-              >
-                <div className="relative h-full w-full overflow-hidden rounded-xl">
-                  {index === 0 && (
-                    <CargoImage className="absolute -bottom-4 h-full w-full" />
+              <div className="relative h-full w-full overflow-hidden rounded-xl">
+                {index === 0 && (
+                  <div className="absolute -bottom-4 h-full w-full">
+                    <Image src={CargoImage} alt="" fill />
+                  </div>
+                )}
+                <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
+                  {t(
+                    `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
+                    { number: card.number },
                   )}
-                  <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
-                    {t(
-                      `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
-                      { number: card.number },
-                    )}
-                  </span>
-                </div>
-              </Card>
-            </motion.div>
+                </span>
+              </div>
+            </Card>
           ))}
         </div>
         <motion.button
@@ -126,13 +108,12 @@ export const InviteModal = ({ isOpen, onClose }: IInviteModalProps) => {
                 { "bg-blue-800/100 shadow-none": selectedCard === null },
                 { "bg-white/15 shadow-link": selectedCard !== null },
               )}
-              onClick={onClose}
             >
               {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
             </div>
           </div>
         </motion.button>
       </div>
-    </Modal>
+    </DrawerContent>
   );
 };

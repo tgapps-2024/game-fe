@@ -37,7 +37,6 @@ export const ProfileHeader: FunctionComponent<Props> = ({
               src={user?.photo_url}
               alt="avatar"
               fill
-              objectFit="cover"
               className="rounded-full"
             />
           ) : null}

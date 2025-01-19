@@ -37,7 +37,8 @@
     "sonner": "^1.7.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "telegram-web-app": "^0.0.0"
+    "telegram-web-app": "^0.0.0",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

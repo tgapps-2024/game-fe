@@ -50,7 +50,7 @@ export const Home = () => {
         </Button>
         <Button
           onClick={() => {
-            toast(<Toast type="warning" text="Test toast 🚀" />);
+            toast(<Toast type="destructive" text="Test toast 🚀" />);
           }}
           variant="link"
           className="text-white"
