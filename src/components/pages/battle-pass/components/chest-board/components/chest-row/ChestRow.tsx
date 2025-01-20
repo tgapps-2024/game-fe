@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
-import { PentagonLockedXS, PentagonXS } from "@/components/ui";
+import { CollectButton, PentagonLockedXS } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import LevelSvg from "@/public/assets/svg/battle-pass/bp-level.svg";
 import InactiveLevel from "@/public/assets/svg/battle-pass/inactive-level.svg";
@@ -49,26 +49,14 @@ export const ChestRow: FunctionComponent<Props> = ({
         }}
       >
         {!isLowerLevel && (
-          <motion.button
-            className="absolute -top-2 z-20 flex items-center justify-center"
-            whileTap={{ scale: 0.98 }}
-            animate={{
-              y: [0, -5, 0],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          <CollectButton
+            className="absolute -top-2 z-20"
             onClick={handleCollect}
           >
-            <PentagonXS />
-            <span className="text-stroke-1 absolute z-10 mb-2.5 text-[11px] font-black leading-none tracking-wide text-white text-shadow-sm">
-              {t(
-                `${NS.PAGES.BATTLE_PASS.BUTTONS.ROOT}.${NS.PAGES.BATTLE_PASS.BUTTONS.COLLECT}`,
-              )}
-            </span>
-          </motion.button>
+            {t(
+              `${NS.PAGES.BATTLE_PASS.BUTTONS.ROOT}.${NS.PAGES.BATTLE_PASS.BUTTONS.COLLECT}`,
+            )}
+          </CollectButton>
         )}
 
         <div
