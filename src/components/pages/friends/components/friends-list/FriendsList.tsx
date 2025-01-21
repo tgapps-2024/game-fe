@@ -10,6 +10,7 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import StarSVG from "@/public/assets/svg/star.svg";
 import { IReferals } from "@/services/profile/types";
+import { NotificationEnum } from "@/types/telegram";
 
 type Props = {
   referalsData: IReferals;
@@ -17,7 +18,8 @@ type Props = {
 
 export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
-  const { handleSelectionChanged } = useHapticFeedback();
+  const { handleSelectionChanged, handleNotificationOccurred } =
+    useHapticFeedback();
 
   return (
     <motion.div
@@ -54,7 +56,11 @@ export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
         <div className="w-[134px]">
           <PrimaryButton
             onClick={() => {
-              handleSelectionChanged();
+              if (referalsData.reward > 0) {
+                handleSelectionChanged();
+              } else {
+                handleNotificationOccurred(NotificationEnum.ERROR);
+              }
             }}
             size="small"
             disabled={referalsData.reward === 0}
