@@ -1,6 +1,5 @@
 import React from "react";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { motion } from "framer-motion";
@@ -9,7 +8,6 @@ import { ProfileHeader, Spinner } from "@/components/common";
 import { Drawer } from "@/components/ui/drawer";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
-import TopBackground from "@/public/assets/png/friends/friends-bg.webp";
 import { useGetProfile, useGetReferals } from "@/services/profile/queries";
 import { IProfile, IReferals } from "@/services/profile/types";
 
@@ -40,12 +38,10 @@ export const Friends = () => {
 
   return (
     <Drawer>
-      <div className="h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
-        <div className="relative flex h-full flex-col">
-          <div className="relative">
-            <div className="relative aspect-[195/148] object-contain">
-              <Image src={TopBackground} loading="lazy" fill alt="" />
-            </div>
+      <div className="h-screen w-full overflow-y-auto overscroll-contain scroll-smooth bg-blue-800">
+        <div className="relative box-border flex min-h-full flex-col pt-74">
+          <div className="bg-center-top pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:100%] bg-no-repeat" />
+          <div className="relative z-10 w-full">
             <div className="absolute bottom-20 w-full">
               <ProfileHeader profileData={data || ({} as IProfile)} />
               <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
@@ -53,9 +49,9 @@ export const Friends = () => {
               </p>
             </div>
           </div>
-          <div className="relative w-full flex-1">
+          <div className="relative z-10 min-h-full w-full flex-1 rounded-t-2xl bg-blue-800">
             <motion.div
-              className="relative h-[calc(100%+16px)] w-full rounded-t-2xl bg-blue-800 shadow-lg"
+              className="relative h-[calc(100%+16px)] w-full rounded-t-2xl"
               initial={{ y: "0%" }}
               animate={{ y: "-16px" }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}

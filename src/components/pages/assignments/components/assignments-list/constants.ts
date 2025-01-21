@@ -1,5 +1,5 @@
 import CoinSVG from "@/public/assets/svg/assignments/coin.svg";
-import StarAssignmentSVG from "@/public/assets/svg/assignments/star.svg";
+import StarAssignmentSVG from "@/public/assets/svg/assignments/share.svg";
 import TelegramSVG from "@/public/assets/svg/assignments/telegram.svg";
 import ThunderSVG from "@/public/assets/svg/assignments/thunder.svg";
 import ChestSVG from "@/public/assets/svg/chest-light.svg";

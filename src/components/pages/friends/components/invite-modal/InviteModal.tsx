@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { Card } from "@/components/common";
@@ -13,6 +12,7 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CargoImage from "@/public/assets/png/cargo.webp";
@@ -25,6 +25,7 @@ export const InviteModal = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const { handleSelectionChanged } = useHapticFeedback();
+  const cardRef = useRef(null);
 
   const handleCardClick = (index: number) => {
     handleSelectionChanged();
@@ -55,6 +56,7 @@ export const InviteModal = () => {
         <div className="relative mb-8 grid w-full grid-cols-3 gap-2">
           {CARDS.map((card, index) => (
             <Card
+              ref={cardRef}
               key={`buy_friends_card_${index}`}
               buttonText={card.buttonText}
               type={card.type}
@@ -78,41 +80,16 @@ export const InviteModal = () => {
             </Card>
           ))}
         </div>
-        <motion.button
-          whileTap={{ scale: 0.98 }}
-          transition={{
-            type: "spring",
-            stiffness: 200,
-            damping: 20,
-          }}
+        <PrimaryButton
+          variant="secondary"
+          className="w-full uppercase"
           disabled={selectedCard === null}
-          className={classNames(
-            "group z-10 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl shadow-inset-black",
-            { "bg-blue-800 pb-0": selectedCard === null },
-            { "bg-[#0655a4] pb-[3px]": selectedCard !== null },
-          )}
           onClick={() => {
             handleSelectionChanged();
           }}
         >
-          <div
-            className={classNames(
-              "mx-auto flex h-13 w-[99%] items-center justify-center rounded-xl p-[3px] pb-1",
-              { "bg-blue-800 shadow-none": selectedCard === null },
-              { "bg-[#0075ff] shadow-inset-btn": selectedCard !== null },
-            )}
-          >
-            <div
-              className={classNames(
-                "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl p-3 text-center font-black uppercase tracking-wide text-white text-shadow-sm",
-                { "bg-blue-800/100 shadow-none": selectedCard === null },
-                { "bg-white/15 shadow-link": selectedCard !== null },
-              )}
-            >
-              {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
-            </div>
-          </div>
-        </motion.button>
+          {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
+        </PrimaryButton>
       </div>
     </DrawerContent>
   );

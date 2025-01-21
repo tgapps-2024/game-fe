@@ -5,32 +5,18 @@ import Image from "next/image";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
-import { Modal } from "@/components/common";
+import { DrawerClose, DrawerContent } from "@/components/ui/drawer";
 import BackgroundImage from "@/public/assets/png/proposal/1.png";
 import ChestSVG from "@/public/assets/svg/chest.svg";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
-interface IPowerUpModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
+export const PowerUpModal = () => {
   return (
-    <Modal
-      isVisible={isOpen}
-      onClose={onClose}
-      className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75 font-rubik"
-    >
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
-      >
+    <DrawerContent className="relative flex w-full flex-col items-center overflow-hidden rounded-t-3xl bg-blue-800 px-4 pb-8 pt-75 font-rubik">
+      <DrawerClose className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full">
         <CloseIcon />
-      </motion.button>
+      </DrawerClose>
       <div className="absolute inset-0 z-0">
         <Image src={BackgroundImage} alt="" fill objectFit="cover" priority />
       </div>
@@ -85,6 +71,6 @@ export const PowerUpModal = ({ isOpen, onClose }: IPowerUpModalProps) => {
           </div>
         </div>
       </motion.div>
-    </Modal>
+    </DrawerContent>
   );
 };

@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
+import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
@@ -56,12 +57,7 @@ export const InviteBoard: FunctionComponent<Props> = ({ referalsData }) => {
           </div>
         </div>
         <div className="grid grid-cols-[1fr_52px] gap-2">
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className={classNames(
-              "group h-13 w-full cursor-pointer overflow-hidden rounded-2xl border border-black bg-[#0655a4] pb-[3px]",
-            )}
+          <PrimaryButton
             onClick={() => {
               handleSelectionChanged();
               webApp?.openTelegramLink(
@@ -69,21 +65,8 @@ export const InviteBoard: FunctionComponent<Props> = ({ referalsData }) => {
               );
             }}
           >
-            <div
-              className={classNames(
-                "shadow-inner-btn flex h-full w-full items-center justify-center rounded-xl bg-[#0075ff] p-[3px] pb-1",
-              )}
-            >
-              <div
-                className={classNames(
-                  "shadow-a text-stroke-1 flex h-full w-full items-center rounded-xl px-3 py-2.5 font-black text-white text-shadow-sm",
-                  "justify-center bg-white/20",
-                )}
-              >
-                {t(NS.PAGES.FRIENDS.INVITE_BUTTON_TEXT)}
-              </div>
-            </div>
-          </motion.button>
+            {t(NS.PAGES.FRIENDS.INVITE_BUTTON_TEXT)}
+          </PrimaryButton>
           <motion.button
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}

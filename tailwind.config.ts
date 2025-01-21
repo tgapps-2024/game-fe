@@ -52,6 +52,9 @@ export default {
         DEFAULT: "0px 2px 0px black",
         lg: "0 8px 16px #000",
       },
+      backgroundPosition: {
+        "center-top": "center top",
+      },
       spacing: {
         15: "60px",
         25: "100px",
@@ -71,6 +74,7 @@ export default {
         30: "120px",
         38: "152px",
         60: "240px",
+        74: "296px",
         75: "300px",
       },
       colors: {
