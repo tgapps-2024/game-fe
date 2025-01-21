@@ -13,8 +13,8 @@ export default {
     animation: {
       "collect-button-vertical-sway":
         "collect-button-vertical-sway 1s infinite linear",
-      "collect-button-coloring":
-        "collect-button-coloring 1s infinite linear",
+      "collect-button-coloring": "collect-button-coloring 1s infinite linear",
+      "collect-button-locked-coloring": "collect-button-locked-coloring 1s infinite linear",
     },
     keyframes: {
       "collect-button-vertical-sway": {
@@ -31,6 +31,14 @@ export default {
         },
         "50%": {
           fill: "#76FF7A",
+        },
+      },
+      "collect-button-locked-coloring": {
+        "0%, 20%, 80%, 100%": {
+          fill: "#EFC609",
+        },
+        "50%": {
+          fill: "#FFE981",
         },
       },
     },

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
-import { CollectButton, PentagonLockedXS } from "@/components/ui";
+import { CollectButton } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import LevelSvg from "@/public/assets/svg/battle-pass/bp-level.svg";
 import InactiveLevel from "@/public/assets/svg/battle-pass/inactive-level.svg";
@@ -98,20 +98,11 @@ export const ChestRow: FunctionComponent<Props> = ({
         }}
       >
         {!isLowerLevel && (
-          <motion.button
-            className="absolute -top-2 z-20 flex items-center justify-center"
-            whileTap={{ scale: 0.98 }}
-            animate={{
-              y: [0, -5, 0],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <PentagonLockedXS />
-          </motion.button>
+          <CollectButton
+            className="absolute -top-2 z-20"
+            onClick={handleCollect}
+            isLocked
+          />
         )}
         <div className="relative flex h-full w-full flex-col items-center">
           <MysteryChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
