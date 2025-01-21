@@ -14,7 +14,9 @@ export default {
       "collect-button-vertical-sway":
         "collect-button-vertical-sway 1s infinite linear",
       "collect-button-coloring": "collect-button-coloring 1s infinite linear",
-      "collect-button-locked-coloring": "collect-button-locked-coloring 1s infinite linear",
+      "collect-button-locked-coloring":
+        "collect-button-locked-coloring 1s infinite linear",
+      "bp-glow-running": "bp-glow-running 2s infinite linear",
     },
     keyframes: {
       "collect-button-vertical-sway": {
@@ -41,11 +43,33 @@ export default {
           fill: "#FFE981",
         },
       },
+      "bp-glow-running": {
+        "0%, 50%": {
+          transform: "translateX(-120%) rotate(15deg)",
+        },
+        "100%": {
+          transform: "translateX(120%) rotate(15deg)",
+        },
+      },
     },
     extend: {
       backgroundImage: {
         "body-pattern": "linear-gradient(#192632 0%, #0075FF 100%)",
         "settings-pattern": "linear-gradient(#0075FF 50%, #192632 50%)",
+        "bp-regular-item-unlocked-pattern":
+          "linear-gradient(to bottom, #09376B, #093069)",
+        "bp-regular-item-locked-pattern":
+          "linear-gradient(to bottom, #29D6FF, #2596E4)",
+        "bp-premium-item-unlocked-pattern":
+          "linear-gradient(to bottom, #471A6A, #340C62)",
+        "bp-premium-item-locked-pattern":
+          "linear-gradient(to bottom, #EE84FF, #7740F5)",
+        "bp-regular-glow-pattern":
+          "linear-gradient(270deg, #B0FFFF 0%, #FFFFFF 6%, #9AFFFF 21.5%, #30FFFF 100%)",
+        "bp-premium-glow-pattern":
+          "linear-gradient(270deg, #F4B0FF 0%, #FFFFFF 6%, #F2A1FF 21.5%, #EE84FF 100%)",
+        "bp-item-shadow-pattern":
+          "radial-gradient(50% 50% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0.2) 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -64,10 +88,12 @@ export default {
         9.5: "38px",
         11.5: "46px",
         13: "52px",
+        13.5: "54px",
         16: "64px",
         17: "68px",
         18: "72px",
         23: "92px",
+        26: "104px",
         30: "120px",
         38: "152px",
         60: "240px",
