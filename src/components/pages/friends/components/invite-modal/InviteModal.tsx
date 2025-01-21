@@ -17,6 +17,7 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CargoImage from "@/public/assets/png/cargo.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
+import { NotificationEnum } from "@/types/telegram";
 
 import { Badge } from "./components/badge/Badge";
 import { CARDS } from "./cards.data";
@@ -24,7 +25,8 @@ import { CARDS } from "./cards.data";
 export const InviteModal = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
-  const { handleSelectionChanged } = useHapticFeedback();
+  const { handleSelectionChanged, handleNotificationOccurred } =
+    useHapticFeedback();
   const cardRef = useRef(null);
 
   const handleCardClick = (index: number) => {
@@ -85,7 +87,11 @@ export const InviteModal = () => {
           className="w-full uppercase"
           disabled={selectedCard === null}
           onClick={() => {
-            handleSelectionChanged();
+            if (selectedCard === null) {
+              handleSelectionChanged();
+            } else {
+              handleNotificationOccurred(NotificationEnum.ERROR);
+            }
           }}
         >
           {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
