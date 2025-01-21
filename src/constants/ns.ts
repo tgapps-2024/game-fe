@@ -112,6 +112,7 @@ export const NS = {
       COLLECT_PRIZE: "COLLECT_PRIZE",
       LINK_COPIED: "LINK_COPIED",
       PROFIT: "PROFIT",
+      GET: "GET",
       GET_FRIENDS: "GET_FRIENDS",
       CAN_COLLECT: "CAN_COLLECT",
       MODAL: {

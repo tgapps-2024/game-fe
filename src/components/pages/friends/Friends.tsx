@@ -49,7 +49,7 @@ export const Friends = () => {
               </p>
             </div>
           </div>
-          <div className="relative z-10 min-h-full w-full flex-1 bg-blue-800">
+          <div className="relative z-10 min-h-full w-full flex-1 rounded-t-2xl bg-blue-800">
             <motion.div
               className="relative h-[calc(100%+16px)] w-full rounded-t-2xl"
               initial={{ y: "0%" }}
