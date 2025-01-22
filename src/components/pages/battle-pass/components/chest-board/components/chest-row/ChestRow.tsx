@@ -8,8 +8,11 @@ import { CollectButton } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import LevelSvg from "@/public/assets/svg/battle-pass/bp-level.svg";
 import InactiveLevel from "@/public/assets/svg/battle-pass/inactive-level.svg";
-import MysteryChest from "@/public/assets/svg/battle-pass/mystery-chest.svg";
-import RegularChest from "@/public/assets/svg/battle-pass/regular-chest.svg";
+
+import {
+  ChestRowItem,
+  ItemType,
+} from "./components/chest-row-item/ChestRowItem";
 
 type Props = {
   level: number;
@@ -53,16 +56,11 @@ export const ChestRow: FunctionComponent<Props> = ({
           </CollectButton>
         )}
 
-        <div
-          className={classNames("relative flex h-full w-full overflow-hidden")}
-        >
-          <RegularChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
-          <div className="w-26 h-13.5 absolute inset-0 m-auto rounded-full bg-white blur-2xl" />
-          <div className="w-30 h-2.5 absolute inset-x-0 m-auto bottom-[15px] blur-[5px] bg-bp-item-shadow-pattern" />
-          {!isLowerLevel && (
-            <div className="animate-bp-glow-running bg-bp-regular-glow-pattern absolute inset-0 mx-0 my-auto h-60 w-full bg-[length:64px] bg-no-repeat blur-[10px]" />
-          )}
-        </div>
+        <ChestRowItem
+          battlePassLevel={level}
+          currentLevel={currentLevel}
+          itemType={ItemType.Regular}
+        />
         <div className="absolute -right-5 z-10 flex size-10 items-center justify-center">
           {!isLowerLevel ? (
             <LevelSvg className="absolute inset-0" />
@@ -81,7 +79,7 @@ export const ChestRow: FunctionComponent<Props> = ({
       </div>
       <div
         className={classNames(
-          "relative flex h-[120px] items-center justify-center",
+          "relative flex h-30 items-center justify-center",
           {
             "bg-bp-premium-item-unlocked-pattern": isLowerLevel,
             "bg-bp-premium-item-locked-pattern": !isLowerLevel,
@@ -95,14 +93,11 @@ export const ChestRow: FunctionComponent<Props> = ({
             isLocked
           />
         )}
-        <div className="relative flex h-full w-full overflow-hidden">
-          <MysteryChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
-          <div className="w-26 h-13.5 absolute inset-0 m-auto rounded-full bg-white blur-2xl" />
-          <div className="w-30 h-2.5 absolute inset-x-0 m-auto bottom-[15px] blur-[5px] bg-bp-item-shadow-pattern" />
-          {!isLowerLevel && (
-            <div className="animate-bp-glow-running bg-bp-premium-glow-pattern absolute inset-0 mx-0 my-auto h-60 w-full bg-[length:64px] bg-no-repeat blur-[10px]" />
-          )}
-        </div>
+        <ChestRowItem
+          battlePassLevel={level}
+          currentLevel={currentLevel}
+          itemType={ItemType.Mystery}
+        />
       </div>
     </div>
   );

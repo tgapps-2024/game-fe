@@ -45,10 +45,10 @@ export default {
       },
       "bp-glow-running": {
         "0%, 50%": {
-          transform: "translateX(-120%) rotate(15deg)",
+          transform: "translateX(-120%) rotateZ(15deg)",
         },
         "100%": {
-          transform: "translateX(120%) rotate(15deg)",
+          transform: "translateX(120%) rotateZ(15deg)",
         },
       },
     },
@@ -70,6 +70,8 @@ export default {
           "linear-gradient(270deg, #F4B0FF 0%, #FFFFFF 6%, #F2A1FF 21.5%, #EE84FF 100%)",
         "bp-item-shadow-pattern":
           "radial-gradient(50% 50% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0.2) 100%)",
+        "bp-star-glow-pattern":
+          "linear-gradient(270deg, #FF86E5 0%, #FFFFFF 10.5%, rgba(255, 60, 213, 0.15) 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
