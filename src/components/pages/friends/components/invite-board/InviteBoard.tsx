@@ -42,7 +42,7 @@ export const InviteBoard: FunctionComponent<Props> = ({ referalsData }) => {
       transition={{ type: "spring", stiffness: 80, damping: 15 }}
     >
       <div className="flex flex-col gap-3 rounded-2xl border border-b-0 border-solid border-black bg-blue-700 p-4 shadow-[inset_0_-1px_0.5px_0_rgba(255,255,255,0.1)]">
-        <p className="text-stroke-1 text-sm font-extrabold text-white text-shadow-sm">
+        <p className="text-stroke-1 font-extrabold text-white text-shadow-sm">
           {t(NS.PAGES.FRIENDS.INVITE_FRIEND)}
         </p>
         <div className="grid grid-cols-[20px_1fr] items-center gap-2">
@@ -51,7 +51,7 @@ export const InviteBoard: FunctionComponent<Props> = ({ referalsData }) => {
             <span className="text-stroke-1 font-extrabold text-white text-shadow-sm">
               +50.000
             </span>
-            <span className="text-x font-medium text-gray-550">
+            <span className="text-xs font-medium text-gray-550">
               {t(NS.PAGES.FRIENDS.INVITE_DESCRIPTION)}
             </span>
           </div>
