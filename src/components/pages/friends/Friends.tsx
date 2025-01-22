@@ -40,7 +40,7 @@ export const Friends = () => {
     <Drawer>
       <div className="h-screen w-full overflow-y-auto overscroll-contain scroll-smooth bg-blue-800">
         <div className="relative box-border flex min-h-full flex-col pt-74">
-          <div className="bg-center-top pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:100%] bg-no-repeat" />
+          <div className="pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:125%] bg-center-top bg-no-repeat" />
           <div className="relative z-10 w-full">
             <div className="absolute bottom-20 w-full">
               <ProfileHeader profileData={data || ({} as IProfile)} />

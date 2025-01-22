@@ -18,7 +18,8 @@ body {
   @apply font-rubik;
   height: 100%;
   overflow: hidden;
-  overscroll-behavior: none;scrollbar-width: none;
+  overscroll-behavior: none;
+  scrollbar-width: none;
 }
 
 @media (prefers-color-scheme: dark) {
