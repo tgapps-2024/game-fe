@@ -3,7 +3,6 @@ import React, { FunctionComponent } from "react";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
-import { motion } from "framer-motion";
 
 import { CollectButton } from "@/components/ui";
 import { NS } from "@/constants/ns";
@@ -30,25 +29,20 @@ export const ChestRow: FunctionComponent<Props> = ({
   };
 
   const isLowerLevel = currentLevel < level;
+  const isCurrentLevel = currentLevel === level;
 
   return (
     <div className="relative grid w-full grid-cols-[1fr_1.2fr] gap-0.5">
-      <motion.div
+      <div
         className={classNames(
-          "relative flex h-[120px] items-center justify-center",
+          "relative flex h-30 items-center justify-center",
+          {
+            "bg-bp-regular-item-unlocked-pattern": isLowerLevel,
+            "bg-bp-regular-item-locked-pattern": !isLowerLevel,
+          },
         )}
-        initial={{ backgroundPosition: "top" }}
-        animate={{
-          background: isLowerLevel
-            ? "linear-gradient(to bottom, #09376B, #093069)"
-            : "linear-gradient(to bottom, #29D6FF, #2596E4)",
-        }}
-        transition={{
-          duration: 1,
-          ease: "easeInOut",
-        }}
       >
-        {!isLowerLevel && (
+        {isCurrentLevel && (
           <CollectButton
             className="absolute -top-2 z-20"
             onClick={handleCollect}
@@ -60,11 +54,14 @@ export const ChestRow: FunctionComponent<Props> = ({
         )}
 
         <div
-          className={classNames(
-            "relative flex h-full w-full items-center justify-center",
-          )}
+          className={classNames("relative flex h-full w-full overflow-hidden")}
         >
-          <RegularChest />
+          <RegularChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
+          <div className="w-26 h-13.5 absolute inset-0 m-auto rounded-full bg-white blur-2xl" />
+          <div className="w-30 h-2.5 absolute inset-x-0 m-auto bottom-[15px] blur-[5px] bg-bp-item-shadow-pattern" />
+          {!isLowerLevel && (
+            <div className="animate-bp-glow-running bg-bp-regular-glow-pattern absolute inset-0 mx-0 my-auto h-60 w-full bg-[length:64px] bg-no-repeat blur-[10px]" />
+          )}
         </div>
         <div className="absolute -right-5 z-10 flex size-10 items-center justify-center">
           {!isLowerLevel ? (
@@ -81,33 +78,32 @@ export const ChestRow: FunctionComponent<Props> = ({
             {level}
           </span>
         </div>
-      </motion.div>
-      <motion.div
+      </div>
+      <div
         className={classNames(
           "relative flex h-[120px] items-center justify-center",
+          {
+            "bg-bp-premium-item-unlocked-pattern": isLowerLevel,
+            "bg-bp-premium-item-locked-pattern": !isLowerLevel,
+          },
         )}
-        initial={{ backgroundPosition: "top" }}
-        animate={{
-          background: isLowerLevel
-            ? "linear-gradient(to bottom, #471A6A, #340C62)"
-            : "linear-gradient(to bottom, #EE84FF, #7740F5)",
-        }}
-        transition={{
-          duration: 1,
-          ease: "easeInOut",
-        }}
       >
-        {!isLowerLevel && (
+        {isCurrentLevel && (
           <CollectButton
             className="absolute -top-2 z-20"
             onClick={handleCollect}
             isLocked
           />
         )}
-        <div className="relative flex h-full w-full flex-col items-center">
+        <div className="relative flex h-full w-full overflow-hidden">
           <MysteryChest className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
+          <div className="w-26 h-13.5 absolute inset-0 m-auto rounded-full bg-white blur-2xl" />
+          <div className="w-30 h-2.5 absolute inset-x-0 m-auto bottom-[15px] blur-[5px] bg-bp-item-shadow-pattern" />
+          {!isLowerLevel && (
+            <div className="animate-bp-glow-running bg-bp-premium-glow-pattern absolute inset-0 mx-0 my-auto h-60 w-full bg-[length:64px] bg-no-repeat blur-[10px]" />
+          )}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

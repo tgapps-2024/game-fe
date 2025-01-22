@@ -9,7 +9,7 @@ import { ChestRow } from "./components/chest-row/ChestRow";
 
 const INITIAL_POSITION = 116;
 const STEP_POSITION = 122;
-const CURRENT_LEVEL = 6;
+const CURRENT_LEVEL = 3;
 const MAX_LEVEL = 20;
 
 export const ChestBoard = () => {
