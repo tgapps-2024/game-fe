@@ -5,6 +5,7 @@ import { useTelegram } from "@/context";
 
 import { BattlePassHeader } from "./components/battle-pass-header/BattlePassHeader";
 import { Timer } from "./components/battle-pass-header/timer/Timer";
+import { BottomMenu } from './components/bottom-menu/BottomMenu';
 import { ChestBoard } from "./components/chest-board/ChestBoard";
 import { LevelComponent } from "./components/level-component/LevelComponent";
 
@@ -25,6 +26,7 @@ export const BattlePass = () => {
       <Timer />
       <LevelComponent />
       <ChestBoard />
+      <BottomMenu />
     </div>
   );
 };
