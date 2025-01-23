@@ -1,15 +1,11 @@
-import PrimaryBackground from "@/public/assets/svg/assignments/bg-1.svg";
-import SecondaryBackground from "@/public/assets/svg/assignments/bg-2.svg";
-import TertiaryBackground from "@/public/assets/svg/assignments/bg-3.svg";
-
 type BackgroundMapType = {
   [key: number]: string;
 };
 
 export const MAP_BACKGROUNDS: BackgroundMapType = {
-  0: PrimaryBackground,
-  1: SecondaryBackground,
-  2: TertiaryBackground,
-  3: PrimaryBackground,
-  4: SecondaryBackground,
+  0: "assets/png/assignments/bg-1.webp",
+  1: "assets/png/assignments/bg-2.webp",
+  2: "assets/png/assignments/bg-3.webp",
+  3: "assets/png/assignments/bg-1.webp",
+  4: "assets/png/assignments/bg-2.webp",
 };
