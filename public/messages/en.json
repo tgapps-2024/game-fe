@@ -12,7 +12,8 @@
       "DESTRUCTIVE": "I'm notified of an error. Just do something about it.",
       "DONE": "I'm notified of success. All good, no errors there.",
       "WARNING": "I'm a warning toast. Just take a look."
-    }
+    },
+    "OK": "OK"
   },
   "SETTINGS": {
     "TITLE": "Settings",

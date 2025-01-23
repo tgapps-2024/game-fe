@@ -72,6 +72,8 @@ export default {
           "radial-gradient(50% 50% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0.2) 100%)",
         "bp-star-glow-pattern":
           "linear-gradient(270deg, #FF86E5 0%, #FFFFFF 10.5%, rgba(255, 60, 213, 0.15) 100%)",
+        "bp-bottom-menu-pattern":
+          "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -180,6 +182,7 @@ export default {
           "inset 0 1.5px 0.5px rgba(136, 51, 8, 0.6), -1px 1px 1px rgba(255, 255, 255, 0.6), 1px 1px 1px rgba(255, 255,255 ,0.6)",
         "inner-light":
           "inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
+        "bp-bottom-menu": "0px 4px 4px 0px rgba(255, 255, 255, 0.25) inset",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
