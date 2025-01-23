@@ -20,10 +20,7 @@ export const Clock: FunctionComponent = () => {
         <div className="absolute -right-[1px] size-[3.73px] rounded-l-full bg-[#883308]" />
         <div className="absolute -bottom-[1px] size-[3.73px] -rotate-90 rounded-r-full bg-[#883308]" />
         <div className="absolute -top-[1px] size-[3.73px] rotate-90 rounded-r-full bg-[#883308]" />
-        <motion.div
-          className="absolute bottom-1/2 h-[5.5px] w-[1.5px] rounded-full bg-[#883308]"
-          style={{ translateY: "-0.3px", translateX: "0.15px" }}
-        />
+        <div className="absolute bottom-1/2 h-[5.5px] w-[1.5px] rounded-full bg-[#883308]" />
         <div className="size-1 rounded-full bg-[#883308]" />
         <motion.div
           className="absolute h-[7.5px] w-[1.5px] origin-bottom rounded-full bg-[#883308]"

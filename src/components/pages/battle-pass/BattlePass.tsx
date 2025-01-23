@@ -1,4 +1,4 @@
-import React from "react";
+import React, { UIEvent, useState } from "react";
 
 import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
@@ -11,6 +11,7 @@ import { LevelComponent } from "./components/level-component/LevelComponent";
 
 export const BattlePass = () => {
   const { webApp } = useTelegram();
+  const [bgScaleDelta, setBgScaleDelta] = useState(0);
 
   if (!webApp || !webApp.initDataUnsafe?.user) {
     return (
@@ -20,9 +21,22 @@ export const BattlePass = () => {
     );
   }
 
+  const onScroll = (e: UIEvent<HTMLDivElement>) => {
+    const { scrollTop } = e.target as HTMLDivElement;
+
+    if (scrollTop <= 0) {
+      setBgScaleDelta(Math.abs(scrollTop) * 2);
+    } else {
+      setBgScaleDelta(0);
+    }
+  };
+
   return (
-    <div className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800">
-      <BattlePassHeader />
+    <div
+      className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800 pt-[56.25%]"
+      onScroll={onScroll}
+    >
+      <BattlePassHeader bgScaleDelta={bgScaleDelta} />
       <Timer />
       <LevelComponent />
       <ChestBoard />

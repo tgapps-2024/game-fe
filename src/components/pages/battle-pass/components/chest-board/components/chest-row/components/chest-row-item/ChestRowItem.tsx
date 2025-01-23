@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from "react";
 
+import Image from "next/image";
+
 import classNames from "classnames";
 
-import MysteryChest from "@/public/assets/svg/battle-pass/mystery-chest.svg";
-import RegularChest from "@/public/assets/svg/battle-pass/regular-chest.svg";
+import MysteryChest from "@/public/assets/png/battle-pass/mystery-chest.png";
+import RegularChest from "@/public/assets/png/battle-pass/regular-chest.png";
 
 export enum ItemType {
   Regular,
@@ -24,22 +26,29 @@ export const ChestRowItem: FunctionComponent<Props> = ({
   const isLowerLevel = currentLevel < battlePassLevel;
   const isMystery = itemType === ItemType.Mystery;
 
-  let ChestIcon;
+  let ChestImage;
 
   switch (itemType) {
     case ItemType.Mystery:
-      ChestIcon = MysteryChest;
+      ChestImage = MysteryChest;
       break;
     default:
-      ChestIcon = RegularChest;
+      ChestImage = RegularChest;
       break;
   }
 
   return (
-    <div className="relative flex h-full w-full overflow-hidden">
-      <ChestIcon className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2" />
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
       <div className="absolute inset-0 m-auto h-13.5 w-26 rounded-full bg-white blur-2xl" />
       <div className="absolute inset-x-0 bottom-[15px] m-auto h-2.5 w-30 bg-bp-item-shadow-pattern blur-[5px]" />
+      <div className="z-10 h-20 w-20">
+        <Image
+          src={ChestImage}
+          alt=""
+          objectFit="contain"
+          quality={100}
+        />
+      </div>
       {!isLowerLevel && (
         <div
           className={classNames(
