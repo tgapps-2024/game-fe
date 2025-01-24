@@ -9,14 +9,14 @@ export const Pentagon = (props: SVGProps<SVGSVGElement>) => (
     preserveAspectRatio="xMidYMid meet"
     {...props}
   >
-    <g clipPath="url(#a)">
-      <g filter="url(#b)">
+    <g clipPath="url(#pentagon-a)">
+      <g filter="url(#pentagon-b)">
         <path
           fill="#009F00"
           d="M0 8a8 8 0 0 1 8-8h96a8 8 0 0 1 8 8v18.71a8 8 0 0 1-6.813 7.912l-48 7.2a8 8 0 0 1-2.374 0l-48-7.2A8 8 0 0 1 0 26.71V8Z"
         />
       </g>
-      <g filter="url(#c)">
+      <g>
         <path
           fill="#02DB07"
           d="M0 8a8 8 0 0 1 8-8h96a8 8 0 0 1 8 8v16.45a8 8 0 0 1-6.772 7.906l-48 7.453a8 8 0 0 1-2.456 0l-48-7.453A8 8 0 0 1 0 24.451V8Z"
@@ -30,7 +30,7 @@ export const Pentagon = (props: SVGProps<SVGSVGElement>) => (
     </g>
     <defs>
       <filter
-        id="b"
+        id="pentagon-b"
         x="-10%"
         y="-10%"
         width="120%"
@@ -57,7 +57,7 @@ export const Pentagon = (props: SVGProps<SVGSVGElement>) => (
           result="shape"
         />
       </filter>
-      <clipPath id="a">
+      <clipPath id="pentagon-a">
         <rect width={112} height={44} fill="#fff" rx={8} />
       </clipPath>
     </defs>
