@@ -11,12 +11,11 @@ export const BottomMenu = () => {
   const { back } = useRouter();
 
   return (
-    <div
-      className="shadow-bp-bottom-menu fixed bottom-0 flex h-26 w-full items-center justify-center bg-bp-bottom-menu-pattern z-30"
-      onClick={back}
-    >
+    <div className="fixed bottom-0 z-30 flex h-26 w-full justify-center bg-bp-bottom-menu-pattern py-3 shadow-bp-bottom-menu">
       <div>
-        <PrimaryButton>{t(NS.COMMON.OK)}</PrimaryButton>
+        <PrimaryButton className="h-14 w-[95px]" onClick={back}>
+          {t(NS.COMMON.OK)}
+        </PrimaryButton>
       </div>
     </div>
   );

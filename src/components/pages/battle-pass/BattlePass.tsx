@@ -33,7 +33,7 @@ export const BattlePass = () => {
 
   return (
     <div
-      className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800 pt-[56.25%]"
+      className="h-screen max-h-screen w-full overflow-y-auto overscroll-contain bg-blue-800 pt-[56.25%] pb-26"
       onScroll={onScroll}
     >
       <BattlePassHeader bgScaleDelta={bgScaleDelta} />

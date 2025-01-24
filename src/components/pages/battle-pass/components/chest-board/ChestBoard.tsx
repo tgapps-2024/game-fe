@@ -55,7 +55,7 @@ export const ChestBoard = () => {
           >
             <Star className="absolute left-[45%] translate-x-[-17px] translate-y-[-16px]" />
             <div className="h-1.5 w-full bg-[#FFCE08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),inset_0_-1px_0.5px_0_rgba(255,255,255,0.3)]" />
-            <div className="h-0.5 w-full bg-[#E88C0E] shadow-[0_4px_12px_0_rgba(0,0,0,0.6),0_2px_0_0_rgba(255,255,255,0.5)]" />
+            <div className="h-0.5 w-full bg-[#000]" />
           </div>
         ) : null}
         {renderChestRows(MAX_LEVEL)}
