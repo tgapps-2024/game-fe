@@ -4,10 +4,9 @@ import { useTranslations } from "next-intl";
 
 import { motion } from "framer-motion";
 
-import { ProfileHeader, Spinner } from "@/components/common";
+import { PageWrapper, ProfileHeader } from "@/components/common";
 import { Drawer } from "@/components/ui/drawer";
 import { NS } from "@/constants/ns";
-import { useTelegram } from "@/context";
 import { useGetProfile, useGetReferals } from "@/services/profile/queries";
 import { IProfile, IReferals } from "@/services/profile/types";
 
@@ -18,27 +17,16 @@ import { InviteModal } from "./components/invite-modal/InviteModal";
 
 export const Friends = () => {
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
-  const { webApp } = useTelegram();
   const { data, isPending } = useGetProfile();
   const { data: referalData, isPending: isPendingReferalData } =
     useGetReferals();
 
-  if (
-    !webApp ||
-    !webApp.initDataUnsafe?.user ||
-    isPending ||
-    isPendingReferalData
-  ) {
-    return (
-      <div className="flex h-screen max-h-screen w-full items-center justify-center overflow-y-auto overscroll-contain bg-blue-800 py-10">
-        <Spinner className="mx-auto stroke-white" />
-      </div>
-    );
-  }
-
   return (
     <Drawer>
-      <div className="h-screen w-full overflow-y-auto overscroll-contain scroll-smooth bg-blue-800">
+      <PageWrapper
+        className="scroll-smooth bg-blue-800"
+        isLoading={isPending || isPendingReferalData}
+      >
         <div className="relative box-border flex min-h-full flex-col pt-74">
           <div className="pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:125%] bg-center-top bg-no-repeat" />
           <div className="relative z-10 w-full">
@@ -63,7 +51,7 @@ export const Friends = () => {
           <InviteButton />
         </div>
         <InviteModal />
-      </div>
+      </PageWrapper>
     </Drawer>
   );
 };
