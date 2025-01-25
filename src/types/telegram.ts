@@ -50,6 +50,13 @@ interface IBackButton {
   hide(): void;
 }
 
+interface IAreaInsets {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
 export enum NotificationEnum {
   ERROR = "error",
   SUCCESS = "success",
@@ -81,12 +88,15 @@ export interface IWebApp {
   isClosingConfirmationEnabled: boolean;
   headerColor: string;
   backgroundColor: string;
+  contentSafeAreaInset: IAreaInsets;
+  safeAreaInset: IAreaInsets;
   openLink: (url: string, options?: { try_instant_view?: boolean }) => void;
   SettingsButton: ISettingsButton;
   HapticFeedback: HapticFeedback;
   lockOrientation: () => void;
   ready: () => void;
   requestFullscreen: () => void;
+  exitFullscreen: () => void;
   BackButton: IBackButton;
   disableVerticalSwipes: () => void;
   enableClosingConfirmation: () => void;
