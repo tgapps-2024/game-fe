@@ -1,6 +1,7 @@
 import React, { createElement, FunctionComponent, useState } from "react";
 
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
@@ -12,13 +13,17 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import ExternalSVG from "@/public/assets/svg/external.svg";
-import { ITask } from "@/services/tasks/types";
+import { ITask, TaskType } from "@/services/tasks/types";
 import { formatNumber } from "@/utils/number";
 
 import { ASSIGNMENTS_ICONS, REWARD_ICONS } from "../../../../constants";
+
+import { CHECK_TASKS_MODAL_TID, VERIFIED_TYPES } from "./constants";
 
 type Props = Pick<ITask, "type" | "title" | "reward">;
 
@@ -27,13 +32,48 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   title,
   reward,
 }) => {
+  const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
   const [isClicked, setIsClicked] = useState(false);
   const { handleSelectionChanged } = useHapticFeedback();
+  const { webApp } = useTelegram();
 
-  const handleClicked = () => {
+  const handleClicked = (hasVerify: boolean = false) => {
     handleSelectionChanged();
-    setIsClicked(true);
+
+    if (hasVerify) {
+      setIsClicked(true);
+    }
+
+    switch (type) {
+      case TaskType.SOCIAL_SUB:
+        webApp?.openTelegramLink(process.env.NEXT_PUBLIC_CHANNEL_SOURCE || "");
+        break;
+      case TaskType.TON_PROMOTE:
+        // Call the method specific to TON_PROMOTE
+        break;
+      case TaskType.STORIES_REPLY:
+        webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
+        break;
+      case TaskType.ADD_TO_HOME:
+        webApp?.addToHomeScreen();
+        break;
+      case TaskType.EMOJI_SET:
+        webApp?.setEmojiStatus(process.env.NEXT_PUBLIC_CUSTOM_EMOJI_ID || "");
+        break;
+      case TaskType.DONATE:
+        // Call the method specific to DONATE
+        break;
+      case TaskType.WALLET_CONNECT:
+        // Call the method specific to WALLET_CONNECT
+        break;
+      case TaskType.BOOST_CHANNEL:
+        // Call the method specific to BOOST_CHANNEL
+        break;
+      default:
+        // Handle any other cases
+        break;
+    }
   };
 
   return (
@@ -72,18 +112,23 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
                 id: 1,
                 description: (
                   <div className="flex flex-col gap-1">
-                    <p className="text-xs font-medium leading-none text-gray-550">
-                      Выполните задание
+                    <p className="text-sm font-medium leading-none text-gray-550">
+                      {t(
+                        `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
+                      )}
                     </p>
                     <button
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleClicked();
-                        window.open("https://t.me/noname_channel", "_blank");
-                      }}
-                      className="text-stroke-1 flex items-baseline gap-1 text-sm font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
+                      // onClick={(event) => {
+                      //   event.preventDefault();
+                      //   handleClicked();
+                      //   window.open("https://t.me/noname_channel", "_blank");
+                      // }}
+                      onClick={() =>
+                        handleClicked(VERIFIED_TYPES.includes(type))
+                      }
+                      className="text-stroke-1 flex items-baseline gap-1 font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
                     >
-                      boost noname channel
+                      {t(CHECK_TASKS_MODAL_TID[type])}
                       <ExternalSVG className="size-4" />
                     </button>
                   </div>
@@ -93,8 +138,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
                 id: 2,
                 description: (
                   <div className="flex flex-col gap-1">
-                    <p className="text-xs font-medium leading-none text-gray-550">
-                      Нажмите ниже, чтобы отправить его на проверку.
+                    <p className="text-sm font-medium leading-none text-gray-550">
+                      {t(
+                        `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
+                      )}
                     </p>
                   </div>
                 ),
@@ -102,7 +149,9 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
             ]}
           />
           <PrimaryButton className="uppercase" disabled={!isClicked}>
-            Проверить задание
+            {t(
+              `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.BUTTON}`,
+            )}
           </PrimaryButton>
         </div>
       </DrawerContent>
