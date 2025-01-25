@@ -1,17 +1,20 @@
-import React from "react";
-
-import Image from "next/image";
+import React, { FunctionComponent } from "react";
 
 import classNames from "classnames";
 
-import BPBackground from "@/public/assets/png/battle-pass/bp-bg.png";
+type Props = {
+  bgScaleDelta: number;
+};
 
-export const BattlePassHeader = () => {
+export const BattlePassHeader: FunctionComponent<Props> = ({ bgScaleDelta }) => {
   return (
     <div className="relative w-full">
-      <div className="relative aspect-[13/8] object-contain">
-        <Image src={BPBackground} fill priority alt="" />
-      </div>
+      <div
+        className="fixed inset-0 bg-[url('/assets/png/battle-pass/bg.webp')] bg-no-repeat bg-center-top"
+        style={{
+          backgroundSize: `calc(100% + ${bgScaleDelta}px)`,
+        }}
+      />
       <div className="absolute bottom-[5px] w-full">
         <div className="mx-auto w-fit rounded-t-2xl bg-[#FFCE08] p-1">
           <div

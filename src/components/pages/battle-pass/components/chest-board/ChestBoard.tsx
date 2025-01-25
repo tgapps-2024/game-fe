@@ -7,7 +7,7 @@ import { Star } from "./components/star/Star";
 const INITIAL_POSITION = 116;
 const STEP_POSITION = 122;
 const CURRENT_LEVEL = 3;
-const MAX_LEVEL = 20;
+const MAX_LEVEL = 50;
 
 export const ChestBoard = () => {
   const [level, setLevel] = useState(CURRENT_LEVEL);
@@ -42,7 +42,7 @@ export const ChestBoard = () => {
       });
 
   return (
-    <div className="relative -top-7 left-0 w-full">
+    <div className="relative left-0 w-full bg-blue-800">
       <div className="flex flex-col">
         <div className="h-1.5 w-full bg-[#FFCE08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),inset_0_-1px_0.5px_0_rgba(255,255,255,0.3)]" />
         <div className="relative z-20 h-0.5 w-full bg-[#E88C0E] shadow-[0_4px_12px_0_rgba(0,0,0,0.6),0_2px_0_0_rgba(0,0,0,0.5)]" />
@@ -50,12 +50,12 @@ export const ChestBoard = () => {
       <div className="relative flex flex-col gap-0.5">
         {!level || level < MAX_LEVEL ? (
           <div
-            className="absolute left-0 z-20 flex w-full flex-col items-center"
+            className="absolute left-0 z-20 flex w-full flex-col items-center pb-0.5 bg-black"
             style={{ top: `${collectedPrizes}px` }}
           >
-            <Star className="absolute translate-x-[-17px_] translate-y-[-16px] left-[45%]" />
+            <Star className="absolute left-[45%] translate-x-[-17px] translate-y-[-16px]" />
             <div className="h-1.5 w-full bg-[#FFCE08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),inset_0_-1px_0.5px_0_rgba(255,255,255,0.3)]" />
-            <div className="h-0.5 w-full bg-[#E88C0E] shadow-[0_4px_12px_0_rgba(0,0,0,0.6),0_2px_0_0_rgba(255,255,255,0.5)]" />
+            <div className="h-0.5 w-full bg-[#a6552d]" />
           </div>
         ) : null}
         {renderChestRows(MAX_LEVEL)}

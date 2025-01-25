@@ -16,6 +16,7 @@ export const NS = {
       DONE: "DONE",
       WARNING: "WARNING",
     },
+    OK: "OK"
   },
   PAGES: {
     SETTINGS: {

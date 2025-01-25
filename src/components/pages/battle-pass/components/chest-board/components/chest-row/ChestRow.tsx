@@ -6,8 +6,8 @@ import classNames from "classnames";
 
 import { CollectButton } from "@/components/ui";
 import { NS } from "@/constants/ns";
-import LevelSvg from "@/public/assets/svg/battle-pass/bp-level.svg";
-import InactiveLevel from "@/public/assets/svg/battle-pass/inactive-level.svg";
+
+import { Level } from "../../../level/Level";
 
 import {
   ChestRowItem,
@@ -61,21 +61,11 @@ export const ChestRow: FunctionComponent<Props> = ({
           currentLevel={currentLevel}
           itemType={ItemType.Regular}
         />
-        <div className="absolute -right-5 z-10 flex size-10 items-center justify-center">
-          {!isLowerLevel ? (
-            <LevelSvg className="absolute inset-0" />
-          ) : (
-            <InactiveLevel className="absolute inset-0" />
-          )}
-          <span
-            className={classNames(
-              "text-stroke-1 relative z-10 ml-1 mt-1 text-sm font-black leading-none text-white text-shadow-sm",
-              { "ml-0.5 mt-0.5": isLowerLevel },
-            )}
-          >
-            {level}
-          </span>
-        </div>
+        <Level
+          className="absolute z-10 -right-[22px]"
+          level={level}
+          isInactive={isLowerLevel}
+        />
       </div>
       <div
         className={classNames(

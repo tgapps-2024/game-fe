@@ -40,8 +40,8 @@ export const GreenArea = () => (
       <path
         d="M0.25 6C0.25 2.82436 2.82436 0.25 6 0.25H54C57.1756 0.25 59.75 2.82436 59.75 6V16.6754C59.75 19.1504 58.1663 21.3477 55.8183 22.1304L31.8183 30.1304C30.638 30.5238 29.362 30.5238 28.1817 30.1304L4.18169 22.1304C1.83372 21.3477 0.25 19.1504 0.25 16.6754V6Z"
         stroke="black"
-        stroke-opacity="0.6"
-        stroke-width="0.5"
+        strokeOpacity="0.6"
+        strokeWidth="0.5"
       />
     </g>
     <defs>
@@ -52,9 +52,9 @@ export const GreenArea = () => (
         width={60}
         height={29.1758}
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend
           mode="normal"
           in="SourceGraphic"

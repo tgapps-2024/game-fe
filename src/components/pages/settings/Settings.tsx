@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
+import { PageWrapper } from "@/components/common";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
@@ -39,10 +40,6 @@ export const Settings: FC = () => {
   const { data } = useGetProfile();
   const { handleSelectionChanged } = useHapticFeedback();
 
-  if (!webApp || !webApp.initDataUnsafe?.user) {
-    return null;
-  }
-
   const handleOpenTon = () => {
     handleSelectionChanged();
     tonConnectUI?.openModal();
@@ -53,11 +50,11 @@ export const Settings: FC = () => {
     tonConnectUI?.disconnect();
   };
 
-  const { first_name, photo_url } = webApp.initDataUnsafe.user;
+  const { first_name, photo_url } = webApp?.initDataUnsafe.user || {};
 
   return (
-    <div className="h-screen w-full overflow-y-auto overscroll-contain bg-settings-pattern">
-      <div className="relative flex flex-col items-center pt-10">
+    <PageWrapper className="bg-settings-pattern pt-10">
+      <div className="relative flex flex-col items-center">
         <div className="h-34" />
         <div className="w-full">
           <div
@@ -68,7 +65,7 @@ export const Settings: FC = () => {
           >
             <div className={classNames("relative p-4 pt-[78px]")}>
               <ProfileHeader
-                first_name={first_name}
+                first_name={first_name || ""}
                 photo_url={photo_url || ""}
               />
               <LevelIndicator
@@ -144,6 +141,6 @@ export const Settings: FC = () => {
         onClose={() => setTonDisconnectModalVisible(false)}
         onDisconnect={handleDisconnect}
       />
-    </div>
+    </PageWrapper>
   );
 };
