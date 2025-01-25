@@ -13,15 +13,20 @@ import { ITask, TaskType } from "@/services/tasks/types";
 import { DoubleCheck } from "./components/double-check/DoubleCheck";
 import { MainContent } from "./components/main-content/MainContent";
 
-type Props = Pick<ITask, "type" | "title" | "reward">;
+type Props = Pick<ITask, "type" | "title" | "reward" | "id"> & {
+  onClose: () => void;
+};
 
 export const CheckTaskModal: FunctionComponent<Props> = ({
   type,
   title,
   reward,
+  id,
+  onClose,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
 
@@ -74,7 +79,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           <CloseIcon />
         </DrawerClose>
         {isChecked ? (
-          <DoubleCheck onCheck={handleCheck} />
+          <DoubleCheck id={id} onClose={onClose} onCheck={handleCheck} />
         ) : (
           <MainContent
             isClicked={isClicked}

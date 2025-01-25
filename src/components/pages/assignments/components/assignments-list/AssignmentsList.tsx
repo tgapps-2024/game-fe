@@ -1,10 +1,8 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { ConfirmationModal } from "@/components/common";
 import { NS } from "@/constants/ns";
-import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { ITask } from "@/services/tasks/types";
 
 import { ListItem } from "./components/list-item/ListItem";
@@ -20,13 +18,6 @@ export const AssignmentsList: FunctionComponent<Props> = ({
   list,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
-  const [isSecondaryModalOpen, setIsSecondaryModalOpen] = useState(false);
-  const { handleSelectionChanged } = useHapticFeedback();
-
-  const handleConfirmationModalOpen = () => {
-    handleSelectionChanged();
-    setIsSecondaryModalOpen(true);
-  };
 
   return (
     <>
@@ -39,17 +30,12 @@ export const AssignmentsList: FunctionComponent<Props> = ({
             {list.length}
           </div>
         </div>
-        <ul className="rounded-[18px] border border-solid border-white/10 bg-blue-700 px-4 py-3">
+        <ul className="overflow-hidden rounded-[18px] border border-solid border-white/10 bg-blue-700">
           {list.map((item) => (
             <ListItem key={item.id} {...item} />
           ))}
         </ul>
       </div>
-
-      <ConfirmationModal
-        isOpen={isSecondaryModalOpen}
-        onClose={handleConfirmationModalOpen}
-      />
     </>
   );
 };

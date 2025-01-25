@@ -4,23 +4,66 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
-import { DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
+import {
+  DrawerClose,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import ErrorImage from "@/public/assets/png/assignments/error404.webp";
 import DividerSVG from "@/public/assets/svg/divider.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { useSetCompleteTask } from "@/services/tasks/queries";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
+  id: string;
   onCheck: () => void;
+  onClose: () => void;
 };
 
-export const DoubleCheck: FunctionComponent<Props> = ({ onCheck }) => {
+export const DoubleCheck: FunctionComponent<Props> = ({
+  id,
+  onCheck,
+  onClose,
+}) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
+  const queryClient = useQueryClient();
+
+  const { mutate: setCompleteTask, isPending } =
+    useSetCompleteTask(queryClient);
+
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 },
+  };
+
+  const handleTaskComplete = () => {
+    setCompleteTask(id, {
+      onSuccess: () => {
+        onClose();
+        toast(<Toast type="done" text="Задание выполнено 🚀" />);
+      },
+      onError: () => {
+        toast(<Toast type="destructive" text="Что-то пошло не так" />);
+      },
+    });
+  };
 
   return (
-    <>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={variants}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col items-center"
+    >
       <div className="relative mb-6 aspect-video w-full">
         <Image src={ErrorImage} alt="error" fill />
       </div>
@@ -62,11 +105,18 @@ export const DoubleCheck: FunctionComponent<Props> = ({ onCheck }) => {
           </span>
         </div>
       </div>
-      <PrimaryButton size="large">
-        {t(
-          `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.BUTTON}`,
-        )}
-      </PrimaryButton>
+      <DrawerClose className="w-full">
+        <PrimaryButton
+          isLoading={isPending}
+          size="large"
+          className="uppercase"
+          onClick={handleTaskComplete}
+        >
+          {t(
+            `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.BUTTON}`,
+          )}
+        </PrimaryButton>
+      </DrawerClose>
       <motion.button
         whileTap={{ scale: 0.98 }}
         transition={{
@@ -75,12 +125,12 @@ export const DoubleCheck: FunctionComponent<Props> = ({ onCheck }) => {
           damping: 20,
         }}
         onClick={onCheck}
-        className="text-sm font-bold uppercase leading-none tracking-wide text-white"
+        className="mt-5 text-sm font-bold uppercase leading-none tracking-wide text-white"
       >
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DOUBLE_CHECK}`,
         )}
       </motion.button>
-    </>
+    </motion.div>
   );
 };

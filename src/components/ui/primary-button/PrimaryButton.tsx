@@ -3,6 +3,8 @@ import React, { FunctionComponent } from "react";
 import classNames from "classnames";
 import { HTMLMotionProps, motion } from "framer-motion";
 
+import { Spinner } from "@/components/common";
+
 type Variant = "primary" | "secondary";
 
 type Size = "small" | "medium" | "large";
@@ -12,6 +14,7 @@ type Props = {
   variant?: Variant;
   size?: Size;
   buttonClassName?: string;
+  isLoading?: boolean;
 } & HTMLMotionProps<"button">;
 
 export const PrimaryButton: FunctionComponent<Props> = ({
@@ -21,6 +24,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   disabled = false,
   buttonClassName,
   className,
+  isLoading = false,
   ...props
 }) => {
   return (
@@ -65,7 +69,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
             className,
           )}
         >
-          {children}
+          {isLoading ? <Spinner /> : children}
         </div>
       </div>
     </motion.button>

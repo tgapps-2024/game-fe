@@ -8,3 +8,11 @@ export const getTasks = async (): Promise<ITasks> => {
 
   return data;
 };
+
+export const setCompleteTask = async (idTask: string) => {
+  const { data } = await apiClient.post(API_ENDPOINTS.POST.SET_TASK_COMPLETE, {
+    idTask,
+  });
+
+  return data;
+};
