@@ -11,6 +11,7 @@ type Props = {
   children: React.ReactNode;
   variant?: Variant;
   size?: Size;
+  buttonClassName?: string;
 } & HTMLMotionProps<"button">;
 
 export const PrimaryButton: FunctionComponent<Props> = ({
@@ -18,6 +19,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   variant = "primary",
   size = "medium",
   disabled = false,
+  buttonClassName,
   className,
   ...props
 }) => {
@@ -34,6 +36,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
         { "h-10 rounded-xl": size === "small" },
         { "h-13 rounded-2xl": size === "medium" },
         { "h-14 rounded-2xl": size === "large" },
+        buttonClassName,
       )}
       {...props}
     >
