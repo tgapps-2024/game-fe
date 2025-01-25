@@ -1,5 +1,3 @@
-// import { useState } from "react";
-
 import { ProfileHeader } from "@/components/common";
 import { Spinner } from "@/components/common/spinner/Spinner";
 import { useTelegram } from "@/context";
@@ -11,6 +9,7 @@ import { useGetTasks } from "@/services/tasks/queries";
 import { AssignmentsCarousel } from "./components/assignments-carousel/AssignmentsCarousel";
 import { AssignmentsList } from "./components/assignments-list/AssignmentsList";
 import { AssignmentType } from "./components/assignments-list/types";
+import { mockTasks } from "./tasks.data";
 
 export const Assignments = () => {
   const { webApp } = useTelegram();
@@ -36,9 +35,9 @@ export const Assignments = () => {
         <ProfileHeader profileData={data ?? ({} as IProfile)} />
         <AssignmentsCarousel onSlideClick={handleSlideClick} />
         <div className="flex flex-col gap-4">
-          <AssignmentsList list={tasks?.everyday || []} />
+          <AssignmentsList list={tasks?.everyday || mockTasks.everyday} />
           <AssignmentsList
-            list={tasks?.other || []}
+            list={tasks?.other || mockTasks.other}
             type={AssignmentType.ONE_OFF}
           />
         </div>

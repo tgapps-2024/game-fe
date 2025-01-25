@@ -42,12 +42,10 @@ export interface ITask {
       value: number;
     },
   ];
-  penalty: [
-    {
-      type: string;
-      value: number;
-    },
-  ];
+  penalty: {
+    type: string;
+    value: number;
+  }[];
 }
 
 export interface ITasks {
