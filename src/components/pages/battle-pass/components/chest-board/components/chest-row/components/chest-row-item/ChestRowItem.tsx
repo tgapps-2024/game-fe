@@ -45,7 +45,7 @@ export const ChestRowItem: FunctionComponent<Props> = ({
         <Image
           src={ChestImage}
           alt=""
-          objectFit="contain"
+          style={{ objectFit: "contain" }}
           quality={100}
         />
       </div>

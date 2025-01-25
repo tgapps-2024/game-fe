@@ -10,49 +10,49 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    animation: {
-      "collect-button-vertical-sway":
-        "collect-button-vertical-sway 1s infinite linear",
-      "collect-button-coloring": "collect-button-coloring 1s infinite linear",
-      "collect-button-locked-coloring":
-        "collect-button-locked-coloring 1s infinite linear",
-      "bp-glow-running": "bp-glow-running 2s infinite linear",
-    },
-    keyframes: {
-      "collect-button-vertical-sway": {
-        "0%, 100%": {
-          transform: "translateY(-2px)",
-        },
-        "50%": {
-          transform: "translateY(0px)",
-        },
-      },
-      "collect-button-coloring": {
-        "0%, 20%, 80%, 100%": {
-          fill: "#02DB07",
-        },
-        "50%": {
-          fill: "#76FF7A",
-        },
-      },
-      "collect-button-locked-coloring": {
-        "0%, 20%, 80%, 100%": {
-          fill: "#EFC609",
-        },
-        "50%": {
-          fill: "#FFE981",
-        },
-      },
-      "bp-glow-running": {
-        "0%, 50%": {
-          transform: "translateX(-120%) rotateZ(15deg)",
-        },
-        "100%": {
-          transform: "translateX(120%) rotateZ(15deg)",
-        },
-      },
-    },
     extend: {
+      animation: {
+        "collect-button-vertical-sway":
+          "collect-button-vertical-sway 1s infinite linear",
+        "collect-button-coloring": "collect-button-coloring 1s infinite linear",
+        "collect-button-locked-coloring":
+          "collect-button-locked-coloring 1s infinite linear",
+        "bp-glow-running": "bp-glow-running 2s infinite linear",
+      },
+      keyframes: {
+        "collect-button-vertical-sway": {
+          "0%, 100%": {
+            transform: "translateY(-2px)",
+          },
+          "50%": {
+            transform: "translateY(0px)",
+          },
+        },
+        "collect-button-coloring": {
+          "0%, 20%, 80%, 100%": {
+            fill: "#02DB07",
+          },
+          "50%": {
+            fill: "#76FF7A",
+          },
+        },
+        "collect-button-locked-coloring": {
+          "0%, 20%, 80%, 100%": {
+            fill: "#EFC609",
+          },
+          "50%": {
+            fill: "#FFE981",
+          },
+        },
+        "bp-glow-running": {
+          "0%, 50%": {
+            transform: "translateX(-120%) rotateZ(15deg)",
+          },
+          "100%": {
+            transform: "translateX(120%) rotateZ(15deg)",
+          },
+        },
+      },
       backgroundImage: {
         "body-pattern": "linear-gradient(#192632 0%, #0075FF 100%)",
         "settings-pattern": "linear-gradient(#0075FF 50%, #192632 50%)",

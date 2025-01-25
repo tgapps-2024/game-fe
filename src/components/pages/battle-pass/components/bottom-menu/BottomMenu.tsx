@@ -12,8 +12,8 @@ export const BottomMenu = () => {
 
   return (
     <div className="fixed bottom-0 z-30 flex h-26 w-full justify-center bg-bp-bottom-menu-pattern py-3 shadow-bp-bottom-menu">
-      <div>
-        <PrimaryButton className="h-14 w-[95px]" onClick={back}>
+      <div className="h-14 w-[95px]">
+        <PrimaryButton buttonClassName="h-full" onClick={back}>
           {t(NS.COMMON.OK)}
         </PrimaryButton>
       </div>

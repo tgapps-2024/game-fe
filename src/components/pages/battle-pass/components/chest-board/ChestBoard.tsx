@@ -50,12 +50,12 @@ export const ChestBoard = () => {
       <div className="relative flex flex-col gap-0.5">
         {!level || level < MAX_LEVEL ? (
           <div
-            className="absolute left-0 z-20 flex w-full flex-col items-center"
+            className="absolute left-0 z-20 flex w-full flex-col items-center pb-0.5 bg-black"
             style={{ top: `${collectedPrizes}px` }}
           >
             <Star className="absolute left-[45%] translate-x-[-17px] translate-y-[-16px]" />
             <div className="h-1.5 w-full bg-[#FFCE08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),inset_0_-1px_0.5px_0_rgba(255,255,255,0.3)]" />
-            <div className="h-0.5 w-full bg-[#000]" />
+            <div className="h-0.5 w-full bg-[#a6552d]" />
           </div>
         ) : null}
         {renderChestRows(MAX_LEVEL)}
