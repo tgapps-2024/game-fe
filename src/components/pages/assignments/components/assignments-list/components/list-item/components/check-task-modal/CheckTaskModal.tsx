@@ -41,7 +41,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
 
     switch (type) {
       case TaskType.SOCIAL_SUB:
-        webApp?.openTelegramLink(process.env.NEXT_PUBLIC_CHANNEL_SOURCE || "");
+        window.open(process.env.NEXT_PUBLIC_CHANNEL_SOURCE, "_blank");
         break;
       case TaskType.TON_PROMOTE:
         tonConnectUI.sendTransaction({
