@@ -55,7 +55,7 @@ export const Friends = () => {
             backgroundSize: `calc(125% + ${bgScaleDelta}px)`,
           }}
         />
-        <div className="relative box-border flex flex-col">
+        <div className="relative box-border flex h-[90%] flex-col">
           <div className="relative z-10 w-full">
             <ProfileHeader profileData={data || ({} as IProfile)} />
             <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
@@ -64,7 +64,7 @@ export const Friends = () => {
           </div>
           <div className="relative top-20 z-10 w-full flex-1 rounded-t-2xl bg-blue-800">
             <motion.div
-              className="relative h-[calc(100%+16px)] w-full rounded-t-2xl"
+              className="w-full rounded-t-2xl"
               initial={{ y: "0%" }}
               animate={{ y: "-16px" }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}

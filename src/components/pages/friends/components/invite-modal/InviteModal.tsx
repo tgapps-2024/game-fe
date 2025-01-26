@@ -36,7 +36,7 @@ export const InviteModal = () => {
 
   return (
     <DrawerContent className="flex w-full flex-col items-center rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
-      <DrawerClose>
+      <DrawerClose asChild>
         <motion.button
           whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
