@@ -3,9 +3,11 @@ import React, { UIEvent, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 import { PageWrapper, ProfileHeader } from "@/components/common";
 import { Drawer } from "@/components/ui/drawer";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useGetProfile, useGetReferals } from "@/services/profile/queries";
 import { IProfile, IReferals } from "@/services/profile/types";
@@ -19,8 +21,12 @@ export const Friends = () => {
   const [bgScaleDelta, setBgScaleDelta] = useState(0);
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { data, isPending } = useGetProfile();
-  const { data: referalData, isPending: isPendingReferalData } =
-    useGetReferals();
+  const {
+    data: referalData,
+    isPending: isPendingReferalData,
+    isError,
+    error,
+  } = useGetReferals();
 
   const onScroll = (e: UIEvent<HTMLDivElement>) => {
     const { scrollTop } = e.target as HTMLDivElement;
@@ -31,6 +37,10 @@ export const Friends = () => {
       setBgScaleDelta(0);
     }
   };
+
+  if (isError) {
+    toast(<Toast type="destructive" text={"Что-то пошло не так" + error} />);
+  }
 
   return (
     <Drawer>

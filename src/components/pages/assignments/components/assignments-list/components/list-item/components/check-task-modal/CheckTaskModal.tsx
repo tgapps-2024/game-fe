@@ -9,6 +9,7 @@ import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import { ITask, TaskType } from "@/services/tasks/types";
+import { useTonConnectUI } from "@tonconnect/ui-react";
 
 import { DoubleCheck } from "./components/double-check/DoubleCheck";
 import { MainContent } from "./components/main-content/MainContent";
@@ -26,6 +27,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
 }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [tonConnectUI] = useTonConnectUI();
 
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
@@ -42,7 +44,15 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         webApp?.openTelegramLink(process.env.NEXT_PUBLIC_CHANNEL_SOURCE || "");
         break;
       case TaskType.TON_PROMOTE:
-        // Call the method specific to TON_PROMOTE
+        tonConnectUI.sendTransaction({
+          messages: [
+            {
+              address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
+              amount: "1",
+            },
+          ],
+          validUntil: Math.floor(Date.now() / 1000) + 60,
+        });
         break;
       case TaskType.STORIES_REPLY:
         webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
