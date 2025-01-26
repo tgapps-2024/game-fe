@@ -7,6 +7,7 @@ import { useGetTasks } from "@/services/tasks/queries";
 import { AssignmentsCarousel } from "./components/assignments-carousel/AssignmentsCarousel";
 import { AssignmentsList } from "./components/assignments-list/AssignmentsList";
 import { AssignmentType } from "./components/assignments-list/types";
+import { sortTasks } from "./helpers";
 
 export const Assignments = () => {
   const { data: tasks } = useGetTasks();
@@ -23,9 +24,9 @@ export const Assignments = () => {
         <ProfileHeader profileData={data ?? ({} as IProfile)} />
         <AssignmentsCarousel onSlideClick={handleSlideClick} />
         <div className="flex flex-col gap-4">
-          <AssignmentsList list={tasks?.everyday || []} />
+          <AssignmentsList list={sortTasks(tasks?.everyday || [])} />
           <AssignmentsList
-            list={tasks?.other || []}
+            list={sortTasks(tasks?.other || [])}
             type={AssignmentType.ONE_OFF}
           />
         </div>

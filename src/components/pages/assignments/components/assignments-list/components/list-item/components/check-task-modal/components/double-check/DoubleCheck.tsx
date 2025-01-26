@@ -64,7 +64,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
       transition={{ duration: 0.3 }}
       className="flex flex-col items-center"
     >
-      <div className="relative mb-6 aspect-video w-full">
+      <div className="relative mb-6 aspect-video w-[85%]">
         <Image src={ErrorImage} alt="error" fill />
       </div>
 
@@ -105,7 +105,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
           </span>
         </div>
       </div>
-      <DrawerClose className="w-full">
+      <DrawerClose asChild className="w-full">
         <PrimaryButton
           isLoading={isPending}
           size="large"

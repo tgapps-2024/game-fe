@@ -15,8 +15,9 @@ export const NS = {
       DESTRUCTIVE: "DESTRUCTIVE",
       DONE: "DONE",
       WARNING: "WARNING",
+      UPDATE_TELEGRAM: "UPDATE_TELEGRAM",
     },
-    OK: "OK"
+    OK: "OK",
   },
   PAGES: {
     SETTINGS: {

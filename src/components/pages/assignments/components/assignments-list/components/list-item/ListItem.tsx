@@ -26,18 +26,29 @@ export const ListItem: FunctionComponent<Props> = ({
   const [isOpen, setIsOpen] = useState(false);
   const { locale } = useRouter();
 
+  const handleOpenChange = (open: boolean) => {
+    if (status === TaskStatus.COMPLETED) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(open);
+    }
+  };
+
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <li
           className={classNames(
             "border-b border-solid border-white/10 px-4 py-3",
             "last:border-none",
             { "bg-blue-950": status === TaskStatus.COMPLETED },
+            {
+              "cursor-not-allowed": status === TaskStatus.COMPLETED,
+            },
           )}
         >
           <motion.div
-            whileTap={{ scale: 0.99 }}
+            whileTap={{ scale: status === TaskStatus.COMPLETED ? 1 : 0.99 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="grid grid-cols-[32px_1fr_24px] items-center gap-2"
           >

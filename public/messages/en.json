@@ -11,7 +11,8 @@
     "TOAST": {
       "DESTRUCTIVE": "I'm notified of an error. Just do something about it.",
       "DONE": "I'm notified of success. All good, no errors there.",
-      "WARNING": "I'm a warning toast. Just take a look."
+      "WARNING": "I'm a warning toast. Just take a look.",
+      "UPDATE_TELEGRAM": "This method is not supported in the current version of Telegram. Please update the app to the latest version."
     },
     "OK": "OK"
   },

@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 
+import { useTranslations } from "next-intl";
+
 import { toast } from "sonner";
 
 import {
@@ -8,6 +10,7 @@ import {
   DrawerPortal,
 } from "@/components/ui/drawer";
 import { Toast } from "@/components/ui/toast";
+import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
@@ -29,6 +32,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   id,
   onClose,
 }) => {
+  const t = useTranslations(NS.COMMON.ROOT);
   const [isClicked, setIsClicked] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
@@ -36,22 +40,30 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
 
-  const handleClick = async (hasVerify: boolean = false) => {
+  const handleClick = async () => {
     handleSelectionChanged();
 
     if (status === TaskStatus.COMPLETED) {
       return;
     }
 
-    if (hasVerify) {
-      setIsClicked(true);
-    }
-
     switch (type) {
       case TaskType.SOCIAL_SUB:
-        webApp?.openLink(
-          `https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`,
-        );
+        try {
+          webApp?.openTelegramLink(
+            `https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`,
+          );
+          setIsClicked(true);
+        } catch {
+          toast(
+            <Toast
+              type="destructive"
+              text={t(
+                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
+              )}
+            />,
+          );
+        }
         break;
       case TaskType.TON_PROMOTE:
         try {
@@ -65,38 +77,90 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
             validUntil: Date.now() + 1000000,
           });
 
-          toast(<Toast type="done" text="Транзакция отправлена" />, {
-            duration: 5000,
-          });
+          toast(
+            <Toast
+              type="done"
+              text={t(`${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.DONE}`)}
+            />,
+            {
+              duration: 5000,
+            },
+          );
           onClose();
         } catch {
-          toast(<Toast type="destructive" text="Ошибка транзакции" />, {
-            duration: 5000,
-          });
+          toast(
+            <Toast
+              type="destructive"
+              text={t(`${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.DESTRUCTIVE}`)}
+            />,
+            {
+              duration: 5000,
+            },
+          );
         } finally {
           setIsClicked(true);
         }
 
         break;
       case TaskType.STORIES_REPLY:
-        webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
+        try {
+          webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
+          setIsClicked(true);
+        } catch {
+          toast(
+            <Toast
+              type="destructive"
+              text={t(
+                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
+              )}
+            />,
+          );
+        }
         break;
       case TaskType.ADD_TO_HOME:
-        webApp?.addToHomeScreen();
+        try {
+          webApp?.addToHomeScreen();
+          setIsClicked(true);
+        } catch {
+          toast(
+            <Toast
+              type="destructive"
+              text={t(
+                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
+              )}
+            />,
+          );
+        }
         break;
       case TaskType.EMOJI_SET:
-        webApp?.setEmojiStatus(process.env.NEXT_PUBLIC_CUSTOM_EMOJI_ID || "");
+        try {
+          webApp?.setEmojiStatus(process.env.NEXT_PUBLIC_CUSTOM_EMOJI_ID || "");
+          setIsClicked(true);
+        } catch {
+          toast(
+            <Toast
+              type="destructive"
+              text={t(
+                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
+              )}
+            />,
+          );
+        }
         break;
       case TaskType.DONATE:
+        // setIsClicked(true);
         // Call the method specific to DONATE
         break;
       case TaskType.WALLET_CONNECT:
+        // setIsClicked(true);
         // Call the method specific to WALLET_CONNECT
         break;
       case TaskType.BOOST_CHANNEL:
+        // setIsClicked(true);
         // Call the method specific to BOOST_CHANNEL
         break;
       default:
+        // setIsClicked(true);
         // Handle any other cases
         break;
     }
