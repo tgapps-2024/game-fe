@@ -11,13 +11,13 @@ import { Toast } from "@/components/ui/toast";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
-import { ITask, TaskType } from "@/services/tasks/types";
+import { ITask, TaskStatus, TaskType } from "@/services/tasks/types";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 
 import { DoubleCheck } from "./components/double-check/DoubleCheck";
 import { MainContent } from "./components/main-content/MainContent";
 
-type Props = Pick<ITask, "type" | "title" | "reward" | "id"> & {
+type Props = Pick<ITask, "type" | "title" | "reward" | "id" | "status"> & {
   onClose: () => void;
 };
 
@@ -25,6 +25,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   type,
   title,
   reward,
+  status,
   id,
   onClose,
 }) => {
@@ -38,6 +39,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   const handleClick = async (hasVerify: boolean = false) => {
     handleSelectionChanged();
 
+    if (status === TaskStatus.COMPLETED) {
+      return;
+    }
+
     if (hasVerify) {
       setIsClicked(true);
     }
@@ -50,7 +55,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         break;
       case TaskType.TON_PROMOTE:
         try {
-          const result = await tonConnectUI?.sendTransaction({
+          await tonConnectUI?.sendTransaction({
             messages: [
               {
                 address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
@@ -60,8 +65,17 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
             validUntil: Date.now() + 1000000,
           });
 
-          toast(<Toast type="done" text={result.boc} />);
-        } catch {}
+          toast(<Toast type="done" text="Транзакция отправлена" />, {
+            duration: 5000,
+          });
+          onClose();
+        } catch {
+          toast(<Toast type="destructive" text="Ошибка транзакции" />, {
+            duration: 5000,
+          });
+        } finally {
+          setIsClicked(true);
+        }
 
         break;
       case TaskType.STORIES_REPLY:

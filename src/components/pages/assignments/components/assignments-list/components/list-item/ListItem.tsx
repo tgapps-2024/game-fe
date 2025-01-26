@@ -75,6 +75,7 @@ export const ListItem: FunctionComponent<Props> = ({
         type={type}
         title={title}
         reward={reward}
+        status={status}
       />
     </Drawer>
   );
