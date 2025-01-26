@@ -1,10 +1,13 @@
 import React, { FunctionComponent, useState } from "react";
 
+import { toast } from "sonner";
+
 import {
   DrawerClose,
   DrawerContent,
   DrawerPortal,
 } from "@/components/ui/drawer";
+import { Toast } from "@/components/ui/toast";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
@@ -32,7 +35,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
 
-  const handleClick = (hasVerify: boolean = false) => {
+  const handleClick = async (hasVerify: boolean = false) => {
     handleSelectionChanged();
 
     if (hasVerify) {
@@ -44,15 +47,20 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         window.open(process.env.NEXT_PUBLIC_CHANNEL_SOURCE, "_blank");
         break;
       case TaskType.TON_PROMOTE:
-        tonConnectUI.sendTransaction({
-          messages: [
-            {
-              address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
-              amount: "1",
-            },
-          ],
-          validUntil: Math.floor(Date.now() / 1000) + 60,
-        });
+        try {
+          const result = await tonConnectUI.sendTransaction({
+            messages: [
+              {
+                address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
+                amount: "1",
+              },
+            ],
+            validUntil: Date.now() + 1000000,
+          });
+
+          toast(<Toast type="done" text={result.boc} />);
+        } catch {}
+
         break;
       case TaskType.STORIES_REPLY:
         webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
