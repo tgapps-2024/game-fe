@@ -1,17 +1,15 @@
-import React, { UIEvent, useState } from "react";
+import React, { useState } from "react";
 
 import { PageWrapper } from "@/components/common";
 
 import { BattlePassHeader } from "./components/battle-pass-header/BattlePassHeader";
-import { Timer } from "./components/battle-pass-header/timer/Timer";
-import { BottomMenu } from './components/bottom-menu/BottomMenu';
-import { ChestBoard } from "./components/chest-board/ChestBoard";
-import { LevelComponent } from "./components/level-component/LevelComponent";
+import { BattlePassList } from "./components/battle-pass-list/BattlePassList";
+import { BottomMenu } from "./components/bottom-menu/BottomMenu";
 
 export const BattlePass = () => {
   const [bgScaleDelta, setBgScaleDelta] = useState(0);
 
-  const onScroll = (e: UIEvent<HTMLDivElement>) => {
+  const onScroll = (e: Event) => {
     const { scrollTop } = e.target as HTMLDivElement;
 
     if (scrollTop <= 0) {
@@ -22,15 +20,10 @@ export const BattlePass = () => {
   };
 
   return (
-    <PageWrapper
-      className="bg-blue-800 pt-[56.25%] pb-26"
-      onScroll={onScroll}
-      disableSafeAreaInset
-    >
+    <PageWrapper className="bg-blue-800 pb-26 pt-[56.25%]" disableSafeAreaInset>
       <BattlePassHeader bgScaleDelta={bgScaleDelta} />
-      <Timer />
-      <LevelComponent />
-      <ChestBoard />
+      <BattlePassList onScroll={onScroll} />
+
       <BottomMenu />
     </PageWrapper>
   );

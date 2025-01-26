@@ -15,6 +15,7 @@ type Props = {
   size?: Size;
   buttonClassName?: string;
   isLoading?: boolean;
+  fontSize?: number;
 } & HTMLMotionProps<"button">;
 
 export const PrimaryButton: FunctionComponent<Props> = ({
@@ -25,6 +26,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   buttonClassName,
   className,
   isLoading = false,
+  fontSize,
   ...props
 }) => {
   return (
@@ -68,6 +70,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
             { "bg-white/40": variant === "secondary" && !disabled },
             className,
           )}
+          style={fontSize ? { fontSize } : undefined}
         >
           {isLoading ? <Spinner /> : children}
         </div>
