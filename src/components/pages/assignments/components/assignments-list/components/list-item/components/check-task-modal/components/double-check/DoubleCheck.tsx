@@ -68,7 +68,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
         <Image src={ErrorImage} alt="error" fill />
       </div>
 
-      <DrawerTitle className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase tracking-normal text-white text-shadow-sm">
+      <DrawerTitle className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase tracking-normal !text-white text-shadow-sm">
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.TITLE}`,
         )}
