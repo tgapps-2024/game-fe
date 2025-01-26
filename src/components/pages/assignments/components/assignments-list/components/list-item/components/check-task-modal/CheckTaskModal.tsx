@@ -44,11 +44,13 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
 
     switch (type) {
       case TaskType.SOCIAL_SUB:
-        window.open(process.env.NEXT_PUBLIC_CHANNEL_SOURCE, "_blank");
+        webApp?.openLink(
+          `https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`,
+        );
         break;
       case TaskType.TON_PROMOTE:
         try {
-          const result = await tonConnectUI.sendTransaction({
+          const result = await tonConnectUI?.sendTransaction({
             messages: [
               {
                 address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
