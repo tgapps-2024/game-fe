@@ -101,4 +101,7 @@ export interface IWebApp {
   disableVerticalSwipes: () => void;
   enableClosingConfirmation: () => void;
   openTelegramLink: (url: string) => void;
+  shareToStory: (media_url: string, params?: StoryShareParams) => void;
+  addToHomeScreen: () => void;
+  setEmojiStatus: (custom_emoji_id: string) => void;
 }

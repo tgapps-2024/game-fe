@@ -1,4 +1,4 @@
-import React, { createElement, FunctionComponent } from "react";
+import React, { createElement, FunctionComponent, useState } from "react";
 
 import { useRouter } from "next/router";
 
@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
-import { ITask } from "@/services/tasks/types";
+import { ITask, TaskStatus } from "@/services/tasks/types";
 import { formatNumber } from "@/utils/number";
 
 import { ASSIGNMENTS_ICONS, REWARD_ICONS } from "../../constants";
@@ -16,17 +16,24 @@ import { CheckTaskModal } from "./components/check-task-modal/CheckTaskModal";
 
 type Props = ITask;
 
-export const ListItem: FunctionComponent<Props> = ({ reward, type, title }) => {
+export const ListItem: FunctionComponent<Props> = ({
+  reward,
+  type,
+  title,
+  status,
+  id,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { locale } = useRouter();
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <li
           className={classNames(
-            "border-b border-solid border-white/10 py-3",
-            "first:pt-0",
-            "last:border-none last:pb-0",
+            "border-b border-solid border-white/10 px-4 py-3",
+            "last:border-none",
+            { "bg-blue-950": status === TaskStatus.COMPLETED },
           )}
         >
           <motion.div
@@ -56,11 +63,19 @@ export const ListItem: FunctionComponent<Props> = ({ reward, type, title }) => {
               </div>
             </div>
 
-            <ArrowIcon className="ml-auto size-6 stroke-white" />
+            {status === TaskStatus.AVAILABLE && (
+              <ArrowIcon className="ml-auto size-6 stroke-white" />
+            )}
           </motion.div>
         </li>
       </DrawerTrigger>
-      <CheckTaskModal type={type} title={title} reward={reward} />
+      <CheckTaskModal
+        onClose={() => setIsOpen(false)}
+        id={id}
+        type={type}
+        title={title}
+        reward={reward}
+      />
     </Drawer>
   );
 };

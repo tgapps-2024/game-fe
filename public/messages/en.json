@@ -64,7 +64,14 @@
     },
     "MODALS": {
       "CHECK_ASSIGNMENTS": {
-        "BUTTON": "Check assignments"
+        "BUTTON": "Check the task",
+        "DO_ASSIGNMENT": "Complete the task",
+        "SUBSCRIBE_TO_CHANNEL": "Subscribe to the channel",
+        "SHARE_STORY": "Share a story",
+        "ADD_GAME": "Add a game",
+        "ADD_EMOJI_STATUS": "Add emoji status",
+        "BUY_STARS": "Buy stars",
+        "CHECK_ASSIGNMENTS": "Click below to submit it for review."
       },
       "CONFIRMATION_MODAL": {
         "TITLE": "Make sure you have completed the task",

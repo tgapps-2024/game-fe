@@ -30,7 +30,7 @@ export interface ITask {
     en: string;
   };
   type: TaskType;
-  status: string;
+  status: TaskStatus;
   value: null | number;
   reward: [
     {
@@ -42,12 +42,10 @@ export interface ITask {
       value: number;
     },
   ];
-  penalty: [
-    {
-      type: string;
-      value: number;
-    },
-  ];
+  penalty: {
+    type: string;
+    value: number;
+  }[];
 }
 
 export interface ITasks {

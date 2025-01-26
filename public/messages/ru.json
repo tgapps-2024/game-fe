@@ -64,6 +64,13 @@
     },
     "MODALS": {
       "CHECK_ASSIGNMENTS": {
+        "DO_ASSIGNMENT": "Выполните задание",
+        "SUBSCRIBE_TO_CHANNEL": "Подписаться на канал",
+        "SHARE_STORY": "Поделиться историей",
+        "ADD_GAME": "Добавить игру",
+        "ADD_EMOJI_STATUS": "Добавить эмодзи cтатус",
+        "BUY_STARS": "Приоберсти звезды",
+        "CHECK_ASSIGNMENTS": "Нажмите ниже, чтобы отправить его на проверку.",
         "BUTTON": "Проверить задания"
       },
       "CONFIRMATION_MODAL": {

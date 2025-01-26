@@ -3,55 +3,81 @@ import React, { FunctionComponent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import classNames from "classnames";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
-import { Modal } from "@/components/common";
+import {
+  DrawerClose,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
-import ErrorImage from "@/public/assets/png/error.webp";
-import CloseIcon from "@/public/assets/svg/close.svg";
+import ErrorImage from "@/public/assets/png/assignments/error404.webp";
 import DividerSVG from "@/public/assets/svg/divider.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { useSetCompleteTask } from "@/services/tasks/queries";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
-  isOpen: boolean;
+  id: string;
+  onCheck: () => void;
   onClose: () => void;
 };
 
-export const ConfirmationModal: FunctionComponent<Props> = ({
-  isOpen,
+export const DoubleCheck: FunctionComponent<Props> = ({
+  id,
+  onCheck,
   onClose,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
+  const queryClient = useQueryClient();
+
+  const { mutate: setCompleteTask, isPending } =
+    useSetCompleteTask(queryClient);
+
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 },
+  };
+
+  const handleTaskComplete = () => {
+    setCompleteTask(id, {
+      onSuccess: () => {
+        onClose();
+        toast(<Toast type="done" text="Задание выполнено 🚀" />);
+      },
+      onError: () => {
+        toast(<Toast type="destructive" text="Что-то пошло не так" />);
+      },
+    });
+  };
 
   return (
-    <Modal
-      isVisible={isOpen}
-      onClose={onClose}
-      className="relative flex w-full flex-col items-center rounded-t-4xl border border-white/10 bg-blue-700 px-4 pb-8 pt-9"
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={variants}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col items-center"
     >
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex size-8 items-center justify-center rounded-full bg-white/5"
-      >
-        <CloseIcon />
-      </motion.button>
       <div className="relative mb-6 aspect-video w-full">
         <Image src={ErrorImage} alt="error" fill />
       </div>
 
-      <h3 className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase text-white text-shadow-sm">
+      <DrawerTitle className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase tracking-normal text-white text-shadow-sm">
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.TITLE}`,
         )}
-      </h3>
-      <p className="mb-3 text-center text-xs font-medium leading-none text-gray-550">
+      </DrawerTitle>
+      <DrawerDescription className="mb-3 text-center text-xs font-medium leading-none text-gray-550">
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DESCRIPTION}`,
         )}
-      </p>
+      </DrawerDescription>
       <div className="mb-8 grid w-full grid-cols-[1fr_32px_1fr] items-center rounded-2xl bg-white/5 p-4 text-white">
         <div className="flex flex-col items-center justify-center gap-2">
           <StarSVG className="size-7" />
@@ -79,35 +105,18 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
           </span>
         </div>
       </div>
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        transition={{
-          type: "spring",
-          stiffness: 200,
-          damping: 20,
-        }}
-        onClick={onClose}
-        className={classNames(
-          "group z-10 mb-4 h-[56px] w-full cursor-pointer overflow-hidden rounded-2xl bg-[#0655a4] pb-[3px] shadow-inset-black",
-        )}
-      >
-        <div
-          className={classNames(
-            "flex h-13 w-full items-center justify-center rounded-xl bg-[#0075ff] p-[3px] pb-1 shadow-inset-btn",
-          )}
+      <DrawerClose className="w-full">
+        <PrimaryButton
+          isLoading={isPending}
+          size="large"
+          className="uppercase"
+          onClick={handleTaskComplete}
         >
-          <div
-            className={classNames(
-              "text-stroke-1 flex h-11 w-full items-center justify-center gap-1 rounded-xl bg-white/15 p-3 text-center font-black uppercase tracking-wide text-white shadow-link text-shadow-sm",
-            )}
-          >
-            {t(
-              `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.BUTTON}`,
-            )}
-          </div>
-        </div>
-      </motion.button>
-
+          {t(
+            `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.BUTTON}`,
+          )}
+        </PrimaryButton>
+      </DrawerClose>
       <motion.button
         whileTap={{ scale: 0.98 }}
         transition={{
@@ -115,13 +124,13 @@ export const ConfirmationModal: FunctionComponent<Props> = ({
           stiffness: 200,
           damping: 20,
         }}
-        onClick={onClose}
-        className="text-sm font-bold uppercase leading-none tracking-wide text-white"
+        onClick={onCheck}
+        className="mt-5 text-sm font-bold uppercase leading-none tracking-wide text-white"
       >
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DOUBLE_CHECK}`,
         )}
       </motion.button>
-    </Modal>
+    </motion.div>
   );
 };

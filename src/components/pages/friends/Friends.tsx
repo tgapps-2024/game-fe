@@ -1,11 +1,13 @@
-import React from "react";
+import React, { UIEvent, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 import { PageWrapper, ProfileHeader } from "@/components/common";
 import { Drawer } from "@/components/ui/drawer";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useGetProfile, useGetReferals } from "@/services/profile/queries";
 import { IProfile, IReferals } from "@/services/profile/types";
@@ -16,28 +18,51 @@ import { InviteButton } from "./components/invite-button/InviteButton";
 import { InviteModal } from "./components/invite-modal/InviteModal";
 
 export const Friends = () => {
+  const [bgScaleDelta, setBgScaleDelta] = useState(0);
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const { data, isPending } = useGetProfile();
-  const { data: referalData, isPending: isPendingReferalData } =
-    useGetReferals();
+  const {
+    data: referalData,
+    isPending: isPendingReferalData,
+    isError,
+    error,
+  } = useGetReferals();
+
+  const onScroll = (e: UIEvent<HTMLDivElement>) => {
+    const { scrollTop } = e.target as HTMLDivElement;
+
+    if (scrollTop <= 0) {
+      setBgScaleDelta(Math.abs(scrollTop) * 2);
+    } else {
+      setBgScaleDelta(0);
+    }
+  };
+
+  if (isError) {
+    toast(<Toast type="destructive" text={"Что-то пошло не так" + error} />);
+  }
 
   return (
     <Drawer>
       <PageWrapper
-        className="scroll-smooth bg-blue-800"
+        className="scroll-smooth bg-blue-800 pt-28"
         isLoading={isPending || isPendingReferalData}
+        onScroll={onScroll}
       >
-        <div className="relative box-border flex min-h-full flex-col pt-74">
-          <div className="pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:125%] bg-center-top bg-no-repeat" />
+        <div
+          className="pointer-events-none fixed inset-0 z-[1] bg-[url('/assets/png/friends/bg.webp')] bg-[length:125%] bg-center-top bg-no-repeat"
+          style={{
+            backgroundSize: `calc(125% + ${bgScaleDelta}px)`,
+          }}
+        />
+        <div className="relative box-border flex flex-col">
           <div className="relative z-10 w-full">
-            <div className="absolute bottom-20 w-full">
-              <ProfileHeader profileData={data || ({} as IProfile)} />
-              <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
-                {t(`${NS.PAGES.FRIENDS.PROPOSAL}`)}
-              </p>
-            </div>
+            <ProfileHeader profileData={data || ({} as IProfile)} />
+            <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
+              {t(`${NS.PAGES.FRIENDS.PROPOSAL}`)}
+            </p>
           </div>
-          <div className="relative z-10 min-h-full w-full flex-1 rounded-t-2xl bg-blue-800">
+          <div className="relative top-20 z-10 w-full flex-1 rounded-t-2xl bg-blue-800">
             <motion.div
               className="relative h-[calc(100%+16px)] w-full rounded-t-2xl"
               initial={{ y: "0%" }}

@@ -81,7 +81,14 @@ export const NS = {
         ROOT: "MODALS",
         CHECK_ASSIGNMENTS: {
           ROOT: "CHECK_ASSIGNMENTS",
+          DO_ASSIGNMENT: "DO_ASSIGNMENT",
           BUTTON: "BUTTON",
+          SUBSCRIBE_TO_CHANNEL: "SUBSCRIBE_TO_CHANNEL",
+          SHARE_STORY: "SHARE_STORY",
+          ADD_GAME: "ADD_GAME",
+          ADD_EMOJI_STATUS: "ADD_EMOJI_STATUS",
+          BUY_STARS: "BUY_STARS",
+          CHECK_ASSIGNMENTS: "CHECK_ASSIGNMENTS",
         },
         CONFIRMATION_MODAL: {
           ROOT: "CONFIRMATION_MODAL",
