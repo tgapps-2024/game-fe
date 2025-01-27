@@ -56,12 +56,13 @@
     "HEADER": {
       "BALANCE": {
         "TITLE": "Balance",
-        "STARS": "Stars"
+        "STARS": "Stars",
+        "FRIENDS": "Friends"
       }
     },
     "TYPES": {
-      "DAILY": "Ежедневные",
-      "ONE_OFF": "Разовые задания"
+      "DAILY": "Daily",
+      "ONE_OFF": "One-off"
     },
     "MODALS": {
       "CHECK_ASSIGNMENTS": {

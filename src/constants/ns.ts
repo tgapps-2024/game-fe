@@ -71,6 +71,7 @@ export const NS = {
           ROOT: "BALANCE",
           TITLE: "TITLE",
           STARS: "STARS",
+          FRIENDS: "FRIENDS",
         },
       },
       TYPES: {

@@ -56,7 +56,8 @@
     "HEADER": {
       "BALANCE": {
         "TITLE": "Баланс",
-        "STARS": "Звезд"
+        "STARS": "Звезд",
+        "FRIENDS": "Друзья"
       }
     },
     "TYPES": {
