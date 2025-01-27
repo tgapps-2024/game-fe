@@ -2,12 +2,14 @@ import { FunctionComponent } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 
 import { Level } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
 import { useTelegram } from "@/context";
+import FrindsSvg from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 import { IProfile } from "@/services/profile/types";
 
@@ -20,10 +22,12 @@ type Props = {
 };
 
 export const ProfileHeader: FunctionComponent<Props> = ({
-  profileData: { level, coins, stars },
+  profileData: { level, coins, stars, friends },
 }) => {
   const { user } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
+  const { pathname } = useRouter();
+  const isFriendsPage = pathname === ROUTES.FRIENDS;
 
   return (
     <div className="relative grid h-10 grid-cols-3 px-4">
@@ -76,19 +80,35 @@ export const ProfileHeader: FunctionComponent<Props> = ({
           <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
         }
       />
-      <HeaderItem
-        topInfoComponent={
-          <TopComponent
-            text={t(
-              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
-            )}
-          />
-        }
-        bottomInfoComponent={<BottomComponent value={stars ?? 0} />}
-        imageNode={
-          <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
-        }
-      />
+      {isFriendsPage ? (
+        <HeaderItem
+          topInfoComponent={
+            <TopComponent
+              text={t(
+                `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.FRIENDS}`,
+              )}
+            />
+          }
+          bottomInfoComponent={<BottomComponent value={friends ?? 0} />}
+          imageNode={
+            <FrindsSvg className="col-span-1 row-span-2 size-8 object-contain" />
+          }
+        />
+      ) : (
+        <HeaderItem
+          topInfoComponent={
+            <TopComponent
+              text={t(
+                `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
+              )}
+            />
+          }
+          bottomInfoComponent={<BottomComponent value={stars ?? 0} />}
+          imageNode={
+            <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
+          }
+        />
+      )}
     </div>
   );
 };

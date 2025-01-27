@@ -14,6 +14,7 @@ export interface IProfile {
   energy: number;
   max_energy: number;
   exp: number;
+  friends: number;
   level: number;
   background: number;
   auto: number;
