@@ -64,7 +64,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
                 size === "small",
             },
             {
-              "text-stroke-1 rounded-xl text-base text-shadow":
+              "text-stroke-1 rounded-xl text-base text-shadow-sm":
                 size === "medium",
             },
             {
