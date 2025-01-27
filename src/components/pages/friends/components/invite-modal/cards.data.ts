@@ -1,4 +1,3 @@
-import { CardType } from "@/components/common";
 import Coins1 from "@/public/assets/png/friends/buy-friends/coins-1.webp";
 import Coins2 from "@/public/assets/png/friends/buy-friends/coins-2.webp";
 import Coins3 from "@/public/assets/png/friends/buy-friends/coins-3.webp";
@@ -15,14 +14,12 @@ export const CARDS = [
     buttonText: "-20%",
     number: 1000,
     badgeValue: 1450,
-    type: CardType.INDIGO,
     image: Coins5,
   },
   {
     buttonText: "-20%",
     number: 5000,
     badgeValue: 1450,
-    type: CardType.ORANGE,
     image: Coins6,
   },
 ];
