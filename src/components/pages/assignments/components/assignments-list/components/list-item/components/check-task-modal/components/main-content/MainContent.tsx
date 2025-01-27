@@ -36,6 +36,12 @@ export const MainContent: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
 
+  const handleCheck = () => {
+    if (isClicked) {
+      onCheck();
+    }
+  };
+
   return (
     <>
       <DrawerTitle className="text-stroke-1 mb-3 flex flex-col items-center gap-6 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] !text-white text-shadow">
@@ -100,7 +106,8 @@ export const MainContent: FunctionComponent<Props> = ({
         <PrimaryButton
           className="uppercase"
           disabled={!isClicked}
-          onClick={onCheck}
+          onClick={handleCheck}
+          size="large"
         >
           {t(
             `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.BUTTON}`,
