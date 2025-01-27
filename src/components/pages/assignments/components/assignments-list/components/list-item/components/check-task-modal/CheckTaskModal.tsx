@@ -156,7 +156,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         // Call the method specific to WALLET_CONNECT
         break;
       case TaskType.BOOST_CHANNEL:
-        // setIsClicked(true);
+        setIsClicked(true);
         // Call the method specific to BOOST_CHANNEL
         break;
       default:

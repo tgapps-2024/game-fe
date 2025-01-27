@@ -58,10 +58,19 @@ export const PrimaryButton: FunctionComponent<Props> = ({
       >
         <div
           className={classNames(
-            "text-stroke-1 flex h-full w-full items-center justify-center px-5 font-black leading-none tracking-wide text-white text-shadow-sm",
-            { "rounded-lg text-base": size === "small" },
-            { "rounded-xl text-base": size === "medium" },
-            { "rounded-xl text-lg": size === "large" },
+            "flex h-full w-full items-center justify-center px-5 font-black leading-none tracking-wide text-white",
+            {
+              "text-stroke-1 rounded-lg text-base text-shadow-sm":
+                size === "small",
+            },
+            {
+              "text-stroke-1 rounded-xl text-base text-shadow-sm":
+                size === "medium",
+            },
+            {
+              "text-stroke-half rounded-xl text-lg text-shadow":
+                size === "large",
+            },
             { "bg-blue-800/100 text-white/50 shadow-none": disabled },
             { "shadow-link": !disabled },
             { "bg-white/15": variant === "primary" && !disabled },

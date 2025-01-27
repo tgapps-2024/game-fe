@@ -6,7 +6,9 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 
 import Cookies from "js-cookie";
+import { toast } from "sonner";
 
+import { Toast } from "@/components/ui/toast";
 import { AUTH_COOKIE_TOKEN } from "@/constants/api";
 import { ROUTES, ROUTES_WITH_CLOSE_BUTTON } from "@/constants/routes";
 import { login } from "@/services/auth/fetcher";
@@ -52,6 +54,12 @@ export const TelegramProvider = ({
 
           await login(app.initData, app.initDataUnsafe.start_param);
         } catch {
+          toast(
+            <Toast
+              type="destructive"
+              text="Authentication failed. Please try again."
+            />,
+          );
           // const code = 401;
           // const message = "Authentication failed. Please try again.";
           // push(`/error?code=${code}&message=${encodeURIComponent(message)}`);
