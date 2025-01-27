@@ -33,7 +33,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   onClose,
 }) => {
   const t = useTranslations(NS.COMMON.ROOT);
-  const [isClicked, setIsClicked] = useState(true);
+  const [isClicked, setIsClicked] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
 
