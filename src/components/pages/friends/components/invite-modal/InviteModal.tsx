@@ -3,8 +3,6 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { motion } from "framer-motion";
-
 import { Card } from "@/components/common";
 import {
   DrawerClose,
@@ -15,7 +13,6 @@ import {
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import CargoImage from "@/public/assets/png/cargo.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import { NotificationEnum } from "@/types/telegram";
 
@@ -36,14 +33,11 @@ export const InviteModal = () => {
 
   return (
     <DrawerContent className="flex w-full flex-col items-center rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
-      <DrawerClose asChild>
-        <motion.button
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
-        >
-          <CloseIcon />
-        </motion.button>
+      <DrawerClose
+        asChild
+        className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
+      >
+        <CloseIcon />
       </DrawerClose>
 
       <DrawerTitle className="!text-stroke-1 mb-3 text-center !text-2xl !font-black uppercase leading-none !tracking-wide text-white !text-shadow-sm">
@@ -67,11 +61,9 @@ export const InviteModal = () => {
               onClick={() => handleCardClick(index)}
             >
               <div className="relative h-full w-full overflow-hidden rounded-xl">
-                {index === 0 && (
-                  <div className="absolute -bottom-4 h-full w-full">
-                    <Image src={CargoImage} alt="" fill />
-                  </div>
-                )}
+                <div className="absolute -bottom-4 h-full w-full">
+                  <Image src={card.image} alt="" fill />
+                </div>
                 <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
                   {t(
                     `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
@@ -85,6 +77,7 @@ export const InviteModal = () => {
         <PrimaryButton
           variant="secondary"
           className="w-full uppercase"
+          size="large"
           disabled={selectedCard === null}
           onClick={() => {
             if (selectedCard === null) {

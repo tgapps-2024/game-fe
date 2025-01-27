@@ -22,7 +22,6 @@ export const InviteButton = () => {
       <DrawerTrigger asChild className="w-full">
         <PrimaryButton
           variant="secondary"
-          size="large"
           className="uppercase"
           onClick={() => handleSelectionChanged()}
         >
