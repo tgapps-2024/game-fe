@@ -81,7 +81,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
       <div className="mb-8 grid w-full grid-cols-[1fr_32px_1fr] items-center rounded-2xl bg-white/5 p-4 text-white">
         <div className="flex flex-col items-center justify-center gap-2">
           <StarSVG className="size-7" />
-          <span className="text-stroke-1 text-center font-extrabold uppercase leading-none text-yellow-500 text-shadow-sm">
+          <span className="text-stroke-half text-center font-extrabold uppercase leading-none text-yellow-500 text-shadow">
             +500.000
           </span>
           <span className="text-xs font-medium leading-none tracking-wide text-gray-550">
@@ -95,7 +95,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
         </div>
         <div className="flex flex-col items-center justify-center gap-2">
           <StarSVG className="size-7" />
-          <span className="text-stroke-1 text-center font-extrabold uppercase leading-none text-red-500 text-shadow-sm">
+          <span className="text-stroke-half text-center font-extrabold uppercase leading-none text-red-500 text-shadow">
             +1.000.000
           </span>
           <span className="text-xs font-medium leading-none tracking-wide text-gray-550">
