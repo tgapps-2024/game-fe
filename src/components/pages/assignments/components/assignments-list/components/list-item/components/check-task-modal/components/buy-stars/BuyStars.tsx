@@ -41,7 +41,7 @@ export const BuyStars: FunctionComponent<Props> = ({
   const [isChecked, setIsChecked] = useState(false);
   const { locale } = useRouter();
   const { mutate, isPending } = useStarsPayment(
-    1000,
+    1,
     (response) => {
       if (webApp) {
         webApp.openInvoice(response.url, (status) => {
