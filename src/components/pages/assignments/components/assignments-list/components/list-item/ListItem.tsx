@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
+import DoneSvg from "@/public/assets/svg/toast/done.svg";
 import { ITask, TaskStatus } from "@/services/tasks/types";
 import { formatNumber } from "@/utils/number";
 
@@ -74,8 +75,10 @@ export const ListItem: FunctionComponent<Props> = ({
               </div>
             </div>
 
-            {status === TaskStatus.AVAILABLE && (
+            {status === TaskStatus.AVAILABLE ? (
               <ArrowIcon className="ml-auto size-6 stroke-white" />
+            ) : (
+              <DoneSvg className="ml-auto size-6" />
             )}
           </motion.div>
         </li>
