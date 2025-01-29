@@ -82,7 +82,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
           className={classNames(
             "flex h-full w-full items-center justify-center px-5 font-black leading-none tracking-wide text-white",
             {
-              "text-stroke-1 rounded-lg text-base text-shadow-sm":
+              "text-stroke-half rounded-lg text-base text-shadow":
                 size === "small",
             },
             {

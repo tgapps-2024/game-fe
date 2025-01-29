@@ -119,7 +119,7 @@ export const BuyStars: FunctionComponent<Props> = ({
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                     )}
                   </p>
-                  <PrimaryButton size="small" onClick={() => mutate()}>
+                  <PrimaryButton size="small"  onClick={() => mutate()}>
                     {t(CHECK_TASKS_MODAL_TID[type])}
                   </PrimaryButton>
                 </div>
