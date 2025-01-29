@@ -25,7 +25,7 @@ type Props = Pick<ITask, "type" | "reward" | "title"> & {
   onCheck: () => void;
 };
 
-export const MainContent: FunctionComponent<Props> = ({
+export const CommonModal: FunctionComponent<Props> = ({
   type,
   reward,
   title,

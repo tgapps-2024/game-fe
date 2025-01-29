@@ -32,9 +32,10 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ items }) => {
               <div>{item.description}</div>
             </div>
             {index < items.length - 1 && (
-              <div className="absolute left-[18.5px] top-9.5 z-0 grid h-4 grid-rows-2 gap-1 py-0.5">
-                <div className="h-full w-[1px] rounded-full bg-white" />
-                <div className="h-full w-[1px] rounded-full bg-white" />
+              <div className="absolute -bottom-2 left-[18.5px] z-0 grid h-4 gap-1 py-0.5">
+                <div className="h-1 w-[1px] rounded-full bg-white" />
+                <div className="h-1 w-[1px] rounded-full bg-white" />
+                <div className="h-1 w-[1px] rounded-full bg-white" />
               </div>
             )}
           </li>

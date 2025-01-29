@@ -18,7 +18,7 @@ import { ITask, TaskStatus, TaskType } from "@/services/tasks/types";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 
 import { DoubleCheck } from "./components/double-check/DoubleCheck";
-import { MainContent } from "./components/main-content/MainContent";
+import { COMPONENTS_MAP } from "./constants";
 
 type Props = Pick<ITask, "type" | "title" | "reward" | "id" | "status"> & {
   onClose: () => void;
@@ -167,6 +167,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   };
 
   const handleCheck = () => {
+    handleSelectionChanged();
     setIsChecked(!isChecked);
   };
 
@@ -174,19 +175,19 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
     <DrawerPortal>
       <DrawerContent className="flex w-full flex-col items-center overflow-hidden rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
         <DrawerClose className="absolute right-4 top-4 z-10">
-          <CloseIcon />
+          <CloseIcon onClick={handleSelectionChanged} />
         </DrawerClose>
         {isChecked ? (
           <DoubleCheck id={id} onClose={onClose} onCheck={handleCheck} />
         ) : (
-          <MainContent
-            isClicked={isClicked}
-            onClick={handleClick}
-            type={type}
-            reward={reward}
-            title={title}
-            onCheck={handleCheck}
-          />
+          React.createElement(COMPONENTS_MAP[type], {
+            type,
+            reward,
+            title,
+            isClicked,
+            onClick: handleClick,
+            onCheck: handleCheck,
+          })
         )}
       </DrawerContent>
     </DrawerPortal>

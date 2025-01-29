@@ -4,6 +4,8 @@ import classNames from "classnames";
 import { HTMLMotionProps, motion } from "framer-motion";
 
 import { Spinner } from "@/components/common";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import { NotificationEnum } from "@/types/telegram";
 
 type Variant = "primary" | "secondary";
 
@@ -26,9 +28,26 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   buttonClassName,
   className,
   isLoading = false,
+  onClick,
   fontSize,
   ...props
 }) => {
+  const { handleNotificationOccurred, handleSelectionChanged } =
+    useHapticFeedback();
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    if (disabled) {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    } else {
+      handleSelectionChanged();
+    }
+
+    if (onClick) {
+      onClick(event);
+    }
+  };
+
   return (
     <motion.button
       whileTap={disabled ? {} : { scale: 0.98 }}
@@ -44,6 +63,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
         { "h-14 rounded-2xl": size === "large" },
         buttonClassName,
       )}
+      onClick={handleClick}
       {...props}
     >
       <div

@@ -6,8 +6,11 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
+import DoneSvg from "@/public/assets/svg/toast/done.svg";
 import { ITask, TaskStatus } from "@/services/tasks/types";
+import { NotificationEnum } from "@/types/telegram";
 import { formatNumber } from "@/utils/number";
 
 import { ASSIGNMENTS_ICONS, REWARD_ICONS } from "../../constants";
@@ -25,6 +28,8 @@ export const ListItem: FunctionComponent<Props> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { locale } = useRouter();
+  const { handleNotificationOccurred, handleSelectionChanged } =
+    useHapticFeedback();
 
   const handleOpenChange = (open: boolean) => {
     if (status === TaskStatus.COMPLETED) {
@@ -51,12 +56,19 @@ export const ListItem: FunctionComponent<Props> = ({
             whileTap={{ scale: status === TaskStatus.COMPLETED ? 1 : 0.99 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="grid grid-cols-[32px_1fr_24px] items-center gap-2"
+            onClick={() => {
+              if (status !== TaskStatus.COMPLETED) {
+                handleSelectionChanged();
+              } else {
+                handleNotificationOccurred(NotificationEnum.ERROR);
+              }
+            }}
           >
             {createElement(ASSIGNMENTS_ICONS[type], {
               className: "size-8 rounded-full object-contain",
             })}
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-black leading-none tracking-wide text-white">
+              <p className="text-stroke-1 text-sm font-black leading-none tracking-wide text-white text-shadow-sm">
                 {locale === "en" ? title.en : title.ru}
               </p>
               <div className="flex gap-2">
@@ -74,8 +86,10 @@ export const ListItem: FunctionComponent<Props> = ({
               </div>
             </div>
 
-            {status === TaskStatus.AVAILABLE && (
+            {status === TaskStatus.AVAILABLE ? (
               <ArrowIcon className="ml-auto size-6 stroke-white" />
+            ) : (
+              <DoneSvg className="ml-auto size-6" />
             )}
           </motion.div>
         </li>

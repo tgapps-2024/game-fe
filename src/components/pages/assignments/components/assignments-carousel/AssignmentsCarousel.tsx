@@ -6,7 +6,6 @@ import AutoPlay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
-import ChestSVG from "@/public/assets/svg/chest-light.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
 import { PowerUpModal } from "../power-up-modal/PowerUpModal";
@@ -76,23 +75,13 @@ export const AssignmentsCarousel: FunctionComponent<Props> = ({
                       <div className="relative z-10 flex h-full w-full flex-col gap-1 pt-5.5">
                         <div
                           className={classNames(
-                            "flex gap-2 self-start rounded-full border border-solid border-[#363A3D] bg-blue-800/50 px-3 py-1",
+                            "text-stroke-half flex items-center gap-2 self-start rounded-full bg-[#51A395] px-3 py-1 text-xs font-extrabold uppercase text-shadow-sm",
                           )}
                         >
-                          <div className="flex items-center gap-1">
-                            <StarSVG className="size-4" />
-                            <span className="text-stroke-half inline-block text-xs font-extrabold text-white text-shadow-sm">
-                              +50.000
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <ChestSVG className="h-4 w-4.5" />
-                            <span className="text-stroke-half inline-block text-xs font-extrabold text-white text-shadow-sm">
-                              +1
-                            </span>
-                          </div>
+                          <StarSVG className="size-4" />
+                          Специальное предложение
                         </div>
-                        <p className="text-stroke-1 mr-20 text-left !text-base font-black uppercase tracking-wider text-white text-shadow-sm">
+                        <p className="text-stroke-half mr-20 text-left !text-base font-black uppercase tracking-wider text-white text-shadow">
                           Купите 1 пакет и получите 2 бесплатно
                         </p>
                       </div>
