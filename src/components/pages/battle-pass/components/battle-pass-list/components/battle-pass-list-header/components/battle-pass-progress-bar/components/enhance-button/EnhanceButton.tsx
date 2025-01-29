@@ -22,7 +22,7 @@ export const EnhanceButton = () => {
     1,
     (response) => {
       if (webApp) {
-        alert(response.url);
+        alert(webApp.openInvoice.toString());
         try {
           webApp.openInvoice(response.url, (status) => {
             alert(status);
