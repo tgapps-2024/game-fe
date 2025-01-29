@@ -1,6 +1,10 @@
 import { NS } from "@/constants/ns";
 import { TaskType } from "@/services/tasks/types";
 
+import { BuyStars } from "./components/buy-stars/BuyStars";
+import { CommonModal } from "./components/common-modal/CommonModal";
+import { ModalProps } from "./types";
+
 export const CHECK_TASKS_MODAL_TID = {
   [TaskType.TON_PROMOTE]: `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.SUBSCRIBE_TO_CHANNEL}`,
   [TaskType.STORIES_REPLY]: `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.SHARE_STORY}`,
@@ -13,3 +17,17 @@ export const CHECK_TASKS_MODAL_TID = {
 };
 
 export const VERIFIED_TYPES = [TaskType.TON_PROMOTE];
+
+export const COMPONENTS_MAP: Record<
+  TaskType,
+  React.FC<React.PropsWithChildren<ModalProps>>
+> = {
+  [TaskType.DONATE]: BuyStars,
+  [TaskType.STORIES_REPLY]: CommonModal,
+  [TaskType.ADD_TO_HOME]: CommonModal,
+  [TaskType.SOCIAL_SUB]: CommonModal,
+  [TaskType.EMOJI_SET]: CommonModal,
+  [TaskType.WALLET_CONNECT]: CommonModal,
+  [TaskType.BOOST_CHANNEL]: CommonModal,
+  [TaskType.TON_PROMOTE]: CommonModal,
+};
