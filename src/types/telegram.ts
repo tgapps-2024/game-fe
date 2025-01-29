@@ -77,6 +77,13 @@ interface HapticFeedback {
   selectionChanged(): void;
 }
 
+export enum InvoiceStatus {
+  PAID = "paid",
+  CANCELLED = "cancelled",
+  FAILED = "failed",
+  PENDING = "pending",
+}
+
 export interface IWebApp {
   initData: string;
   initDataUnsafe: IWebAppInitData;
@@ -91,6 +98,10 @@ export interface IWebApp {
   contentSafeAreaInset: IAreaInsets;
   safeAreaInset: IAreaInsets;
   openLink: (url: string, options?: { try_instant_view?: boolean }) => void;
+  openInvoice: (
+    url: string,
+    callback?: (status: InvoiceStatus) => void,
+  ) => void;
   SettingsButton: ISettingsButton;
   HapticFeedback: HapticFeedback;
   lockOrientation: () => void;

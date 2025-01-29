@@ -18,6 +18,7 @@ export const API_ENDPOINTS = {
     UPGRADE_CARD: "/upgrade_card",
     SET_TASK_COMPLETE: "/set_task_complete",
     GET_REWARD_FROM_BATTLEPASS: "/get_reward_from_battlepass",
+    STARS_PAYMENT: "/stars_payment",
   },
 };
 
