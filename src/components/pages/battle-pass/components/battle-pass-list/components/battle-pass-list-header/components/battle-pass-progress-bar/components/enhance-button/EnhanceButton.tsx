@@ -22,25 +22,29 @@ export const EnhanceButton = () => {
     1,
     (response) => {
       if (webApp) {
-        webApp.openInvoice(response.url, (status) => {
-          switch (status) {
-            case InvoiceStatus.PAID:
-              toast(<Toast type="done" text={status} />, {
-                duration: 5000,
-              });
-              break;
-            case InvoiceStatus.FAILED:
-              toast(<Toast type="destructive" text={status} />, {
-                duration: 5000,
-              });
-              break;
-            default:
-              toast(<Toast type="warning" text={status} />, {
-                duration: 5000,
-              });
-              break;
-          }
-        });
+        try {
+          webApp.openInvoice(response.url, (status) => {
+            switch (status) {
+              case InvoiceStatus.PAID:
+                toast(<Toast type="done" text={status} />, {
+                  duration: 5000,
+                });
+                break;
+              case InvoiceStatus.FAILED:
+                toast(<Toast type="destructive" text={status} />, {
+                  duration: 5000,
+                });
+                break;
+              default:
+                toast(<Toast type="warning" text={status} />, {
+                  duration: 5000,
+                });
+                break;
+            }
+          });
+        } catch (e) {
+          alert(`${(e as Error).message}, URL=${response.url}`);
+        }
 
         setIsChecked(true);
       }
