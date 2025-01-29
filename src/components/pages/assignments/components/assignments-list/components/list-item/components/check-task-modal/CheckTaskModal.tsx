@@ -168,7 +168,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
 
   const handleCheck = () => {
     handleSelectionChanged();
-    setIsChecked(true);
+    setIsChecked(!isChecked);
   };
 
   return (
