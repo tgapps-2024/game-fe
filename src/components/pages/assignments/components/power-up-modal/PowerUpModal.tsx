@@ -11,16 +11,18 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import BackgroundImage from "@/public/assets/png/assignments/modal.webp";
-import ChestSVG from "@/public/assets/svg/chest.svg";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import BackgroundImage from "@/public/assets/png/assignments/specail.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 
 export const PowerUpModal = () => {
+  const { handleSelectionChanged } = useHapticFeedback();
+
   return (
     <DrawerContent className="flex aspect-[13/20] w-full flex-col items-center overflow-hidden rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
-      <DrawerClose className="absolute right-4 top-4 z-10">
-        <CloseIcon />
+      <DrawerClose asChild className="absolute right-4 top-4 z-10">
+        <CloseIcon onClick={() => handleSelectionChanged()} />
       </DrawerClose>
 
       <div className="absolute inset-0 z-0">
@@ -30,17 +32,11 @@ export const PowerUpModal = () => {
       <div className="z-10 mb-6 mt-auto flex flex-col items-center gap-3">
         <div
           className={classNames(
-            "mx-auto flex gap-2 self-start rounded-full bg-blue-800/50 px-3 py-1",
+            "text-stroke-half mx-auto flex items-center gap-2 self-start rounded-full bg-[#76432B] px-3 py-1 text-xs font-extrabold uppercase text-shadow-sm",
           )}
         >
-          <div className="flex items-center gap-1">
-            <StarSVG className="size-6" />
-            <span className="text-base font-extrabold text-white">+50.000</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <ChestSVG className="h-5 w-6" />
-            <span className="text-base font-extrabold text-white">+1</span>
-          </div>
+          <StarSVG className="size-4" />
+          Специальное предложение
         </div>
         <DrawerTitle>
           <div className="text-stroke-1 px-5 text-center font-rubik text-[28px] font-black leading-none text-white text-shadow">

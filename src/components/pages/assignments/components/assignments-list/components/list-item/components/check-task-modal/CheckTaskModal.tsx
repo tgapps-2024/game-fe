@@ -167,6 +167,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   };
 
   const handleCheck = () => {
+    handleSelectionChanged();
     setIsChecked(!isChecked);
   };
 
@@ -174,7 +175,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
     <DrawerPortal>
       <DrawerContent className="flex w-full flex-col items-center overflow-hidden rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
         <DrawerClose className="absolute right-4 top-4 z-10">
-          <CloseIcon />
+          <CloseIcon onClick={handleSelectionChanged} />
         </DrawerClose>
         {isChecked ? (
           <DoubleCheck id={id} onClose={onClose} onCheck={handleCheck} />
