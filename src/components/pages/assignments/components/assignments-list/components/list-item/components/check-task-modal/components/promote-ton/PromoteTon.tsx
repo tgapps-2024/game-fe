@@ -89,16 +89,18 @@ export const PromoteTon: FunctionComponent<Props> = ({
   };
 
   const handleSubmit = () => {
-    onSubmit(id, {
-      onSuccess: () => {
-        toast(<Toast type="done" text="Задание выполнено 🚀" />);
-        onClose();
-      },
-      onError: () => {
-        toast(<Toast type="destructive" text="Что-то пошло не так" />);
-        onClose();
-      },
-    });
+    if (isSent) {
+      onSubmit(id, {
+        onSuccess: () => {
+          toast(<Toast type="done" text="Задание выполнено 🚀" />);
+          onClose();
+        },
+        onError: () => {
+          toast(<Toast type="destructive" text="Что-то пошло не так" />);
+          onClose();
+        },
+      });
+    }
   };
 
   return (
