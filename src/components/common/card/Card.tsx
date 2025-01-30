@@ -22,7 +22,7 @@ type Props = {
   isSelected?: boolean;
   type?: CardType;
   onClick: () => void;
-  ref: RefObject<HTMLDivElement>;
+  ref?: RefObject<HTMLDivElement>;
 };
 
 export const Card: FunctionComponent<Props> = ({
@@ -50,7 +50,7 @@ export const Card: FunctionComponent<Props> = ({
     <div
       ref={ref}
       className={classNames(
-        "relative aspect-[3/4] rounded-xl border border-solid border-black pb-1 text-white transition-all",
+        "relative aspect-[3/4] rounded-xl border border-solid border-black pb-1 text-white transition-transform will-change-transform",
         {
           "bg-[#0069B1]": type === CardType.BLUE,
           "bg-[#403BB7]": type === CardType.INDIGO,
@@ -89,7 +89,13 @@ export const Card: FunctionComponent<Props> = ({
             },
           )}
         >
-          <Image src={BGImage} fill alt="" className="rounded-xl" />
+          <Image
+            src={BGImage}
+            fill
+            alt=""
+            className="rounded-xl"
+            quality={100}
+          />
           {children}
           <div
             className={classNames(
@@ -104,6 +110,9 @@ export const Card: FunctionComponent<Props> = ({
             {badgeComponent}
           </div>
         </div>
+      </div>
+      <div className="absolute inset-0 overflow-hidden rounded-xl">
+        <div className="bg-card-glow-pattern animate-card-glow-running absolute top-0 h-[130%] w-[66px] rotate-[30deg] will-change-transform" />
       </div>
     </div>
   );
