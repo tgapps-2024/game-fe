@@ -140,7 +140,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
                     )}
                   </p>
                   <PrimaryButton
-                    disabled={address.length > 0 || isSent}
+                    disabled={address.length > 0}
                     onClick={() => {
                       if (address.length) {
                         handleDisconnect();
@@ -170,7 +170,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
                     )}
                   </p>
                   <PrimaryButton
-                    disabled={address.length === 0}
+                    disabled={address.length === 0 || isSent}
                     onClick={handleMakeTransaction}
                     size="small"
                   >
