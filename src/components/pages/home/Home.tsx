@@ -20,6 +20,11 @@ export const Home = () => {
               Задания
             </Button>
           </Link>
+          <Link href={ROUTES.HEROES}>
+            <Button variant="link" className="w-full text-white">
+              Герои
+            </Button>
+          </Link>
           <Link href={ROUTES.SETTINGS}>
             <Button variant="link" className="w-full text-white">
               Настройки
