@@ -19,6 +19,7 @@ type Props = {
   badgeComponent: React.ReactNode;
   buttonColor?: CollectButtonColor;
   buttonText: string;
+  isAnimated?: boolean;
   isSelected?: boolean;
   type?: CardType;
   onClick: () => void;
@@ -30,6 +31,7 @@ export const Card: FunctionComponent<Props> = ({
   badgeComponent,
   buttonColor,
   buttonText,
+  isAnimated = false,
   isSelected = false,
   type = CardType.BLUE,
   ref,
@@ -111,9 +113,11 @@ export const Card: FunctionComponent<Props> = ({
           </div>
         </div>
       </div>
-      <div className="absolute inset-0 overflow-hidden rounded-xl">
-        <div className="bg-card-glow-pattern animate-card-glow-running absolute top-0 h-[130%] w-[66px] rotate-[30deg] will-change-transform" />
-      </div>
+      {isAnimated && (
+        <div className="absolute inset-0 overflow-hidden rounded-xl">
+          <div className="bg-card-glow-pattern animate-card-glow-running absolute top-0 h-[130%] w-[66px] rotate-[30deg] will-change-transform" />
+        </div>
+      )}
     </div>
   );
 };

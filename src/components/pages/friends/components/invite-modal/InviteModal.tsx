@@ -57,6 +57,7 @@ export const InviteModal = () => {
               isSelected={index === selectedCard}
               badgeComponent={<Badge value={card.badgeValue} />}
               onClick={() => handleCardClick(index)}
+              isAnimated
             >
               <div className="relative h-full w-full overflow-hidden rounded-xl">
                 <div className="absolute -bottom-4 h-full w-full">
