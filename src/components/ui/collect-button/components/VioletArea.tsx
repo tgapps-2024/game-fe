@@ -31,6 +31,7 @@ export const VioletArea = () => (
       />
       <g filter="url(#b)">
         <path
+          className="animate-collect-button-violet-coloring"
           fill="#7E81F3"
           d="M0 6a6 6 0 0 1 6-6h48a6 6 0 0 1 6 6v8.675a6 6 0 0 1-4.103 5.692l-24 8a6 6 0 0 1-3.794 0l-24-8A6 6 0 0 1 0 14.675V6Z"
         />

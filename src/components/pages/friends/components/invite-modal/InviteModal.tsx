@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -24,7 +24,6 @@ export const InviteModal = () => {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const { handleSelectionChanged, handleNotificationOccurred } =
     useHapticFeedback();
-  const cardRef = useRef(null);
 
   const handleCardClick = (index: number) => {
     handleSelectionChanged();
@@ -52,7 +51,6 @@ export const InviteModal = () => {
         <div className="relative mb-8 grid w-full grid-cols-3 gap-2">
           {CARDS.map((card, index) => (
             <Card
-              ref={cardRef}
               key={`buy_friends_card_${index}`}
               buttonColor={card.buttonColor}
               buttonText={card.buttonText}

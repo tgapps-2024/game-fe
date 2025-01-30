@@ -17,7 +17,10 @@ export default {
         "collect-button-coloring": "collect-button-coloring 1s infinite linear",
         "collect-button-locked-coloring":
           "collect-button-locked-coloring 1s infinite linear",
+        "collect-button-violet-coloring":
+          "collect-button-violet-coloring 1s infinite linear",
         "bp-glow-running": "bp-glow-running 2s infinite linear",
+        "card-glow-running": "card-glow-running 2s infinite linear",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -44,12 +47,28 @@ export default {
             fill: "#FFE981",
           },
         },
+        "collect-button-violet-coloring": {
+          "0%, 20%, 80%, 100%": {
+            fill: "#7E81F3",
+          },
+          "50%": {
+            fill: "#ADAFF9",
+          },
+        },
         "bp-glow-running": {
           "0%, 50%": {
             transform: "translateX(-120%) rotateZ(15deg)",
           },
           "100%": {
             transform: "translateX(120%) rotateZ(15deg)",
+          },
+        },
+        "card-glow-running": {
+          "0%, 50%": {
+            transform: "rotate(30deg) translate(-170%, -15%)",
+          },
+          "100%": {
+            transform: "rotate(30deg) translate(200%, -15%)",
           },
         },
       },
@@ -74,6 +93,8 @@ export default {
           "linear-gradient(270deg, #FF86E5 0%, #FFFFFF 10.5%, rgba(255, 60, 213, 0.15) 100%)",
         "bp-bottom-menu-pattern":
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
+        "card-glow-pattern":
+          "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
