@@ -81,7 +81,6 @@ export const PromoteTon: FunctionComponent<Props> = ({
           duration: 5000,
         },
       );
-      onClose();
     } catch {
       toast(<Toast type="destructive" text="Ошибка транзакции" />, {
         duration: 5000,
