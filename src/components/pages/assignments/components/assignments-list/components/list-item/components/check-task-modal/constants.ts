@@ -3,6 +3,7 @@ import { TaskType } from "@/services/tasks/types";
 
 import { BuyStars } from "./components/buy-stars/BuyStars";
 import { CommonModal } from "./components/common-modal/CommonModal";
+import { PromoteTon } from "./components/promote-ton/PromoteTon";
 import { ModalProps } from "./types";
 
 export const CHECK_TASKS_MODAL_TID = {
@@ -29,5 +30,5 @@ export const COMPONENTS_MAP: Record<
   [TaskType.EMOJI_SET]: CommonModal,
   [TaskType.WALLET_CONNECT]: CommonModal,
   [TaskType.BOOST_CHANNEL]: CommonModal,
-  [TaskType.TON_PROMOTE]: CommonModal,
+  [TaskType.TON_PROMOTE]: PromoteTon,
 };

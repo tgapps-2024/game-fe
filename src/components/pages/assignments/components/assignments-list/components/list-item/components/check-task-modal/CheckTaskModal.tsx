@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
 
-import { useTranslations } from "next-intl";
-
 import { toast } from "sonner";
 
 import {
@@ -10,14 +8,12 @@ import {
   DrawerPortal,
 } from "@/components/ui/drawer";
 import { Toast } from "@/components/ui/toast";
-import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import { useSetCompleteTask } from "@/services/tasks/queries";
 import { ITask, TaskStatus, TaskType } from "@/services/tasks/types";
 import { useQueryClient } from "@tanstack/react-query";
-import { useTonConnectUI } from "@tonconnect/ui-react";
 
 import { COMPONENTS_MAP } from "./constants";
 
@@ -37,12 +33,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   value,
   onClose,
 }) => {
-  const t = useTranslations(NS.COMMON.ROOT);
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [isInit, setIsInit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [tonConnectUI] = useTonConnectUI();
   const { mutate: setCompleteTask, isPending } =
     useSetCompleteTask(queryClient);
 
@@ -69,41 +63,6 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           toast(<Toast type="destructive" text={(error as Error).message} />);
           setIsLoading(false);
         }
-        break;
-      case TaskType.TON_PROMOTE:
-        try {
-          await tonConnectUI?.sendTransaction({
-            messages: [
-              {
-                address: "UQCNxZR07lur7Qebs6qGXYkHc3Rw-CKNm9npqpH8HiAPr5YW",
-                amount: "1",
-              },
-            ],
-            validUntil: Date.now() + 1000000,
-          });
-
-          toast(
-            <Toast
-              type="done"
-              text={t(`${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.DONE}`)}
-            />,
-            {
-              duration: 5000,
-            },
-          );
-          onClose();
-        } catch {
-          toast(
-            <Toast
-              type="destructive"
-              text={t(`${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.DESTRUCTIVE}`)}
-            />,
-            {
-              duration: 5000,
-            },
-          );
-        }
-
         break;
       case TaskType.STORIES_REPLY:
         try {
