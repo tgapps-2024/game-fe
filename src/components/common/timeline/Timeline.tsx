@@ -2,9 +2,12 @@ import React, { FunctionComponent, ReactNode } from "react";
 
 import classNames from "classnames";
 
+import Done from "@/public/assets/svg/assignments/done.svg";
+
 interface TimelineItem {
   id: number;
   description: ReactNode;
+  isDone: boolean;
 }
 
 interface TimelineProps {
@@ -24,10 +27,19 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ items }) => {
             )}
           >
             <div className="grid grid-cols-[40px_1fr] items-center gap-2">
-              <div className="z-10 flex size-10 items-center justify-center rounded-full bg-blue-800">
-                <span className="text-sm font-semibold leading-none text-white">
-                  {item.id}
-                </span>
+              <div
+                className={classNames(
+                  "z-10 flex size-10 items-center justify-center rounded-full bg-blue-800",
+                  { "bg-blue-500": item.isDone },
+                )}
+              >
+                {item.isDone ? (
+                  <Done />
+                ) : (
+                  <span className="text-sm font-semibold leading-none text-white">
+                    {item.id}
+                  </span>
+                )}
               </div>
               <div>{item.description}</div>
             </div>

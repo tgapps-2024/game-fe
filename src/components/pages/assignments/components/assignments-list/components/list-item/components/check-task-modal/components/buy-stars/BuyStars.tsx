@@ -123,6 +123,7 @@ export const BuyStars: FunctionComponent<Props> = ({
           items={[
             {
               id: 1,
+              isDone: isChecked,
               description: (
                 <div className="flex flex-col gap-1">
                   <p className="text-sm font-medium leading-none text-gray-550">
@@ -138,6 +139,7 @@ export const BuyStars: FunctionComponent<Props> = ({
             },
             {
               id: 2,
+              isDone: isChecked,
               description: (
                 <div className="flex flex-col gap-1">
                   <p className="text-sm font-medium leading-none text-gray-550">
