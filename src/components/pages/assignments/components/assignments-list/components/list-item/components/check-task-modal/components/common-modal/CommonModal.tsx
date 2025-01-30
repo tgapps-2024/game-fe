@@ -47,7 +47,6 @@ export const CommonModal: FunctionComponent<Props> = ({
   onSubmit,
   onClose,
 }) => {
-  console.log("🚀 ~ isChecked:", isChecked);
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
 
