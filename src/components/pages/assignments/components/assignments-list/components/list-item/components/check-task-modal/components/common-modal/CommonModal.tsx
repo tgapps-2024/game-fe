@@ -86,6 +86,7 @@ export const CommonModal: FunctionComponent<Props> = ({
               items={[
                 {
                   id: 1,
+                  isDone: isInit,
                   description: (
                     <div className="flex flex-col gap-1">
                       <p className="text-sm font-medium leading-none text-gray-550">
@@ -105,6 +106,7 @@ export const CommonModal: FunctionComponent<Props> = ({
                 },
                 {
                   id: 2,
+                  isDone: isInit,
                   description: (
                     <div className="flex flex-col gap-1">
                       <p className="text-sm font-medium leading-none text-gray-550">
