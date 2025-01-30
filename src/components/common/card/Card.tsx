@@ -4,9 +4,9 @@ import Image from "next/image";
 
 import classNames from "classnames";
 
-import { CollectButton } from "@/components/ui";
+import { CollectButton, CollectButtonColor } from "@/components/ui";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import BGImage from "@/public/assets/png/card-bg.png";
+import BGImage from "@/public/assets/png/card-bg.webp";
 
 export enum CardType {
   BLUE = "blue",
@@ -17,6 +17,7 @@ export enum CardType {
 type Props = {
   children: React.ReactNode;
   badgeComponent: React.ReactNode;
+  buttonColor?: CollectButtonColor;
   buttonText: string;
   isSelected?: boolean;
   type?: CardType;
@@ -27,6 +28,7 @@ type Props = {
 export const Card: FunctionComponent<Props> = ({
   children,
   badgeComponent,
+  buttonColor,
   buttonText,
   isSelected = false,
   type = CardType.BLUE,
@@ -60,6 +62,7 @@ export const Card: FunctionComponent<Props> = ({
     >
       <CollectButton
         className="absolute -top-1 left-1/2 z-20 -translate-x-1/2"
+        color={buttonColor}
         onClick={handleGetPrizes}
       >
         {buttonText}

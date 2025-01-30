@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import { LevelBadge } from "@/components/pages/battle-pass/components/level-badge/LevelBadge";
-import { CollectButton } from "@/components/ui";
+import { CollectButton, CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import LargeFx from "@/public/assets/png/battle-pass/large-fx.png";
 import MysteryChest from "@/public/assets/png/battle-pass/mystery-chest.webp";
@@ -111,6 +111,7 @@ export const BattlePassCell: FunctionComponent<Props> = ({
       {battlePassLevel === renderLevel && (
         <CollectButton
           className="absolute -top-2 left-1/2 z-10 -translate-x-1/2"
+          color={isPremium ? CollectButtonColor.YELLOW : CollectButtonColor.GREEN}
           isLocked={isPremium}
           onClick={() => {}}
         >
