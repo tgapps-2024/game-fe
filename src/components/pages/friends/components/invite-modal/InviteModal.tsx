@@ -54,6 +54,7 @@ export const InviteModal = () => {
             <Card
               ref={cardRef}
               key={`buy_friends_card_${index}`}
+              buttonColor={card.buttonColor}
               buttonText={card.buttonText}
               isSelected={index === selectedCard}
               badgeComponent={<Badge value={card.badgeValue} />}
