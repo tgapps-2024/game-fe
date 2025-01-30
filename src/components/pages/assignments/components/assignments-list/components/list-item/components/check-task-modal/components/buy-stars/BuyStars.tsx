@@ -20,27 +20,32 @@ import { useStarsPayment } from "@/services/payments/queries";
 import { ITask } from "@/services/tasks/types";
 import { InvoiceStatus } from "@/types/telegram";
 import { formatNumber } from "@/utils/number";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 import { CHECK_TASKS_MODAL_TID } from "../../constants";
 
-type Props = Pick<ITask, "type" | "reward" | "title"> & {
-  isClicked: boolean;
+type Props = Pick<ITask, "id" | "type" | "reward" | "title" | "value"> & {
   onClick: (hasVerify?: boolean) => void;
   onCheck: () => void;
+  onSubmit: UseMutateFunction<void, unknown, string, unknown>;
+  onClose: () => void;
 };
 
 export const BuyStars: FunctionComponent<Props> = ({
   type,
+  id,
   reward,
   title,
-  onCheck,
+  value,
+  onSubmit,
+  onClose,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { webApp } = useTelegram();
   const [isChecked, setIsChecked] = useState(false);
   const { locale } = useRouter();
   const { mutate, isPending } = useStarsPayment(
-    1,
+    value ? +value : 1,
     (response) => {
       if (webApp) {
         webApp.openInvoice(response.url, (status) => {
@@ -75,10 +80,17 @@ export const BuyStars: FunctionComponent<Props> = ({
     },
   );
 
-  const handleCheck = () => {
-    if (isChecked) {
-      onCheck();
-    }
+  const handleSubmit = () => {
+    onSubmit(id, {
+      onSuccess: () => {
+        toast(<Toast type="done" text="Задание выполнено 🚀" />);
+        onClose();
+      },
+      onError: () => {
+        toast(<Toast type="destructive" text="Что-то пошло не так" />);
+        onClose();
+      },
+    });
   };
 
   return (
@@ -141,7 +153,7 @@ export const BuyStars: FunctionComponent<Props> = ({
         <PrimaryButton
           className="uppercase"
           disabled={!isChecked}
-          onClick={handleCheck}
+          onClick={handleSubmit}
           isLoading={isPending}
           size="large"
         >

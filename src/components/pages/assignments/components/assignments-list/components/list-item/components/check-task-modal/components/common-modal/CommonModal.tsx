@@ -16,104 +16,129 @@ import { NS } from "@/constants/ns";
 import ExternalSVG from "@/public/assets/svg/external.svg";
 import { ITask } from "@/services/tasks/types";
 import { formatNumber } from "@/utils/number";
+import { UseMutateFunction } from "@tanstack/react-query";
 
-import { CHECK_TASKS_MODAL_TID, VERIFIED_TYPES } from "../../constants";
+import { CHECK_TASKS_MODAL_TID } from "../../constants";
 
-type Props = Pick<ITask, "type" | "reward" | "title"> & {
-  isClicked: boolean;
-  onClick: (hasVerify?: boolean) => void;
+import { DoubleCheck } from "./components/double-check/DoubleCheck";
+
+type Props = Pick<ITask, "id" | "type" | "reward" | "title"> & {
+  isLoading: boolean;
+  isChecked: boolean;
+  isInit: boolean;
+  isPending: boolean;
   onCheck: () => void;
+  onClick: () => void;
+  onSubmit: UseMutateFunction<void, unknown, string, unknown>;
+  onClose: () => void;
 };
 
 export const CommonModal: FunctionComponent<Props> = ({
+  id,
   type,
   reward,
   title,
-  isClicked,
-  onClick,
+  isPending,
+  isLoading,
+  isChecked,
+  isInit,
   onCheck,
+  onClick,
+  onSubmit,
+  onClose,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
 
-  const handleCheck = () => {
-    if (isClicked) {
-      onCheck();
-    }
+  const handleButtonClick = () => {
+    onClick();
   };
 
   return (
     <>
-      <DrawerTitle className="text-stroke-1 mb-3 flex flex-col items-center gap-6 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] !text-white text-shadow">
-        {createElement(ASSIGNMENTS_ICONS[type], {
-          className: "size-23 rounded-full",
-        })}
-        {locale === "en" ? title.en : title.ru}
-      </DrawerTitle>
-      <div
-        className={classNames(
-          "mx-auto mb-3 flex w-fit items-center gap-2 rounded-full bg-blue-800/50 px-3 py-1",
-        )}
-      >
-        {reward.map(({ type, value }) => (
-          <div
-            key={type}
-            className="flex items-center gap-1 text-base font-extrabold leading-none text-yellow-500"
-          >
-            {React.createElement(REWARD_ICONS[type], {
-              className: "size-6",
+      {!isChecked ? (
+        <>
+          <DrawerTitle className="text-stroke-1 mb-3 flex flex-col items-center gap-6 text-center text-[28px] font-black uppercase leading-none tracking-[0.04em] !text-white text-shadow">
+            {createElement(ASSIGNMENTS_ICONS[type], {
+              className: "size-23 rounded-full",
             })}
-            + {formatNumber(value)}
+            {locale === "en" ? title.en : title.ru}
+          </DrawerTitle>
+          <div
+            className={classNames(
+              "mx-auto mb-3 flex w-fit items-center gap-2 rounded-full bg-blue-800/50 px-3 py-1",
+            )}
+          >
+            {reward.map(({ type, value }) => (
+              <div
+                key={type}
+                className="flex items-center gap-1 text-base font-extrabold leading-none text-yellow-500"
+              >
+                {React.createElement(REWARD_ICONS[type], {
+                  className: "size-6",
+                })}
+                + {formatNumber(value)}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="flex w-full flex-col gap-4 rounded-2xl bg-white/5 p-4">
-        <Timeline
-          items={[
-            {
-              id: 1,
-              description: (
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
-                    {t(
-                      `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
-                    )}
-                  </p>
-                  <button
-                    onClick={() => onClick(VERIFIED_TYPES.includes(type))}
-                    className="text-stroke-1 flex items-baseline gap-1 font-extrabold uppercase leading-none tracking-wide text-white text-shadow-sm"
-                  >
-                    {t(CHECK_TASKS_MODAL_TID[type])}
-                    <ExternalSVG className="size-4" />
-                  </button>
-                </div>
-              ),
-            },
-            {
-              id: 2,
-              description: (
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
-                    {t(
-                      `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
-                    )}
-                  </p>
-                </div>
-              ),
-            },
-          ]}
+          <div className="flex w-full flex-col gap-4 rounded-2xl bg-white/5 p-4">
+            <Timeline
+              items={[
+                {
+                  id: 1,
+                  description: (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-medium leading-none text-gray-550">
+                        {t(
+                          `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
+                        )}
+                      </p>
+                      <button
+                        onClick={handleButtonClick}
+                        className="flex items-baseline gap-1 font-extrabold uppercase leading-none tracking-wide text-white text-shadow"
+                      >
+                        {t(CHECK_TASKS_MODAL_TID[type])}
+                        <ExternalSVG className="size-4" />
+                      </button>
+                    </div>
+                  ),
+                },
+                {
+                  id: 2,
+                  description: (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-medium leading-none text-gray-550">
+                        {t(
+                          `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
+                        )}
+                      </p>
+                    </div>
+                  ),
+                },
+              ]}
+            />
+            <PrimaryButton
+              className="uppercase"
+              disabled={!isInit}
+              isLoading={isLoading}
+              onClick={onCheck}
+              size="large"
+            >
+              {t(
+                `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.BUTTON}`,
+              )}
+            </PrimaryButton>
+          </div>
+        </>
+      ) : (
+        <DoubleCheck
+          id={id}
+          isPending={isPending}
+          onCheck={onCheck}
+          onSubmit={onSubmit}
+          onClose={onClose}
         />
-        <PrimaryButton
-          className="uppercase"
-          disabled={!isClicked}
-          onClick={handleCheck}
-          size="large"
-        >
-          {t(
-            `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.BUTTON}`,
-          )}
-        </PrimaryButton>
-      </div>
+      )}
     </>
   );
 };
