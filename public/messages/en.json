@@ -73,7 +73,9 @@
         "ADD_GAME": "Add a game",
         "ADD_EMOJI_STATUS": "Add emoji status",
         "BUY_STARS": "Buy stars",
-        "CHECK_ASSIGNMENTS": "Click below to submit it for review."
+        "CHECK_ASSIGNMENTS": "Click below to submit it for review.",
+        "WALLET_CONNECT": "Connect wallet",
+        "MAKE_TRANSACTION": "Make a transaction"
       },
       "CONFIRMATION_MODAL": {
         "TITLE": "Make sure you have completed the task",

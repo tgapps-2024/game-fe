@@ -48,6 +48,8 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ items }) => {
                 <div className="h-1 w-[1px] rounded-full bg-white" />
                 <div className="h-1 w-[1px] rounded-full bg-white" />
                 <div className="h-1 w-[1px] rounded-full bg-white" />
+                <div className="h-1 w-[1px] rounded-full bg-white" />
+                <div className="h-1 w-[1px] rounded-full bg-white" />
               </div>
             )}
           </li>
