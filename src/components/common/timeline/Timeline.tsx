@@ -29,8 +29,8 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ items }) => {
             <div className="grid grid-cols-[40px_1fr] items-center gap-2">
               <div
                 className={classNames(
-                  "z-10 flex size-10 items-center justify-center rounded-full bg-blue-800",
-                  { "bg-blue-500": item.isDone },
+                  "z-10 flex size-10 items-center justify-center rounded-full",
+                  { "bg-blue-500": item.isDone, "bg-blue-800": !item.isDone },
                 )}
               >
                 {item.isDone ? (
