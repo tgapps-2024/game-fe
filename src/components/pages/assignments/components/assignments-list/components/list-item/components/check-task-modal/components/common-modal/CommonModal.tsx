@@ -47,11 +47,17 @@ export const CommonModal: FunctionComponent<Props> = ({
   onSubmit,
   onClose,
 }) => {
+  console.log("🚀 ~ isChecked:", isChecked);
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
 
   const handleButtonClick = () => {
     onClick();
+  };
+
+  const handleCheck = () => {
+    if (!isInit) return;
+    onCheck();
   };
 
   return (
@@ -123,7 +129,7 @@ export const CommonModal: FunctionComponent<Props> = ({
               className="uppercase"
               disabled={!isInit}
               isLoading={isLoading}
-              onClick={onCheck}
+              onClick={handleCheck}
               size="large"
             >
               {t(

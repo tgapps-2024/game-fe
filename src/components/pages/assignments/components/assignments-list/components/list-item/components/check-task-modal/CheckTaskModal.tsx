@@ -105,8 +105,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         // Call the method specific to DONATE
         break;
       case TaskType.WALLET_CONNECT:
-        // setIsClicked(true);
-        // Call the method specific to WALLET_CONNECT
+        setTimeout(() => {
+          setIsInit(true);
+          setIsLoading(false);
+        }, 3000);
         break;
       case TaskType.BOOST_CHANNEL:
         // Call the method specific to BOOST_CHANNEL
@@ -120,9 +122,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
 
   const handleCheck = () => {
     handleSelectionChanged();
-    if (isChecked) {
-      setIsChecked(!isChecked);
-    }
+    setIsChecked(!isChecked);
   };
 
   return (
