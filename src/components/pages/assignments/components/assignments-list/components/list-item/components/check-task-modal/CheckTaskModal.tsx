@@ -14,13 +14,17 @@ import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
+import { useSetCompleteTask } from "@/services/tasks/queries";
 import { ITask, TaskStatus, TaskType } from "@/services/tasks/types";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 
-import { DoubleCheck } from "./components/double-check/DoubleCheck";
 import { COMPONENTS_MAP } from "./constants";
 
-type Props = Pick<ITask, "type" | "title" | "reward" | "id" | "status"> & {
+type Props = Pick<
+  ITask,
+  "type" | "title" | "reward" | "id" | "status" | "value"
+> & {
   onClose: () => void;
 };
 
@@ -30,17 +34,23 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   reward,
   status,
   id,
+  value,
   onClose,
 }) => {
   const t = useTranslations(NS.COMMON.ROOT);
-  const [isClicked, setIsClicked] = useState(false);
+  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInit, setIsInit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [tonConnectUI] = useTonConnectUI();
+  const { mutate: setCompleteTask, isPending } =
+    useSetCompleteTask(queryClient);
 
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
 
   const handleClick = async () => {
+    setIsLoading(true);
     handleSelectionChanged();
 
     if (status === TaskStatus.COMPLETED) {
@@ -50,10 +60,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
     switch (type) {
       case TaskType.SOCIAL_SUB:
         try {
-          webApp?.openTelegramLink(
-            `https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`,
-          );
-          setIsClicked(true);
+          webApp?.openTelegramLink(value as string);
+          setTimeout(() => {
+            setIsInit(true);
+          }, 3000);
         } catch {
           toast(
             <Toast
@@ -63,6 +73,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
               )}
             />,
           );
+        } finally {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 3000);
         }
         break;
       case TaskType.TON_PROMOTE:
@@ -97,15 +111,15 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
               duration: 5000,
             },
           );
-        } finally {
-          setIsClicked(true);
         }
 
         break;
       case TaskType.STORIES_REPLY:
         try {
-          webApp?.shareToStory(process.env.NEXT_PUBLIC_BOT_USERNAME || "");
-          setIsClicked(true);
+          webApp?.shareToStory(value as string);
+          setTimeout(() => {
+            setIsInit(true);
+          }, 3000);
         } catch {
           toast(
             <Toast
@@ -115,12 +129,18 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
               )}
             />,
           );
+        } finally {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 3000);
         }
         break;
       case TaskType.ADD_TO_HOME:
         try {
           webApp?.addToHomeScreen();
-          setIsClicked(true);
+          setTimeout(() => {
+            setIsInit(true);
+          }, 3000);
         } catch {
           toast(
             <Toast
@@ -130,12 +150,18 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
               )}
             />,
           );
+        } finally {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 3000);
         }
         break;
       case TaskType.EMOJI_SET:
         try {
-          webApp?.setEmojiStatus(process.env.NEXT_PUBLIC_CUSTOM_EMOJI_ID || "");
-          setIsClicked(true);
+          webApp?.setEmojiStatus(value as string);
+          setTimeout(() => {
+            setIsInit(true);
+          }, 3000);
         } catch {
           toast(
             <Toast
@@ -145,6 +171,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
               )}
             />,
           );
+        } finally {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 3000);
         }
         break;
       case TaskType.DONATE:
@@ -156,7 +186,6 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         // Call the method specific to WALLET_CONNECT
         break;
       case TaskType.BOOST_CHANNEL:
-        setIsClicked(true);
         // Call the method specific to BOOST_CHANNEL
         break;
       default:
@@ -177,18 +206,21 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         <DrawerClose className="absolute right-4 top-4 z-10">
           <CloseIcon onClick={handleSelectionChanged} />
         </DrawerClose>
-        {isChecked ? (
-          <DoubleCheck id={id} onClose={onClose} onCheck={handleCheck} />
-        ) : (
-          React.createElement(COMPONENTS_MAP[type], {
-            type,
-            reward,
-            title,
-            isClicked,
-            onClick: handleClick,
-            onCheck: handleCheck,
-          })
-        )}
+        {React.createElement(COMPONENTS_MAP[type], {
+          id,
+          type,
+          reward,
+          title,
+          value,
+          isPending,
+          isLoading,
+          isChecked,
+          isInit,
+          onClick: handleClick,
+          onCheck: handleCheck,
+          onSubmit: setCompleteTask,
+          onClose,
+        })}
       </DrawerContent>
     </DrawerPortal>
   );

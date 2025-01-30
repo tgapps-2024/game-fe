@@ -25,6 +25,7 @@ export const ListItem: FunctionComponent<Props> = ({
   title,
   status,
   id,
+  value,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { locale } = useRouter();
@@ -89,7 +90,7 @@ export const ListItem: FunctionComponent<Props> = ({
             {status === TaskStatus.AVAILABLE ? (
               <ArrowIcon className="ml-auto size-6 stroke-white" />
             ) : (
-              <DoneSvg className="ml-auto size-6" />
+              <DoneSvg className="ml-auto size-4" />
             )}
           </motion.div>
         </li>
@@ -101,6 +102,7 @@ export const ListItem: FunctionComponent<Props> = ({
         title={title}
         reward={reward}
         status={status}
+        value={value}
       />
     </Drawer>
   );

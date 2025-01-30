@@ -31,7 +31,7 @@ export interface ITask {
   };
   type: TaskType;
   status: TaskStatus;
-  value: null | number;
+  value: null | number | string;
   reward: [
     {
       type: TaskRewardType;

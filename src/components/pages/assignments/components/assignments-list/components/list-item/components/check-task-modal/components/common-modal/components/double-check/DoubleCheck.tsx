@@ -17,25 +17,24 @@ import { NS } from "@/constants/ns";
 import ErrorImage from "@/public/assets/png/assignments/error404.webp";
 import DividerSVG from "@/public/assets/svg/divider.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
-import { useSetCompleteTask } from "@/services/tasks/queries";
-import { useQueryClient } from "@tanstack/react-query";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 type Props = {
   id: string;
-  onCheck: () => void;
+  isPending: boolean;
+  onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
+  onCheck: () => void;
 };
 
 export const DoubleCheck: FunctionComponent<Props> = ({
   id,
-  onCheck,
+  isPending,
+  onSubmit,
   onClose,
+  onCheck,
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
-  const queryClient = useQueryClient();
-
-  const { mutate: setCompleteTask, isPending } =
-    useSetCompleteTask(queryClient);
 
   const variants = {
     hidden: { opacity: 0, y: 20 },
@@ -44,7 +43,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
   };
 
   const handleTaskComplete = () => {
-    setCompleteTask(id, {
+    onSubmit(id, {
       onSuccess: () => {
         onClose();
         toast(<Toast type="done" text="Задание выполнено 🚀" />);
@@ -64,11 +63,11 @@ export const DoubleCheck: FunctionComponent<Props> = ({
       transition={{ duration: 0.3 }}
       className="flex flex-col items-center"
     >
-      <div className="relative mb-6 aspect-video w-[85%]">
+      <div className="relative mb-6 h-[200px] w-[320px]">
         <Image src={ErrorImage} alt="error" fill />
       </div>
 
-      <DrawerTitle className="text-stroke-1 mb-3 text-center text-2xl font-black uppercase tracking-normal !text-white text-shadow-sm">
+      <DrawerTitle className="mb-3 text-center text-2xl font-black uppercase tracking-normal !text-white text-shadow">
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.TITLE}`,
         )}
