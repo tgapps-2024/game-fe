@@ -63,20 +63,11 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           webApp?.openTelegramLink(value as string);
           setTimeout(() => {
             setIsInit(true);
-          }, 3000);
-        } catch {
-          toast(
-            <Toast
-              type="destructive"
-              text={t(
-                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
-              )}
-            />,
-          );
-        } finally {
-          setTimeout(() => {
             setIsLoading(false);
           }, 3000);
+        } catch (error) {
+          toast(<Toast type="destructive" text={(error as Error).message} />);
+          setIsLoading(false);
         }
         break;
       case TaskType.TON_PROMOTE:
@@ -119,20 +110,11 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           webApp?.shareToStory(value as string);
           setTimeout(() => {
             setIsInit(true);
-          }, 3000);
-        } catch {
-          toast(
-            <Toast
-              type="destructive"
-              text={t(
-                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
-              )}
-            />,
-          );
-        } finally {
-          setTimeout(() => {
             setIsLoading(false);
           }, 3000);
+        } catch (error) {
+          toast(<Toast type="destructive" text={(error as Error).message} />);
+          setIsLoading(false);
         }
         break;
       case TaskType.ADD_TO_HOME:
@@ -140,20 +122,11 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           webApp?.addToHomeScreen();
           setTimeout(() => {
             setIsInit(true);
-          }, 3000);
-        } catch {
-          toast(
-            <Toast
-              type="destructive"
-              text={t(
-                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
-              )}
-            />,
-          );
-        } finally {
-          setTimeout(() => {
             setIsLoading(false);
           }, 3000);
+        } catch (error) {
+          toast(<Toast type="destructive" text={(error as Error).message} />);
+          setIsLoading(false);
         }
         break;
       case TaskType.EMOJI_SET:
@@ -161,20 +134,11 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
           webApp?.setEmojiStatus(value as string);
           setTimeout(() => {
             setIsInit(true);
-          }, 3000);
-        } catch {
-          toast(
-            <Toast
-              type="destructive"
-              text={t(
-                `${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.UPDATE_TELEGRAM}`,
-              )}
-            />,
-          );
-        } finally {
-          setTimeout(() => {
             setIsLoading(false);
           }, 3000);
+        } catch (error) {
+          toast(<Toast type="destructive" text={(error as Error).message} />);
+          setIsLoading(false);
         }
         break;
       case TaskType.DONATE:
