@@ -113,5 +113,13 @@
       "SALE": "Скидка",
       "FRIENDS": "{number} Друзей"
     }
+  },
+  "REWARDS": {
+    "GET_REWARDS": "Получить награды",
+    "TABS": {
+      "EARNINGS": "Заработок",
+      "REWARDS": "Награды",
+      "BOOSTERS": "Бустеры"
+    }
   }
 }

@@ -113,5 +113,13 @@
       "SALE": "Sale",
       "FRIENDS": "{number} Friends"
     }
+  },
+  "REWARDS": {
+    "GET_REWARDS": "Get rewards",
+    "TABS": {
+      "EARNINGS": "Earnings",
+      "REWARDS": "Rewards",
+      "BOOSTERS": "Boosters"
+    }
   }
 }

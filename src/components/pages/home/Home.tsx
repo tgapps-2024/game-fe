@@ -41,6 +41,12 @@ export const Home = () => {
             </Button>
           </Link>
 
+          <Link href={ROUTES.REWARDS}>
+            <Button variant="link" className="w-full text-white">
+              Rewards
+            </Button>
+          </Link>
+
           <Button
             onClick={() => {
               toast(<Toast type="destructive" text="Test toast 🚀" />);
