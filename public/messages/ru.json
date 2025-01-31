@@ -113,5 +113,8 @@
       "SALE": "Скидка",
       "FRIENDS": "{number} Друзей"
     }
+  },
+  "HEROES": {
+    "TITLE": "Герои"
   }
 }

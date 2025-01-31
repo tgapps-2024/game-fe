@@ -136,5 +136,9 @@ export const NS = {
         FRIENDS: "FRIENDS",
       },
     },
+    HEROES: {
+      ROOT: "HEROES",
+      TITLE: "TITLE",
+    },
   },
 };

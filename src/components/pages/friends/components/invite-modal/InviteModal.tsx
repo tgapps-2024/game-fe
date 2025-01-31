@@ -74,7 +74,7 @@ export const InviteModal = () => {
           ))}
         </div>
         <PrimaryButton
-          variant="secondary"
+          color="secondary"
           className="w-full uppercase"
           size="large"
           disabled={selectedCard === null}
