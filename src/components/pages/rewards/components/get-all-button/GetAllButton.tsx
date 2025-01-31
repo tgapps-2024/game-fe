@@ -19,7 +19,7 @@ export const GetAllButton = () => {
       )}
     >
       <PrimaryButton
-        variant="secondary"
+        color="secondary"
         className="uppercase"
         onClick={() => handleSelectionChanged()}
       >
