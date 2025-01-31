@@ -45,7 +45,6 @@ const Row = ({ index, style }: { index: number; style: CSSProperties }) => {
           key={`level-${renderLevel}`}
           renderLevel={renderLevel}
           battlePassLevel={BATTLE_PASS_CURRENT_LEVEL}
-          onCollect={() => {}}
         />
       ) : (
         <BattlePassListHeader />
