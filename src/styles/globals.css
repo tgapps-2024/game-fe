@@ -12,6 +12,10 @@ body::-webkit-scrollbar {
   display: none; 
 }
 
+tc-root {
+  pointer-events: auto;
+}
+
 html,
 body {
   @apply font-rubik;
