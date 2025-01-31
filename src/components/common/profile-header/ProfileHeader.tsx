@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 
+import classNames from "classnames";
+
 import { Level } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
@@ -18,11 +20,13 @@ import { HeaderItem } from "./components/header-item/HeaderItem";
 import { TopComponent } from "./components/top-component/TopComponent";
 
 type Props = {
+  className?: string;
   profileData: IProfile;
   isLoading: boolean;
 };
 
 export const ProfileHeader: FunctionComponent<Props> = ({
+  className,
   profileData: { level, coins, stars, friends },
   isLoading,
 }) => {
@@ -32,7 +36,9 @@ export const ProfileHeader: FunctionComponent<Props> = ({
   const isFriendsPage = pathname === ROUTES.FRIENDS;
 
   return (
-    <div className="relative grid h-10 grid-cols-3 px-4">
+    <div
+      className={classNames("relative grid h-10 grid-cols-3 px-4", className)}
+    >
       {isLoading ? (
         <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
           <div className="relative !size-10 animate-pulse overflow-hidden rounded-full border-2 border-solid border-white bg-white/90 object-cover" />

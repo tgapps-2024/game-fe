@@ -7,13 +7,13 @@ import { Spinner } from "@/components/common";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { NotificationEnum } from "@/types/telegram";
 
-type Variant = "primary" | "secondary";
+type Color = "primary" | "secondary";
 
 type Size = "small" | "medium" | "large";
 
 type Props = {
   children: React.ReactNode;
-  variant?: Variant;
+  color?: Color;
   size?: Size;
   buttonClassName?: string;
   isLoading?: boolean;
@@ -22,7 +22,7 @@ type Props = {
 
 export const PrimaryButton: FunctionComponent<Props> = ({
   children,
-  variant = "primary",
+  color = "primary",
   size = "medium",
   disabled = false,
   buttonClassName,
@@ -54,8 +54,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
       className={classNames(
         "group w-full cursor-pointer overflow-hidden border border-black",
-        { "bg-[#0655a4]": variant === "primary" },
-        { "bg-[#009F00]": variant === "secondary" },
+        { "bg-[#0655a4]": color === "primary" },
+        { "bg-[#009F00]": color === "secondary" },
         { "bg-blue-800 pb-0": disabled },
         { "pb-[3px]": !disabled },
         { "h-10 rounded-xl": size === "small" },
@@ -69,8 +69,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
       <div
         className={classNames(
           "flex h-full w-full items-center justify-center p-[3px] pb-1",
-          { "bg-[#0075ff]": variant === "primary" },
-          { "bg-[#02DB07]": variant === "secondary" },
+          { "bg-[#0075ff]": color === "primary" },
+          { "bg-[#02DB07]": color === "secondary" },
           { "bg-blue-800 shadow-none": disabled },
           { "shadow-inset-btn": !disabled },
           { "rounded-xl": size === "small" },
@@ -95,8 +95,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
             },
             { "bg-blue-800/100 text-white/50 shadow-none": disabled },
             { "shadow-link": !disabled },
-            { "bg-white/15": variant === "primary" && !disabled },
-            { "bg-white/40": variant === "secondary" && !disabled },
+            { "bg-white/15": color === "primary" && !disabled },
+            { "bg-white/40": color === "secondary" && !disabled },
             className,
           )}
           style={fontSize ? { fontSize } : undefined}

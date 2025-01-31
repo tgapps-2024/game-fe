@@ -113,5 +113,8 @@
       "SALE": "Sale",
       "FRIENDS": "{number} Friends"
     }
+  },
+  "HEROES": {
+    "TITLE": "Heroes"
   }
 }
