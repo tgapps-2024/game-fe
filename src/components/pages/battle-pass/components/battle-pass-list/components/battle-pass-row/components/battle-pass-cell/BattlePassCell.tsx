@@ -9,10 +9,12 @@ import { motion } from "framer-motion";
 import { LevelBadge } from "@/components/pages/battle-pass/components/level-badge/LevelBadge";
 import { CollectButton, CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import LargeFx from "@/public/assets/png/battle-pass/large-fx.png";
 import MysteryChest from "@/public/assets/png/battle-pass/mystery-chest.webp";
 import RegularChest from "@/public/assets/png/battle-pass/regular-chest.webp";
 import SmallFx from "@/public/assets/png/battle-pass/small-fx.png";
+import { NotificationEnum } from "@/types/telegram";
 
 import CellRenderer from "./cell-renderer";
 
@@ -25,7 +27,6 @@ type Props = {
   battlePassLevel: number;
   renderLevel: number;
   cellType: CellType;
-  onCollect: () => void;
 };
 
 export const BattlePassCell: FunctionComponent<Props> = ({
@@ -34,6 +35,7 @@ export const BattlePassCell: FunctionComponent<Props> = ({
   cellType,
 }) => {
   const t = useTranslations(NS.PAGES.BATTLE_PASS.ROOT);
+  const { handleNotificationOccurred } = useHapticFeedback();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const isPremium = cellType === CellType.Premium;
   const isTaken = battlePassLevel > renderLevel;
@@ -66,10 +68,20 @@ export const BattlePassCell: FunctionComponent<Props> = ({
 
       cellRenderer.render();
     }
-  }, [isPremium, FxImage.src]);
+  }, [isPremium, isTaken, isLocked, FxImage.src]);
+
+  const handleClick = () => {
+    if (isLocked) {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    } else if (isTaken) {
+      handleNotificationOccurred(NotificationEnum.WARNING);
+    } else {
+      handleNotificationOccurred(NotificationEnum.SUCCESS);
+    }
+  };
 
   return (
-    <div className="relative">
+    <div className="relative" onClick={handleClick}>
       <canvas className="h-30 w-full" ref={canvasRef} />
       {isAnimated && (
         <div className="absolute inset-0 overflow-hidden">
@@ -111,7 +123,9 @@ export const BattlePassCell: FunctionComponent<Props> = ({
       {battlePassLevel === renderLevel && (
         <CollectButton
           className="absolute -top-2 left-1/2 z-10 -translate-x-1/2"
-          color={isPremium ? CollectButtonColor.YELLOW : CollectButtonColor.GREEN}
+          color={
+            isPremium ? CollectButtonColor.YELLOW : CollectButtonColor.GREEN
+          }
           isLocked={isPremium}
           onClick={() => {}}
         >

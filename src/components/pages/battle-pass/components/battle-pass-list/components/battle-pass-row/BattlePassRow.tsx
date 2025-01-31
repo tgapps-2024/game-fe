@@ -9,26 +9,22 @@ import { Star } from "./components/star/Star";
 type Props = {
   renderLevel: number;
   battlePassLevel: number;
-  onCollect: () => void;
 };
 
 export const BattlePassRow: FunctionComponent<Props> = ({
   renderLevel,
   battlePassLevel,
-  onCollect,
 }) => (
   <div className="relative grid w-full grid-cols-[1fr_1.2fr] gap-0.5 bg-blue-800 py-px">
     <BattlePassCell
       renderLevel={renderLevel}
       battlePassLevel={battlePassLevel}
       cellType={CellType.Regular}
-      onCollect={onCollect}
     />
     <BattlePassCell
       renderLevel={renderLevel}
       battlePassLevel={battlePassLevel}
       cellType={CellType.Premium}
-      onCollect={onCollect}
     />
     {battlePassLevel === renderLevel ? (
       <div className="absolute -bottom-1 left-0 z-20 flex w-full flex-col items-center bg-black pb-0.5">
