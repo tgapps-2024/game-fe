@@ -121,5 +121,8 @@
       "REWARDS": "Rewards",
       "BOOSTERS": "Boosters"
     }
+  },
+  "HEROES": {
+    "TITLE": "Heroes"
   }
 }

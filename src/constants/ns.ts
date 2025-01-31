@@ -146,5 +146,9 @@ export const NS = {
         BOOSTERS: "BOOSTERS",
       },
     },
+    HEROES: {
+      ROOT: "HEROES",
+      TITLE: "TITLE",
+    },
   },
 };
