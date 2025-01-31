@@ -19,7 +19,11 @@ import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { ITask } from "@/services/tasks/types";
 import { formatNumber } from "@/utils/number";
 import { UseMutateFunction } from "@tanstack/react-query";
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import {
+  useTonAddress,
+  useTonConnectModal,
+  useTonConnectUI,
+} from "@tonconnect/ui-react";
 
 type Props = Pick<ITask, "id" | "type" | "reward" | "title" | "value"> & {
   isPending: boolean;
@@ -40,15 +44,15 @@ export const PromoteTon: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { locale } = useRouter();
-  const [tonConnectUI] = useTonConnectUI();
   const [isSent, setIsSent] = useState(false);
+  const { open } = useTonConnectModal();
+  const [tonConnectUI] = useTonConnectUI();
   const address = useTonAddress();
-
   const { handleSelectionChanged } = useHapticFeedback();
 
   const handleOpenTon = () => {
     handleSelectionChanged();
-    tonConnectUI?.openModal();
+    open();
   };
 
   const handleDisconnect = () => {
@@ -71,7 +75,6 @@ export const PromoteTon: FunctionComponent<Props> = ({
         validUntil: Date.now() + 1000000,
       });
       setIsSent(true);
-
       toast(
         <Toast
           type="done"
@@ -144,7 +147,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
                   <PrimaryButton
                     disabled={address.length > 0}
                     onClick={() => {
-                      if (address.length) {
+                      if (address.length > 0) {
                         handleDisconnect();
                       } else {
                         handleOpenTon();

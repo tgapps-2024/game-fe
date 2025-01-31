@@ -2,11 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 
 import { toast } from "sonner";
 
-import {
-  DrawerClose,
-  DrawerContent,
-  DrawerPortal,
-} from "@/components/ui/drawer";
+import { DrawerClose, DrawerContent } from "@/components/ui/drawer";
 import { Toast } from "@/components/ui/toast";
 import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
@@ -126,27 +122,28 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   };
 
   return (
-    <DrawerPortal>
-      <DrawerContent className="flex w-full flex-col items-center overflow-hidden rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
-        <DrawerClose className="absolute right-4 top-4 z-10">
-          <CloseIcon onClick={handleSelectionChanged} />
-        </DrawerClose>
-        {React.createElement(COMPONENTS_MAP[type], {
-          id,
-          type,
-          reward,
-          title,
-          value,
-          isPending,
-          isLoading,
-          isChecked,
-          isInit,
-          onClick: handleClick,
-          onCheck: handleCheck,
-          onSubmit: setCompleteTask,
-          onClose,
-        })}
-      </DrawerContent>
-    </DrawerPortal>
+    <DrawerContent
+      onInteractOutside={(e) => e.preventDefault()}
+      className="flex w-full flex-col items-center overflow-hidden rounded-t-3xl border-white/10 bg-blue-700 px-4 pb-8 pt-9 font-rubik shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]"
+    >
+      <DrawerClose className="absolute right-4 top-4 z-10">
+        <CloseIcon onClick={handleSelectionChanged} />
+      </DrawerClose>
+      {React.createElement(COMPONENTS_MAP[type], {
+        id,
+        type,
+        reward,
+        title,
+        value,
+        isPending,
+        isLoading,
+        isChecked,
+        isInit,
+        onClick: handleClick,
+        onCheck: handleCheck,
+        onSubmit: setCompleteTask,
+        onClose,
+      })}
+    </DrawerContent>
   );
 };
