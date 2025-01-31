@@ -136,6 +136,16 @@ export const NS = {
         FRIENDS: "FRIENDS",
       },
     },
+    REWARDS: {
+      ROOT: "REWARDS",
+      GET_REWARDS: "GET_REWARDS",
+      TABS: {
+        ROOT: "TABS",
+        EARNINGS: "EARNINGS",
+        REWARDS: "REWARDS",
+        BOOSTERS: "BOOSTERS",
+      },
+    },
     HEROES: {
       ROOT: "HEROES",
       TITLE: "TITLE",
