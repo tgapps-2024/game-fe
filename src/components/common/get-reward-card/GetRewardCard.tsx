@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import Image from "next/image";
 
@@ -25,11 +25,12 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   return (
     <div
       className={classNames(
-        "relative aspect-[83/128] rounded-xl border border-solid border-black text-white transition-transform will-change-transform",
+        "relative aspect-[83/128] rounded-xl border border-solid border-black pb-1 text-white transition-transform duration-100 ease-in-out",
         {
-          "bg-[#0069B1] pb-1": status === RewardsStatusEnum.AVAILABLE,
-          "": status === RewardsStatusEnum.UNAVAILABLE,
-          "bg-[#009F00] pb-1": status === RewardsStatusEnum.CURRENT,
+          "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
+          "bg-blue-700 bg-[conic-gradient(#0ea5e9_20deg,transparent_120deg)] opacity-50":
+            status === RewardsStatusEnum.UNAVAILABLE,
+          "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
         },
       )}
     >
@@ -67,7 +68,12 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         </div>
         <div className="relative h-[22%] w-full">
           {caption && (
-            <div className="text-stroke-1 absolute left-1/2 top-[calc(50%+2px)] -translate-x-1/2 -translate-y-1/2 text-sm font-black text-white text-shadow">
+            <div
+              className={classNames(
+                "text-stroke-1 absolute left-1/2 top-[calc(50%_+_2px)] -translate-x-1/2 -translate-y-1/2 text-sm font-black text-white text-shadow",
+                "md:text-lg",
+              )}
+            >
               {status === RewardsStatusEnum.UNAVAILABLE && amount} {caption}
             </div>
           )}

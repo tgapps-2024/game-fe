@@ -177,24 +177,4 @@ body {
     touch-action: pan-y pinch-zoom;
     margin-left: calc(0.8rem * -1);
   }
-
-  .inner-gradient-border {
-    position: relative;
-    background-clip: padding-box; /* Градиент будет внутри элемента */
-    border: solid 1px transparent; /* Нужна для padding-box */
-  }
-
-  .inner-gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0; /* Занять весь элемент */
-    background: linear-gradient(
-      90deg,
-      #ff7eb3,
-      #ff758c,
-      #ff6090
-    ); /* Градиент */
-    z-index: -1; /* Позади контента */
-    border-radius: inherit; /* Унаследовать закругления */
-  }
 }

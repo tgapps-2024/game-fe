@@ -21,6 +21,7 @@ export default {
           "collect-button-violet-coloring 1s infinite linear",
         "bp-glow-running": "bp-glow-running 2s infinite linear",
         "card-glow-running": "card-glow-running 2s infinite linear",
+        "card-border-coloring": "card-border-coloring 1s infinite linear",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -70,6 +71,10 @@ export default {
           "100%": {
             transform: "rotate(30deg) translate(200%, -15%)",
           },
+        },
+        "card-border-coloring": {
+          "0%, 100%": { border: "transparent" },
+          "50%": { border: "№0D4C95" },
         },
       },
       backgroundImage: {
