@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 import Image from "next/image";
 
 import classNames from "classnames";
+import { motion } from "framer-motion";
 
 import { RewardsStatusEnum } from "@/components/pages/rewards/enums";
 import BGImage from "@/public/assets/png/card-bg.webp";
@@ -25,9 +26,12 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   onClick,
 }) => {
   return (
-    <div
+    <motion.div
+      onTap={onClick}
+      whileTap={status === RewardsStatusEnum.UNAVAILABLE ? {} : { scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 200, damping: 20 }}
       className={classNames(
-        "relative aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-100 ease-in-out",
+        "relative z-20 aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-100 ease-in-out",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
           "overflow-hidden bg-blue-700 p-[1px] !pb-[1px] opacity-50":
@@ -37,7 +41,6 @@ export const GetRewardCard: FunctionComponent<Props> = ({
             status !== RewardsStatusEnum.UNAVAILABLE,
         },
       )}
-      onClick={onClick}
     >
       <div
         className={classNames(
@@ -75,7 +78,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
           {caption && (
             <div
               className={classNames(
-                "text-stroke-1 absolute left-1/2 top-[calc(50%_+_2px)] -translate-x-1/2 -translate-y-1/2 text-sm font-black text-white text-shadow",
+                "text-stroke-1 absolute left-1/2 top-[calc(50%_+_2px)] -translate-x-1/2 -translate-y-1/2 text-sm font-black text-white text-shadow-sm",
                 "md:text-lg",
               )}
             >
@@ -89,6 +92,6 @@ export const GetRewardCard: FunctionComponent<Props> = ({
           <div className="absolute top-0 h-[130%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };

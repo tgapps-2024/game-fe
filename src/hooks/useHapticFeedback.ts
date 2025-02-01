@@ -16,7 +16,7 @@ export const useHapticFeedback = () => {
     }
   };
 
-  const handleImpactOccurred = (style: ImpactStyleEnum) => () => {
+  const handleImpactOccurred = (style: ImpactStyleEnum) => {
     if (webApp) {
       webApp.HapticFeedback.impactOccurred(style);
     }
