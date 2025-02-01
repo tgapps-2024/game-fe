@@ -13,6 +13,7 @@ type Props = {
   isAnimated?: boolean;
   caption?: string;
   amount?: number;
+  onClick?: () => void;
 };
 
 export const GetRewardCard: FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   isAnimated,
   caption,
   amount = 1,
+  onClick,
 }) => {
   return (
     <div
@@ -33,6 +35,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
           "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
         },
       )}
+      onClick={onClick}
     >
       <div
         className={classNames(
