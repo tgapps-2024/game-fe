@@ -11,12 +11,16 @@ type Props = {
   status: RewardsStatusEnum;
   children?: React.ReactNode;
   isAnimated?: boolean;
+  caption?: string;
+  amount?: number;
 };
 
 export const GetRewardCard: FunctionComponent<Props> = ({
   status,
   children,
   isAnimated,
+  caption,
+  amount = 1,
 }) => {
   return (
     <div
@@ -42,7 +46,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
       >
         <div
           className={classNames(
-            "relative h-[72%] w-full overflow-hidden rounded-xl",
+            "relative h-[78%] w-full overflow-hidden rounded-xl",
             {
               "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
               "bg-blue-800": status === RewardsStatusEnum.UNAVAILABLE,
@@ -61,10 +65,15 @@ export const GetRewardCard: FunctionComponent<Props> = ({
           )}
           {children}
         </div>
+        {caption && (
+          <div className="text-stroke-1 absolute bottom-2 left-1/2 -translate-x-1/2 text-sm font-black text-white text-shadow">
+            {status === RewardsStatusEnum.UNAVAILABLE && amount} {caption}
+          </div>
+        )}
       </div>
       {isAnimated && (
         <div className="absolute inset-0 overflow-hidden rounded-xl">
-          <div className="bg-card-glow-pattern animate-card-glow-running absolute top-0 h-[130%] w-[66px] rotate-[30deg] will-change-transform" />
+          <div className="absolute top-0 h-[130%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
         </div>
       )}
     </div>
