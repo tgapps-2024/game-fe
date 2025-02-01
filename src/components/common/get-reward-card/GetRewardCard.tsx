@@ -65,11 +65,13 @@ export const GetRewardCard: FunctionComponent<Props> = ({
           )}
           {children}
         </div>
-        {caption && (
-          <div className="text-stroke-1 absolute bottom-2 left-1/2 -translate-x-1/2 text-sm font-black text-white text-shadow">
-            {status === RewardsStatusEnum.UNAVAILABLE && amount} {caption}
-          </div>
-        )}
+        <div className="relative h-[22%] w-full">
+          {caption && (
+            <div className="text-stroke-1 absolute left-1/2 top-[calc(50%+2px)] -translate-x-1/2 -translate-y-1/2 text-sm font-black text-white text-shadow">
+              {status === RewardsStatusEnum.UNAVAILABLE && amount} {caption}
+            </div>
+          )}
+        </div>
       </div>
       {isAnimated && (
         <div className="absolute inset-0 overflow-hidden rounded-xl">
