@@ -1,5 +1,5 @@
 import { useTelegram } from "@/context";
-import { NotificationEnum } from "@/types/telegram";
+import { ImpactStyleEnum, NotificationEnum } from "@/types/telegram";
 
 export const useHapticFeedback = () => {
   const { webApp } = useTelegram();
@@ -16,8 +16,15 @@ export const useHapticFeedback = () => {
     }
   };
 
+  const handleImpactOccurred = (style: ImpactStyleEnum) => () => {
+    if (webApp) {
+      webApp.HapticFeedback.impactOccurred(style);
+    }
+  };
+
   return {
     handleSelectionChanged,
     handleNotificationOccurred,
+    handleImpactOccurred,
   };
 };
