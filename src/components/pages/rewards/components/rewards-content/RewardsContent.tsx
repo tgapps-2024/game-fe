@@ -8,7 +8,8 @@ import { GetRewardCard } from "@/components/common/get-reward-card/GetRewardCard
 import { RewardsStatusEnum } from "@/components/pages/rewards/enums";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import RegularChest from "@/public/assets/png/battle-pass/mystery-chest.webp";
-import { ImpactStyleEnum, NotificationEnum } from "@/types/telegram";
+import { NotificationEnum } from "@/types/telegram";
+import { ImpactStyleEnum } from "@/types/telegram";
 
 import { CARD_CAPTION } from "../constants";
 
@@ -18,9 +19,9 @@ export const RewardsContent = () => {
 
   const handleClick = (status: RewardsStatusEnum) => {
     if (status === RewardsStatusEnum.AVAILABLE) {
-      handleImpactOccurred(ImpactStyleEnum.LIGHT);
-    } else if (status === RewardsStatusEnum.CURRENT) {
       handleImpactOccurred(ImpactStyleEnum.SOFT);
+    } else if (status === RewardsStatusEnum.CURRENT) {
+      handleImpactOccurred(ImpactStyleEnum.LIGHT);
     } else {
       handleNotificationOccurred(NotificationEnum.ERROR);
     }
