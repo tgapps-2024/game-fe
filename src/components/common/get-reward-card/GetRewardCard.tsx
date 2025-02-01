@@ -27,19 +27,21 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   return (
     <div
       className={classNames(
-        "relative aspect-[83/128] rounded-xl border border-solid border-black pb-1 text-white transition-transform duration-100 ease-in-out",
+        "relative aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-100 ease-in-out",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
-          "bg-blue-700 bg-[conic-gradient(#0ea5e9_20deg,transparent_120deg)] opacity-50":
+          "running-border overflow-hidden bg-blue-700 p-[1px] !pb-[1px] opacity-50":
             status === RewardsStatusEnum.UNAVAILABLE,
           "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
+          "border border-solid border-black":
+            status !== RewardsStatusEnum.UNAVAILABLE,
         },
       )}
       onClick={onClick}
     >
       <div
         className={classNames(
-          "h-full rounded-xl p-1 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.3)]",
+          "relative z-30 h-full rounded-xl p-1 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.3)]",
           {
             "bg-gradient-to-b from-[#29D6FF] to-[#2596E4]":
               status === RewardsStatusEnum.AVAILABLE,
@@ -83,7 +85,10 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         </div>
       </div>
       {isAnimated && (
-        <div className="absolute inset-0 overflow-hidden rounded-xl">
+        <div
+          className="absolute inset-0 z-30 overflow-hidden rounded-xl"
+          onClick={onClick}
+        >
           <div className="absolute top-0 h-[130%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
         </div>
       )}
