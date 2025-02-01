@@ -30,7 +30,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         "relative aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-100 ease-in-out",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
-          "running-border overflow-hidden bg-blue-700 p-[1px] !pb-[1px] opacity-50":
+          "overflow-hidden bg-blue-700 p-[1px] !pb-[1px] opacity-50":
             status === RewardsStatusEnum.UNAVAILABLE,
           "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
           "border border-solid border-black":
@@ -85,10 +85,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         </div>
       </div>
       {isAnimated && (
-        <div
-          className="absolute inset-0 z-30 overflow-hidden rounded-xl"
-          onClick={onClick}
-        >
+        <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-xl">
           <div className="absolute top-0 h-[130%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
         </div>
       )}
