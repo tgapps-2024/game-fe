@@ -4,7 +4,9 @@ import Image from "next/image";
 
 import { GetRewardCard } from "@/components/common/get-reward-card/GetRewardCard";
 import { RewardsStatusEnum } from "@/components/pages/rewards/enums";
-import RegularChest from "@/public/assets/png/rewards/regular-chest.png";
+import RegularChest from "@/public/assets/png/battle-pass/mystery-chest.webp";
+
+import { CARD_CAPTION } from "../../constants";
 
 export const RewardsContent = () => {
   return (
@@ -24,10 +26,20 @@ export const RewardsContent = () => {
             }
 
             return (
-              <GetRewardCard key={index} status={status} isAnimated={index < 3}>
+              <GetRewardCard
+                key={index}
+                status={status}
+                isAnimated={index < 3}
+                caption={CARD_CAPTION[status]}
+              >
                 <div className="relative h-full w-full overflow-hidden rounded-xl">
                   <div className="absolute left-1/2 top-1/2 size-15 -translate-x-1/2 -translate-y-1/2">
                     <Image src={RegularChest} quality={100} alt="" fill />
+                    {status !== RewardsStatusEnum.UNAVAILABLE && (
+                      <span className="text-stroke-1 absolute bottom-1 right-1 text-xs font-extrabold text-shadow-sm">
+                        x{1}
+                      </span>
+                    )}
                   </div>
                 </div>
               </GetRewardCard>
