@@ -37,7 +37,7 @@ export const Rewards = () => {
   const handleTabChange = (index: number) => {
     setCurrent(index);
     if (api) {
-      api.scrollTo(index - 1); // Индексация в карусели начинается с 0
+      api.scrollTo(index - 1);
     }
   };
 
