@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 
@@ -8,22 +8,54 @@ import { GetRewardCard } from "@/components/common/get-reward-card/GetRewardCard
 import { RewardsStatusEnum } from "@/components/pages/rewards/enums";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import RegularChest from "@/public/assets/png/battle-pass/mystery-chest.webp";
+import { IDailyReward, IDailyRewardInfo } from "@/services/rewards/types";
 import { NotificationEnum } from "@/types/telegram";
 import { ImpactStyleEnum } from "@/types/telegram";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 import { CARD_CAPTION } from "../constants";
 
-export const RewardsContent = () => {
+type Props = {
+  dailyRewardInfo: IDailyRewardInfo;
+  isActive: boolean;
+  onCollectReward: UseMutateFunction<IDailyReward, Error, void, unknown>;
+};
+
+export const RewardsContent: FunctionComponent<Props> = ({
+  isActive,
+  dailyRewardInfo,
+  onCollectReward,
+}) => {
   const { handleNotificationOccurred, handleImpactOccurred } =
     useHapticFeedback();
 
   const handleClick = (status: RewardsStatusEnum) => {
-    if (status === RewardsStatusEnum.AVAILABLE) {
-      handleImpactOccurred(ImpactStyleEnum.SOFT);
-    } else if (status === RewardsStatusEnum.CURRENT) {
-      handleImpactOccurred(ImpactStyleEnum.LIGHT);
+    try {
+      if (status === RewardsStatusEnum.AVAILABLE) {
+        handleImpactOccurred(ImpactStyleEnum.SOFT);
+      } else if (status === RewardsStatusEnum.CURRENT) {
+        handleImpactOccurred(ImpactStyleEnum.LIGHT);
+      } else {
+        handleNotificationOccurred(NotificationEnum.ERROR);
+      }
+
+      if (status === RewardsStatusEnum.CURRENT) {
+        onCollectReward();
+      }
+    } catch {}
+  };
+
+  const getStatusForDay = (dayIndex: number) => {
+    const { combo, available } = dailyRewardInfo;
+
+    if (dayIndex < combo) {
+      return RewardsStatusEnum.AVAILABLE;
+    } else if (dayIndex === combo) {
+      return available
+        ? RewardsStatusEnum.CURRENT
+        : RewardsStatusEnum.UNAVAILABLE;
     } else {
-      handleNotificationOccurred(NotificationEnum.ERROR);
+      return RewardsStatusEnum.UNAVAILABLE;
     }
   };
 
@@ -33,21 +65,15 @@ export const RewardsContent = () => {
         {Array(20)
           .fill(0)
           .map((_, index) => {
-            let status;
-
-            if (index < 2) {
-              status = RewardsStatusEnum.AVAILABLE;
-            } else if (index < 3) {
-              status = RewardsStatusEnum.CURRENT;
-            } else {
-              status = RewardsStatusEnum.UNAVAILABLE;
-            }
+            const status = getStatusForDay(index);
 
             return (
               <GetRewardCard
                 key={index}
                 status={status}
-                isAnimated={index < 3}
+                isAnimated={
+                  status !== RewardsStatusEnum.UNAVAILABLE && isActive
+                }
                 caption={CARD_CAPTION[status]}
                 onClick={() => handleClick(status)}
               >

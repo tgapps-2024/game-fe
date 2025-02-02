@@ -52,7 +52,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   return (
     <motion.div
       onTap={onClick}
-      whileTap={status === RewardsStatusEnum.UNAVAILABLE ? {} : { scale: 0.95 }}
+      whileTap={status !== RewardsStatusEnum.CURRENT ? {} : { scale: 0.95 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
       ref={boxRef}
       style={
@@ -66,7 +66,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         "relative z-20 aspect-[83/128] rounded-xl pb-1 text-white",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
-          "border-2 border-[#0000] pb-[1px] opacity-50 [background:padding-box_var(--bg-color),border-box_var(--border-color)]":
+          "border-2 border-[#0000] pb-[1px] opacity-50 will-change-transform [background:padding-box_var(--bg-color),border-box_var(--border-color)]":
             status === RewardsStatusEnum.UNAVAILABLE,
           "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
           "border border-solid border-black":

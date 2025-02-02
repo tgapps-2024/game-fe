@@ -1,5 +1,13 @@
 import React from "react";
 
-export const EarningsContent = () => {
-  return <div className="mx-4">EarningsContent</div>;
+type Props = {
+  isActive: boolean;
+};
+
+export const EarningsContent = ({ isActive }: Props) => {
+  return (
+    <div className="mx-4">
+      EarningsContent - {isActive ? "active" : "inactive"}
+    </div>
+  );
 };
