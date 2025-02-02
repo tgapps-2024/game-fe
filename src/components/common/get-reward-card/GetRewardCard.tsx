@@ -1,4 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, {
+  CSSProperties,
+  FunctionComponent,
+  useEffect,
+  useRef,
+} from "react";
 
 import Image from "next/image";
 
@@ -25,16 +30,43 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   amount = 1,
   onClick,
 }) => {
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const boxElement = boxRef.current;
+
+    if (!boxElement) {
+      return;
+    }
+
+    const updateAnimation = () => {
+      const angle =
+        (parseFloat(boxElement.style.getPropertyValue("--angle")) + 0.5) % 360;
+      boxElement.style.setProperty("--angle", `${angle}deg`);
+      requestAnimationFrame(updateAnimation);
+    };
+
+    requestAnimationFrame(updateAnimation);
+  }, []);
+
   return (
     <motion.div
       onTap={onClick}
       whileTap={status === RewardsStatusEnum.UNAVAILABLE ? {} : { scale: 0.95 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      ref={boxRef}
+      style={
+        {
+          "--angle": "0deg",
+          "--border-color": "linear-gradient(var(--angle), #203950, #0D4B93)",
+          "--bg-color": "linear-gradient(#203950, #203950)",
+        } as CSSProperties
+      }
       className={classNames(
         "relative z-20 aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-100 ease-in-out",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
-          "overflow-hidden bg-blue-700 p-[1px] !pb-[1px] opacity-50":
+          "border-2 border-[#0000] pb-[1px] opacity-50 [background:padding-box_var(--bg-color),border-box_var(--border-color)]":
             status === RewardsStatusEnum.UNAVAILABLE,
           "bg-[#009F00]": status === RewardsStatusEnum.CURRENT,
           "border border-solid border-black":
