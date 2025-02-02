@@ -41,7 +41,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
 
     const updateAnimation = () => {
       const angle =
-        (parseFloat(boxElement.style.getPropertyValue("--angle")) + 0.5) % 360;
+        (parseFloat(boxElement.style.getPropertyValue("--angle")) + 1) % 360;
       boxElement.style.setProperty("--angle", `${angle}deg`);
       requestAnimationFrame(updateAnimation);
     };
@@ -63,7 +63,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
         } as CSSProperties
       }
       className={classNames(
-        "relative z-20 aspect-[83/128] rounded-xl pb-1 text-white transition-transform duration-75 ease-in-out",
+        "relative z-20 aspect-[83/128] rounded-xl pb-1 text-white",
         {
           "bg-[#0069B1]": status === RewardsStatusEnum.AVAILABLE,
           "border-2 border-[#0000] pb-[1px] opacity-50 [background:padding-box_var(--bg-color),border-box_var(--border-color)]":

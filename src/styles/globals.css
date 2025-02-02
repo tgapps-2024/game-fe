@@ -179,24 +179,4 @@ body {
     touch-action: pan-y pinch-zoom;
     margin-left: calc(0.8rem * -1);
   }
-
-  .running-border {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.75rem;
-  }
-
-  .running-border::before {
-    content: "";
-    display: block;
-    background: linear-gradient(90deg, #0075FF 0%, rgba(0, 117, 255, 0) 100%);
-    height: 100px;
-    width: 100px;
-    transform: translate(0);
-    position: absolute;
-    @apply animate-card-border-coloring;
-    z-index: 1;
-    top: 50%;
-    transform-origin: top center;
-  }
 }
