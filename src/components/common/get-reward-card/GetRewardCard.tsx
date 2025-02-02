@@ -49,7 +49,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
     };
 
     if (isActive) requestAnimationFrame(updateAnimation);
-  }, []);
+  }, [isActive]);
 
   return (
     <motion.div
