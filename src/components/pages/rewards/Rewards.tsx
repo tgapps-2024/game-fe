@@ -9,6 +9,12 @@ import {
 } from "@/components/ui/carousel";
 import { useGetProfile } from "@/services/profile/queries";
 import { IProfile } from "@/services/profile/types";
+import {
+  useGetDailyReward,
+  useGetDailyRewardInfo,
+} from "@/services/rewards/queries";
+import { IDailyRewardInfo } from "@/services/rewards/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { BoosterContent } from "./components/booster-content/BoosterContent";
 import { EarningsContent } from "./components/earnings-content/EarningsContent";
@@ -18,9 +24,13 @@ import { Tabs } from "./components/tabs/Tabs";
 import { TabsEnum } from "./enums";
 
 export const Rewards = () => {
-  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
+  const queryClient = useQueryClient();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
+  const { data: dailyRewardInfo, isLoading: isDailyRewardInfoLoading } =
+    useGetDailyRewardInfo();
+  const { mutate: getDailyReward, isPending } = useGetDailyReward(queryClient);
 
   useEffect(() => {
     if (!api) {
@@ -44,7 +54,7 @@ export const Rewards = () => {
   return (
     <PageWrapper className="flex flex-col bg-blue-800 pt-28">
       <ProfileHeader
-        isLoading={isProfileLoading}
+        isLoading={isProfileLoading && isDailyRewardInfoLoading}
         profileData={profile ?? ({} as IProfile)}
       />
       <div className="mt-6 flex flex-1 flex-col gap-6">
@@ -56,18 +66,24 @@ export const Rewards = () => {
         <Carousel setApi={setApi}>
           <CarouselContent>
             <CarouselItem>
-              <EarningsContent />
+              <EarningsContent isActive={current === 1} />
             </CarouselItem>
             <CarouselItem>
-              <RewardsContent />
+              <RewardsContent
+                onCollectReward={getDailyReward}
+                dailyRewardInfo={dailyRewardInfo ?? ({} as IDailyRewardInfo)}
+                isActive={current === 2}
+              />
             </CarouselItem>
             <CarouselItem>
-              <BoosterContent />
+              <BoosterContent isActive={current === 3} />
             </CarouselItem>
           </CarouselContent>
         </Carousel>
       </div>
-      {current === 2 && <GetAllButton />}
+      {current === 2 && dailyRewardInfo?.available && (
+        <GetAllButton isLoading={isPending} onClick={getDailyReward} />
+      )}
     </PageWrapper>
   );
 };

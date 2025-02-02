@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -8,9 +8,22 @@ import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
-export const GetAllButton = () => {
+type Props = {
+  isLoading: boolean;
+  onClick: () => void;
+};
+
+export const GetAllButton: FunctionComponent<Props> = ({
+  isLoading,
+  onClick,
+}) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
+
+  const handleCollectReward = () => {
+    onClick();
+    handleSelectionChanged();
+  };
 
   return (
     <div
@@ -21,7 +34,8 @@ export const GetAllButton = () => {
       <PrimaryButton
         color="secondary"
         className="uppercase"
-        onClick={() => handleSelectionChanged()}
+        isLoading={isLoading}
+        onClick={handleCollectReward}
       >
         {t(NS.PAGES.REWARDS.GET_REWARDS)}
       </PrimaryButton>
