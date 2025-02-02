@@ -6,13 +6,10 @@ type Color = string | false;
 declare global {
   interface Window {
     eruda: typeof eruda;
+    Telegram: {
+      WebApp: WebApp;
+    };
   }
-}
-
-interface Window {
-  Telegram: {
-    WebApp: WebApp;
-  };
 }
 
 interface WebApp {
