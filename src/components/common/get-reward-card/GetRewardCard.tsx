@@ -41,14 +41,27 @@ export const GetRewardCard: FunctionComponent<Props> = ({
       return;
     }
 
+    let animationFrameId: number;
+
     const updateAnimation = () => {
+      if (!isActive) {
+        return;
+      }
+
       const angle =
         (parseFloat(boxElement.style.getPropertyValue("--angle")) + 3) % 360;
       boxElement.style.setProperty("--angle", `${angle}deg`);
-      requestAnimationFrame(updateAnimation);
+
+      animationFrameId = requestAnimationFrame(updateAnimation);
     };
 
-    if (isActive) requestAnimationFrame(updateAnimation);
+    animationFrameId = requestAnimationFrame(updateAnimation);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [isActive]);
 
   return (
