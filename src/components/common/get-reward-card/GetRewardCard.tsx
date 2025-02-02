@@ -20,6 +20,7 @@ type Props = {
   caption?: string;
   amount?: number;
   onClick?: () => void;
+  isActive?: boolean;
 };
 
 export const GetRewardCard: FunctionComponent<Props> = ({
@@ -29,6 +30,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
   caption,
   amount = 1,
   onClick,
+  isActive,
 }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +48,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
       requestAnimationFrame(updateAnimation);
     };
 
-    requestAnimationFrame(updateAnimation);
+    if (isActive) requestAnimationFrame(updateAnimation);
   }, []);
 
   return (

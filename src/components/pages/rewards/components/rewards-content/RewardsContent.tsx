@@ -74,6 +74,7 @@ export const RewardsContent: FunctionComponent<Props> = ({
                 isAnimated={
                   status !== RewardsStatusEnum.UNAVAILABLE && isActive
                 }
+                isActive={isActive}
                 caption={CARD_CAPTION[status]}
                 onClick={() => handleClick(status)}
               >
