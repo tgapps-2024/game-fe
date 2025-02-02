@@ -1,6 +1,13 @@
 declare const Telegram: Telegram;
+import type eruda from "eruda";
 
 type Color = string | false;
+
+declare global {
+  interface Window {
+    eruda: typeof eruda;
+  }
+}
 
 interface Window {
   Telegram: {
@@ -140,7 +147,7 @@ interface WebApp {
    */
   // string & {} prevents this from eagerly collapsing into just string
   setHeaderColor(
-    color: "bg_color" | "secondary_bg_color" | (string & {})
+    color: "bg_color" | "secondary_bg_color" | (string & {}),
   ): void;
   /**
    * A method that sets the app background color in the `#RRGGBB` format or
@@ -151,14 +158,14 @@ interface WebApp {
       | "bg_color"
       | "secondary_bg_color"
       | "bottom_bar_bg_color"
-      | (string & {})
+      | (string & {}),
   ): void;
   /**
    * A method that sets the app's bottom bar color in the #RRGGBB format.
    * You can also use the keywords bg_color, secondary_bg_color and bottom_bar_bg_color.
    */
   setBottomBarColor(
-    color: "bg_color" | "secondary_bg_color" | (string & {})
+    color: "bg_color" | "secondary_bg_color" | (string & {}),
   ): void;
   /**
    * A method that enables a confirmation dialog while the user is trying to
@@ -177,116 +184,116 @@ interface WebApp {
   onEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
   onEvent(
     eventType: "mainButtonClicked",
-    eventHandler: MainButtonClickedCallback
+    eventHandler: MainButtonClickedCallback,
   ): void;
   onEvent(
     eventType: "secondaryButtonClicked",
-    eventHandler: SecondaryButtonClickedCallback
+    eventHandler: SecondaryButtonClickedCallback,
   ): void;
   onEvent(
     eventType: "backButtonClicked",
-    eventHandler: BackButtonClickedCallback
+    eventHandler: BackButtonClickedCallback,
   ): void;
   onEvent(
     eventType: "settingsButtonClicked",
-    eventHandler: SettingsButtonClickedCallback
+    eventHandler: SettingsButtonClickedCallback,
   ): void;
   onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
   onEvent(
     eventType: "viewportChanged",
-    eventHandler: ViewportChangedCallback
+    eventHandler: ViewportChangedCallback,
   ): void;
   onEvent(
     eventType: "invoiceClosed",
-    eventHandler: InvoiceClosedCallback
+    eventHandler: InvoiceClosedCallback,
   ): void;
   onEvent(
     eventType: "qrTextReceived",
-    eventHandler: QrTextReceivedCallback
+    eventHandler: QrTextReceivedCallback,
   ): void;
   onEvent(
     eventType: "scanQrPopupClosed",
-    eventHandler: ScanQrPopupClosedCallback
+    eventHandler: ScanQrPopupClosedCallback,
   ): void;
   onEvent(
     eventType: "clipboardTextReceived",
-    eventHandler: ClipboardTextReceivedCallback
+    eventHandler: ClipboardTextReceivedCallback,
   ): void;
   onEvent(
     eventType: "writeAccessRequested",
-    eventHandler: WriteAccessRequestedCallback
+    eventHandler: WriteAccessRequestedCallback,
   ): void;
   onEvent(
     eventType: "contactRequested",
-    eventHandler: ContactRequestedCallback
+    eventHandler: ContactRequestedCallback,
   ): void;
   onEvent(
     eventType: "biometricManagerUpdated",
-    eventHandler: BiometricManagerUpdatedCallback
+    eventHandler: BiometricManagerUpdatedCallback,
   ): void;
   onEvent(
     eventType: "biometricAuthRequested",
-    eventHandler: BiometricAuthRequestedCallback
+    eventHandler: BiometricAuthRequestedCallback,
   ): void;
   onEvent(
     eventType: "biometricTokenUpdated",
-    eventHandler: BiometricTokenUpdatedCallback
+    eventHandler: BiometricTokenUpdatedCallback,
   ): void;
 
   /** A method that deletes a previously set event handler. */
   offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
   offEvent(
     eventType: "mainButtonClicked",
-    eventHandler: MainButtonClickedCallback
+    eventHandler: MainButtonClickedCallback,
   ): void;
   offEvent(
     eventType: "backButtonClicked",
-    eventHandler: BackButtonClickedCallback
+    eventHandler: BackButtonClickedCallback,
   ): void;
   offEvent(
     eventType: "settingsButtonClicked",
-    eventHandler: SettingsButtonClickedCallback
+    eventHandler: SettingsButtonClickedCallback,
   ): void;
   offEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
   offEvent(
     eventType: "viewportChanged",
-    eventHandler: ViewportChangedCallback
+    eventHandler: ViewportChangedCallback,
   ): void;
   offEvent(
     eventType: "invoiceClosed",
-    eventHandler: InvoiceClosedCallback
+    eventHandler: InvoiceClosedCallback,
   ): void;
   offEvent(
     eventType: "qrTextReceived",
-    eventHandler: QrTextReceivedCallback
+    eventHandler: QrTextReceivedCallback,
   ): void;
   offEvent(
     eventType: "scanQrPopupClosed",
-    eventHandler: ScanQrPopupClosedCallback
+    eventHandler: ScanQrPopupClosedCallback,
   ): void;
   offEvent(
     eventType: "clipboardTextReceived",
-    eventHandler: ClipboardTextReceivedCallback
+    eventHandler: ClipboardTextReceivedCallback,
   ): void;
   offEvent(
     eventType: "writeAccessRequested",
-    eventHandler: WriteAccessRequestedCallback
+    eventHandler: WriteAccessRequestedCallback,
   ): void;
   offEvent(
     eventType: "contactRequested",
-    eventHandler: ContactRequestedCallback
+    eventHandler: ContactRequestedCallback,
   ): void;
   offEvent(
     eventType: "biometricManagerUpdated",
-    eventHandler: BiometricManagerUpdatedCallback
+    eventHandler: BiometricManagerUpdatedCallback,
   ): void;
   offEvent(
     eventType: "biometricAuthRequested",
-    eventHandler: BiometricAuthRequestedCallback
+    eventHandler: BiometricAuthRequestedCallback,
   ): void;
   offEvent(
     eventType: "biometricTokenUpdated",
-    eventHandler: BiometricTokenUpdatedCallback
+    eventHandler: BiometricTokenUpdatedCallback,
   ): void;
 
   /**
@@ -311,7 +318,7 @@ interface WebApp {
    */
   switchInlineQuery(
     query: string,
-    choose_chat_types?: Array<"users" | "bots" | "groups" | "channels">
+    choose_chat_types?: Array<"users" | "bots" | "groups" | "channels">,
   ): void;
   /**
    * A method that opens a link in an external browser. The Web App will not
@@ -337,7 +344,7 @@ interface WebApp {
    */
   openInvoice(
     url: string,
-    callback: (status: "paid" | "cancelled" | "failed" | "pending") => void
+    callback: (status: "paid" | "cancelled" | "failed" | "pending") => void,
   ): void;
   /**
    * A method that shows a native popup described by the params argument of
@@ -374,7 +381,7 @@ interface WebApp {
    */
   showScanQrPopup(
     params: ScanQrPopupParams,
-    callback?: (data: string) => void
+    callback?: (data: string) => void,
   ): void;
   /**
    * A method that closes the native popup for scanning a QR code opened with
@@ -418,7 +425,7 @@ interface WebApp {
    * detailing the shared contact information or a cancellation response.
    */
   requestContact(
-    callback?: (success: boolean, response: RequestContactResponse) => void
+    callback?: (success: boolean, response: RequestContactResponse) => void,
   ): void;
   /**
    * A method that informs the Telegram app that the Web App is ready to be
@@ -796,7 +803,7 @@ interface HapticFeedback {
    * - soft, indicates a collision between soft or flexible UI objects.
    */
   impactOccurred(
-    style: "light" | "medium" | "heavy" | "rigid" | "soft"
+    style: "light" | "medium" | "heavy" | "rigid" | "soft",
   ): () => void;
   /**
    * A method tells that a task or action has succeeded, failed, or produced a
@@ -835,7 +842,7 @@ interface CloudStorage {
   setItem(
     key: string,
     value: string,
-    callback?: CloudStorageSetItemCallback
+    callback?: CloudStorageSetItemCallback,
   ): CloudStorage;
   /**
    * A method that receives a value from the cloud storage using the specified
@@ -862,7 +869,7 @@ interface CloudStorage {
    */
   getItems(
     keys: string[],
-    callback?: CloudStorageGetItemsCallback
+    callback?: CloudStorageGetItemsCallback,
   ): CloudStorage;
   /**
    * A method that removes a value from the cloud storage using the specified
@@ -878,7 +885,7 @@ interface CloudStorage {
    */
   removeItem(
     key: string,
-    callback?: CloudStorageRemoveItemCallback
+    callback?: CloudStorageRemoveItemCallback,
   ): CloudStorage;
   /**
    * A method that removes values from the cloud storage using the specified
@@ -894,7 +901,7 @@ interface CloudStorage {
    */
   removeItems(
     keys: string[],
-    callback?: CloudStorageRemoveItemsCallback
+    callback?: CloudStorageRemoveItemsCallback,
   ): CloudStorage;
   /**
    * A method that receives the list of all keys stored in the cloud storage.
@@ -909,27 +916,27 @@ interface CloudStorage {
 
 type CloudStorageSetItemCallback = (
   error: string | null,
-  success: null | true
+  success: null | true,
 ) => void;
 type CloudStorageGetItemCallback = (
   error: string | null,
-  value: null | string
+  value: null | string,
 ) => void;
 type CloudStorageGetItemsCallback = (
   error: string | null,
-  values: null | Record<string, string>
+  values: null | Record<string, string>,
 ) => void;
 type CloudStorageRemoveItemCallback = (
   error: string | null,
-  success: null | true
+  success: null | true,
 ) => void;
 type CloudStorageRemoveItemsCallback = (
   error: string | null,
-  success: null | true
+  success: null | true,
 ) => void;
 type CloudStorageGetKeysCallback = (
   error: string | null,
-  keys: null | string[]
+  keys: null | string[],
 ) => void;
 
 /**
@@ -986,7 +993,7 @@ interface BiometricManager {
    */
   requestAccess: (
     params: BiometricRequestAccessParams,
-    callback?: BiometricRequestAccessCallback
+    callback?: BiometricRequestAccessCallback,
   ) => BiometricManager;
   /**
    * A method that authenticates the user using biometrics according to the
@@ -999,7 +1006,7 @@ interface BiometricManager {
    */
   authenticate: (
     params: BiometricAuthenticateParams,
-    callback?: BiometricAuthenticateCallback
+    callback?: BiometricAuthenticateCallback,
   ) => BiometricManager;
   /**
    * A method that updates the biometric token in secure storage on the
@@ -1010,7 +1017,7 @@ interface BiometricManager {
    */
   updateBiometricToken: (
     token: string,
-    callback?: BiometricUpdateBiometricTokenCallback
+    callback?: BiometricUpdateBiometricTokenCallback,
   ) => BiometricManager;
   /**
    * A method that opens the biometric access settings for bots. Useful when
@@ -1027,7 +1034,7 @@ interface BiometricManager {
 type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;
 type BiometricAuthenticateCallback = (
   isAuthenticated: boolean,
-  biometricToken?: string
+  biometricToken?: string,
 ) => void;
 type BiometricUpdateBiometricTokenCallback = (applied: boolean) => void;
 

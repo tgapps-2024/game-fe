@@ -75,7 +75,7 @@ export const AssignmentsCarousel: FunctionComponent<Props> = ({
                       <div className="relative z-10 flex h-full w-full flex-col gap-1 pt-5.5">
                         <div
                           className={classNames(
-                            "text-stroke-half flex items-center gap-2 self-start rounded-full bg-[#51A395] px-3 py-1 text-xs font-extrabold uppercase text-shadow-sm",
+                            "text-stroke-half flex items-center gap-2 self-start rounded-full bg-[#51A395] px-3 py-1 text-xs font-extrabold uppercase text-white text-shadow-sm",
                           )}
                         >
                           <StarSVG className="size-4" />
