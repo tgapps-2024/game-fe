@@ -41,7 +41,7 @@ export const GetRewardCard: FunctionComponent<Props> = ({
 
     const updateAnimation = () => {
       const angle =
-        (parseFloat(boxElement.style.getPropertyValue("--angle")) + 1) % 360;
+        (parseFloat(boxElement.style.getPropertyValue("--angle")) + 2) % 360;
       boxElement.style.setProperty("--angle", `${angle}deg`);
       requestAnimationFrame(updateAnimation);
     };
