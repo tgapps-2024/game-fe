@@ -28,7 +28,6 @@ export const useGetDailyRewardInfo = () =>
     },
     enabled: !!Cookies.get(AUTH_COOKIE_TOKEN),
     retry: false,
-    staleTime: 1000 * 60 * 5,
   });
 
 export const useGetDailyReward = (queryClient: QueryClient) =>
