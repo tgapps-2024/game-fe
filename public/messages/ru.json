@@ -120,6 +120,25 @@
       "EARNINGS": "Заработок",
       "REWARDS": "Награды",
       "BOOSTERS": "Бустеры"
+    },
+    "BOOSTERS": {
+      "AVAILABLE": "Доступно",
+      "APPLY": "Применить",
+      "COUNT": "{num1} из {num2}",
+      "LEVEL": "{num} ур.",
+      "PREMIUM": {
+        "TITLE": "Премиум усилители",
+        "ENERGY_BOOSTERS": "Умножитель энергии"
+      },
+      "EVERYDAY": {
+        "TITLE": "Ежедневные усилители",
+        "FULL_ENERGY": "Полный запас энергии"
+      },
+      "DEFAULT": {
+        "TITLE": "Усилители",
+        "ENERGY": "Запас энергии",
+        "RECOVERY_ENERGY": "Восстановление энергии"
+      }
     }
   },
   "HEROES": {
