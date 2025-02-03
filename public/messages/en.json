@@ -123,6 +123,11 @@
     }
   },
   "HEROES": {
-    "TITLE": "Heroes"
+    "TITLE": "Heroes",
+    "TABS": {
+      "REGULAR": "Regular",
+      "RARE": "Rare",
+      "EPIC": "Epic"
+    }
   }
 }
