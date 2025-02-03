@@ -9,11 +9,18 @@ import classNames from "classnames";
 
 import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
+import { getTgSafeAreaInsetTop } from '@/utils/telegram';
+
+export enum OverscrollBehavior {
+  CONTAIN = "contain",
+  NONE = "none",
+}
 
 type Props = {
   isLoading?: boolean;
   disableSafeAreaInset?: boolean;
   skeleton?: ReactNode;
+  overscrollBehaviour?: OverscrollBehavior;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export const PageWrapper: FunctionComponent<Props> = ({
@@ -21,6 +28,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
   className,
   isLoading,
   skeleton,
+  overscrollBehaviour = OverscrollBehavior.CONTAIN,
   disableSafeAreaInset = false,
   ...props
 }) => {
@@ -39,13 +47,17 @@ export const PageWrapper: FunctionComponent<Props> = ({
     );
   }
 
-  const { safeAreaInset, contentSafeAreaInset } = webApp;
-  const insetTop = safeAreaInset.top + contentSafeAreaInset.top;
+  const insetTop = getTgSafeAreaInsetTop(webApp);
 
   return (
     <div
       className={classNames(
-        "h-screen max-h-screen w-full overflow-y-auto overscroll-contain",
+        "h-screen max-h-screen w-full overflow-y-auto",
+        {
+          "overscroll-contain":
+            overscrollBehaviour === OverscrollBehavior.CONTAIN,
+          "overscroll-none": overscrollBehaviour === OverscrollBehavior.NONE,
+        },
         className,
       )}
       style={

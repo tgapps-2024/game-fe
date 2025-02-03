@@ -60,7 +60,7 @@ export const InviteModal = () => {
               isAnimated
             >
               <div className="relative h-full w-full overflow-hidden rounded-xl">
-                <div className="absolute -bottom-4 h-full w-full">
+                <div className="absolute h-full w-full">
                   <Image src={card.image} alt="" fill />
                 </div>
                 <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">

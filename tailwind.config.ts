@@ -104,6 +104,12 @@ export default {
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
         "card-glow-pattern":
           "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
+        "card-blue-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 105, 177, 0) 0%, #0069B1 100%)",
+        "card-orange-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(136, 51, 8, 0) 0%, #883308 100%)",
+        "card-indigo-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(64, 59, 183, 0) 0%, #403BB7 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -215,6 +221,8 @@ export default {
         "inner-light":
           "inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
         "bp-bottom-menu": "0px 4px 4px 0px rgba(255, 255, 255, 0.25) inset",
+        "heroes-stat-indicator-inner-dim": "-1px 2px 1px 0px #00000033 inset",
+        "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099"
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
