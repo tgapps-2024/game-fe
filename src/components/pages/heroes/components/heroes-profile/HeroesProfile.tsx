@@ -27,7 +27,7 @@ export const HeroesProfile = () => {
         profileData={profile ?? ({} as IProfile)}
       />
 
-      <div className="absolute pt-[75%] w-full bottom-[10%]">
+      <div className="absolute pt-[77%] w-full bottom-[10%]">
         <HeroView />
         <HeroStats />
       </div>

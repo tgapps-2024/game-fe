@@ -7,7 +7,7 @@ import { Spinner } from "@/components/common";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { NotificationEnum } from "@/types/telegram";
 
-type Color = "primary" | "secondary";
+type Color = "primary" | "secondary" | "yellow" | "blue";
 
 type Size = "small" | "medium" | "large";
 
@@ -56,6 +56,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
         "group w-full cursor-pointer overflow-hidden border border-black",
         { "bg-[#0655a4]": color === "primary" },
         { "bg-[#009F00]": color === "secondary" },
+        { "bg-[#A6552D]": color === "yellow" },
+        { "bg-[#155081]": color === "blue" },
         { "bg-blue-800 pb-0": disabled },
         { "pb-[3px]": !disabled },
         { "h-10 rounded-xl": size === "small" },
@@ -71,6 +73,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
           "flex h-full w-full items-center justify-center p-[3px] pb-1",
           { "bg-[#0075ff]": color === "primary" },
           { "bg-[#02DB07]": color === "secondary" },
+          { "bg-[#EFC609]": color === "yellow" },
+          { "bg-gradient-to-b from-[#29D6FF] to-[#2596E4]": color === "blue" },
           { "bg-blue-800 shadow-none": disabled },
           { "shadow-inset-btn": !disabled },
           { "rounded-xl": size === "small" },
@@ -97,6 +101,8 @@ export const PrimaryButton: FunctionComponent<Props> = ({
             { "shadow-link": !disabled },
             { "bg-white/15": color === "primary" && !disabled },
             { "bg-white/40": color === "secondary" && !disabled },
+            { "bg-white/20": color === "blue" && !disabled },
+            { "bg-[rgba(251, 239, 68, 0.6)]": color === "yellow" && !disabled },
             className,
           )}
           style={fontSize ? { fontSize } : undefined}

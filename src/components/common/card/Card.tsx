@@ -80,12 +80,17 @@ export const Card: FunctionComponent<Props> = ({
       >
         <div
           className={classNames(
-            "relative h-full w-full overflow-hidden rounded-xl bg-[url('/assets/png/card-bg.png')] bg-[length:100%]",
+            "relative h-full w-full overflow-hidden rounded-xl",
+            {
+              "bg-[#0069B1]": type === CardType.BLUE,
+              "bg-[#883308]": type === CardType.ORANGE,
+              "bg-[#403BB7]": type === CardType.INDIGO,
+            },
           )}
         >
           <div
             className={classNames(
-              "h-[155%] top-1/2 absolute -inset-x-1 -translate-y-1/2",
+              "absolute -inset-x-1 top-1/2 h-[155%] -translate-y-1/2 bg-[length:150%_70%] bg-center mix-blend-hard-light",
               {
                 "bg-card-blue-bg-pattern": type === CardType.BLUE,
                 "bg-card-indigo-bg-pattern": type === CardType.INDIGO,
@@ -93,7 +98,9 @@ export const Card: FunctionComponent<Props> = ({
               },
             )}
           />
-          {children}
+          <div className="shadow-card-inner-shadow relative h-full w-full overflow-hidden rounded-xl">
+            {children}
+          </div>
           <div
             className={classNames(
               "absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md text-xs shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.3)]",

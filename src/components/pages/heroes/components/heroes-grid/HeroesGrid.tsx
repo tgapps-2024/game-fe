@@ -33,11 +33,13 @@ export const HeroesGrid = () => {
       </div>
       <HeroesTabs selectedTab={selectedTab} onSelectTab={setSelectedTab} />
       <div className="overflow-y-auto bg-[#192632]">
-        <div className={classNames("grid grid-cols-3 grid-rows-3 gap-2 p-4", {
-          "bg-[#192632]": selectedTab === HeroType.REGULAR,
-          "bg-[#35241C]": selectedTab === HeroType.RARE,
-          "bg-[#2F1A60]": selectedTab === HeroType.EPIC,
-        })}>
+        <div
+          className={classNames("grid grid-cols-3 grid-rows-3 gap-2 p-4", {
+            "bg-[#192632]": selectedTab === HeroType.REGULAR,
+            "bg-[#35241C]": selectedTab === HeroType.RARE,
+            "bg-[#2F1A60]": selectedTab === HeroType.EPIC,
+          })}
+        >
           {Array.from({ length: 9 }).map((_, index) => {
             let type = CardType.BLUE;
 
@@ -57,13 +59,11 @@ export const HeroesGrid = () => {
                 onClick={() => {}}
                 type={type}
               >
-                <div className="relative h-full w-full overflow-hidden rounded-xl">
-                  <div className="absolute h-full w-full">
-                    <Image src={HarleyQuinnPortrait} alt="" fill />
-                  </div>
+                <div className="absolute h-full w-full">
+                  <Image src={HarleyQuinnPortrait} alt="" fill quality={100} />
                 </div>
               </Card>
-            )
+            );
           })}
         </div>
       </div>

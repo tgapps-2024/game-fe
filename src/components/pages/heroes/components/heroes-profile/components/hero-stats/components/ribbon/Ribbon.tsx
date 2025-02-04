@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, PropsWithChildren } from "react";
 
 import { HeroType } from "@/components/pages/heroes/types";
 
@@ -10,12 +10,24 @@ type Props = {
   heroType: HeroType;
 };
 
-export const Ribbon: FunctionComponent<Props> = ({ heroType }) => {
+export const Ribbon: FunctionComponent<PropsWithChildren<Props>> = ({
+  heroType,
+  children,
+}) => {
+  let RibbonComponent = RegularRibbon;
+
   if (heroType === HeroType.RARE) {
-    return <RareRibbon />;
+    RibbonComponent = RareRibbon;
   } else if (heroType === HeroType.EPIC) {
-    return <EpicRibbon />;
+    RibbonComponent = EpicRibbon;
   }
 
-  return <RegularRibbon />;
+  return (
+    <div className="relative">
+      <RibbonComponent />
+      <div className="absolute inset-0 text-center text-x font-bold leading-4 text-white">
+        {children}
+      </div>
+    </div>
+  );
 };
