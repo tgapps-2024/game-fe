@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getProfile, getReferalLink } from "./fetcher";
 
-enum QueryKeys {
+export enum QueryKeys {
   GET_PROFILE = "GET_PROFILE",
   GET_REFERALS = "GET_REFERALS",
 }

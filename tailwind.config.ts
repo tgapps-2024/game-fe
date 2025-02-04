@@ -104,6 +104,12 @@ export default {
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
         "card-glow-pattern":
           "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
+        "booster-modal-pattern":
+          "linear-gradient(to bottom, #EE84FF 0%, #7740F5 35%, #192632 55%, #192632 100%)",
+        "everyday-booster-modal-pattern":
+          "linear-gradient(to bottom, #FFE04E 0%, #F19F33 35%, #192632 55%, #192632 100%)",
+        "default-booster-modal-pattern":
+          "linear-gradient(to bottom, #29D6FF 0%, #2596E4 35%, #192632 55%, #192632 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
