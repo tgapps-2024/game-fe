@@ -59,17 +59,15 @@ export const InviteModal = () => {
               onClick={() => handleCardClick(index)}
               isAnimated
             >
-              <div className="relative h-full w-full overflow-hidden rounded-xl">
-                <div className="absolute -bottom-4 h-full w-full">
-                  <Image src={card.image} alt="" fill />
-                </div>
-                <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
-                  {t(
-                    `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
-                    { number: card.number },
-                  )}
-                </span>
+              <div className="absolute h-full w-full">
+                <Image src={card.image} alt="" fill />
               </div>
+              <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
+                {t(
+                  `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
+                  { number: card.number },
+                )}
+              </span>
             </Card>
           ))}
         </div>

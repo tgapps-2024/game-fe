@@ -164,6 +164,12 @@ export const NS = {
     HEROES: {
       ROOT: "HEROES",
       TITLE: "TITLE",
+      TABS: {
+        ROOT: "TABS",
+        REGULAR: "REGULAR",
+        RARE: "RARE",
+        EPIC: "EPIC",
+      },
     },
   },
 };

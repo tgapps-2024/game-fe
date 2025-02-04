@@ -22,6 +22,10 @@ export default {
         "bp-glow-running": "bp-glow-running 2s infinite linear",
         "card-glow-running": "card-glow-running 2s infinite linear",
         "card-border-coloring": "card-border-coloring 3s linear infinite",
+        "heroes-stat-indicator-pulse":
+          "heroes-stat-indicator-pulse 3s linear infinite",
+        "heroes-coin-glow-running":
+          "heroes-coin-glow-running 3s linear infinite",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -80,6 +84,22 @@ export default {
             transform: "rotate(360deg)",
           },
         },
+        "heroes-stat-indicator-pulse": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.6",
+          },
+        },
+        "heroes-coin-glow-running": {
+          "0%, 66%": {
+            transform: "translate(-2px, -34%) rotateZ(30deg)",
+          },
+          "100%": {
+            transform: "translate(22px, 30%) rotateZ(30deg)",
+          },
+        },
       },
       backgroundImage: {
         "body-pattern": "linear-gradient(#192632 0%, #0075FF 100%)",
@@ -110,6 +130,12 @@ export default {
           "linear-gradient(to bottom, #FFE04E 0%, #F19F33 35%, #192632 55%, #192632 100%)",
         "default-booster-modal-pattern":
           "linear-gradient(to bottom, #29D6FF 0%, #2596E4 35%, #192632 55%, #192632 100%)",
+        "card-blue-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 105, 177, 0) 0%, #0069B1 100%), url('/assets/png/card-bg.png')",
+        "card-orange-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(136, 51, 8, 0) 0%, #883308 100%), url('/assets/png/card-bg.png')",
+        "card-indigo-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(64, 59, 183, 0) 0%, #403BB7 100%), url('/assets/png/card-bg.png')",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -221,6 +247,10 @@ export default {
         "inner-light":
           "inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3)",
         "bp-bottom-menu": "0px 4px 4px 0px rgba(255, 255, 255, 0.25) inset",
+        "card-inner-shadow":
+          "0px -2px 4px 0px #00000026 inset, 0px 4px 4px 0px #00000040 inset",
+        "heroes-stat-indicator-inner-dim": "-1px 2px 1px 0px #00000033 inset",
+        "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],

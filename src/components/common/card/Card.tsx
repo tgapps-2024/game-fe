@@ -1,12 +1,9 @@
 import React, { FunctionComponent, RefObject } from "react";
 
-import Image from "next/image";
-
 import classNames from "classnames";
 
 import { CollectButton, CollectButtonColor } from "@/components/ui";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import BGImage from "@/public/assets/png/card-bg.webp";
 
 export enum CardType {
   BLUE = "blue",
@@ -86,19 +83,24 @@ export const Card: FunctionComponent<Props> = ({
             "relative h-full w-full overflow-hidden rounded-xl",
             {
               "bg-[#0069B1]": type === CardType.BLUE,
+              "bg-[#883308]": type === CardType.ORANGE,
               "bg-[#403BB7]": type === CardType.INDIGO,
-              "bg-[#981F03]": type === CardType.ORANGE,
             },
           )}
         >
-          <Image
-            src={BGImage}
-            fill
-            alt=""
-            className="rounded-xl"
-            quality={100}
+          <div
+            className={classNames(
+              "absolute -inset-x-1 top-1/2 h-[155%] -translate-y-1/2 bg-[length:150%_70%] bg-center mix-blend-hard-light",
+              {
+                "bg-card-blue-bg-pattern": type === CardType.BLUE,
+                "bg-card-indigo-bg-pattern": type === CardType.INDIGO,
+                "bg-card-orange-bg-pattern": type === CardType.ORANGE,
+              },
+            )}
           />
-          {children}
+          <div className="shadow-card-inner-shadow relative h-full w-full overflow-hidden rounded-xl">
+            {children}
+          </div>
           <div
             className={classNames(
               "absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md text-xs shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.3)]",
@@ -115,7 +117,7 @@ export const Card: FunctionComponent<Props> = ({
       </div>
       {isAnimated && (
         <div className="absolute inset-0 overflow-hidden rounded-xl">
-          <div className="bg-card-glow-pattern animate-card-glow-running absolute top-0 h-[130%] w-[66px] rotate-[30deg] will-change-transform" />
+          <div className="absolute top-0 h-[130%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
         </div>
       )}
     </div>
