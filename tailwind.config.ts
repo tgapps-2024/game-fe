@@ -124,6 +124,12 @@ export default {
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
         "card-glow-pattern":
           "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
+        "booster-modal-pattern":
+          "linear-gradient(to bottom, #EE84FF 0%, #7740F5 35%, #192632 55%, #192632 100%)",
+        "everyday-booster-modal-pattern":
+          "linear-gradient(to bottom, #FFE04E 0%, #F19F33 35%, #192632 55%, #192632 100%)",
+        "default-booster-modal-pattern":
+          "linear-gradient(to bottom, #29D6FF 0%, #2596E4 35%, #192632 55%, #192632 100%)",
         "card-blue-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 105, 177, 0) 0%, #0069B1 100%), url('/assets/png/card-bg.png')",
         "card-orange-bg-pattern":
