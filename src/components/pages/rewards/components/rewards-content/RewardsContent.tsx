@@ -61,7 +61,7 @@ export const RewardsContent: FunctionComponent<Props> = ({
 
   return (
     <div className="relative mx-4 flex flex-col gap-4">
-      <div className="grid grid-cols-4 gap-2 pb-38">
+      <div className="grid grid-cols-4 gap-2 pb-6">
         {Array(20)
           .fill(0)
           .map((_, index) => {

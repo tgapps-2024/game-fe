@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 
 import { AUTH_COOKIE_TOKEN } from "@/constants/api";
+import { invalidateProfileQuery } from "@/services/profile/queries";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 import { getTasks, setCompleteTask } from "./fetcher";
@@ -25,5 +26,6 @@ export const useSetCompleteTask = (queryClient: QueryClient) =>
     mutationFn: async (id: string) => setCompleteTask(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_TASKS] });
+      invalidateProfileQuery(queryClient);
     },
   });

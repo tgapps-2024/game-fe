@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 import { validateToken } from "@/api/helpers";
 import { AUTH_COOKIE_TOKEN, STALE_TIME } from "@/constants/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
 import { getProfile, getReferalLink } from "./fetcher";
 
@@ -23,8 +23,14 @@ export const useGetReferals = () =>
     staleTime: STALE_TIME,
   });
 
-export const useGetProfileMutation = () =>
-  useMutation({
-    mutationFn: getProfile,
-    mutationKey: ["GET_PROFILE"],
+export const useGetProfile = () => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_PROFILE],
+    queryFn: getProfile,
+    staleTime: STALE_TIME,
   });
+};
+
+export const invalidateProfileQuery = (queryClient: QueryClient) => {
+  return queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_PROFILE] });
+};

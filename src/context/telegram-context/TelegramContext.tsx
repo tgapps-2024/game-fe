@@ -4,9 +4,13 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Script from "next/script";
 
-import { useGetProfileMutation } from "@/services/profile/queries";
+import {
+  invalidateProfileQuery,
+  useGetProfile,
+} from "@/services/profile/queries";
 import { IProfile } from "@/services/profile/types";
 import { IWebApp, WebAppUser } from "@/types/telegram";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useTelegramAuth } from "./hooks/useTelegramAuth";
 import { useTelegramEffects } from "./hooks/useTelegramEffects";
@@ -28,9 +32,9 @@ export const TelegramProvider = ({
   children: React.ReactNode;
 }) => {
   const [webApp, setWebApp] = useState<IWebApp | null>(null);
-  const [profile, setProfile] = useState<IProfile>({} as IProfile);
   const { pathname } = useRouter();
-  const { mutate, isPending } = useGetProfileMutation();
+  const { data: profile, isPending } = useGetProfile();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
@@ -44,11 +48,7 @@ export const TelegramProvider = ({
     if (webApp) {
       authMutation.mutate(undefined, {
         onSuccess: () => {
-          mutate(undefined, {
-            onSuccess: (data) => {
-              setProfile(data);
-            },
-          });
+          invalidateProfileQuery(queryClient);
         },
       });
     }

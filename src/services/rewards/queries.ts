@@ -4,7 +4,7 @@ import { validateToken } from "@/api/helpers";
 import { AUTH_COOKIE_TOKEN } from "@/constants/api";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
-import { QueryKeys as ProfileQueryKeys } from "../profile/queries";
+import { invalidateProfileQuery } from "../profile/queries";
 
 import { getDailyInfo, getDailyReward, getRewardsEarn } from "./fetcher";
 
@@ -38,8 +38,6 @@ export const useGetDailyReward = (queryClient: QueryClient) =>
     mutationFn: async () => getDailyReward(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_DAILY_INFO] });
-      queryClient.invalidateQueries({
-        queryKey: [ProfileQueryKeys.GET_PROFILE],
-      });
+      invalidateProfileQuery(queryClient);
     },
   });
