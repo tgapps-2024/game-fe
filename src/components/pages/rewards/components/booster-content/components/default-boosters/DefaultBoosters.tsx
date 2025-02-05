@@ -9,6 +9,7 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import GreenBatteryFullImage from "@/public/assets/png/rewards/green-battery-full.webp";
 import GreenBatteryHalfImage from "@/public/assets/png/rewards/green-battery-half.webp";
+import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 import { formatNumber } from "@/utils/number";
 
@@ -58,10 +59,8 @@ export const DefaultBoosters = () => {
                       },
                     )}
                   </span>
-                  <span className="text-x font-medium text-gray-550">
-                    {t(
-                      `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.AVAILABLE}`,
-                    )}
+                  <span className="flex items-center gap-1 text-xs font-semibold text-white">
+                    <FriendsIcon className="size-4" /> +200
                   </span>
                 </div>
               </div>
@@ -115,10 +114,8 @@ export const DefaultBoosters = () => {
                       { num: 1 },
                     )}
                   </span>
-                  <span className="text-x font-medium text-gray-550">
-                    {t(
-                      `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.AVAILABLE}`,
-                    )}
+                  <span className="flex items-center gap-1 text-xs font-semibold text-white">
+                    <FriendsIcon className="size-4" /> +200
                   </span>
                 </div>
               </div>
