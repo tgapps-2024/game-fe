@@ -21,7 +21,6 @@ apiClient.interceptors.request.use(
     const token = Cookies.get(AUTH_COOKIE_TOKEN);
 
     if (!token) {
-      console.error("Token is missing. Request cancelled.");
       return Promise.reject(new Error("Token is missing"));
     }
 

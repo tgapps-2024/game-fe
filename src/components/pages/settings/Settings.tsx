@@ -11,7 +11,6 @@ import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useModalVisibility } from "@/hooks/useModalVisibility";
 import WalletIcon from "@/public/assets/svg/wallet.svg";
-import { useGetProfile } from "@/services/profile/queries";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 import { LevelIndicator } from "./components/level-indicator/LevelIndicator";
@@ -33,11 +32,10 @@ export const Settings: FC = () => {
   const address = useTonAddress();
 
   const { isModalVisible } = useModalVisibility();
-  const { webApp } = useTelegram();
+  const { webApp, profile } = useTelegram();
   const [isTonDisconnectModalVisible, setTonDisconnectModalVisible] =
     useState(false);
 
-  const { data } = useGetProfile();
   const { handleSelectionChanged } = useHapticFeedback();
 
   const handleOpenTon = () => {
@@ -69,7 +67,7 @@ export const Settings: FC = () => {
                 photo_url={photo_url || ""}
               />
               <LevelIndicator
-                currentLevel={data?.level || 1}
+                currentLevel={profile?.level || 1}
                 progress={MOCK_DATA.progress}
               />
               <motion.div
@@ -126,8 +124,8 @@ export const Settings: FC = () => {
               </motion.div>
               <ProfileBalance
                 items={PROFILE_BALANCE_ITEMS({
-                  coins: data?.coins ?? 0,
-                  stars: data?.stars ?? 0,
+                  coins: profile?.coins ?? 0,
+                  stars: profile?.stars ?? 0,
                   ton: 0,
                 })}
               />

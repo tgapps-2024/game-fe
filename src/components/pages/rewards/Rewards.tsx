@@ -7,8 +7,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useGetProfile } from "@/services/profile/queries";
-import { IProfile } from "@/services/profile/types";
 import {
   useGetDailyReward,
   useGetDailyRewardInfo,
@@ -27,9 +25,7 @@ export const Rewards = () => {
   const queryClient = useQueryClient();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
-  const { data: dailyRewardInfo, isLoading: isDailyRewardInfoLoading } =
-    useGetDailyRewardInfo();
+  const { data: dailyRewardInfo } = useGetDailyRewardInfo();
   const { mutate: getDailyReward, isPending } = useGetDailyReward(queryClient);
 
   useEffect(() => {
@@ -53,10 +49,7 @@ export const Rewards = () => {
 
   return (
     <PageWrapper className="flex flex-col bg-blue-800 pt-28">
-      <ProfileHeader
-        isLoading={isProfileLoading && isDailyRewardInfoLoading}
-        profileData={profile ?? ({} as IProfile)}
-      />
+      <ProfileHeader />
       <div className="mt-6 flex flex-1 flex-col gap-6">
         <Tabs
           activeTab={current}

@@ -9,7 +9,7 @@ import classNames from "classnames";
 
 import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
-import { getTgSafeAreaInsetTop } from '@/utils/telegram';
+import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 export enum OverscrollBehavior {
   CONTAIN = "contain",

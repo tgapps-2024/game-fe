@@ -13,7 +13,6 @@ import { ROUTES } from "@/constants/routes";
 import { useTelegram } from "@/context";
 import FrindsSvg from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
-import { IProfile } from "@/services/profile/types";
 
 import { BottomComponent } from "./components/bottom-component/BottomComponent";
 import { HeaderItem } from "./components/header-item/HeaderItem";
@@ -21,16 +20,10 @@ import { TopComponent } from "./components/top-component/TopComponent";
 
 type Props = {
   className?: string;
-  profileData: IProfile;
-  isLoading: boolean;
 };
 
-export const ProfileHeader: FunctionComponent<Props> = ({
-  className,
-  profileData: { level, coins, stars, friends },
-  isLoading,
-}) => {
-  const { user } = useTelegram();
+export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
+  const { user, isPending, profile } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { pathname } = useRouter();
   const isFriendsPage = pathname === ROUTES.FRIENDS;
@@ -39,7 +32,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({
     <div
       className={classNames("relative grid h-10 grid-cols-3 px-4", className)}
     >
-      {isLoading ? (
+      {isPending ? (
         <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
           <div className="relative !size-10 animate-pulse overflow-hidden rounded-full border-2 border-solid border-white bg-white/90 object-cover" />
           <div className="relative flex flex-col gap-y-1">
@@ -82,14 +75,14 @@ export const ProfileHeader: FunctionComponent<Props> = ({
               <div className="absolute z-10 h-5 w-8.5">
                 <Level className="h-5 w-8.5" />
                 <p className="level-text absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-xs font-bold -tracking-wide text-white">
-                  {level}
+                  {profile?.level}
                 </p>
               </div>
               <div className="relative ml-7 h-2.5 w-full overflow-hidden rounded-full bg-blue-900">
                 <div
                   className="transition-width absolute h-full rounded-full bg-gradient-to-b from-[#F9E50F] via-[#F9E50F] to-[#EFC609] shadow-green-shadow duration-300"
                   style={{
-                    width: `${45}%`,
+                    width: `${50}%`,
                   }}
                 />
               </div>
@@ -106,10 +99,10 @@ export const ProfileHeader: FunctionComponent<Props> = ({
           />
         }
         bottomInfoComponent={
-          isLoading ? (
+          isPending ? (
             <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
           ) : (
-            <BottomComponent value={coins ?? 0} />
+            <BottomComponent value={profile?.coins ?? 0} />
           )
         }
         imageNode={
@@ -126,10 +119,10 @@ export const ProfileHeader: FunctionComponent<Props> = ({
             />
           }
           bottomInfoComponent={
-            isLoading ? (
+            isPending ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
-              <BottomComponent value={friends ?? 0} />
+              <BottomComponent value={profile?.friends ?? 0} />
             )
           }
           imageNode={
@@ -146,10 +139,10 @@ export const ProfileHeader: FunctionComponent<Props> = ({
             />
           }
           bottomInfoComponent={
-            isLoading ? (
+            isPending ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
-              <BottomComponent value={stars ?? 0} />
+              <BottomComponent value={profile?.stars ?? 0} />
             )
           }
           imageNode={

@@ -1,6 +1,6 @@
 const nextConfig = {
   /* config options here */
-  reactStrictMode: true,
+  reactStrictMode: false,
   i18n: {
     locales: ["en", "ru"],
     defaultLocale: "ru",
@@ -19,7 +19,7 @@ const nextConfig = {
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (rule) => rule.test?.test?.(".svg")
+      (rule) => rule.test?.test?.(".svg"),
     );
 
     config.module.rules.push(
@@ -33,7 +33,7 @@ const nextConfig = {
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
         use: ["@svgr/webpack"],
-      }
+      },
     );
 
     fileLoaderRule.exclude = /\.svg$/i;
