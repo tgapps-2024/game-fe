@@ -31,7 +31,7 @@ export const HeroesTabs: FunctionComponent<Props> = ({
           {Object.keys(HeroType).map((key) => {
             const tab = HeroType[key as keyof typeof HeroType];
             const label = t(
-              `${NS.PAGES.HEROES.TABS.ROOT}.${NS.PAGES.HEROES.TABS[tab]}`,
+              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_TYPE.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_TYPE[tab]}`,
             );
             const elementKey = `heroes-tab-${tab}`;
 

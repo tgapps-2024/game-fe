@@ -164,11 +164,28 @@ export const NS = {
     HEROES: {
       ROOT: "HEROES",
       TITLE: "TITLE",
-      TABS: {
-        ROOT: "TABS",
-        REGULAR: "REGULAR",
-        RARE: "RARE",
-        EPIC: "EPIC",
+      LABELS: {
+        ROOT: "LABELS",
+        GET: "GET",
+        BUY: "BUY",
+        SELECT: "SELECT",
+        SELECTED: "SELECTED",
+        GO_TO_SHOP: "GO_TO_SHOP",
+        ENERGY: "ENERGY",
+        INCOME_PER_HOUR: "INCOME_PER_HOUR",
+        INCOME_PER_TAP: "INCOME_PER_TAP",
+        UNITS: {
+          ROOT: "UNITS",
+          ENERGY: "ENERGY",
+          INCOME_PER_HOUR: "INCOME_PER_HOUR",
+          INCOME_PER_TAP: "INCOME_PER_TAP",
+        },
+        HERO_TYPE: {
+          ROOT: "HERO_TYPE",
+          REGULAR: "REGULAR",
+          RARE: "RARE",
+          EPIC: "EPIC",
+        },
       },
     },
   },
