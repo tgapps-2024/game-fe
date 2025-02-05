@@ -1,7 +1,5 @@
 import { PageWrapper, ProfileHeader } from "@/components/common";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import { useGetProfile } from "@/services/profile/queries";
-import { IProfile } from "@/services/profile/types";
 import { useGetTasks } from "@/services/tasks/queries";
 
 import { AssignmentsCarousel } from "./components/assignments-carousel/AssignmentsCarousel";
@@ -11,7 +9,6 @@ import { sortTasks } from "./helpers";
 
 export const Assignments = () => {
   const { data: tasks, isLoading: isTasksLoading } = useGetTasks();
-  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
   const { handleSelectionChanged } = useHapticFeedback();
 
   const handleSlideClick = () => {
@@ -19,12 +16,9 @@ export const Assignments = () => {
   };
 
   return (
-    <PageWrapper className="bg-blue-800 pb-10 pt-4">
+    <PageWrapper className="bg-blue-800 pb-10 pt-4" isLoading={isTasksLoading}>
       <div className="flex flex-col">
-        <ProfileHeader
-          isLoading={isProfileLoading}
-          profileData={profile ?? ({} as IProfile)}
-        />
+        <ProfileHeader />
         <AssignmentsCarousel onSlideClick={handleSlideClick} />
         <div className="flex flex-col gap-4">
           <AssignmentsList

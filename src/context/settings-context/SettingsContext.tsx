@@ -1,5 +1,7 @@
 import { createContext, FC, useContext, useEffect, useState } from "react";
 
+import { NotificationEnum } from "@/types/telegram";
+
 export type Settings = {
   sound: boolean;
   vibrations: boolean;
@@ -9,12 +11,12 @@ export type SettingsContextValue = {
   settings: Settings;
   handleUpdateSettings: (
     setting: keyof Settings,
-    value?: boolean | string
+    value?: boolean | string,
   ) => void;
 };
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 const SETTINGS_KEY = "app_settings";
@@ -34,11 +36,13 @@ export const SettingsProvider: FC<{ children: React.ReactNode }> = ({
 
   const handleUpdateSettings = (
     setting: keyof Settings,
-    value?: boolean | string
+    value?: boolean | string,
   ) => {
     if (setting === "sound") {
       if (settings.vibrations) {
-        window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
+        window.Telegram.WebApp.HapticFeedback.notificationOccurred(
+          NotificationEnum.ERROR,
+        );
       }
       return;
     }

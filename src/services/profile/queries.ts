@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 
 import { validateToken } from "@/api/helpers";
-import { AUTH_COOKIE_TOKEN } from "@/constants/api";
-import { useQuery } from "@tanstack/react-query";
+import { AUTH_COOKIE_TOKEN, STALE_TIME } from "@/constants/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { getProfile, getReferalLink } from "./fetcher";
 
@@ -10,18 +10,6 @@ export enum QueryKeys {
   GET_PROFILE = "GET_PROFILE",
   GET_REFERALS = "GET_REFERALS",
 }
-
-export const useGetProfile = () =>
-  useQuery({
-    queryKey: [QueryKeys.GET_PROFILE],
-    queryFn: async () => {
-      validateToken();
-      return getProfile();
-    },
-    enabled: !!Cookies.get(AUTH_COOKIE_TOKEN),
-    retry: false,
-    staleTime: 1000 * 60 * 5,
-  });
 
 export const useGetReferals = () =>
   useQuery({
@@ -32,5 +20,11 @@ export const useGetReferals = () =>
     },
     enabled: !!Cookies.get(AUTH_COOKIE_TOKEN),
     retry: false,
-    staleTime: 1000 * 60 * 5,
+    staleTime: STALE_TIME,
+  });
+
+export const useGetProfileMutation = () =>
+  useMutation({
+    mutationFn: getProfile,
+    mutationKey: ["GET_PROFILE"],
   });

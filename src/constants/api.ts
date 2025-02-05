@@ -25,3 +25,5 @@ export const API_ENDPOINTS = {
 };
 
 export const AUTH_COOKIE_TOKEN = "authToken";
+
+export const STALE_TIME = 1000 * 60 * 60; // 1 час

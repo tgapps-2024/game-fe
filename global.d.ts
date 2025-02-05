@@ -1,13 +1,15 @@
 declare const Telegram: Telegram;
 import type eruda from "eruda";
 
+import { IWebApp } from "@/types/telegram";
+
 type Color = string | false;
 
 declare global {
   interface Window {
     eruda: typeof eruda;
     Telegram: {
-      WebApp: WebApp;
+      WebApp: IWebApp;
     };
   }
 }
@@ -461,6 +463,12 @@ interface WebApp {
    * the app.
    */
   disableVerticalSwipes(): void;
+  lockOrientation: () => void;
+  requestFullscreen: () => void;
+  contentSafeAreaInset: IAreaInsets;
+  safeAreaInset: IAreaInsets;
+  addToHomeScreen: () => void;
+  setEmojiStatus: (emoji: string) => void;
 }
 
 type ThemeChangedCallback = () => void;
@@ -1026,6 +1034,8 @@ interface BiometricManager {
    * main button)
    */
   openSettings: () => BiometricManager;
+
+  lockOrientation: () => void;
 }
 
 type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;

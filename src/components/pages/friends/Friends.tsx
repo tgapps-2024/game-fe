@@ -9,8 +9,8 @@ import { PageWrapper, ProfileHeader } from "@/components/common";
 import { Drawer } from "@/components/ui/drawer";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
-import { useGetProfile, useGetReferals } from "@/services/profile/queries";
-import { IProfile, IReferals } from "@/services/profile/types";
+import { useGetReferals } from "@/services/profile/queries";
+import { IReferals } from "@/services/profile/types";
 
 import { FriendsList } from "./components/friends-list/FriendsList";
 import { InviteBoard } from "./components/invite-board/InviteBoard";
@@ -20,7 +20,6 @@ import { InviteModal } from "./components/invite-modal/InviteModal";
 export const Friends = () => {
   const [bgScaleDelta, setBgScaleDelta] = useState(0);
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
-  const { data, isPending } = useGetProfile();
   const {
     data: referalData,
     isPending: isPendingReferalData,
@@ -57,10 +56,7 @@ export const Friends = () => {
         />
         <div className="relative box-border flex h-[90%] flex-col">
           <div className="relative z-10 w-full">
-            <ProfileHeader
-              isLoading={isPending}
-              profileData={data || ({} as IProfile)}
-            />
+            <ProfileHeader />
             <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
               {t(`${NS.PAGES.FRIENDS.PROPOSAL}`)}
             </p>
