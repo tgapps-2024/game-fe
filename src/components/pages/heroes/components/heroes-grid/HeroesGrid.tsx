@@ -1,33 +1,56 @@
-import React, { useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
-import { Card, CardType } from "@/components/common";
+import { Card, CardType, PAGE_WRAPPER_ID } from "@/components/common";
 import { Badge } from "@/components/pages/friends/components/invite-modal/components/badge/Badge";
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
-import HarleyQuinnPortrait from "@/public/assets/png/heroes/portrait/harley_quinn.png";
-import {
-  useGetAllCharacters,
-  // useGetCharacter,
-} from "@/services/heroes/queries";
+import { HeroesContext } from "@/context/heroes-context/HeroesContext";
+import { useGetAllAppsCharacters } from "@/services/heroes/queries";
+import { HeroRarity, ICharacterConfigWithId } from "@/services/heroes/types";
+import { groupAllAppsCharactersByRarity } from "@/utils/heroes";
 
-// import { CharacterId } from "@/services/heroes/types";
-import { HeroType } from "../../types";
+import { HeroView } from "../heroes-profile/components/hero-view/HeroView";
 
 import { HeroesTabs } from "./components/HeroesTabs";
 
 export const HeroesGrid = () => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
-  const [selectedTab, setSelectedTab] = useState<HeroType>(HeroType.REGULAR);
-  const { data: characters, isLoading } = useGetAllCharacters();
+  const [selectedTab, setSelectedTab] = useState<HeroRarity>(HeroRarity.COMMON);
+  const { data: heroes } = useGetAllAppsCharacters();
+  const { selectHero } = useContext(HeroesContext);
 
-  if (!isLoading) {
-    console.log(characters);
-  }
+  const heroesByRarity = useMemo(
+    () => (heroes ? groupAllAppsCharactersByRarity(heroes) : null),
+    [heroes],
+  );
+
+  const onSelectHero = (hero: ICharacterConfigWithId) => {
+    const pageWrapper = document.getElementById(PAGE_WRAPPER_ID);
+
+    if (pageWrapper) {
+      pageWrapper.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    const { characterId, earn_per_hour, earn_per_tap, energy } = hero;
+
+    selectHero({
+      auto: 0,
+      background: 0,
+      chain: 0,
+      kit: 0,
+      glass: 0,
+      hat: 0,
+      watch: 0,
+      characterId,
+      earn_per_hour,
+      earn_per_tap,
+      energy,
+    });
+  };
 
   return (
     <div className="relative">
@@ -45,36 +68,40 @@ export const HeroesGrid = () => {
       <div className="overflow-y-auto bg-[#192632]">
         <div
           className={classNames("grid grid-cols-3 grid-rows-3 gap-2 p-4", {
-            "bg-[#192632]": selectedTab === HeroType.REGULAR,
-            "bg-[#35241C]": selectedTab === HeroType.RARE,
-            "bg-[#2F1A60]": selectedTab === HeroType.EPIC,
+            "bg-[#192632]": selectedTab === HeroRarity.COMMON,
+            "bg-[#35241C]": selectedTab === HeroRarity.RARE,
+            "bg-[#2F1A60]": selectedTab === HeroRarity.EPIC,
           })}
         >
-          {Array.from({ length: 9 }).map((_, index) => {
-            let type = CardType.BLUE;
+          {heroesByRarity
+            ? heroesByRarity[selectedTab].map((hero) => {
+                let type = CardType.BLUE;
 
-            if (selectedTab === HeroType.RARE) {
-              type = CardType.ORANGE;
-            } else if (selectedTab === HeroType.EPIC) {
-              type = CardType.INDIGO;
-            }
+                if (selectedTab === HeroRarity.RARE) {
+                  type = CardType.ORANGE;
+                } else if (selectedTab === HeroRarity.EPIC) {
+                  type = CardType.INDIGO;
+                }
 
-            return (
-              <Card
-                key={`heroes_card_${index}`}
-                buttonColor={CollectButtonColor.GREEN}
-                buttonText="Купить"
-                isSelected={false}
-                badgeComponent={<Badge value={1450} />}
-                onClick={() => {}}
-                type={type}
-              >
-                <div className="absolute h-full w-full">
-                  <Image src={HarleyQuinnPortrait} alt="" fill quality={100} />
-                </div>
-              </Card>
-            );
-          })}
+                return (
+                  <Card
+                    key={hero.characterId}
+                    buttonColor={CollectButtonColor.GREEN}
+                    buttonText="Купить"
+                    isSelected={false}
+                    badgeComponent={<Badge value={hero.price} />}
+                    onClick={() => onSelectHero(hero)}
+                    type={type}
+                  >
+                    <HeroView
+                      className="absolute h-full w-full"
+                      heroId={hero.characterId}
+                      heroRarity={HeroRarity.COMMON}
+                    />
+                  </Card>
+                );
+              })
+            : null}
         </div>
       </div>
     </div>

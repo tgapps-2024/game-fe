@@ -1,13 +1,13 @@
 import React, { FunctionComponent, PropsWithChildren } from "react";
 
-import { HeroType } from "@/components/pages/heroes/types";
+import { HeroRarity } from "@/services/heroes/types";
 
 import { EpicRibbon } from "./components/epic-ribbon/EpicRibbon";
 import { RareRibbon } from "./components/rare-ribbon/RareRibbon";
 import { RegularRibbon } from "./components/regular-ribbon/RegularRibbon";
 
 type Props = {
-  heroType: HeroType;
+  heroType: HeroRarity;
 };
 
 export const Ribbon: FunctionComponent<PropsWithChildren<Props>> = ({
@@ -16,9 +16,9 @@ export const Ribbon: FunctionComponent<PropsWithChildren<Props>> = ({
 }) => {
   let RibbonComponent = RegularRibbon;
 
-  if (heroType === HeroType.RARE) {
+  if (heroType === HeroRarity.RARE) {
     RibbonComponent = RareRibbon;
-  } else if (heroType === HeroType.EPIC) {
+  } else if (heroType === HeroRarity.EPIC) {
     RibbonComponent = EpicRibbon;
   }
 

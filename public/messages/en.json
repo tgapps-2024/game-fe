@@ -138,8 +138,8 @@
         "INCOME_PER_HOUR": "{num}c/h",
         "INCOME_PER_TAP": "{num}/tap"
       },
-      "HERO_TYPE": {
-        "REGULAR": "Regular",
+      "HERO_RARITY": {
+        "COMMON": "Common",
         "RARE": "Rare",
         "EPIC": "Epic"
       }

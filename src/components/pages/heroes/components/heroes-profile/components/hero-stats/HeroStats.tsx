@@ -1,16 +1,34 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { HeroType } from "@/components/pages/heroes/types";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
+import { HeroRarity } from "@/services/heroes/types";
 
 import { Coin, CoinType } from "./components/coin/Coin";
 import { Indicator } from "./components/indicator/Indicator";
 import { Ribbon } from "./components/ribbon/Ribbon";
+import {
+  MAX_ENERGY,
+  MAX_INCOME_PER_HOUR,
+  MAX_INCOME_PER_TAP,
+} from "./constants";
 
-export const HeroStats = () => {
+type Props = {
+  energy: number;
+  earnPerHour: number;
+  earnPerTap: number;
+};
+
+const calculateProgress = (current: number, max: number) =>
+  (current / max) * 100;
+
+export const HeroStats: FunctionComponent<Props> = ({
+  energy,
+  earnPerHour,
+  earnPerTap,
+}) => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
 
   return (
@@ -21,9 +39,9 @@ export const HeroStats = () => {
           <div className="text-xl font-black leading-none tracking-wide text-white text-shadow">
             Месси
           </div>
-          <Ribbon heroType={HeroType.REGULAR}>
+          <Ribbon heroType={HeroRarity.COMMON}>
             {t(
-              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_TYPE.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_TYPE.REGULAR}`,
+              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.COMMON}`,
             )}
           </Ribbon>
           <div className="flex w-full flex-col gap-y-3">
@@ -35,9 +53,9 @@ export const HeroStats = () => {
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ENERGY}`,
-                  { num: 312 },
+                  { num: energy },
                 )}
-                progress={10}
+                progress={calculateProgress(energy, MAX_ENERGY)}
               />
             </div>
             <div className="flex w-full items-center gap-x-2">
@@ -48,9 +66,9 @@ export const HeroStats = () => {
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.INCOME_PER_HOUR}`,
-                  { num: 500 },
+                  { num: earnPerHour },
                 )}
-                progress={55}
+                progress={calculateProgress(earnPerHour, MAX_INCOME_PER_HOUR)}
               />
             </div>
             <div className="flex w-full items-center gap-x-2">
@@ -61,9 +79,9 @@ export const HeroStats = () => {
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.INCOME_PER_TAP}`,
-                  { num: 20 },
+                  { num: earnPerTap },
                 )}
-                progress={87}
+                progress={calculateProgress(earnPerTap, MAX_INCOME_PER_TAP)}
               />
             </div>
           </div>

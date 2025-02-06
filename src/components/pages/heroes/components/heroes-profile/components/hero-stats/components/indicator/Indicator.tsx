@@ -18,8 +18,11 @@ export const Indicator: FunctionComponent<Props> = ({
     </div>
     <div className="h-1.5 rounded bg-[rgba(0,0,0,0.3)] shadow-heroes-stat-indicator-inner-dim">
       <div
-        className="animate-heroes-stat-indicator-pulse h-full rounded bg-[#FFCC00] shadow-heroes-stat-indicator-glow"
-        style={{ width: `${progress}%` }}
+        className="h-full animate-heroes-stat-indicator-pulse rounded bg-[#FFCC00] shadow-heroes-stat-indicator-glow"
+        style={{
+          width: `${progress}%`,
+          minWidth: progress > 0 ? 1 : undefined,
+        }}
       />
     </div>
   </div>

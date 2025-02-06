@@ -1,15 +1,47 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 
-import ManBody from "@/public/assets/png/heroes/body/man.png";
-import MessiHead from "@/public/assets/png/heroes/head/messi.png";
-import BarcelonaKit from "@/public/assets/png/heroes/kit/barcelona.png";
+import classNames from "classnames";
 
-export const HeroView = () => (
-  <div className="absolute top-0 left-0 w-[56%] h-full">
-    <Image src={ManBody} quality={100} alt="" fill />
-    <Image src={BarcelonaKit} quality={100} alt="" fill />
-    <Image src={MessiHead} quality={100} alt="" fill />
-  </div>
-);
+import { CharacterId, HeroRarity } from "@/services/heroes/types";
+
+type Props = {
+  heroId: CharacterId;
+  heroRarity: HeroRarity;
+  className?: string;
+};
+
+export enum HeroPart {
+  BODY = "Body",
+  CHAIN = 'Chain',
+  HEAD = "Head",
+  HAT = "Hat",
+  GLASS = "Glass",
+  KIT = "Kit",
+  WATCH = "Watch",
+}
+
+const srcBuilder = (
+  heroId: CharacterId,
+  heroRarity: HeroRarity,
+  part: HeroPart,
+  value?: number,
+): string => {
+  const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
+  const endsWith = `/${part}.png`;
+
+  return typeof value === "number"
+    ? `${startsWith}${part}/${value}${endsWith}`
+    : `${startsWith}${part}${endsWith}`;
+};
+
+export const HeroView: FunctionComponent<Props> = ({ heroId, heroRarity, className }) => {
+  return (
+    <div className={classNames("absolute", className)}>
+      <Image src={srcBuilder(heroId, heroRarity, HeroPart.BODY)} quality={100} alt="" fill />   {/* Body */}
+      <Image src={srcBuilder(heroId, heroRarity, HeroPart.KIT, 0)} quality={100} alt="" fill /> {/* Kit */}
+      <Image src={srcBuilder(heroId, heroRarity, HeroPart.HEAD)} quality={100} alt="" fill />   {/* Head */}
+    </div>
+  );
+};
