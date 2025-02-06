@@ -143,10 +143,25 @@
   },
   "HEROES": {
     "TITLE": "Герои",
-    "TABS": {
-      "REGULAR": "Обычный",
-      "RARE": "Редкий",
-      "EPIC": "Эпический"
+    "LABELS": {
+      "GET": "Получить",
+      "BUY": "Купить",
+      "SELECT": "Выбрать",
+      "SELECTED": "Выбрано",
+      "GO_TO_SHOP": "Перейти в магазин",
+      "ENERGY": "Энергия",
+      "INCOME_PER_HOUR": "Доход/час",
+      "INCOME_PER_TAP": "Доход/тап",
+      "UNITS": {
+        "ENERGY": "{num}/ч",
+        "INCOME_PER_HOUR": "{num}к/ч",
+        "INCOME_PER_TAP": "{num}/тап"
+      },
+      "HERO_TYPE": {
+        "REGULAR": "Обычный",
+        "RARE": "Редкий",
+        "EPIC": "Эпический"
+      }
     }
   }
 }

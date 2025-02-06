@@ -10,7 +10,12 @@ import { Badge } from "@/components/pages/friends/components/invite-modal/compon
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import HarleyQuinnPortrait from "@/public/assets/png/heroes/portrait/harley_quinn.png";
+import {
+  useGetAllCharacters,
+  // useGetCharacter,
+} from "@/services/heroes/queries";
 
+// import { CharacterId } from "@/services/heroes/types";
 import { HeroType } from "../../types";
 
 import { HeroesTabs } from "./components/HeroesTabs";
@@ -18,6 +23,11 @@ import { HeroesTabs } from "./components/HeroesTabs";
 export const HeroesGrid = () => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
   const [selectedTab, setSelectedTab] = useState<HeroType>(HeroType.REGULAR);
+  const { data: characters, isLoading } = useGetAllCharacters();
+
+  if (!isLoading) {
+    console.log(characters);
+  }
 
   return (
     <div className="relative">

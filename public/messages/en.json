@@ -124,10 +124,25 @@
   },
   "HEROES": {
     "TITLE": "Heroes",
-    "TABS": {
-      "REGULAR": "Regular",
-      "RARE": "Rare",
-      "EPIC": "Epic"
+    "LABELS": {
+      "GET": "Get",
+      "BUY": "Buy",
+      "SELECT": "Select",
+      "SELECTED": "Selected",
+      "GO_TO_SHOP": "Go to shop",
+      "ENERGY": "Energy",
+      "INCOME_PER_HOUR": "Income/hour",
+      "INCOME_PER_TAP": "Income/tap",
+      "UNITS": {
+        "ENERGY": "{num}/h",
+        "INCOME_PER_HOUR": "{num}c/h",
+        "INCOME_PER_TAP": "{num}/tap"
+      },
+      "HERO_TYPE": {
+        "REGULAR": "Regular",
+        "RARE": "Rare",
+        "EPIC": "Epic"
+      }
     }
   }
 }
