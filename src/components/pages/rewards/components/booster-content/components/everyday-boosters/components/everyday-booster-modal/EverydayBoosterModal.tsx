@@ -11,7 +11,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
-import LigntningImage from "@/public/assets/png/rewards/lightning.png";
+import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import EnergyImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
@@ -21,7 +21,7 @@ export const EverydayBoosterModal = () => {
   return (
     <DrawerContent
       className={classNames(
-        "bg-everyday-booster-modal-pattern flex w-full flex-col items-center rounded-t-3xl border-0 bg-left-top bg-no-repeat px-4 pb-8 pt-9 font-rubik",
+        "flex w-full flex-col items-center rounded-t-3xl border-0 bg-everyday-booster-modal-pattern bg-left-top bg-no-repeat px-4 pb-8 pt-9 font-rubik",
       )}
     >
       <DrawerClose
@@ -30,19 +30,18 @@ export const EverydayBoosterModal = () => {
       >
         <CloseIcon />
       </DrawerClose>
-      <div className="relative mb-6 flex size-40 items-center justify-between">
-        <div className="absolute">
-          <Image
-            src={LigntningImage}
-            alt="Energy image"
-            width={400}
-            height={440}
-            quality={100}
-            objectFit="contain"
-          />
+      <div className="relative mb-6 flex h-40 w-full items-center justify-between">
+        <div className="absolute z-20 flex h-[160px] w-full items-center justify-center">
+          <Image src={LigntningImage} fill objectFit="contain" alt="" />
         </div>
-        {/* Изображение */}
-        <Image src={EnergyImage} alt="Energy image" fill objectFit="contain" />
+
+        <Image
+          src={EnergyImage}
+          alt="Energy image"
+          fill
+          objectFit="contain"
+          className="z-20"
+        />
       </div>
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
         Полный запас энергии
