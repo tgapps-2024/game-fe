@@ -15,7 +15,7 @@ export const API_ENDPOINTS = {
     GET_DAILY_INFO: "/get_daily_info",
     GET_DAILY_REWARD: "/get_daily_reward",
     GET_CHARACTER: "/get_character",
-    GET_ALL_CHARACTERS: '/get_all_characters'
+    GET_ALL_CHARACTERS: "/get_all_characters",
   },
   POST: {
     AUTH: "/auth",

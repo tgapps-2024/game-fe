@@ -18,6 +18,7 @@ type Props = {
   buttonClassName?: string;
   isLoading?: boolean;
   fontSize?: number;
+  innerClassname?: string;
 } & HTMLMotionProps<"button">;
 
 export const PrimaryButton: FunctionComponent<Props> = ({
@@ -30,6 +31,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   isLoading = false,
   onClick,
   fontSize,
+  innerClassname,
   ...props
 }) => {
   const { handleNotificationOccurred, handleSelectionChanged } =
@@ -80,6 +82,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
           { "rounded-xl": size === "small" },
           { "rounded-2xl": size === "medium" },
           { "rounded-2xl": size === "large" },
+          innerClassname,
         )}
       >
         <div

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -9,18 +9,24 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BatteryImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { FullBooster } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
 import { EverydayBoosterModal } from "./components/everyday-booster-modal/EverydayBoosterModal";
 
-export const EverydayBoosters = () => {
+type Props = {
+  booster: FullBooster;
+};
+
+export const EverydayBoosters: FunctionComponent<Props> = ({ booster }) => {
+  console.log("🚀 ~ booster:", booster);
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = null;
 
   return (
     <Drawer>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="text-stroke-1 text-nowrap text-xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
           {t(
             `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.EVERYDAY}.${NS.PAGES.REWARDS.BOOSTERS.TITLE}`,
@@ -51,7 +57,7 @@ export const EverydayBoosters = () => {
                   `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.COUNT}`,
                   {
                     num1: 5,
-                    num2: 5,
+                    num2: booster?.amount,
                   },
                 )}
               </span>
@@ -89,7 +95,7 @@ export const EverydayBoosters = () => {
           </DrawerTrigger>
         </div>
       </div>
-      <EverydayBoosterModal />
+      <EverydayBoosterModal booster={booster} />
     </Drawer>
   );
 };

@@ -8,10 +8,11 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import {
+  useGetBoosters,
   useGetDailyReward,
   useGetDailyRewardInfo,
 } from "@/services/rewards/queries";
-import { IDailyRewardInfo } from "@/services/rewards/types";
+import { IBoosters, IDailyRewardInfo } from "@/services/rewards/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { BoosterContent } from "./components/booster-content/BoosterContent";
@@ -25,8 +26,10 @@ export const Rewards = () => {
   const queryClient = useQueryClient();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const { data: dailyRewardInfo } = useGetDailyRewardInfo();
+  const { data: dailyRewardInfo, isLoading: isLoadingDailyReward } =
+    useGetDailyRewardInfo();
   const { mutate: getDailyReward, isPending } = useGetDailyReward(queryClient);
+  const { data, isLoading: isLoadingBoosters } = useGetBoosters();
 
   useEffect(() => {
     if (!api) {
@@ -48,7 +51,10 @@ export const Rewards = () => {
   };
 
   return (
-    <PageWrapper className="flex flex-col bg-blue-800 pt-28">
+    <PageWrapper
+      className="flex flex-col bg-blue-800 pt-4"
+      isLoading={isLoadingDailyReward || isLoadingBoosters}
+    >
       <ProfileHeader />
       <div className="mt-6 flex flex-1 flex-col gap-6">
         <Tabs
@@ -69,13 +75,20 @@ export const Rewards = () => {
               />
             </CarouselItem>
             <CarouselItem>
-              <BoosterContent isActive={current === 3} />
+              <BoosterContent
+                boosters={data ?? ({} as IBoosters)}
+                isActive={current === 3}
+              />
             </CarouselItem>
           </CarouselContent>
         </Carousel>
       </div>
-      {current === 2 && dailyRewardInfo?.available && (
-        <GetAllButton isLoading={isPending} onClick={getDailyReward} />
+      {current === 2 && (
+        <GetAllButton
+          disabled={!dailyRewardInfo?.available}
+          isLoading={isPending}
+          onClick={getDailyReward}
+        />
       )}
     </PageWrapper>
   );

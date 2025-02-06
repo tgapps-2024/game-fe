@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 
@@ -17,9 +17,14 @@ import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import UnionIcon from "@/public/assets/svg/rewards/union.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { TempEnergyBooster } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
-export const PremiumBoosterModal = () => {
+type Props = {
+  booster: TempEnergyBooster;
+};
+
+export const PremiumBoosterModal: FunctionComponent<Props> = ({ booster }) => {
   return (
     <DrawerContent
       className={classNames(
@@ -28,7 +33,7 @@ export const PremiumBoosterModal = () => {
     >
       <DrawerClose
         asChild
-        className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
+        className="absolute right-4 top-4 z-50 flex size-8 items-center justify-center rounded-full"
       >
         <CloseIcon />
       </DrawerClose>
@@ -59,7 +64,7 @@ export const PremiumBoosterModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
-              1200
+              {booster?.amount}
             </span>
           </div>
         </div>
@@ -73,12 +78,12 @@ export const PremiumBoosterModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              2400
+              {booster?.end}
             </span>
           </div>
         </div>
       </div>
-      <PrimaryButton size="large" className="flex gap-1 uppercase">
+      <PrimaryButton size="large" className="flex gap-1 text-base uppercase">
         приобрести за <StarSVG className="size-6.5" />
         {formatNumber(1200000)}
       </PrimaryButton>

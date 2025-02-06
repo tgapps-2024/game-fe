@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 
@@ -16,8 +16,13 @@ import EnergyImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import UnionIcon from "@/public/assets/svg/rewards/union.svg";
+import { FullBooster } from "@/services/rewards/types";
 
-export const EverydayBoosterModal = () => {
+type Props = {
+  booster: FullBooster;
+};
+
+export const EverydayBoosterModal: FunctionComponent<Props> = ({ booster }) => {
   return (
     <DrawerContent
       className={classNames(
@@ -26,7 +31,7 @@ export const EverydayBoosterModal = () => {
     >
       <DrawerClose
         asChild
-        className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
+        className="absolute right-4 top-4 z-50 flex size-8 items-center justify-center rounded-full"
       >
         <CloseIcon />
       </DrawerClose>
@@ -57,7 +62,7 @@ export const EverydayBoosterModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
-              50
+              {booster?.fullRestore}
             </span>
           </div>
         </div>
@@ -71,7 +76,7 @@ export const EverydayBoosterModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              1200
+              {booster?.nextRestore}
             </span>
           </div>
         </div>
@@ -79,7 +84,7 @@ export const EverydayBoosterModal = () => {
       <PrimaryButton
         size="large"
         color="secondary"
-        className="flex gap-1 uppercase"
+        className="flex gap-1 text-base uppercase"
       >
         Применить усиление
       </PrimaryButton>

@@ -1,7 +1,12 @@
 import apiClient from "@/api/api-client";
 import { API_ENDPOINTS } from "@/constants/api";
 
-import { IDailyReward, IDailyRewardInfo, IRewardsEarn } from "./types";
+import {
+  IBoosters,
+  IDailyReward,
+  IDailyRewardInfo,
+  IRewardsEarn,
+} from "./types";
 
 export const getRewardsEarn = async (): Promise<IRewardsEarn> => {
   const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_REWARDS_EARN);
@@ -17,6 +22,12 @@ export const getDailyInfo = async (): Promise<IDailyRewardInfo> => {
 
 export const getDailyReward = async (): Promise<IDailyReward> => {
   const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_DAILY_REWARD);
+
+  return data;
+};
+
+export const getBoosters = async (): Promise<IBoosters> => {
+  const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_BOOSTERS);
 
   return data;
 };
