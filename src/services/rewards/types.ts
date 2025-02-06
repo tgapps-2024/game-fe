@@ -30,3 +30,37 @@ export interface IDailyReward {
     auto: null;
   };
 }
+
+export type FullBooster = {
+  amount: number;
+  nextRestore: number;
+  fullRestore: number;
+};
+
+export type TempEnergyBooster = {
+  amount: number;
+  end: number;
+};
+
+export type CapacityBooster = {
+  level: number;
+  price: number;
+  currence: string;
+  current: number;
+  new: number;
+};
+
+export type RecoveryBooster = {
+  level: number;
+  price: number;
+  currence: string;
+  current: number;
+  new: number;
+};
+
+export interface IBoosters {
+  full: FullBooster;
+  temp_energy: TempEnergyBooster;
+  capacity: CapacityBooster;
+  recovery: RecoveryBooster;
+}

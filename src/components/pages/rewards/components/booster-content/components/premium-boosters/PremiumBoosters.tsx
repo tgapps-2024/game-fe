@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -9,11 +9,16 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BatteryImage from "@/public/assets/png/rewards/full-energy.webp";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { TempEnergyBooster } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
 import { PremiumBoosterModal } from "./components/premium-booster-modal/PremiumBoosterModal";
 
-export const PremiumBoosters = () => {
+type Props = {
+  booster: TempEnergyBooster;
+};
+
+export const PremiumBoosters: FunctionComponent<Props> = ({ booster }) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = 200000;
@@ -80,7 +85,7 @@ export const PremiumBoosters = () => {
           </div>
         </div>
       </div>
-      <PremiumBoosterModal />
+      <PremiumBoosterModal booster={booster} />
     </Drawer>
   );
 };

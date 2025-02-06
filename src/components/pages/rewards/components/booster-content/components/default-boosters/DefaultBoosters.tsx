@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -11,15 +11,23 @@ import GreenBatteryFullImage from "@/public/assets/png/rewards/green-battery-ful
 import GreenBatteryHalfImage from "@/public/assets/png/rewards/green-battery-half.webp";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { CapacityBooster, RecoveryBooster } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
 import { RecoveryEnergyModal } from "./components/recovery-energy-modal/RecoveryEnergyModal";
 import { ReserveEnergyModal } from "./components/reserve-energy-modal/ReserveEnergyModal";
 
-export const DefaultBoosters = () => {
+type Props = {
+  capacity: CapacityBooster;
+  recovery: RecoveryBooster;
+};
+
+export const DefaultBoosters: FunctionComponent<Props> = ({
+  capacity,
+  recovery,
+}) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
-  const PRICE = 1200000;
 
   return (
     <div>
@@ -55,12 +63,13 @@ export const DefaultBoosters = () => {
                     {t(
                       `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.LEVEL}`,
                       {
-                        num: 2,
+                        num: capacity?.level,
                       },
                     )}
                   </span>
                   <span className="flex items-center gap-1 text-xs font-semibold text-white">
-                    <FriendsIcon className="size-4" /> +200
+                    <FriendsIcon className="size-4" /> +
+                    {capacity?.new - capacity?.current}
                   </span>
                 </div>
               </div>
@@ -72,26 +81,17 @@ export const DefaultBoosters = () => {
                     handleSelectionChanged();
                   }}
                   size="small"
-                  color={PRICE ? "primary" : "secondary"}
                   className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
                 >
-                  {PRICE ? (
-                    <div className="grid grid-cols-[16px_1fr] items-center gap-2">
-                      <StarSVG className="size-4" />
-                      {formatNumber(PRICE)}
-                    </div>
-                  ) : (
-                    <>
-                      {t(
-                        `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
-                      )}
-                    </>
-                  )}
+                  <div className="grid grid-cols-[16px_1fr] items-center gap-2">
+                    <StarSVG className="size-4" />
+                    {formatNumber(+capacity?.price)}
+                  </div>
                 </PrimaryButton>
               </DrawerTrigger>
             </div>
           </div>
-          <ReserveEnergyModal />
+          <ReserveEnergyModal capacity={capacity} />
         </Drawer>
         <Drawer>
           <div className="relative flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
@@ -111,11 +111,12 @@ export const DefaultBoosters = () => {
                   <span className="self-start rounded-full bg-white/10 px-2.5 py-[5px] text-xs font-semibold text-gray-550">
                     {t(
                       `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.LEVEL}`,
-                      { num: 1 },
+                      { num: recovery?.level },
                     )}
                   </span>
                   <span className="flex items-center gap-1 text-xs font-semibold text-white">
-                    <FriendsIcon className="size-4" /> +200
+                    <FriendsIcon className="size-4" /> +
+                    {(recovery?.new - recovery?.current).toFixed(1)}
                   </span>
                 </div>
               </div>
@@ -127,26 +128,17 @@ export const DefaultBoosters = () => {
                     handleSelectionChanged();
                   }}
                   size="small"
-                  color={PRICE ? "primary" : "secondary"}
                   className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
                 >
-                  {PRICE ? (
-                    <div className="grid grid-cols-[16px_1fr] items-center gap-2">
-                      <StarSVG className="size-4" />
-                      {formatNumber(PRICE)}
-                    </div>
-                  ) : (
-                    <>
-                      {t(
-                        `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
-                      )}
-                    </>
-                  )}
+                  <div className="grid grid-cols-[16px_1fr] items-center gap-2">
+                    <StarSVG className="size-4" />
+                    {formatNumber(+recovery?.price)}
+                  </div>
                 </PrimaryButton>
               </DrawerTrigger>
             </div>
           </div>
-          <RecoveryEnergyModal />
+          <RecoveryEnergyModal recoveryBooster={recovery} />
         </Drawer>
       </div>
     </div>

@@ -44,7 +44,7 @@ export const Friends = () => {
   return (
     <Drawer>
       <PageWrapper
-        className="scroll-smooth bg-blue-800 pt-28"
+        className="scroll-smooth bg-blue-800 pt-4"
         isLoading={isPendingReferalData}
         onScroll={onScroll}
       >

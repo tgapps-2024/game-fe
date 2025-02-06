@@ -1,7 +1,6 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
@@ -12,20 +11,25 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
-import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import EnergyImage from "@/public/assets/png/rewards/green-battery-half.webp";
 import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { RecoveryBooster } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
-export const RecoveryEnergyModal = () => {
-  const t = useTranslations(NS.PAGES.REWARDS.ROOT);
+type Props = {
+  recoveryBooster: RecoveryBooster;
+};
+
+export const RecoveryEnergyModal: FunctionComponent<Props> = ({
+  recoveryBooster,
+}) => {
   const { handleSelectionChanged } = useHapticFeedback();
-  const LEVEL = 1;
-  const PRICE = 1200000;
+  const LEVEL = recoveryBooster?.level;
+  const PRICE = recoveryBooster?.price;
 
   return (
     <DrawerContent
@@ -35,7 +39,7 @@ export const RecoveryEnergyModal = () => {
     >
       <DrawerClose
         asChild
-        className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full"
+        className="absolute right-4 top-4 z-50 flex size-8 items-center justify-center rounded-full"
       >
         <CloseIcon />
       </DrawerClose>
@@ -98,12 +102,13 @@ export const RecoveryEnergyModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
-              1000
+              {recoveryBooster?.current}
             </span>
           </div>
         </div>
         <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#35AFF1_0%,_#4DC0FF_50%,_#9EDDFF_100%)] px-3 py-2 text-sm font-semibold leading-none text-white text-shadow-sm">
-          <FriendsIcon className="mr-1 size-5" /> +200
+          <FriendsIcon className="mr-1 size-5" /> +
+          {(recoveryBooster?.new - recoveryBooster?.current).toFixed(1)}
         </div>
         <div className="flex w-full flex-col items-end gap-3 rounded-2xl bg-blue-700 p-3">
           <div className="mb-2 self-end rounded-full bg-[#0075FF] px-2.5 py-[5px] text-xs text-white">
@@ -115,7 +120,7 @@ export const RecoveryEnergyModal = () => {
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              1200
+              {recoveryBooster?.new}
             </span>
           </div>
         </div>
@@ -125,24 +130,15 @@ export const RecoveryEnergyModal = () => {
           handleSelectionChanged();
         }}
         size="large"
-        color={PRICE ? "primary" : "secondary"}
         className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
       >
-        {PRICE ? (
-          <div className="flex items-center gap-1 text-lg uppercase leading-none">
-            Улучшить за
-            <div className="grid grid-cols-[16px_1fr] items-center gap-1">
-              <StarSVG className="size-4" />
-              {formatNumber(PRICE)}
-            </div>
+        <div className="flex items-center gap-1 text-base uppercase leading-none">
+          Улучшить за
+          <div className="grid grid-cols-[16px_1fr] items-center gap-1">
+            <StarSVG className="size-4" />
+            {formatNumber(PRICE)}
           </div>
-        ) : (
-          <>
-            {t(
-              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
-            )}
-          </>
-        )}
+        </div>
       </PrimaryButton>
     </DrawerContent>
   );
