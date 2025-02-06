@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import EnergyImage from "@/public/assets/png/rewards/full-energy.webp";
+import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import UnionIcon from "@/public/assets/svg/rewards/union.svg";
@@ -22,7 +23,7 @@ export const PremiumBoosterModal = () => {
   return (
     <DrawerContent
       className={classNames(
-        "bg-booster-modal-pattern flex w-full flex-col items-center rounded-t-3xl border-0 bg-left-top bg-no-repeat px-4 pb-8 pt-9 font-rubik",
+        "flex w-full flex-col items-center rounded-t-3xl border-0 bg-booster-modal-pattern bg-left-top bg-no-repeat px-4 pb-8 pt-9 font-rubik",
       )}
     >
       <DrawerClose
@@ -31,8 +32,18 @@ export const PremiumBoosterModal = () => {
       >
         <CloseIcon />
       </DrawerClose>
-      <div className="relative mb-6 flex size-40 items-center justify-between">
-        <Image src={EnergyImage} alt="Energy image" fill objectFit="contain" />
+      <div className="relative mb-6 flex h-40 w-full items-center justify-between">
+        <div className="absolute z-20 flex h-[160px] w-full items-center justify-center">
+          <Image src={LigntningImage} fill objectFit="contain" alt="" />
+        </div>
+
+        <Image
+          src={EnergyImage}
+          alt="Energy image"
+          fill
+          objectFit="contain"
+          className="z-20"
+        />
       </div>
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
         Полный запас энергии х2

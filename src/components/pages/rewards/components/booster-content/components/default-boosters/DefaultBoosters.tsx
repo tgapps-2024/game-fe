@@ -39,7 +39,7 @@ export const DefaultBoosters = () => {
         <Drawer>
           <div className="relative flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
             <div className="grid grid-cols-[60px_1fr] items-center gap-3">
-              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5">
+              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
                 <div className="relative h-full w-full">
                   <Image src={GreenBatteryFullImage} alt="Energy image" fill />
                 </div>
@@ -96,7 +96,7 @@ export const DefaultBoosters = () => {
         <Drawer>
           <div className="relative flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
             <div className="grid grid-cols-[60px_1fr] items-center gap-3">
-              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5">
+              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
                 <div className="relative h-full w-full">
                   <Image src={GreenBatteryHalfImage} alt="Energy image" fill />
                 </div>

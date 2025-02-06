@@ -39,19 +39,18 @@ export const ReserveEnergyModal = () => {
       >
         <CloseIcon />
       </DrawerClose>
-      <div className="relative mb-6 flex size-40 items-center justify-between">
-        <div className="absolute">
-          <Image
-            src={LigntningImage}
-            alt="Energy image"
-            width={400}
-            height={440}
-            quality={100}
-            objectFit="contain"
-          />
+      <div className="relative mb-6 flex h-40 w-full items-center justify-between">
+        <div className="absolute z-20 flex h-[160px] w-full items-center justify-center">
+          <Image src={LigntningImage} fill objectFit="contain" alt="" />
         </div>
-        {/* Изображение */}
-        <Image src={EnergyImage} alt="Energy image" fill objectFit="contain" />
+
+        <Image
+          src={EnergyImage}
+          alt="Energy image"
+          fill
+          objectFit="contain"
+          className="z-20"
+        />
       </div>
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
         Запас энергии
