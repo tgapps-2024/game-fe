@@ -1,9 +1,7 @@
 import React from "react";
 
-import {
-  OverscrollBehavior,
-  PageWrapper,
-} from "@/components/common";
+import { OverscrollBehavior, PageWrapper } from "@/components/common";
+import { HeroesProvider } from "@/context/heroes-context/HeroesContext";
 
 import { HeroesGrid } from "./components/heroes-grid/HeroesGrid";
 import { HeroesProfile } from "./components/heroes-profile/HeroesProfile";
@@ -13,7 +11,9 @@ export const Heroes = () => (
     overscrollBehaviour={OverscrollBehavior.NONE}
     disableSafeAreaInset
   >
-    <HeroesProfile />
-    <HeroesGrid />
+    <HeroesProvider>
+      <HeroesProfile />
+      <HeroesGrid />
+    </HeroesProvider>
   </PageWrapper>
 );

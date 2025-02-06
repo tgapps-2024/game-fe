@@ -180,9 +180,9 @@ export const NS = {
           INCOME_PER_HOUR: "INCOME_PER_HOUR",
           INCOME_PER_TAP: "INCOME_PER_TAP",
         },
-        HERO_TYPE: {
-          ROOT: "HERO_TYPE",
-          REGULAR: "REGULAR",
+        HERO_RARITY: {
+          ROOT: "HERO_RARITY",
+          COMMON: "COMMON",
           RARE: "RARE",
           EPIC: "EPIC",
         },

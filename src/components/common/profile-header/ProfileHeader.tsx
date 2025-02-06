@@ -23,7 +23,7 @@ type Props = {
 };
 
 export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
-  const { user, isPending, profile } = useTelegram();
+  const { user, isProfileLoading, profile } = useTelegram();
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { pathname } = useRouter();
   const isFriendsPage = pathname === ROUTES.FRIENDS;
@@ -32,7 +32,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
     <div
       className={classNames("relative grid h-10 grid-cols-3 px-4", className)}
     >
-      {isPending ? (
+      {isProfileLoading ? (
         <div className="grid grid-cols-[40px_1fr] items-center justify-center gap-x-1 border-r border-solid border-white/10">
           <div className="relative !size-10 animate-pulse overflow-hidden rounded-full border-2 border-solid border-white bg-white/90 object-cover" />
           <div className="relative flex flex-col gap-y-1">
@@ -99,7 +99,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
           />
         }
         bottomInfoComponent={
-          isPending ? (
+          isProfileLoading ? (
             <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
           ) : (
             <BottomComponent value={profile?.coins ?? 0} />
@@ -119,7 +119,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             />
           }
           bottomInfoComponent={
-            isPending ? (
+            isProfileLoading ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
               <BottomComponent value={profile?.friends ?? 0} />
@@ -139,7 +139,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             />
           }
           bottomInfoComponent={
-            isPending ? (
+            isProfileLoading ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
               <BottomComponent value={profile?.stars ?? 0} />

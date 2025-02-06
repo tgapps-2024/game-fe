@@ -11,6 +11,10 @@ import { Spinner } from "@/components/common";
 import { useTelegram } from "@/context";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
+import { PAGE_WRAPPER_ID as PAGE_WRAPPER_INTERNAL_ID } from "./constants";
+
+export { PAGE_WRAPPER_INTERNAL_ID as PAGE_WRAPPER_ID };
+
 export enum OverscrollBehavior {
   CONTAIN = "contain",
   NONE = "none",
@@ -32,9 +36,9 @@ export const PageWrapper: FunctionComponent<Props> = ({
   disableSafeAreaInset = false,
   ...props
 }) => {
-  const { webApp } = useTelegram();
+  const { webApp, isAuthenticating } = useTelegram();
 
-  if (!webApp || !webApp.initDataUnsafe?.user || isLoading) {
+  if (!webApp?.initDataUnsafe?.user || isAuthenticating || isLoading) {
     return (
       <div
         className={classNames(
@@ -51,6 +55,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
 
   return (
     <div
+      id={PAGE_WRAPPER_INTERNAL_ID}
       className={classNames(
         "h-screen max-h-screen w-full overflow-y-auto",
         {

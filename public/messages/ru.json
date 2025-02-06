@@ -157,8 +157,8 @@
         "INCOME_PER_HOUR": "{num}к/ч",
         "INCOME_PER_TAP": "{num}/тап"
       },
-      "HERO_TYPE": {
-        "REGULAR": "Обычный",
+      "HERO_RARITY": {
+        "COMMON": "Обычный",
         "RARE": "Редкий",
         "EPIC": "Эпический"
       }
