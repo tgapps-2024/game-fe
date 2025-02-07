@@ -11,13 +11,16 @@ type Props = {
   boosters: IBoosters;
 };
 
-export const BoosterContent: FunctionComponent<Props> = ({ boosters }) => {
-  console.log("🚀 ~ boosters:", boosters);
+export const BoosterContent: FunctionComponent<Props> = ({
+  isActive,
+  boosters,
+}) => {
   return (
     <div className="mx-4 flex flex-col gap-6">
-      <PremiumBoosters booster={boosters.temp_energy} />
-      <EverydayBoosters booster={boosters.full} />
+      <PremiumBoosters isAnimated={isActive} booster={boosters.temp_energy} />
+      <EverydayBoosters isAnimated={isActive} booster={boosters.full} />
       <DefaultBoosters
+        isAnimated={isActive}
         capacity={boosters.capacity}
         recovery={boosters.recovery}
       />

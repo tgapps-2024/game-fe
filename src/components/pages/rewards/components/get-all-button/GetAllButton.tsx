@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import { NotificationEnum } from "@/types/telegram";
 
 type Props = {
   isLoading: boolean;
@@ -20,7 +21,8 @@ export const GetAllButton: FunctionComponent<Props> = ({
   disabled,
 }) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
-  const { handleSelectionChanged } = useHapticFeedback();
+  const { handleSelectionChanged, handleNotificationOccurred } =
+    useHapticFeedback();
   const [timeLeft, setTimeLeft] = useState<{ h: string; m: string; s: string }>(
     {
       h: "00",
@@ -63,6 +65,11 @@ export const GetAllButton: FunctionComponent<Props> = ({
   }, []);
 
   const handleCollectReward = () => {
+    if (disabled) {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+      return;
+    }
+
     onClick();
     handleSelectionChanged();
   };

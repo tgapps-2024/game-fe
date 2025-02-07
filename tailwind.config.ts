@@ -26,6 +26,7 @@ export default {
           "heroes-stat-indicator-pulse 3s linear infinite",
         "heroes-coin-glow-running":
           "heroes-coin-glow-running 3s linear infinite",
+        tilt: "tilt 1.5s ease-in-out infinite",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -99,6 +100,10 @@ export default {
           "100%": {
             transform: "translate(22px, 30%) rotateZ(30deg)",
           },
+        },
+        tilt: {
+          "0%, 100%": { transform: "rotate(0deg) translateY(0px)" },
+          "50%": { transform: "rotate(3deg) translateY(2px)" },
         },
       },
       backgroundImage: {
