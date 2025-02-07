@@ -3,6 +3,8 @@ import React, { FunctionComponent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
+import classNames from "classnames";
+
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
@@ -20,11 +22,13 @@ import { ReserveEnergyModal } from "./components/reserve-energy-modal/ReserveEne
 type Props = {
   capacity: CapacityBooster;
   recovery: RecoveryBooster;
+  isAnimated: boolean;
 };
 
 export const DefaultBoosters: FunctionComponent<Props> = ({
   capacity,
   recovery,
+  isAnimated,
 }) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
@@ -47,10 +51,19 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
         <Drawer>
           <div className="relative flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
             <div className="grid grid-cols-[60px_1fr] items-center gap-3">
-              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
-                <div className="relative h-full w-full">
+              <div className="relative flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
+                <div
+                  className={classNames("relative h-full w-full", {
+                    "animate-tilt": isAnimated,
+                  })}
+                >
                   <Image src={GreenBatteryFullImage} alt="Energy image" fill />
                 </div>
+                {isAnimated && (
+                  <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-xl">
+                    <div className="absolute top-0 h-[140%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
+                  </div>
+                )}
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-extrabold leading-none text-white">
@@ -96,10 +109,19 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
         <Drawer>
           <div className="relative flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
             <div className="grid grid-cols-[60px_1fr] items-center gap-3">
-              <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
-                <div className="relative h-full w-full">
+              <div className="relative flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#29D6FF] to-[#2596E4] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
+                <div
+                  className={classNames("relative h-full w-full", {
+                    "animate-tilt": isAnimated,
+                  })}
+                >
                   <Image src={GreenBatteryHalfImage} alt="Energy image" fill />
                 </div>
+                {isAnimated && (
+                  <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-xl">
+                    <div className="absolute top-0 h-[140%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
+                  </div>
+                )}
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-extrabold leading-none text-white">

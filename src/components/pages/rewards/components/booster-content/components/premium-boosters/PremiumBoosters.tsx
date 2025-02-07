@@ -3,6 +3,8 @@ import React, { FunctionComponent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
+import classNames from "classnames";
+
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
@@ -16,9 +18,13 @@ import { PremiumBoosterModal } from "./components/premium-booster-modal/PremiumB
 
 type Props = {
   booster: TempEnergyBooster;
+  isAnimated?: boolean;
 };
 
-export const PremiumBoosters: FunctionComponent<Props> = ({ booster }) => {
+export const PremiumBoosters: FunctionComponent<Props> = ({
+  booster,
+  isAnimated,
+}) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = 200000;
@@ -40,10 +46,19 @@ export const PremiumBoosters: FunctionComponent<Props> = ({ booster }) => {
         </div>
         <div className="relative mb-4 flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
           <div className="grid grid-cols-[60px_1fr] items-center gap-3">
-            <div className="flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#EE84FF] to-[#7740F5] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
-              <div className="relative h-full w-full">
+            <div className="relative flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#EE84FF] to-[#7740F5] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
+              <div
+                className={classNames("relative h-full w-full", {
+                  "animate-tilt": isAnimated,
+                })}
+              >
                 <Image src={BatteryImage} alt="Energy image" fill />
               </div>
+              {isAnimated && (
+                <div className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-xl">
+                  <div className="absolute top-0 h-[140%] w-[66px] rotate-[30deg] animate-card-glow-running bg-card-glow-pattern will-change-transform" />
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-sm font-extrabold leading-none text-white">
