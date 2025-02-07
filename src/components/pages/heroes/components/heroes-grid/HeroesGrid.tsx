@@ -9,9 +9,9 @@ import { Badge } from "@/components/pages/friends/components/invite-modal/compon
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import { HeroesContext } from "@/context/heroes-context/HeroesContext";
-import { useGetAllAppsCharacters } from "@/services/heroes/queries";
-import { HeroRarity, ICharacterConfigWithId } from "@/services/heroes/types";
-import { groupAllAppsCharactersByRarity } from "@/utils/heroes";
+import { useGetAllAppsHeroes } from "@/services/heroes/queries";
+import { HeroRarity, IHeroConfigWithId } from "@/services/heroes/types";
+import { groupAllAppsHeroesByRarity } from "@/utils/heroes";
 
 import { HeroView } from "../heroes-profile/components/hero-view/HeroView";
 
@@ -20,36 +20,22 @@ import { HeroesTabs } from "./components/HeroesTabs";
 export const HeroesGrid = () => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
   const [selectedTab, setSelectedTab] = useState<HeroRarity>(HeroRarity.COMMON);
-  const { data: heroes } = useGetAllAppsCharacters();
+  const { data: heroes } = useGetAllAppsHeroes();
   const { selectHero } = useContext(HeroesContext);
 
   const heroesByRarity = useMemo(
-    () => (heroes ? groupAllAppsCharactersByRarity(heroes) : null),
+    () => (heroes ? groupAllAppsHeroesByRarity(heroes) : null),
     [heroes],
   );
 
-  const onSelectHero = (hero: ICharacterConfigWithId) => {
+  const onSelectHero = (hero: IHeroConfigWithId) => {
     const pageWrapper = document.getElementById(PAGE_WRAPPER_ID);
 
     if (pageWrapper) {
       pageWrapper.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    const { characterId, earn_per_hour, earn_per_tap, energy } = hero;
-
-    selectHero({
-      auto: 0,
-      background: 0,
-      chain: 0,
-      kit: 0,
-      glass: 0,
-      hat: 0,
-      watch: 0,
-      characterId,
-      earn_per_hour,
-      earn_per_tap,
-      energy,
-    });
+    selectHero(hero.characterId);
   };
 
   return (
@@ -96,7 +82,6 @@ export const HeroesGrid = () => {
                     <HeroView
                       className="absolute h-full w-full"
                       heroId={hero.characterId}
-                      heroRarity={HeroRarity.COMMON}
                     />
                   </Card>
                 );

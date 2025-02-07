@@ -6,22 +6,22 @@ import React, {
   useState,
 } from "react";
 
-import { useGetCharacter } from "@/services/heroes/queries";
-import { ICharacter } from "@/services/heroes/types";
+import { useGetAllAppsHeroes, useGetHero } from "@/services/heroes/queries";
+import { HeroId, IHeroConfig, ISelectedHero } from "@/services/heroes/types";
 
 type HeroesContextSelection = {
-  hero?: ICharacter;
+  hero?: ISelectedHero;
 };
 
 type HeroesContextValue = {
-  currentHero?: ICharacter;
+  currentHero?: ISelectedHero;
   isHeroLoading: boolean;
   selection: HeroesContextSelection;
 
-  selectHero: (hero: ICharacter) => void;
+  selectHero: (hero: HeroId) => void;
 };
 
-export const HeroesContext = createContext<HeroesContextValue>({
+const DEFAULT_VALUE = {
   currentHero: undefined,
   isHeroLoading: true,
   selection: {
@@ -29,33 +29,67 @@ export const HeroesContext = createContext<HeroesContextValue>({
   },
 
   selectHero: () => {},
+};
+
+export const HeroesContext = createContext<HeroesContextValue>(DEFAULT_VALUE);
+
+const toSelectedHero = (
+  heroId: HeroId,
+  config: IHeroConfig,
+): ISelectedHero => ({
+  characterId: heroId,
+  earn_per_hour: config.earn_per_hour,
+  earn_per_tap: config.earn_per_tap,
+  energy: config.energy,
+  rarity: config.rarity,
+  auto: 0,
+  background: 0,
+  chain: 0,
+  glass: 0,
+  hat: 0,
+  kit: 0,
+  watch: 0,
 });
 
 export const HeroesProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  const { data: currentHero, isFetching: isHeroLoading } = useGetCharacter();
+  const { data: currentHero, isFetching: isCurrentHeroLoading } = useGetHero();
+  const { data: allHeroes, isFetching: isAllHeroesFetching } =
+    useGetAllAppsHeroes();
   const [selection, setSelection] = useState<HeroesContextSelection>({
     hero: undefined,
   });
 
   const value = useMemo(() => {
-    const { current, ...rest } = currentHero ?? {};
-    const hero = currentHero
-      ? ({ ...rest, characterId: current } as ICharacter)
-      : undefined;
+    if (currentHero && allHeroes) {
+      const hero = currentHero
+        ? toSelectedHero(currentHero.current, allHeroes[currentHero.current])
+        : undefined;
 
-    return {
-      currentHero: hero,
-      isHeroLoading,
-      selection: {
-        ...selection,
-        hero: selection.hero ?? hero,
-      },
-      selectHero: (hero: ICharacter) =>
-        setSelection((prevSelection) => ({ ...prevSelection, hero })),
-    };
-  }, [currentHero, isHeroLoading, selection]);
+      return {
+        currentHero: hero,
+        isHeroLoading: isCurrentHeroLoading || isAllHeroesFetching,
+        selection: {
+          ...selection,
+          hero: selection.hero ?? hero,
+        },
+        selectHero: (heroId: HeroId) =>
+          setSelection((prevSelection) => ({
+            ...prevSelection,
+            hero: toSelectedHero(heroId, allHeroes[heroId]),
+          })),
+      };
+    } else {
+      return DEFAULT_VALUE;
+    }
+  }, [
+    currentHero,
+    isCurrentHeroLoading,
+    isAllHeroesFetching,
+    selection,
+    allHeroes,
+  ]);
 
   return (
     <HeroesContext.Provider value={value}>{children}</HeroesContext.Provider>

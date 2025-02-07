@@ -18,6 +18,8 @@ const login = async (initData: string, referalCode?: string) => {
   if (data.userToken) {
     Cookies.set(AUTH_COOKIE_TOKEN, data.userToken, { expires: 1 / 8 });
   }
+
+  return true;
 };
 
 export { login };
