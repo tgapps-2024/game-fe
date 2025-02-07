@@ -1,4 +1,4 @@
-export enum CharacterId {
+export enum HeroId {
   BEARD = "Beard",
   BAFFET = "Baffet",
   BLONDE = "Blonde",
@@ -27,6 +27,14 @@ export enum CharacterId {
   ZUCKERBERG = "Zuckerberg",
 }
 
+export enum HeroClothPiece {
+  CHAIN = "chain",
+  HAT = "hat",
+  GLASS = "glass",
+  KIT = "kit",
+  WATCH = "watch",
+}
+
 export enum HeroRarity {
   COMMON = "common",
   RARE = "rare",
@@ -38,17 +46,17 @@ export enum HeroCurrency {
   COINS = "coins",
 }
 
-export interface ICharacterIdentity {
-  characterId: CharacterId;
+export interface IHeroIdentity {
+  characterId: HeroId;
 }
 
-export interface ICharacterStats {
+export interface IHeroStats {
   earn_per_hour: number;
   earn_per_tap: number;
   energy: number;
 }
 
-export interface ICharacterEquipment {
+export interface IHeroEquipment {
   auto: number; // todo: future feature
   background: number; // todo: future feature
   chain: number;
@@ -58,36 +66,36 @@ export interface ICharacterEquipment {
   watch: number;
 }
 
-export interface ICharacter
-  extends ICharacterIdentity,
-    ICharacterEquipment,
-    ICharacterStats {}
-
-export interface ICharacterInfo extends ICharacterEquipment, ICharacterStats {
-  current: CharacterId;
+export interface ISelectedHero
+  extends IHeroIdentity,
+    IHeroEquipment,
+    IHeroStats {
+  rarity: HeroRarity;
 }
 
-export type GetAllCharactersResponse = {
-  characters: ICharacterIdentity[];
+export interface IHeroInfo extends IHeroEquipment, IHeroStats {
+  current: HeroId;
+}
+
+export type GetAllHeroesResponse = {
+  characters: HeroId[];
 };
 
-export interface ICharacterConfig extends ICharacterStats {
-  cloth: Record<string, string>; // todo: Improve "cloth" type
+export interface IHeroConfig extends IHeroStats {
+  cloth: Record<HeroClothPiece, Record<string, string>>; // todo: Improve "cloth" type
   currency: HeroCurrency;
   level_for_open: number;
   price: number;
   rarity: HeroRarity;
 }
 
-export interface ICharacterConfigWithId extends ICharacterConfig {
-  characterId: CharacterId;
+export interface IHeroConfigWithId extends IHeroConfig {
+  characterId: HeroId;
 }
 
-export type GetAllAppsCharactersResponse = Record<
-  CharacterId,
-  ICharacterConfig
->;
-export type AllAppsCharactersByRarity = Record<
+export type GetAllAppsHeroesResponse = Record<HeroId, IHeroConfig>;
+
+export type AllAppsHeroesByRarity = Record<
   HeroRarity,
-  Array<ICharacterConfigWithId>
+  Array<IHeroConfigWithId>
 >;

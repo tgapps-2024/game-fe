@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { ComponentProps, FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -15,10 +15,21 @@ import {
   MAX_INCOME_PER_TAP,
 } from "./constants";
 
+export enum HeroStatsCtaType {
+  BUY = "BUY",
+  GET = "GET",
+  SELECT = "SELECT",
+  SELECTED = "SELECTED",
+}
+
 type Props = {
   energy: number;
   earnPerHour: number;
   earnPerTap: number;
+  ctaType: HeroStatsCtaType;
+  heroRarity: HeroRarity;
+  onCtaClick?: () => void;
+  onGoToShopClick?: () => void;
 };
 
 const calculateProgress = (current: number, max: number) =>
@@ -28,8 +39,46 @@ export const HeroStats: FunctionComponent<Props> = ({
   energy,
   earnPerHour,
   earnPerTap,
+  ctaType,
+  heroRarity,
+  onCtaClick,
+  onGoToShopClick,
 }) => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
+
+  const renderCta = () => {
+    let color: ComponentProps<typeof PrimaryButton>["color"];
+
+    switch (ctaType) {
+      case HeroStatsCtaType.BUY: {
+        color = "secondary";
+        break;
+      }
+      case HeroStatsCtaType.GET: {
+        color = "blue";
+        break;
+      }
+      case HeroStatsCtaType.SELECT: {
+        color = "yellow";
+        break;
+      }
+      case HeroStatsCtaType.SELECTED: {
+        color = "primary";
+        break;
+      }
+    }
+
+    return (
+      <PrimaryButton
+        size="small"
+        color={color}
+        onClick={onCtaClick}
+        disabled={ctaType === HeroStatsCtaType.SELECTED}
+      >
+        {t(`${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS[ctaType]}`)}
+      </PrimaryButton>
+    );
+  };
 
   return (
     <div className="absolute inset-y-0 right-4 my-auto max-h-fit w-1/2 rounded-2xl border border-[#EFC609]">
@@ -39,7 +88,7 @@ export const HeroStats: FunctionComponent<Props> = ({
           <div className="text-xl font-black leading-none tracking-wide text-white text-shadow">
             Месси
           </div>
-          <Ribbon heroType={HeroRarity.COMMON}>
+          <Ribbon heroRarity={heroRarity}>
             {t(
               `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.COMMON}`,
             )}
@@ -87,16 +136,18 @@ export const HeroStats: FunctionComponent<Props> = ({
           </div>
         </div>
         <div className="flex flex-col gap-y-3">
-          <PrimaryButton size="small" color="blue">
-            {t(
-              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECT}`,
-            )}
-          </PrimaryButton>
-          <div className="text-center text-sm font-extrabold leading-none text-white">
-            {t(
-              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.GO_TO_SHOP}`,
-            )}
-          </div>
+          {renderCta()}
+          {(ctaType === HeroStatsCtaType.SELECT ||
+            ctaType === HeroStatsCtaType.SELECTED) && (
+            <div
+              className="text-center text-sm font-extrabold leading-none text-white"
+              onClick={onGoToShopClick}
+            >
+              {t(
+                `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.GO_TO_SHOP}`,
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

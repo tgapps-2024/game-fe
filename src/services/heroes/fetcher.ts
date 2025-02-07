@@ -2,36 +2,32 @@ import apiClient from "@/api/api-client";
 import { API_ENDPOINTS } from "@/constants/api";
 
 import {
-  CharacterId,
-  GetAllAppsCharactersResponse,
-  GetAllCharactersResponse,
-  ICharacterIdentity,
-  ICharacterInfo,
+  GetAllAppsHeroesResponse,
+  GetAllHeroesResponse,
+  HeroId,
+  IHeroInfo,
 } from "./types";
 
-export const getCharacter = async (
-  characterId?: CharacterId,
-): Promise<ICharacterInfo> => {
-  const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_CHARACTER, {
-    params: { idCharacter: characterId },
+export const getHero = async (heroId?: HeroId): Promise<IHeroInfo> => {
+  const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_HERO, {
+    params: { idCharacter: heroId },
   });
 
   return data;
 };
 
-export const getAllCharacters = async (): Promise<ICharacterIdentity[]> => {
-  const { data } = await apiClient.get<GetAllCharactersResponse>(
-    API_ENDPOINTS.GET.GET_ALL_CHARACTERS,
+export const getAllHeroes = async (): Promise<HeroId[]> => {
+  const { data } = await apiClient.get<GetAllHeroesResponse>(
+    API_ENDPOINTS.GET.GET_ALL_HEROES,
   );
 
   return data.characters;
 };
 
-export const getAllAppsCharacters =
-  async (): Promise<GetAllAppsCharactersResponse> => {
-    const { data } = await apiClient.get<GetAllAppsCharactersResponse>(
-      API_ENDPOINTS.GET.GET_ALL_APPS_CHARACTERS,
-    );
+export const getAllAppsHeroes = async (): Promise<GetAllAppsHeroesResponse> => {
+  const { data } = await apiClient.get<GetAllAppsHeroesResponse>(
+    API_ENDPOINTS.GET.GET_ALL_APPS_HEROES,
+  );
 
-    return data;
-  };
+  return data;
+};

@@ -14,9 +14,9 @@ export const API_ENDPOINTS = {
     GET_REWARDS_EARN: "/get_referals_earn",
     GET_DAILY_INFO: "/get_daily_info",
     GET_DAILY_REWARD: "/get_daily_reward",
-    GET_CHARACTER: "/get_character",
-    GET_ALL_CHARACTERS: '/get_all_characters',
-    GET_ALL_APPS_CHARACTERS: '/get_all_apps_characters'
+    GET_HERO: "/get_character",
+    GET_ALL_HEROES: '/get_all_characters',
+    GET_ALL_APPS_HEROES: '/get_all_apps_characters'
   },
   POST: {
     AUTH: "/auth",
