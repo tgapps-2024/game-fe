@@ -10,14 +10,21 @@ import {
   getBoosters,
   getDailyInfo,
   getDailyReward,
+  getFullBooster,
   getRewardsEarn,
+  getTempEnergyBooster,
+  getUpgradeBooster,
 } from "./fetcher";
+import { UpgradeBoosterType } from "./types";
 
 enum QueryKeys {
   GET_REWARDS_EARN = "GET_REWARDS_EARN",
   GET_DAILY_INFO = "GET_DAILY_INFO",
   GET_DAILY_REWARD = "GET_DAILY_REWARD",
   GET_BOOSTERS = "GET_BOOSTERS",
+  USE_FULL_BOOSTER = "USE_FULL_BOOSTER",
+  USE_TEMP_ENERGY_BOOSTER = "USE_TEMP_ENERGY_BOOSTER",
+  UPGRADE_BOOSTER = "UPGRADE_BOOSTER",
 }
 
 export const useGetRewardsEarn = () =>
@@ -54,4 +61,34 @@ export const useGetBoosters = () =>
     queryFn: async () => getBoosters(),
     enabled: !!Cookies.get(AUTH_COOKIE_TOKEN),
     staleTime: STALE_TIME,
+  });
+
+export const useFullBooster = (queryClient: QueryClient) =>
+  useMutation({
+    mutationKey: [QueryKeys.USE_FULL_BOOSTER],
+    mutationFn: async () => getFullBooster(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOSTERS] });
+      invalidateProfileQuery(queryClient);
+    },
+  });
+
+export const useTempEnergyBooster = (queryClient: QueryClient) =>
+  useMutation({
+    mutationKey: [QueryKeys.USE_TEMP_ENERGY_BOOSTER],
+    mutationFn: async () => getTempEnergyBooster(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOSTERS] });
+      invalidateProfileQuery(queryClient);
+    },
+  });
+
+export const useUpgradeBooster = (queryClient: QueryClient) =>
+  useMutation({
+    mutationKey: [QueryKeys.UPGRADE_BOOSTER],
+    mutationFn: async (type: UpgradeBoosterType) => getUpgradeBooster(type),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOSTERS] });
+      invalidateProfileQuery(queryClient);
+    },
   });

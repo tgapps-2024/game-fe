@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
 
@@ -20,9 +20,15 @@ import { FullBooster } from "@/services/rewards/types";
 
 type Props = {
   booster: FullBooster;
+  disabled?: boolean;
+  onSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const EverydayBoosterModal: FunctionComponent<Props> = ({ booster }) => {
+export const EverydayBoosterModal: FunctionComponent<Props> = ({
+  booster,
+  disabled,
+  onSubmit,
+}) => {
   return (
     <DrawerContent
       className={classNames(
@@ -83,7 +89,9 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({ booster }) => {
       </div>
       <PrimaryButton
         size="large"
+        disabled={disabled}
         color="secondary"
+        onClick={onSubmit}
         className="flex gap-1 text-base uppercase"
       >
         Применить усиление

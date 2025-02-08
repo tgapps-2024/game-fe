@@ -2,6 +2,11 @@ export enum RewardsStatusEnum {
   OK = "Ok",
 }
 
+export enum UpgradeBoosterType {
+  CAPACITY = "capacity",
+  RECOVERY = "recovery",
+}
+
 export interface IRewardsEarn {
   reward: number;
   status: RewardsStatusEnum;
