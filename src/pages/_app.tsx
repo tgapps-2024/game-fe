@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Script from "next/script";
 // import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 
@@ -46,23 +47,25 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Component {...pageProps} />
                   <SpeedInsights />
                   <Toaster />
-                  {/* <Script
-                    src="https://cdn.jsdelivr.net/npm/eruda"
-                    strategy="afterInteractive"
-                    onLoad={() => {
-                      if (typeof window.eruda !== "undefined")
-                        window.eruda.init({
-                          tool: ["console", "elements", "network", "sources"],
-                          useShadowDom: true,
-                          autoScale: true,
-                          defaults: {
-                            displaySize: 50,
-                            transparency: 0.9,
-                            theme: "Monokai Pro",
-                          },
-                        });
-                    }}
-                  /> */}
+                  {process.env.NEXT_IS_ENABLED_ERUNDA && (
+                    <Script
+                      src="https://cdn.jsdelivr.net/npm/eruda"
+                      strategy="afterInteractive"
+                      onLoad={() => {
+                        if (typeof window.eruda !== "undefined")
+                          window.eruda.init({
+                            tool: ["console", "elements", "network", "sources"],
+                            useShadowDom: true,
+                            autoScale: true,
+                            defaults: {
+                              displaySize: 50,
+                              transparency: 0.9,
+                              theme: "Monokai Pro",
+                            },
+                          });
+                      }}
+                    />
+                  )}
                 </div>
               </SettingsProvider>
             </TelegramProvider>
