@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import classNames from "classnames";
 
 import { useGetAllAppsHeroes } from "@/services/heroes/queries";
-import { HeroId, HeroRarity } from "@/services/heroes/types";
+import { HeroClothPiece, HeroId, HeroRarity } from "@/services/heroes/types";
 
 import { HeroPartImage } from "./components/hero-part-image/HeroPartImage";
 
@@ -12,38 +12,38 @@ type Props = {
   className?: string;
 };
 
-export enum HeroPart {
-  BODY = "Body",
-  CHAIN = "Chain",
-  HEAD = "Head",
-  HAT = "Hat",
-  GLASS = "Glass",
-  KIT = "Kit",
-  WATCH = "Watch",
+export enum HeroBodyPart {
+  BODY = "body",
+  HEAD = "head",
 }
 
-// const renderOrder = [
-//   HeroPart.BODY,
-//   HeroPart.KIT,
-//   HeroPart.HEAD,
-//   HeroPart.HAT,
-//   HeroPart.GLASS,
-//   HeroPart.WATCH,
-//   HeroPart.CHAIN,
-// ];
+const HERO_PARTS = [
+  HeroBodyPart.BODY,
+  HeroClothPiece.KIT,
+  HeroClothPiece.CHAIN,
+  HeroBodyPart.HEAD,
+  HeroClothPiece.HAT,
+  HeroClothPiece.GLASS,
+  HeroClothPiece.WATCH,
+];
+
+const capitalizeFirstLetter = (str: string) => {
+  return String(str).charAt(0).toUpperCase() + String(str).slice(1);
+};
 
 const srcBuilder = (
   heroId: HeroId,
   heroRarity: HeroRarity,
-  part: HeroPart,
+  part: HeroBodyPart | HeroClothPiece,
   value?: number,
 ): string => {
   const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
-  const endsWith = `/${part}.png`;
+  const capitalizedPart = capitalizeFirstLetter(part);
+  const endsWith = `/${capitalizedPart}.png`;
 
   return typeof value === "number"
-    ? `${startsWith}${part}/${value}${endsWith}`
-    : `${startsWith}${part}${endsWith}`;
+    ? `${startsWith}${capitalizedPart}/${value}${endsWith}`
+    : `${startsWith}${capitalizedPart}${endsWith}`;
 };
 
 export const HeroView: FunctionComponent<Props> = ({ heroId, className }) => {
@@ -55,48 +55,38 @@ export const HeroView: FunctionComponent<Props> = ({ heroId, className }) => {
 
   return (
     <div className={classNames("absolute", className)}>
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.BODY)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.KIT, 0)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.HEAD)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.HAT, 1)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.GLASS, 1)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.WATCH, 1)}
-        quality={100}
-        alt=""
-        fill
-      />
-      <HeroPartImage
-        src={srcBuilder(heroId, hero.rarity, HeroPart.CHAIN, 1)}
-        quality={100}
-        alt=""
-        fill
-      />
+      {HERO_PARTS.map((part) => {
+        if (part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD) {
+          return (
+            <HeroPartImage
+              key={part}
+              src={srcBuilder(heroId, hero.rarity, part)}
+              quality={100}
+              alt={part}
+              sizes="33vw"
+              fill
+            />
+          );
+        }
+
+        const clothConfig = hero.cloth[part];
+
+        return clothConfig ? (
+          <HeroPartImage
+            key={part}
+            src={srcBuilder(
+              heroId,
+              hero.rarity,
+              part,
+              part === HeroClothPiece.KIT ? 0 : 1,
+            )}
+            quality={100}
+            alt={part}
+            sizes="33vw"
+            fill
+          />
+        ) : null;
+      })}
     </div>
   );
 };

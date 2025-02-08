@@ -1,22 +1,16 @@
 import { AxiosError } from "axios";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import {
-  getAllAppsHeroes,
-  getAllHeroes,
-  getHero,
-} from "./fetcher";
-import {
-  GetAllAppsHeroesResponse,
-  HeroId,
-  IHeroInfo,
-} from "./types";
+import { buyHero, getAllAppsHeroes, getAllHeroes, getHero, setHero } from "./fetcher";
+import { GetAllAppsHeroesResponse, HeroId, IHeroInfo } from "./types";
 
 export enum QueryKeys {
   GET_HERO = "GET_HERO",
   GET_ALL_HEROES = "GET_ALL_HEROES",
   GET_ALL_APPS_HEROES = "GET_ALL_APPS_HEROES",
+  SET_HERO = "SET_HERO",
+  BUY_HERO = "BUY_HERO",
 }
 
 export const useGetHero = (heroId?: HeroId) =>
@@ -27,7 +21,13 @@ export const useGetHero = (heroId?: HeroId) =>
     staleTime: 1000 * 60 * 5,
   });
 
-export const useGetAllHeroes = (enabled: boolean) =>
+export const useSetHero = () =>
+  useMutation({
+    mutationKey: [QueryKeys.SET_HERO],
+    mutationFn: setHero,
+  });
+
+export const useGetAllHeroes = (enabled?: boolean) =>
   useQuery<HeroId[], AxiosError>({
     queryKey: [QueryKeys.GET_ALL_HEROES],
     queryFn: () => getAllHeroes(),
@@ -42,4 +42,10 @@ export const useGetAllAppsHeroes = () =>
     queryFn: () => getAllAppsHeroes(),
     retry: false,
     staleTime: 1000 * 60 * 5,
+  });
+
+export const useBuyHero = () =>
+  useMutation({
+    mutationKey: [QueryKeys.BUY_HERO],
+    mutationFn: buyHero,
   });

@@ -139,7 +139,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
               isDone: address.length > 0,
               description: (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
+                  <p className="text-sm font-medium text-gray-550">
                     {t(
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                     )}
@@ -169,7 +169,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
               isDone: isSent,
               description: (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
+                  <p className="text-sm font-medium text-gray-550">
                     {t(
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                     )}
@@ -191,7 +191,7 @@ export const PromoteTon: FunctionComponent<Props> = ({
               isDone: false,
               description: (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
+                  <p className="text-sm font-medium text-gray-550">
                     {t(
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
                     )}

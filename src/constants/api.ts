@@ -30,6 +30,8 @@ export const API_ENDPOINTS = {
     SET_TASK_COMPLETE: "/set_task_complete",
     GET_REWARD_FROM_BATTLEPASS: "/get_reward_from_battlepass",
     STARS_PAYMENT: "/stars_payment",
+    SET_HERO: "/set_character",
+    BUY_HERO: "/buy_character",
   },
 };
 

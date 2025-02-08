@@ -45,7 +45,6 @@ export const BuyStars: FunctionComponent<Props> = ({
   const [isChecked, setIsChecked] = useState(false);
   const { locale } = useRouter();
   const { mutate, isPending } = useStarsPayment(
-    value ? +value : 1,
     (response) => {
       if (webApp) {
         webApp.openInvoice(response.url, (status) => {
@@ -128,12 +127,12 @@ export const BuyStars: FunctionComponent<Props> = ({
               isDone: isChecked,
               description: (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
+                  <p className="text-sm font-medium text-gray-550">
                     {t(
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                     )}
                   </p>
-                  <PrimaryButton size="small" onClick={() => mutate()}>
+                  <PrimaryButton size="small" onClick={() => mutate(value ? +value : 1,)}>
                     {t(CHECK_TASKS_MODAL_TID[type])}
                   </PrimaryButton>
                 </div>
@@ -144,7 +143,7 @@ export const BuyStars: FunctionComponent<Props> = ({
               isDone: false,
               description: (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium leading-none text-gray-550">
+                  <p className="text-sm font-medium text-gray-550">
                     {t(
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
                     )}

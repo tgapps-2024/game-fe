@@ -39,7 +39,7 @@ export const HeroesTabs: FunctionComponent<Props> = ({
               <div
                 key={elementKey}
                 className={classNames(
-                  "flex h-[38px] grow basis-1/3 rounded-lg border border-black pb-[3px] text-sm font-medium leading-none",
+                  "flex h-[38px] grow basis-1/3 rounded-lg border border-black pb-[3px] text-sm font-medium",
                   {
                     "text-white": tab !== HeroRarity.RARE,
                     "text-[#742C07]": tab === HeroRarity.RARE,
@@ -76,7 +76,7 @@ export const HeroesTabs: FunctionComponent<Props> = ({
             ) : (
               <div
                 key={elementKey}
-                className="flex h-9 grow basis-1/3 items-center justify-center rounded-lg bg-[#155081] text-sm font-medium leading-none text-white opacity-30"
+                className="flex h-9 grow basis-1/3 items-center justify-center rounded-lg bg-[#155081] text-sm font-medium text-white opacity-30"
                 onClick={() => onSelectTab(tab)}
               >
                 {label}

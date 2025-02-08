@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
-import { HeroRarity } from "@/services/heroes/types";
+import { HeroId, HeroRarity } from "@/services/heroes/types";
 
 import { Coin, CoinType } from "./components/coin/Coin";
 import { Indicator } from "./components/indicator/Indicator";
@@ -27,6 +27,7 @@ type Props = {
   earnPerHour: number;
   earnPerTap: number;
   ctaType: HeroStatsCtaType;
+  heroId: HeroId;
   heroRarity: HeroRarity;
   onCtaClick?: () => void;
   onGoToShopClick?: () => void;
@@ -40,6 +41,7 @@ export const HeroStats: FunctionComponent<Props> = ({
   earnPerHour,
   earnPerTap,
   ctaType,
+  heroId,
   heroRarity,
   onCtaClick,
   onGoToShopClick,
@@ -80,17 +82,23 @@ export const HeroStats: FunctionComponent<Props> = ({
     );
   };
 
+  const nameTranslationKey = heroId.toUpperCase() as Uppercase<HeroId>;
+  const ribbonTranslationKey =
+    heroRarity.toUpperCase() as Uppercase<HeroRarity>;
+
   return (
     <div className="absolute inset-y-0 right-4 my-auto max-h-fit w-1/2 rounded-2xl border border-[#EFC609]">
       <div className="flex flex-col gap-y-4 rounded-2xl bg-[rgba(0,0,0,0.6)] p-4 backdrop-blur-sm">
         <div className="flex flex-col items-center gap-y-2">
           <div className="absolute inset-x-2 bottom-[72%] top-1.5 rounded-t-2xl bg-white opacity-5" />
-          <div className="text-xl font-black leading-none tracking-wide text-white text-shadow">
-            Месси
+          <div className="text-xl font-black leading-none tracking-wide text-white text-shadow text-center">
+            {t(
+              `${NS.PAGES.HEROES.HERO_NAMES.ROOT}.${NS.PAGES.HEROES.HERO_NAMES[nameTranslationKey]}`,
+            )}
           </div>
           <Ribbon heroRarity={heroRarity}>
             {t(
-              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.COMMON}`,
+              `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY.ROOT}.${NS.PAGES.HEROES.LABELS.HERO_RARITY[ribbonTranslationKey]}`,
             )}
           </Ribbon>
           <div className="flex w-full flex-col gap-y-3">
@@ -140,7 +148,7 @@ export const HeroStats: FunctionComponent<Props> = ({
           {(ctaType === HeroStatsCtaType.SELECT ||
             ctaType === HeroStatsCtaType.SELECTED) && (
             <div
-              className="text-center text-sm font-extrabold leading-none text-white"
+              className="text-center text-sm font-extrabold text-white"
               onClick={onGoToShopClick}
             >
               {t(

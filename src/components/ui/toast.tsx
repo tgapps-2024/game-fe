@@ -20,7 +20,7 @@ export const Toast = ({ type, text }: Props) => {
   return (
     <div
       className={cn(
-        "grid grid-cols-[16px_1fr] items-center gap-3 text-sm font-medium leading-none tracking-wide text-white opacity-90",
+        "grid grid-cols-[16px_1fr] items-center gap-3 text-sm font-medium tracking-wide text-white opacity-90",
       )}
     >
       <div className="flex size-5 items-center justify-center">
