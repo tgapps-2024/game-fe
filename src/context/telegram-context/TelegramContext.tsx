@@ -33,44 +33,45 @@ export const TelegramProvider = ({
   children: React.ReactNode;
 }) => {
   const [webApp, setWebApp] = useState<IWebApp | null>(null);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const {
+    isPending: isAuthenticating,
+    isSuccess: isAuthSuccess,
+    isError: isAuthError,
+  } = useTelegramAuth(webApp as IWebApp);
   const { pathname } = useRouter();
   const {
     data: profile,
-    mutate: getProfile,
-    isPending: isProfilePeding,
-  } = useGetProfile();
+    isPending: isProfileLoading,
+    isError: isProfileError,
+  } = useGetProfile(isAuthSuccess);
 
-  const isProfileLoading = isAuthenticating || isProfilePeding;
+  useEffect(() => {
+    if (isAuthError) {
+      toast(
+        <Toast
+          type="destructive"
+          text="Authentication failed. Please try again."
+        />,
+      );
+    }
+  }, [isAuthError]);
+
+  useEffect(() => {
+    if (isProfileError) {
+      toast(
+        <Toast
+          type="destructive"
+          text="Getting profile failed. Please try again."
+        />,
+      );
+    }
+  }, [isProfileError]);
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
       setWebApp(window.Telegram.WebApp);
     }
   }, []);
-
-  const { mutate: auth } = useTelegramAuth(webApp as IWebApp);
-
-  useEffect(() => {
-    if (webApp) {
-      auth(undefined, {
-        onSuccess: () => {
-          getProfile(undefined, {
-            onError: () => {
-              toast(
-                <Toast
-                  type="destructive"
-                  text="Getting profile has failed. Please try again."
-                />,
-              );
-            },
-          });
-
-          setIsAuthenticating(false);
-        },
-      });
-    }
-  }, [webApp]);
 
   useTelegramEffects(webApp as IWebApp, pathname);
 

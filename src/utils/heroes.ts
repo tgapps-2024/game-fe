@@ -1,25 +1,25 @@
 import {
-  AllAppsCharactersByRarity,
-  CharacterId,
-  GetAllAppsCharactersResponse,
+  AllAppsHeroesByRarity,
+  GetAllAppsHeroesResponse,
+  HeroId,
 } from "@/services/heroes/types";
 
-export const groupAllAppsCharactersByRarity = (
-  allAppsCharacters: GetAllAppsCharactersResponse,
+export const groupAllAppsHeroesByRarity = (
+  allAppsHeroes: GetAllAppsHeroesResponse,
 ) => {
-  const initialGroups = {} as AllAppsCharactersByRarity;
+  const initialGroups = {} as AllAppsHeroesByRarity;
 
   return (
-    Object.keys(allAppsCharacters) as Array<CharacterId>
-  ).reduce<AllAppsCharactersByRarity>((groups, characterId) => {
-    const character = allAppsCharacters[characterId as CharacterId];
-    const rarity = character.rarity;
+    Object.keys(allAppsHeroes) as Array<HeroId>
+  ).reduce<AllAppsHeroesByRarity>((groups, heroId) => {
+    const hero = allAppsHeroes[heroId as HeroId];
+    const rarity = hero.rarity;
     const group = groups[rarity];
-    const characterWithId = { ...character, characterId };
+    const heroWithId = { ...hero, characterId: heroId };
 
     return {
       ...groups,
-      [rarity]: group ? group.concat(characterWithId) : [characterWithId],
+      [rarity]: group ? group.concat(heroWithId) : [heroWithId],
     };
   }, initialGroups);
 };

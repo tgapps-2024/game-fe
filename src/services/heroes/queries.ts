@@ -3,44 +3,43 @@ import { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import {
-  getAllAppsCharacters,
-  getAllCharacters,
-  getCharacter,
+  getAllAppsHeroes,
+  getAllHeroes,
+  getHero,
 } from "./fetcher";
 import {
-  CharacterId,
-  GetAllAppsCharactersResponse,
-  ICharacterIdentity,
-  ICharacterInfo,
+  GetAllAppsHeroesResponse,
+  HeroId,
+  IHeroInfo,
 } from "./types";
 
 export enum QueryKeys {
-  GET_CHARACTER = "GET_CHARACTER",
-  GET_ALL_CHARACTERS = "GET_ALL_CHARACTERS",
-  GET_ALL_APPS_CHARACTERS = "GET_ALL_APPS_CHARACTERS",
-  GET_ALL_APPS_CHARACTERS_BY_RARITY = "GET_ALL_APPS_CHARACTERS_BY_RARITY",
+  GET_HERO = "GET_HERO",
+  GET_ALL_HEROES = "GET_ALL_HEROES",
+  GET_ALL_APPS_HEROES = "GET_ALL_APPS_HEROES",
 }
 
-export const useGetCharacter = (characterId?: CharacterId) =>
-  useQuery<ICharacterInfo, AxiosError>({
-    queryKey: [QueryKeys.GET_CHARACTER, characterId],
-    queryFn: () => getCharacter(characterId),
+export const useGetHero = (heroId?: HeroId) =>
+  useQuery<IHeroInfo, AxiosError>({
+    queryKey: [QueryKeys.GET_HERO, heroId],
+    queryFn: () => getHero(heroId),
     retry: false,
     staleTime: 1000 * 60 * 5,
   });
 
-export const useGetAllCharacters = () =>
-  useQuery<ICharacterIdentity[], AxiosError>({
-    queryKey: [QueryKeys.GET_ALL_CHARACTERS],
-    queryFn: () => getAllCharacters(),
+export const useGetAllHeroes = (enabled: boolean) =>
+  useQuery<HeroId[], AxiosError>({
+    queryKey: [QueryKeys.GET_ALL_HEROES],
+    queryFn: () => getAllHeroes(),
     retry: false,
+    enabled,
     staleTime: 1000 * 60 * 5,
   });
 
-export const useGetAllAppsCharacters = () =>
-  useQuery<GetAllAppsCharactersResponse, AxiosError>({
-    queryKey: [QueryKeys.GET_ALL_APPS_CHARACTERS],
-    queryFn: () => getAllAppsCharacters(),
+export const useGetAllAppsHeroes = () =>
+  useQuery<GetAllAppsHeroesResponse, AxiosError>({
+    queryKey: [QueryKeys.GET_ALL_APPS_HEROES],
+    queryFn: () => getAllAppsHeroes(),
     retry: false,
     staleTime: 1000 * 60 * 5,
   });

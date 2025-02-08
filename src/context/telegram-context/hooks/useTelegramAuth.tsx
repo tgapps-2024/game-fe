@@ -1,27 +1,23 @@
 import Cookies from "js-cookie";
-import { toast } from "sonner";
 
-import { Toast } from "@/components/ui/toast";
 import { AUTH_COOKIE_TOKEN } from "@/constants/api";
 import { login } from "@/services/auth/fetcher";
 import { IWebApp } from "@/types/telegram";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-export const useTelegramAuth = (webApp: IWebApp) => {
-  return useMutation({
-    mutationFn: async () => {
+export enum QueryKeys {
+  AUTH = "AUTH",
+}
+
+export const useTelegramAuth = (webApp: IWebApp | null) => {
+  return useQuery({
+    queryKey: [QueryKeys.AUTH],
+    queryFn: async () => {
       const token = Cookies.get(AUTH_COOKIE_TOKEN);
-      if (token) return;
+      if (token || !webApp) return Promise.resolve(true);
 
-      await login(webApp.initData, webApp.initDataUnsafe.start_param);
+      return login(webApp.initData, webApp.initDataUnsafe.start_param);
     },
-    onError: () => {
-      toast(
-        <Toast
-          type="destructive"
-          text="Authentication failed. Please try again."
-        />,
-      );
-    },
+    enabled: !!webApp,
   });
 };

@@ -1,5 +1,7 @@
 import React, { FunctionComponent, PropsWithChildren } from "react";
 
+import classNames from "classnames";
+
 import { HeroRarity } from "@/services/heroes/types";
 
 import { EpicRibbon } from "./components/epic-ribbon/EpicRibbon";
@@ -7,25 +9,33 @@ import { RareRibbon } from "./components/rare-ribbon/RareRibbon";
 import { RegularRibbon } from "./components/regular-ribbon/RegularRibbon";
 
 type Props = {
-  heroType: HeroRarity;
+  heroRarity: HeroRarity;
 };
 
 export const Ribbon: FunctionComponent<PropsWithChildren<Props>> = ({
-  heroType,
+  heroRarity,
   children,
 }) => {
   let RibbonComponent = RegularRibbon;
 
-  if (heroType === HeroRarity.RARE) {
+  if (heroRarity === HeroRarity.RARE) {
     RibbonComponent = RareRibbon;
-  } else if (heroType === HeroRarity.EPIC) {
+  } else if (heroRarity === HeroRarity.EPIC) {
     RibbonComponent = EpicRibbon;
   }
 
   return (
     <div className="relative">
       <RibbonComponent />
-      <div className="absolute inset-0 text-center text-x font-bold leading-4 text-white">
+      <div
+        className={classNames(
+          "absolute inset-0 text-center text-x font-bold leading-4",
+          {
+            "text-white": heroRarity !== HeroRarity.RARE,
+            "text-[#742C07]": heroRarity === HeroRarity.RARE,
+          },
+        )}
+      >
         {children}
       </div>
     </div>

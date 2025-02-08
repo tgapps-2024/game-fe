@@ -3,20 +3,43 @@ import React, { useContext } from "react";
 import { ProfileHeader } from "@/components/common";
 import { useTelegram } from "@/context";
 import { HeroesContext } from "@/context/heroes-context/HeroesContext";
-import { HeroRarity } from "@/services/heroes/types";
+import { useGetAllHeroes } from "@/services/heroes/queries";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
-import { HeroStats } from "./components/hero-stats/HeroStats";
+import { HeroStats, HeroStatsCtaType } from "./components/hero-stats/HeroStats";
 import { HeroView } from "./components/hero-view/HeroView";
 
 export const HeroesProfile = () => {
   const { webApp } = useTelegram();
 
-  const { selection } = useContext(HeroesContext);
+  const { selection, currentHero } = useContext(HeroesContext);
+  const {
+    data: ownHeroes,
+    isFetching,
+    isPending,
+  } = useGetAllHeroes(!!webApp && !!selection?.hero);
+  const isOwnHeroesLoading = isFetching || isPending;
 
   if (!webApp) return null;
 
   const insetTop = getTgSafeAreaInsetTop(webApp);
+
+  const isCurrentHeroSelected =
+    currentHero &&
+    selection?.hero &&
+    currentHero.characterId === selection.hero.characterId;
+
+  const isOwnHero =
+    !isCurrentHeroSelected &&
+    !!ownHeroes?.find((heroId) => heroId === selection?.hero?.characterId);
+
+  let ctaType = HeroStatsCtaType.BUY;
+
+  if (isCurrentHeroSelected) {
+    ctaType = HeroStatsCtaType.SELECTED;
+  } else if (isOwnHero) {
+    ctaType = HeroStatsCtaType.SELECT;
+  }
 
   return (
     <div
@@ -25,17 +48,18 @@ export const HeroesProfile = () => {
     >
       <ProfileHeader />
 
-      {selection?.hero && (
+      {selection?.hero && !isOwnHeroesLoading && (
         <div className="absolute bottom-[10%] w-full pt-[77%]">
           <HeroView
-            heroId={selection.hero.characterId}
-            heroRarity={HeroRarity.COMMON}
             className="left-0 top-0 h-full w-[56%]"
+            heroId={selection.hero.characterId}
           />
           <HeroStats
             energy={selection.hero.energy}
             earnPerHour={selection.hero.earn_per_hour}
             earnPerTap={selection.hero.earn_per_tap}
+            heroRarity={selection.hero.rarity}
+            ctaType={ctaType}
           />
         </div>
       )}
