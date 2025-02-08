@@ -123,6 +123,7 @@
     },
     "BOOSTERS": {
       "AVAILABLE": "Доступно",
+      "NOT_AVAILABLE": "Недоступно",
       "APPLY": "Применить",
       "COUNT": "{num1} из {num2}",
       "LEVEL": "{num} ур.",

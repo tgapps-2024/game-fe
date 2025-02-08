@@ -149,6 +149,7 @@ export const NS = {
         ROOT: "BOOSTERS",
         PREMIUM: "PREMIUM",
         AVAILABLE: "AVAILABLE",
+        NOT_AVAILABLE: "NOT_AVAILABLE",
         APPLY: "APPLY",
         COUNT: "COUNT",
         LEVEL: "LEVEL",

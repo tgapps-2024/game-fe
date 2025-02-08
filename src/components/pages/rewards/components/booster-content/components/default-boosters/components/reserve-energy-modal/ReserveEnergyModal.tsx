@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
 
@@ -11,22 +11,28 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
-import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import EnergyImage from "@/public/assets/png/rewards/green-battery-full.webp";
 import LigntningImage from "@/public/assets/png/rewards/lightning.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
-import { CapacityBooster } from "@/services/rewards/types";
+import { CapacityBooster, UpgradeBoosterType } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
 type Props = {
   capacity: CapacityBooster;
+  onSubmit: (
+    e: MouseEvent<HTMLButtonElement>,
+    type: UpgradeBoosterType,
+  ) => void;
+  disabled?: boolean;
 };
 
-export const ReserveEnergyModal: FunctionComponent<Props> = ({ capacity }) => {
-  const { handleSelectionChanged } = useHapticFeedback();
-
+export const ReserveEnergyModal: FunctionComponent<Props> = ({
+  capacity,
+  onSubmit,
+  disabled,
+}) => {
   return (
     <DrawerContent
       className={classNames(
@@ -122,11 +128,10 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({ capacity }) => {
         </div>
       </div>
       <PrimaryButton
-        onClick={() => {
-          handleSelectionChanged();
-        }}
+        onClick={(e) => onSubmit(e, UpgradeBoosterType.CAPACITY)}
         size="large"
         className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
+        disabled={disabled}
       >
         <div className="flex items-center gap-1 text-base uppercase leading-none">
           Улучшить за

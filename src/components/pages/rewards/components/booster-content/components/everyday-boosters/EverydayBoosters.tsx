@@ -1,18 +1,20 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEvent, useMemo, useState } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
+import { toast } from "sonner";
 
-import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BatteryImage from "@/public/assets/png/rewards/yellow-battery.webp";
-import StarSVG from "@/public/assets/svg/star.svg";
+import { useFullBooster } from "@/services/rewards/queries";
 import { FullBooster } from "@/services/rewards/types";
-import { formatNumber } from "@/utils/number";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { EverydayBoosterModal } from "./components/everyday-booster-modal/EverydayBoosterModal";
 
@@ -25,13 +27,40 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
   isAnimated,
   booster,
 }) => {
-  console.log("🚀 ~ booster:", booster);
+  const queryClient = useQueryClient();
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = null;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isAvailable = useMemo(() => booster?.amount > 0, [booster]);
+  const { mutate } = useFullBooster(queryClient);
+
+  const handlePlankClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
+    if (!(e.target instanceof HTMLButtonElement)) {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleUseBoosterMutation = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (!isAvailable) return;
+
+    handleSelectionChanged();
+
+    mutate(undefined, {
+      onSuccess: () => {
+        if (isModalOpen) setIsModalOpen(false);
+      },
+      onError: (error) =>
+        toast(<Toast type="destructive" text={error.message} />),
+    });
+  };
 
   return (
-    <Drawer>
+    <Drawer open={isModalOpen} onOpenChange={setIsModalOpen}>
       <div className="flex items-center justify-between">
         <div className="text-stroke-1 text-nowrap text-xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
           {t(
@@ -44,7 +73,12 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
           </div>
         </div>
       </div>
-      <div className="relative mb-4 flex items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]">
+      <div
+        onClick={handlePlankClick}
+        className={classNames(
+          "relative z-10 mb-4 flex w-full items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]",
+        )}
+      >
         <div className="grid grid-cols-[60px_1fr] items-center gap-3">
           <div className="relative flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#FFE04E] to-[#F19F33] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">
             <div
@@ -71,8 +105,8 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
                 {t(
                   `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.COUNT}`,
                   {
-                    num1: 5,
-                    num2: booster?.amount,
+                    num1: booster?.amount,
+                    num2: 5,
                   },
                 )}
               </span>
@@ -84,33 +118,25 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
             </div>
           </div>
         </div>
-        <div className="w-[122px]">
-          <DrawerTrigger asChild className="w-full">
-            <PrimaryButton
-              onClick={() => {
-                handleSelectionChanged();
-              }}
-              size="small"
-              color={PRICE ? "primary" : "secondary"}
-              className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
-            >
-              {PRICE ? (
-                <div className="grid grid-cols-[16px_1fr] items-center gap-2">
-                  <StarSVG className="size-4" />
-                  {formatNumber(PRICE)}
-                </div>
-              ) : (
-                <>
-                  {t(
-                    `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
-                  )}
-                </>
-              )}
-            </PrimaryButton>
-          </DrawerTrigger>
+        <div className="pointer-events-auto w-[122px]">
+          <PrimaryButton
+            onClick={handleUseBoosterMutation}
+            size="small"
+            disabled={!isAvailable}
+            color={PRICE ? "primary" : "secondary"}
+            className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
+          >
+            {t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+            )}
+          </PrimaryButton>
         </div>
       </div>
-      <EverydayBoosterModal booster={booster} />
+      <EverydayBoosterModal
+        onSubmit={handleUseBoosterMutation}
+        disabled={!isAvailable}
+        booster={booster}
+      />
     </Drawer>
   );
 };

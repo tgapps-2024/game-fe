@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
 
@@ -22,9 +22,13 @@ import { formatNumber } from "@/utils/number";
 
 type Props = {
   booster: TempEnergyBooster;
+  onSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const PremiumBoosterModal: FunctionComponent<Props> = ({ booster }) => {
+export const PremiumBoosterModal: FunctionComponent<Props> = ({
+  booster,
+  onSubmit,
+}) => {
   return (
     <DrawerContent
       className={classNames(
@@ -83,7 +87,11 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({ booster }) => {
           </div>
         </div>
       </div>
-      <PrimaryButton size="large" className="flex gap-1 text-base uppercase">
+      <PrimaryButton
+        onClick={onSubmit}
+        size="large"
+        className="flex gap-1 text-base uppercase"
+      >
         приобрести за <StarSVG className="size-6.5" />
         {formatNumber(1200000)}
       </PrimaryButton>

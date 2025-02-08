@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
 
@@ -11,23 +11,28 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
-import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import EnergyImage from "@/public/assets/png/rewards/green-battery-half.webp";
 import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
-import { RecoveryBooster } from "@/services/rewards/types";
+import { RecoveryBooster, UpgradeBoosterType } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
 
 type Props = {
   recoveryBooster: RecoveryBooster;
+  onSubmit: (
+    event: MouseEvent<HTMLButtonElement>,
+    type: UpgradeBoosterType,
+  ) => void;
+  disabled?: boolean;
 };
 
 export const RecoveryEnergyModal: FunctionComponent<Props> = ({
   recoveryBooster,
+  onSubmit,
+  disabled,
 }) => {
-  const { handleSelectionChanged } = useHapticFeedback();
   const LEVEL = recoveryBooster?.level;
   const PRICE = recoveryBooster?.price;
 
@@ -126,9 +131,8 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
         </div>
       </div>
       <PrimaryButton
-        onClick={() => {
-          handleSelectionChanged();
-        }}
+        onClick={(e) => onSubmit(e, UpgradeBoosterType.RECOVERY)}
+        disabled={disabled}
         size="large"
         className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
       >
