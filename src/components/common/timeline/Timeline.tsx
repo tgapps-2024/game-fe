@@ -36,7 +36,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ items }) => {
                 {item.isDone ? (
                   <Done />
                 ) : (
-                  <span className="text-sm font-semibold leading-none text-white">
+                  <span className="text-sm font-semibold text-white">
                     {item.id}
                   </span>
                 )}

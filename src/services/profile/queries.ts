@@ -23,7 +23,7 @@ export const useGetReferals = () =>
     staleTime: STALE_TIME,
   });
 
-export const useGetProfile = (enabled: boolean) =>
+export const useGetProfile = (enabled?: boolean) =>
   useQuery({
     queryKey: [QueryKeys.GET_PROFILE],
     queryFn: getProfile,

@@ -100,7 +100,7 @@ export const Settings: FC = () => {
                   >
                     {address.length ? (
                       <>
-                        <div className="flex h-full w-full flex-row items-center justify-start gap-x-2 text-sm leading-none">
+                        <div className="flex h-full w-full flex-row items-center justify-start gap-x-2 text-sm">
                           <WalletIcon />
                           <p className="text-shadowed flex items-center font-extrabold uppercase leading-none tracking-wide text-white">
                             {t(
@@ -108,7 +108,7 @@ export const Settings: FC = () => {
                             )}
                           </p>
                         </div>
-                        <p className="text-nowrap text-sm font-black leading-none tracking-wide text-white/30">
+                        <p className="text-nowrap text-sm font-black tracking-wide text-white/30">
                           {`${address.slice(0, 5)}...${address.slice(-5)}`}
                         </p>
                       </>

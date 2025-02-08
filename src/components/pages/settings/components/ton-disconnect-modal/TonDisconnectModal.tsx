@@ -90,7 +90,7 @@ export const TonDisconnectModal = ({
             }}
           />
           <p
-            className="text-sm font-medium leading-none tracking-wide text-white"
+            className="text-sm font-medium tracking-wide text-white"
             onClick={() => {
               setIsChecked(!isChecked);
               handleSelectionChanged();

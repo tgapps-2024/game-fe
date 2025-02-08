@@ -14,7 +14,7 @@ export const BattlePassProgressBar = () => (
         <LevelBadge className="z-10" level={CURRENT_LEVEL} />
         <div className="absolute left-5 flex w-[calc(100%_-_20px)] flex-col items-center bg-[#0932A4] py-[3px] shadow-[inset_0px_-4px_8px_0_rgba(255,255,255,0.6),inset_0px_4px_8px_0_rgba(255,255,255,0.6)]">
           <div className="absolute left-0 top-0 h-1 w-full bg-[#42DDFC] shadow-[inset_0px_1px_0.5px_rgba(255,255,255,0.3)]" />
-          <span className="text-stroke-1 relative z-10 inline-block py-[3px] text-sm font-black leading-none tracking-wide text-white text-shadow-sm">
+          <span className="text-stroke-1 relative z-10 inline-block py-[3px] text-sm font-black tracking-wide text-white text-shadow-sm">
             14к/50к
           </span>
           <div className="absolute bottom-0 left-0 h-1 w-full bg-[#42DDFC] shadow-[inset_0px_-1px_0.5px_rgba(255,255,255,0.3)]" />

@@ -124,7 +124,7 @@ export const DoubleCheck: FunctionComponent<Props> = ({
           damping: 20,
         }}
         onClick={onCheck}
-        className="mt-5 text-sm font-bold uppercase leading-none tracking-wide text-white"
+        className="mt-5 text-sm font-bold uppercase tracking-wide text-white"
       >
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DOUBLE_CHECK}`,

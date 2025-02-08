@@ -53,7 +53,7 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({ booster }) => {
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
         Полный запас энергии х2
       </DrawerTitle>
-      <DrawerDescription className="mb-6 text-sm font-medium leading-none tracking-wide text-white">
+      <DrawerDescription className="mb-6 text-sm font-medium tracking-wide text-white">
         Полностью восстанавливает запас энергии
       </DrawerDescription>
       <div className="relative mb-6 grid w-full grid-cols-2 gap-2">

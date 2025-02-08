@@ -25,7 +25,7 @@ export const LevelBadge: FunctionComponent<Props> = ({
         style={{ objectFit: "contain" }}
         quality={100}
       />
-      <span className="text-stroke-1 z-10 text-sm font-black leading-none text-white text-shadow-sm">
+      <span className="text-stroke-1 z-10 text-sm font-black text-white text-shadow-sm">
         {level}
       </span>
     </div>

@@ -55,7 +55,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({ capacity }) => {
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
         Запас энергии
       </DrawerTitle>
-      <DrawerDescription className="mb-6 text-sm font-medium leading-none tracking-wide text-white">
+      <DrawerDescription className="mb-6 text-sm font-medium tracking-wide text-white">
         Увеличивает максимальный запас энергии
       </DrawerDescription>
       <div className="mb-6 flex w-full items-center justify-between px-3">
@@ -102,7 +102,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({ capacity }) => {
             </span>
           </div>
         </div>
-        <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#35AFF1_0%,_#4DC0FF_50%,_#9EDDFF_100%)] px-3 py-2 text-sm font-semibold leading-none text-white text-shadow-sm">
+        <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#35AFF1_0%,_#4DC0FF_50%,_#9EDDFF_100%)] px-3 py-2 text-sm font-semibold text-white text-shadow-sm">
           <FriendsIcon className="mr-1 size-5" /> +
           {capacity?.new - capacity?.current}
         </div>

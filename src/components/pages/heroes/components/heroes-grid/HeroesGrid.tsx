@@ -9,9 +9,14 @@ import { Badge } from "@/components/pages/friends/components/invite-modal/compon
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import { HeroesContext } from "@/context/heroes-context/HeroesContext";
-import { useGetAllAppsHeroes } from "@/services/heroes/queries";
-import { HeroRarity, IHeroConfigWithId } from "@/services/heroes/types";
+import {
+  useGetAllAppsHeroes,
+  useGetAllHeroes,
+  useSetHero,
+} from "@/services/heroes/queries";
+import { HeroId, HeroRarity } from "@/services/heroes/types";
 import { groupAllAppsHeroesByRarity } from "@/utils/heroes";
+import { formatValue } from "@/utils/lib/utils";
 
 import { HeroView } from "../heroes-profile/components/hero-view/HeroView";
 
@@ -21,21 +26,28 @@ export const HeroesGrid = () => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
   const [selectedTab, setSelectedTab] = useState<HeroRarity>(HeroRarity.COMMON);
   const { data: heroes } = useGetAllAppsHeroes();
-  const { selectHero } = useContext(HeroesContext);
+  const { data: ownHeroes } = useGetAllHeroes();
+  const { currentHero, selectHero } = useContext(HeroesContext);
+
+  const { mutate: setProfileHero } = useSetHero();
 
   const heroesByRarity = useMemo(
     () => (heroes ? groupAllAppsHeroesByRarity(heroes) : null),
     [heroes],
   );
 
-  const onSelectHero = (hero: IHeroConfigWithId) => {
+  const onSelectHero = (heroId: HeroId, isRemoteSelection?: boolean) => {
     const pageWrapper = document.getElementById(PAGE_WRAPPER_ID);
 
     if (pageWrapper) {
       pageWrapper.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    selectHero(hero.characterId);
+    if (isRemoteSelection) {
+      setProfileHero(heroId);
+    } else {
+      selectHero(heroId);
+    }
   };
 
   return (
@@ -59,11 +71,17 @@ export const HeroesGrid = () => {
             "bg-[#2F1A60]": selectedTab === HeroRarity.EPIC,
           })}
         >
-          {heroesByRarity
+          {heroesByRarity && ownHeroes
             ? heroesByRarity[selectedTab].map((hero) => {
                 let type = CardType.BLUE;
+                const isOwnHero = ownHeroes.includes(hero.characterId);
+                const isCurrentHero =
+                  currentHero?.characterId === hero.characterId;
+                const isSelectable = isOwnHero && !isCurrentHero;
 
-                if (selectedTab === HeroRarity.RARE) {
+                if (isCurrentHero) {
+                  type = CardType.DARK_BLUE;
+                } else if (selectedTab === HeroRarity.RARE) {
                   type = CardType.ORANGE;
                 } else if (selectedTab === HeroRarity.EPIC) {
                   type = CardType.INDIGO;
@@ -72,11 +90,40 @@ export const HeroesGrid = () => {
                 return (
                   <Card
                     key={hero.characterId}
-                    buttonColor={CollectButtonColor.GREEN}
-                    buttonText="Купить"
-                    isSelected={false}
-                    badgeComponent={<Badge value={hero.price} />}
-                    onClick={() => onSelectHero(hero)}
+                    collectButtonProps={
+                      !isCurrentHero
+                        ? {
+                            color: isSelectable
+                              ? CollectButtonColor.YELLOW
+                              : CollectButtonColor.GREEN,
+                            children: isSelectable
+                              ? t(
+                                  `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECT}`,
+                                )
+                              : t(
+                                  `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.BUY}`,
+                                ),
+                            onClick: isSelectable
+                              ? () => onSelectHero(hero.characterId, true)
+                              : undefined,
+                          }
+                        : undefined
+                    }
+                    topBadge={
+                      isCurrentHero ? (
+                        <div className="text-stroke-1 px-3 py-1 text-xs font-extrabold text-white text-shadow-sm">
+                          {t(
+                            `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECTED}`,
+                          )}
+                        </div>
+                      ) : undefined
+                    }
+                    bottomBadge={
+                      !isOwnHero ? (
+                        <Badge value={formatValue(hero.price)} />
+                      ) : undefined
+                    }
+                    onClick={() => onSelectHero(hero.characterId)}
                     type={type}
                   >
                     <HeroView

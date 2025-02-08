@@ -15,8 +15,8 @@ export const API_ENDPOINTS = {
     GET_DAILY_INFO: "/get_daily_info",
     GET_DAILY_REWARD: "/get_daily_reward",
     GET_HERO: "/get_character",
-    GET_ALL_HEROES: '/get_all_characters',
-    GET_ALL_APPS_HEROES: '/get_all_apps_characters'
+    GET_ALL_HEROES: "/get_all_characters",
+    GET_ALL_APPS_HEROES: "/get_all_apps_characters",
   },
   POST: {
     AUTH: "/auth",
@@ -24,6 +24,8 @@ export const API_ENDPOINTS = {
     SET_TASK_COMPLETE: "/set_task_complete",
     GET_REWARD_FROM_BATTLEPASS: "/get_reward_from_battlepass",
     STARS_PAYMENT: "/stars_payment",
+    SET_HERO: "/set_character",
+    BUY_HERO: "/buy_character",
   },
 };
 

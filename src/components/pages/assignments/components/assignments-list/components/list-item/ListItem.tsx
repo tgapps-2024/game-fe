@@ -69,7 +69,7 @@ export const ListItem: FunctionComponent<Props> = ({
               className: "size-8 rounded-full object-contain",
             })}
             <div className="flex flex-col gap-1">
-              <p className="text-stroke-1 text-sm font-black leading-none tracking-wide text-white text-shadow-sm">
+              <p className="text-stroke-1 text-sm font-black tracking-wide text-white text-shadow-sm">
                 {locale === "en" ? title.en : title.ru}
               </p>
               <div className="flex gap-2">

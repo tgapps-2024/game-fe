@@ -52,10 +52,12 @@ export const InviteModal = () => {
           {CARDS.map((card, index) => (
             <Card
               key={`buy_friends_card_${index}`}
-              buttonColor={card.buttonColor}
-              buttonText={card.buttonText}
+              collectButtonProps={{
+                color: card.buttonColor,
+                children: card.buttonText,
+              }}
               isSelected={index === selectedCard}
-              badgeComponent={<Badge value={card.badgeValue} />}
+              bottomBadge={<Badge value={card.badgeValue} />}
               onClick={() => handleCardClick(index)}
               isAnimated
             >

@@ -143,6 +143,35 @@
         "RARE": "Rare",
         "EPIC": "Epic"
       }
+    },
+    "HERO_NAMES": {
+      "BAFFET": "Warren Buffet",
+      "BEARD": "Beard",
+      "BEAST": "Mr. Beast",
+      "BLONDE": "Blonde",
+      "BOY": "Boy",
+      "BROWNHAIRED": "Brown-Haired",
+      "BUTEREN": "Vitalik Buterin",
+      "CAPTAINAMERICA": "Captain America",
+      "DEADPOOL": "Deadpool",
+      "DEFAULT": "Default",
+      "DEFAULTHQ": "DefaultHQ",
+      "DUROV": "Pavel Durov",
+      "GIRL": "Girl",
+      "GRETTATUMBERG": "Greta Thunberg",
+      "HASBIK": "Hasbik",
+      "IRONMAN": "Ironman",
+      "JONES": "Dwayne Johnson",
+      "MESSI": "Lionel Messi",
+      "MUSK": "Elon Musk",
+      "OBGUY": "Obguy",
+      "QUEEN": "Harley Quinn",
+      "REDHEAD": "Redhead",
+      "ROSSOMAHA": "Wolverine",
+      "SPIDERMAN": "Spiderman",
+      "STRANGE": "Doctor Strange",
+      "TRUMP": "Donald Trump",
+      "ZUCKERBERG": "Mark Zuckerberg"
     }
   }
 }

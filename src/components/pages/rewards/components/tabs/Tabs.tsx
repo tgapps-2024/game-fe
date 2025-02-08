@@ -40,7 +40,7 @@ export const Tabs: FunctionComponent<Props> = ({
           key={tab}
           onClick={() => setActiveTab(index + 1)}
           className={classNames(
-            "m-0.5 rounded-[10px] px-4 py-3 text-sm font-medium leading-none text-white",
+            "m-0.5 rounded-[10px] px-4 py-3 text-sm font-medium text-white",
             {
               "!text-gray-500": activeTab !== index + 1,
             },

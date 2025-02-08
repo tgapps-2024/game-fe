@@ -4,59 +4,23 @@ import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 import { motion } from "framer-motion";
-import { toast } from "sonner";
 
 import { CheckedPentagon } from "@/components/ui/svgr-icons/CheckedPentagon";
 import { Pentagon } from "@/components/ui/svgr-icons/Pentagon";
-import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
-import { useTelegram } from "@/context";
-import { useStarsPayment } from "@/services/payments/queries";
-import { InvoiceStatus } from '@/types/telegram';
+import { useSafeStarsPayment } from "@/hooks/useSafeStarsPayment";
 
 export const EnhanceButton = () => {
-  const { webApp } = useTelegram();
   const [isChecked, setIsChecked] = useState(false);
   const t = useTranslations(NS.PAGES.BATTLE_PASS.ROOT);
-  const { mutate } = useStarsPayment(
-    1,
-    (response) => {
-      if (webApp) {
-        try {
-          webApp.openInvoice(response.url, (status) => {
-            switch (status) {
-              case InvoiceStatus.PAID:
-                toast(<Toast type="done" text={status} />, {
-                  duration: 5000,
-                });
-                break;
-              case InvoiceStatus.FAILED:
-                toast(<Toast type="destructive" text={status} />, {
-                  duration: 5000,
-                });
-                break;
-              default:
-                toast(<Toast type="warning" text={status} />, {
-                  duration: 5000,
-                });
-                break;
-            }
-          });
-        } catch (e) {
-          const message = `${(e as Error).message}, URL=${response.url}`;
-
-          toast(<Toast type="warning" text={message} />, {
-            duration: 5000,
-          });
-        }
-
-        setIsChecked(true);
-      }
+  const { buy: buyPremiumBattlePass } = useSafeStarsPayment(
+    () => {
+      console.log("Buying Premium BP");
     },
-    (error) => {
-      toast(<Toast type="destructive" text={error.message} />, {
-        duration: 5000,
-      });
+    () => {
+      setIsChecked(true);
+    },
+    () => {
       setIsChecked(true);
     },
   );
@@ -70,7 +34,7 @@ export const EnhanceButton = () => {
         stiffness: 200,
         damping: 20,
       }}
-      onClick={() => mutate()}
+      onClick={() => buyPremiumBattlePass(1)}
     >
       {isChecked ? (
         <CheckedPentagon className="shrink-0" />
