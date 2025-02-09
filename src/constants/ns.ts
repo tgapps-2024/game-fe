@@ -134,6 +134,7 @@ export const NS = {
         BUTTON: "BUTTON",
         SALE: "SALE",
         FRIENDS: "FRIENDS",
+        BOUGHT_SUCCESSFULLY: "BOUGHT_SUCCESSFULLY",
       },
       ERRORS: {
         ROOT: "ERRORS",
