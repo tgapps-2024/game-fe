@@ -5,8 +5,12 @@ import { toast } from "sonner";
 import { Toast } from "@/components/ui/toast";
 import { useTelegram } from "@/context";
 import { useStarsPayment } from "@/services/payments/queries";
-import { useGetProfile } from "@/services/profile/queries";
+import {
+  invalidateProfileQuery,
+  useGetProfile,
+} from "@/services/profile/queries";
 import { InvoiceStatus } from "@/types/telegram";
+import { useQueryClient } from "@tanstack/react-query";
 
 type UseSafeStarsPaymentConfig = {
   buy: (starsAmount: number) => void;
@@ -18,6 +22,7 @@ export const useSafeStarsPayment = (
   onStarsPaymentSuccess?: () => void,
   onStarsPaymentError?: () => void,
 ): UseSafeStarsPaymentConfig => {
+  const queryClient = useQueryClient();
   const { webApp } = useTelegram();
   const { data: profile } = useGetProfile();
   const { mutate: buyStars, isPending: isStarsPaymentLoading } =
@@ -66,7 +71,11 @@ export const useSafeStarsPayment = (
       if ((profile?.stars ?? 0) >= starsAmount) {
         buyItemFn();
       } else {
-        buyStars(starsAmount);
+        buyStars(starsAmount, {
+          onSuccess: () => {
+            invalidateProfileQuery(queryClient);
+          },
+        });
       }
     },
     isStarsPaymentLoading,
