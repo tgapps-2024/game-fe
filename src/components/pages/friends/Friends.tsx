@@ -1,4 +1,4 @@
-import React, { UIEvent, useState } from "react";
+import React, { UIEvent, useMemo, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -11,6 +11,8 @@ import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useGetReferals } from "@/services/profile/queries";
 import { IReferals } from "@/services/profile/types";
+import { useGetShop } from "@/services/shop/queries";
+import { ShopItemTypeEnum } from "@/services/shop/types";
 
 import { FriendsList } from "./components/friends-list/FriendsList";
 import { InviteBoard } from "./components/invite-board/InviteBoard";
@@ -26,6 +28,11 @@ export const Friends = () => {
     isError,
     error,
   } = useGetReferals();
+  const { data, isLoading: isLoadingShop } = useGetShop();
+  const friendsShopItems = useMemo(
+    () => data?.items.filter((item) => item.type === ShopItemTypeEnum.FRIENDS),
+    [data],
+  );
 
   const onScroll = (e: UIEvent<HTMLDivElement>) => {
     const { scrollTop } = e.target as HTMLDivElement;
@@ -45,7 +52,7 @@ export const Friends = () => {
     <Drawer>
       <PageWrapper
         className="scroll-smooth bg-blue-800 pt-4"
-        isLoading={isPendingReferalData}
+        isLoading={isPendingReferalData || isLoadingShop}
         onScroll={onScroll}
       >
         <div
@@ -74,7 +81,7 @@ export const Friends = () => {
           </div>
           <InviteButton />
         </div>
-        <InviteModal />
+        <InviteModal friendsShopItems={friendsShopItems || []} />
       </PageWrapper>
     </Drawer>
   );

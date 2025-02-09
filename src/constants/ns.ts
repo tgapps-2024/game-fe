@@ -135,6 +135,10 @@ export const NS = {
         SALE: "SALE",
         FRIENDS: "FRIENDS",
       },
+      ERRORS: {
+        ROOT: "ERRORS",
+        BUY_FRIENDS: "BUY_FRIENDS",
+      },
     },
     REWARDS: {
       ROOT: "REWARDS",
@@ -219,5 +223,8 @@ export const NS = {
         ZUCKERBERG: "ZUCKERBERG",
       },
     },
+  },
+  ERRORS: {
+    ROOT: "ERRORS",
   },
 };

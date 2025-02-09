@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 import { Card } from "@/components/common";
 import {
@@ -11,23 +14,59 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import CloseIcon from "@/public/assets/svg/close.svg";
+import { invalidateReferralQuery } from "@/services/profile/queries";
+import { useBuyShopItem } from "@/services/shop/queries";
+import { ShopItem } from "@/services/shop/types";
 import { NotificationEnum } from "@/types/telegram";
+import { formatNumber } from "@/utils/number";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Badge } from "./components/badge/Badge";
 import { CARDS } from "./cards.data";
 
-export const InviteModal = () => {
+type Props = {
+  friendsShopItems: ShopItem[];
+};
+
+export const InviteModal: FunctionComponent<Props> = ({ friendsShopItems }) => {
+  const queryClient = useQueryClient();
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
+  const tErrors = useTranslations(NS.ERRORS.ROOT);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const { handleSelectionChanged, handleNotificationOccurred } =
     useHapticFeedback();
+  const { mutate } = useBuyShopItem();
 
   const handleCardClick = (index: number) => {
     handleSelectionChanged();
     setSelectedCard(index);
+  };
+
+  const handleBuyFriends = () => {
+    if (selectedCard === null) {
+      handleSelectionChanged();
+    } else {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    }
+
+    if (selectedCard === null) return;
+
+    mutate(selectedCard, {
+      onSuccess: () => {
+        invalidateReferralQuery(queryClient);
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          const tid = error.response?.data["detail"];
+
+          toast(<Toast type="destructive" text={tErrors(tid)} />);
+        }
+      },
+    });
   };
 
   return (
@@ -49,42 +88,40 @@ export const InviteModal = () => {
       </DrawerDescription>
       <div className="flex w-full flex-col items-center">
         <div className="relative mb-8 grid w-full grid-cols-3 gap-2">
-          {CARDS.map((card, index) => (
-            <Card
-              key={`buy_friends_card_${index}`}
-              collectButtonProps={{
-                color: card.buttonColor,
-                children: card.buttonText,
-              }}
-              isSelected={index === selectedCard}
-              bottomBadge={<Badge value={card.badgeValue} />}
-              onClick={() => handleCardClick(index)}
-              isAnimated
-            >
-              <div className="absolute h-full w-full">
-                <Image src={card.image} alt="" fill />
-              </div>
-              <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
-                {t(
-                  `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
-                  { number: card.number },
-                )}
-              </span>
-            </Card>
-          ))}
+          {friendsShopItems.map((card, index) => {
+            const staticCardData = CARDS[index];
+
+            return (
+              <Card
+                key={`buy_friends_card_${index}`}
+                collectButtonProps={{
+                  color: staticCardData.buttonColor,
+                  children: staticCardData.buttonText,
+                }}
+                isSelected={card.id === selectedCard}
+                bottomBadge={<Badge value={formatNumber(card.price)} />}
+                onClick={() => handleCardClick(card.id)}
+                isAnimated
+              >
+                <div className="absolute h-full w-full">
+                  <Image src={staticCardData.image} alt="" fill />
+                </div>
+                <span className="text-stroke-1 absolute bottom-6 left-1/2 z-20 w-full -translate-x-1/2 text-center text-xs font-bold text-shadow-sm">
+                  {t(
+                    `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.FRIENDS}`,
+                    { number: card.amount },
+                  )}
+                </span>
+              </Card>
+            );
+          })}
         </div>
         <PrimaryButton
           color="secondary"
-          className="w-full uppercase"
+          className="text-stroke-1 w-full uppercase"
           size="large"
           disabled={selectedCard === null}
-          onClick={() => {
-            if (selectedCard === null) {
-              handleSelectionChanged();
-            } else {
-              handleNotificationOccurred(NotificationEnum.ERROR);
-            }
-          }}
+          onClick={handleBuyFriends}
         >
           {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
         </PrimaryButton>

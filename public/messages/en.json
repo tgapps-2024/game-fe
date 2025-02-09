@@ -112,6 +112,9 @@
       "BUTTON": "Buy",
       "SALE": "Sale",
       "FRIENDS": "{number} Friends"
+    },
+    "ERRORS": {
+      "BUY_FRIENDS": "An error occurred while purchasing friends."
     }
   },
   "REWARDS": {
@@ -120,26 +123,26 @@
       "EARNINGS": "Earnings",
       "REWARDS": "Rewards",
       "BOOSTERS": "Boosters"
+    }
+  },
+  "BOOSTERS": {
+    "AVAILABLE": "Available",
+    "NOT_AVAILABLE": "Not available",
+    "APPLY": "Apply",
+    "COUNT": "{num1} of {num2}",
+    "LEVEL": "{num} lvl",
+    "PREMIUM": {
+      "TITLE": "Premium boosters",
+      "ENERGY_BOOSTERS": "Energy multipliers"
     },
-    "BOOSTERS": {
-      "AVAILABLE": "Available",
-      "NOT_AVAILABLE": "Not available",
-      "APPLY": "Apply",
-      "COUNT": "{num1} of {num2}",
-      "LEVEL": "{num} lvl",
-      "PREMIUM": {
-        "TITLE": "Premium boosters",
-        "ENERGY_BOOSTERS": "Energy multipliers"
-      },
-      "EVERYDAY": {
-        "TITLE": "Everyday boosters",
-        "FULL_ENERGY": "Full energy"
-      },
-      "DEFAULT": {
-        "TITLE": "Boosters",
-        "ENERGY": "Energy",
-        "RECOVERY_ENERGY": "Recovery energy"
-      }
+    "EVERYDAY": {
+      "TITLE": "Everyday boosters",
+      "FULL_ENERGY": "Full energy"
+    },
+    "DEFAULT": {
+      "TITLE": "Boosters",
+      "ENERGY": "Energy",
+      "RECOVERY_ENERGY": "Recovery energy"
     }
   },
   "HEROES": {
@@ -193,5 +196,9 @@
       "TRUMP": "Donald Trump",
       "ZUCKERBERG": "Mark Zuckerberg"
     }
+  },
+  "ERRORS": {
+    "notEnoughStars": "Not enough stars",
+    "userNotFound": "User not found"
   }
 }
