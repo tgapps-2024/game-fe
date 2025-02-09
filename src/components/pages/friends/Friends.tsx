@@ -20,8 +20,9 @@ import { InviteButton } from "./components/invite-button/InviteButton";
 import { InviteModal } from "./components/invite-modal/InviteModal";
 
 export const Friends = () => {
-  const [bgScaleDelta, setBgScaleDelta] = useState(0);
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
+  const [bgScaleDelta, setBgScaleDelta] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: referalData,
     isPending: isPendingReferalData,
@@ -49,7 +50,7 @@ export const Friends = () => {
   }
 
   return (
-    <Drawer>
+    <Drawer open={isModalOpen} onOpenChange={setIsModalOpen}>
       <PageWrapper
         className="scroll-smooth bg-blue-800 pt-4"
         isLoading={isPendingReferalData || isLoadingShop}
@@ -81,7 +82,10 @@ export const Friends = () => {
           </div>
           <InviteButton />
         </div>
-        <InviteModal friendsShopItems={friendsShopItems || []} />
+        <InviteModal
+          friendsShopItems={friendsShopItems || []}
+          onClose={() => setIsModalOpen(false)}
+        />
       </PageWrapper>
     </Drawer>
   );
