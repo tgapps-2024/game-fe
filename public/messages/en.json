@@ -123,6 +123,34 @@
       "EARNINGS": "Earnings",
       "REWARDS": "Rewards",
       "BOOSTERS": "Boosters"
+    },
+    "BOOSTERS": {
+      "AVAILABLE": "Available",
+      "NOT_AVAILABLE": "Not available",
+      "APPLY": "Apply",
+      "COUNT": "{num1} of {num2}",
+      "LEVEL": "{num} lvl",
+      "PREMIUM": {
+        "TITLE": "Premium boosters",
+        "ENERGY_BOOSTERS": "Energy multipliers"
+      },
+      "EVERYDAY": {
+        "TITLE": "Everyday boosters",
+        "FULL_ENERGY": "Full energy"
+      },
+      "DEFAULT": {
+        "TITLE": "Boosters",
+        "ENERGY": "Energy",
+        "RECOVERY_ENERGY": "Recovery energy"
+      }
+    },
+    "EVENTS": {
+      "TITLE": "Events",
+      "EVENT_AGENCY": "Event agency",
+      "LEADER_OF_MINDS": "Leader of minds",
+      "TAXI": "Taxi",
+      "INVITE_FRIENDS": "Invite friends: {number}",
+      "LEVEL": "{num} lvl"
     }
   },
   "BOOSTERS": {

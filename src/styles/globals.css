@@ -179,4 +179,11 @@ body {
     touch-action: pan-y pinch-zoom;
     margin-left: calc(0.8rem * -1);
   }
+
+  .combo-border-radius {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
 }

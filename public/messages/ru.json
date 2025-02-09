@@ -144,6 +144,14 @@
         "ENERGY": "Запас энергии",
         "RECOVERY_ENERGY": "Восстановление энергии"
       }
+    },
+    "EVENTS": {
+      "TITLE": "Мероприятия",
+      "EVENT_AGENCY": "Ивент агенство",
+      "LEADER_OF_MINDS": "Лидер мнений",
+      "TAXI": "Такси",
+      "INVITE_FRIENDS": "Пригласи друзей: {number}",
+      "LEVEL": "{num} ур."
     }
   },
   "HEROES": {

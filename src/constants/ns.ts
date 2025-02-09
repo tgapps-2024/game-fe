@@ -166,6 +166,15 @@ export const NS = {
         TITLE: "TITLE",
         ENERGY: "ENERGY",
       },
+      EVENTS: {
+        ROOT: "EVENTS",
+        TITLE: "TITLE",
+        EVENT_AGENCY: "EVENT_AGENCY",
+        LEADER_OF_MINDS: "LEADER_OF_MINDS",
+        TAXI: "TAXI",
+        INVITE_FRIENDS: "INVITE_FRIENDS",
+        LEVEL: "LEVEL",
+      },
     },
     HEROES: {
       ROOT: "HEROES",
