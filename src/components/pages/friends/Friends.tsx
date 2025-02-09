@@ -30,6 +30,7 @@ export const Friends = () => {
     error,
   } = useGetReferals();
   const { data, isLoading: isLoadingShop } = useGetShop();
+  console.log("🚀 ~ Friends ~ data:", data);
   const friendsShopItems = useMemo(
     () => data?.items.filter((item) => item.type === ShopItemTypeEnum.FRIENDS),
     [data],
