@@ -17,8 +17,12 @@ import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import { useSafeStarsPayment } from "@/hooks/useSafeStarsPayment";
 import CloseIcon from "@/public/assets/svg/close.svg";
-import { invalidateReferralQuery } from "@/services/profile/queries";
+import {
+  invalidateProfileQuery,
+  invalidateReferralQuery,
+} from "@/services/profile/queries";
 import { useBuyShopItem } from "@/services/shop/queries";
 import { ShopItem } from "@/services/shop/types";
 import { NotificationEnum } from "@/types/telegram";
@@ -30,20 +34,32 @@ import { CARDS } from "./cards.data";
 
 type Props = {
   friendsShopItems: ShopItem[];
+  onClose: () => void;
 };
 
-export const InviteModal: FunctionComponent<Props> = ({ friendsShopItems }) => {
+export const InviteModal: FunctionComponent<Props> = ({
+  friendsShopItems,
+  onClose,
+}) => {
   const queryClient = useQueryClient();
   const t = useTranslations(NS.PAGES.FRIENDS.ROOT);
   const tErrors = useTranslations(NS.ERRORS.ROOT);
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [selectedCard, setSelectedCard] = useState<ShopItem | null>(null);
   const { handleSelectionChanged, handleNotificationOccurred } =
     useHapticFeedback();
-  const { mutate } = useBuyShopItem();
+  const { mutate, isPending } = useBuyShopItem();
+  const { buy: buyFriendsFn } = useSafeStarsPayment(
+    () => {
+      handleBuyFriends();
+    },
+    () => {
+      handleBuyFriends();
+    },
+  );
 
-  const handleCardClick = (index: number) => {
+  const handleCardClick = (item: ShopItem) => {
     handleSelectionChanged();
-    setSelectedCard(index);
+    setSelectedCard(item);
   };
 
   const handleBuyFriends = () => {
@@ -55,9 +71,11 @@ export const InviteModal: FunctionComponent<Props> = ({ friendsShopItems }) => {
 
     if (selectedCard === null) return;
 
-    mutate(selectedCard, {
+    mutate(selectedCard.id, {
       onSuccess: () => {
         invalidateReferralQuery(queryClient);
+        invalidateProfileQuery(queryClient);
+        onClose();
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -98,9 +116,9 @@ export const InviteModal: FunctionComponent<Props> = ({ friendsShopItems }) => {
                   color: staticCardData.buttonColor,
                   children: staticCardData.buttonText,
                 }}
-                isSelected={card.id === selectedCard}
+                isSelected={card.id === selectedCard?.id}
                 bottomBadge={<Badge value={formatNumber(card.price)} />}
-                onClick={() => handleCardClick(card.id)}
+                onClick={() => handleCardClick(card)}
                 isAnimated
               >
                 <div className="absolute h-full w-full">
@@ -121,7 +139,8 @@ export const InviteModal: FunctionComponent<Props> = ({ friendsShopItems }) => {
           className="text-stroke-1 w-full uppercase"
           size="large"
           disabled={selectedCard === null}
-          onClick={handleBuyFriends}
+          isLoading={isPending}
+          onClick={() => buyFriendsFn(selectedCard?.price ?? 0)}
         >
           {t(NS.PAGES.FRIENDS.GET_FRIENDS)}
         </PrimaryButton>
