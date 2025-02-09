@@ -1,8 +1,14 @@
 import { AxiosError } from "axios";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
-import { buyHero, getAllAppsHeroes, getAllHeroes, getHero, setHero } from "./fetcher";
+import {
+  buyHero,
+  getAllAppsHeroes,
+  getAllHeroes,
+  getHero,
+  setHero,
+} from "./fetcher";
 import { GetAllAppsHeroesResponse, HeroId, IHeroInfo } from "./types";
 
 export enum QueryKeys {
@@ -21,10 +27,15 @@ export const useGetHero = (heroId?: HeroId) =>
     staleTime: 1000 * 60 * 5,
   });
 
-export const useSetHero = () =>
+export const useSetHero = (
+  onSuccess?: () => void,
+  onError?: (error: AxiosError) => void,
+) =>
   useMutation({
     mutationKey: [QueryKeys.SET_HERO],
     mutationFn: setHero,
+    onSuccess,
+    onError,
   });
 
 export const useGetAllHeroes = (enabled?: boolean) =>
@@ -44,8 +55,23 @@ export const useGetAllAppsHeroes = () =>
     staleTime: 1000 * 60 * 5,
   });
 
-export const useBuyHero = () =>
-  useMutation({
+export const useBuyHero = (
+  onSuccess?: (heroId: HeroId) => void,
+  onError?: (error: AxiosError) => void,
+) =>
+  useMutation<HeroId, AxiosError, HeroId>({
     mutationKey: [QueryKeys.BUY_HERO],
     mutationFn: buyHero,
+    onSuccess,
+    onError,
   });
+
+export const updateGetAllHeroesQuery = (
+  queryClient: QueryClient,
+  heroId: HeroId,
+) => {
+  queryClient.setQueryData(
+    [QueryKeys.GET_ALL_HEROES],
+    (oldHeroes: HeroId[]) => [...oldHeroes, heroId],
+  );
+};

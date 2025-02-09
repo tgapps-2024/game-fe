@@ -28,7 +28,12 @@ export const useSafeStarsPayment = (
             webApp.openInvoice(response.url, (status) => {
               switch (status) {
                 case InvoiceStatus.PAID: {
-                  toast(<Toast type="done" text={status} />);
+                  toast(
+                    <Toast
+                      type="done"
+                      text={`Buying stars has complete. Status: ${status}`}
+                    />,
+                  );
 
                   if (onStarsPaymentSuccess) {
                     onStarsPaymentSuccess();
@@ -38,22 +43,42 @@ export const useSafeStarsPayment = (
                 }
 
                 case InvoiceStatus.FAILED:
-                  toast(<Toast type="destructive" text={status} />);
+                  toast(
+                    <Toast
+                      type="destructive"
+                      text={`Buying stars has failed. Status: ${status}`}
+                    />,
+                  );
                   break;
                 default:
-                  toast(<Toast type="warning" text={status} />);
+                  toast(
+                    <Toast
+                      type="warning"
+                      text={`Buying stars has failed. Status: ${status}`}
+                    />,
+                  );
                   break;
               }
             });
           } catch (e) {
             const message = `${(e as Error).message}`;
 
-            toast(<Toast type="warning" text={message} />);
+            toast(
+              <Toast
+                type="warning"
+                text={`Buying stars has failed. ${message}`}
+              />,
+            );
           }
         }
       },
       (error) => {
-        toast(<Toast type="destructive" text={error.message} />);
+        toast(
+          <Toast
+            type="destructive"
+            text={`Buying stars has failed. ${error.message}`}
+          />,
+        );
 
         if (onStarsPaymentError) {
           onStarsPaymentError();

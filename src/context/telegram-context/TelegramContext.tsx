@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import { toast } from "sonner";
 
+import { LoadingScreen } from "@/components/common";
 import { Toast } from "@/components/ui/toast";
 import { useGetProfile } from "@/services/profile/queries";
 import { IProfile } from "@/services/profile/types";
@@ -37,12 +38,15 @@ export const TelegramProvider = ({
     isPending: isAuthenticating,
     isSuccess: isAuthSuccess,
     isError: isAuthError,
+    refetch: refetchAuth,
   } = useTelegramAuth(webApp as IWebApp);
   const { pathname } = useRouter();
   const {
     data: profile,
     isPending: isProfileLoading,
-    isError: isProfileError,
+    isSuccess: isProfileSuccess,
+    error: profileError,
+    refetch: refetchProfile,
   } = useGetProfile(isAuthSuccess);
 
   useEffect(() => {
@@ -57,15 +61,25 @@ export const TelegramProvider = ({
   }, [isAuthError]);
 
   useEffect(() => {
-    if (isProfileError) {
+    if (profileError) {
       toast(
         <Toast
           type="destructive"
           text="Getting profile failed. Please try again."
         />,
       );
+
+      if (profileError.response?.status === 401) {
+        // When invalid token, refetch auth and profile
+        const refetch = async () => {
+          await refetchAuth({ throwOnError: true });
+          await refetchProfile();
+        };
+
+        refetch();
+      }
     }
-  }, [isProfileError]);
+  }, [profileError, refetchAuth, refetchProfile]);
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
@@ -87,13 +101,16 @@ export const TelegramProvider = ({
       : { isAuthenticating, isProfileLoading };
   }, [webApp, profile, isAuthenticating, isProfileLoading]);
 
+  const showChildren =
+    !isAuthenticating && !isProfileLoading && isProfileSuccess;
+
   return (
     <TelegramContext.Provider value={value}>
       <Script
         src="https://telegram.org/js/telegram-web-app.js"
         strategy="beforeInteractive"
       />
-      {children}
+      {showChildren ? children : <LoadingScreen />}
     </TelegramContext.Provider>
   );
 };

@@ -7,7 +7,7 @@ import React, {
 
 import classNames from "classnames";
 
-import { Spinner } from "@/components/common";
+import { LoadingScreen } from "@/components/common";
 import { useTelegram } from "@/context";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
@@ -23,7 +23,7 @@ export enum OverscrollBehavior {
 type Props = {
   isLoading?: boolean;
   disableSafeAreaInset?: boolean;
-  skeleton?: ReactNode;
+  placeholder?: ReactNode;
   overscrollBehaviour?: OverscrollBehavior;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
@@ -31,7 +31,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
   children,
   className,
   isLoading,
-  skeleton,
+  placeholder,
   overscrollBehaviour = OverscrollBehavior.CONTAIN,
   disableSafeAreaInset = false,
   ...props
@@ -39,16 +39,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
   const { webApp, isAuthenticating } = useTelegram();
 
   if (!webApp?.initDataUnsafe?.user || isAuthenticating || isLoading) {
-    return (
-      <div
-        className={classNames(
-          "flex h-screen max-h-screen w-full justify-center bg-blue-800",
-          { "items-center": !skeleton },
-        )}
-      >
-        {skeleton ? skeleton : <Spinner className="mx-auto stroke-white" />}
-      </div>
-    );
+    return <LoadingScreen placeholder={placeholder} />;
   }
 
   const insetTop = getTgSafeAreaInsetTop(webApp);

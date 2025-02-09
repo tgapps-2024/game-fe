@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { HeroId, HeroRarity } from "@/services/heroes/types";
+import { formatValue } from "@/utils/lib/utils";
 
 import { Coin, CoinType } from "./components/coin/Coin";
 import { Indicator } from "./components/indicator/Indicator";
@@ -29,6 +30,7 @@ type Props = {
   ctaType: HeroStatsCtaType;
   heroId: HeroId;
   heroRarity: HeroRarity;
+  isCtaLoading?: boolean;
   onCtaClick?: () => void;
   onGoToShopClick?: () => void;
 };
@@ -43,6 +45,7 @@ export const HeroStats: FunctionComponent<Props> = ({
   ctaType,
   heroId,
   heroRarity,
+  isCtaLoading,
   onCtaClick,
   onGoToShopClick,
 }) => {
@@ -75,6 +78,7 @@ export const HeroStats: FunctionComponent<Props> = ({
         size="small"
         color={color}
         onClick={onCtaClick}
+        isLoading={isCtaLoading}
         disabled={ctaType === HeroStatsCtaType.SELECTED}
       >
         {t(`${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS[ctaType]}`)}
@@ -91,7 +95,7 @@ export const HeroStats: FunctionComponent<Props> = ({
       <div className="flex flex-col gap-y-4 rounded-2xl bg-[rgba(0,0,0,0.6)] p-4 backdrop-blur-sm">
         <div className="flex flex-col items-center gap-y-2">
           <div className="absolute inset-x-2 bottom-[72%] top-1.5 rounded-t-2xl bg-white opacity-5" />
-          <div className="text-xl font-black leading-none tracking-wide text-white text-shadow text-center">
+          <div className="text-center text-xl font-black leading-none tracking-wide text-white text-shadow">
             {t(
               `${NS.PAGES.HEROES.HERO_NAMES.ROOT}.${NS.PAGES.HEROES.HERO_NAMES[nameTranslationKey]}`,
             )}
@@ -110,7 +114,7 @@ export const HeroStats: FunctionComponent<Props> = ({
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ENERGY}`,
-                  { num: energy },
+                  { num: formatValue(energy) },
                 )}
                 progress={calculateProgress(energy, MAX_ENERGY)}
               />
@@ -123,7 +127,7 @@ export const HeroStats: FunctionComponent<Props> = ({
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.INCOME_PER_HOUR}`,
-                  { num: earnPerHour },
+                  { num: formatValue(earnPerHour) },
                 )}
                 progress={calculateProgress(earnPerHour, MAX_INCOME_PER_HOUR)}
               />
@@ -136,7 +140,7 @@ export const HeroStats: FunctionComponent<Props> = ({
                 )}
                 caption={t(
                   `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.ROOT}.${NS.PAGES.HEROES.LABELS.UNITS.INCOME_PER_TAP}`,
-                  { num: earnPerTap },
+                  { num: formatValue(earnPerTap) },
                 )}
                 progress={calculateProgress(earnPerTap, MAX_INCOME_PER_TAP)}
               />

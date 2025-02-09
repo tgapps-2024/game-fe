@@ -1,5 +1,6 @@
 export * from "./card/Card";
 export * from "./language-switcher/LanguageSwitcher";
+export * from './loading-screen/LoadingScreen';
 export * from "./modal/Modal";
 export * from "./page-wrapper/PageWrapper";
 export * from "./profile-header/ProfileHeader";

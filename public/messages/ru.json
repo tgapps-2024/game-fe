@@ -159,7 +159,7 @@
       "INCOME_PER_TAP": "Доход/тап",
       "UNITS": {
         "ENERGY": "{num}/ч",
-        "INCOME_PER_HOUR": "{num}к/ч",
+        "INCOME_PER_HOUR": "{num}/ч",
         "INCOME_PER_TAP": "{num}/тап"
       },
       "HERO_RARITY": {

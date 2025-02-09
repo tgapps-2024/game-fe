@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 
 import { validateToken } from "@/api/helpers";
@@ -5,6 +6,7 @@ import { AUTH_COOKIE_TOKEN, STALE_TIME } from "@/constants/api";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 
 import { getProfile, getReferalLink } from "./fetcher";
+import { IProfile } from "./types";
 
 export enum QueryKeys {
   GET_PROFILE = "GET_PROFILE",
@@ -24,11 +26,12 @@ export const useGetReferals = () =>
   });
 
 export const useGetProfile = (enabled?: boolean) =>
-  useQuery({
+  useQuery<IProfile, AxiosError>({
     queryKey: [QueryKeys.GET_PROFILE],
     queryFn: getProfile,
     staleTime: STALE_TIME,
     enabled,
+    retry: false,
   });
 
 export const invalidateProfileQuery = (queryClient: QueryClient) => {
