@@ -24,6 +24,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const { locale } = useRouter();
 
+  console.log("ERUDA ENABLED:", process.env.NEXT_PUBLIC_IS_ENABLED_ERUDA);
+
   return (
     <NextIntlClientProvider
       locale={locale}
@@ -47,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Component {...pageProps} />
                   <SpeedInsights />
                   <Toaster />
-                  {process.env.NEXT_IS_ENABLED_ERUNDA && (
+                  {process.env.NEXT_PUBLIC_IS_ENABLED_ERUDA && (
                     <Script
                       src="https://cdn.jsdelivr.net/npm/eruda"
                       strategy="afterInteractive"
