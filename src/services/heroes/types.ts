@@ -72,6 +72,7 @@ export interface ISelectedHero
     IHeroStats {
   rarity: HeroRarity;
   price: number;
+  currency: HeroCurrency;
 }
 
 export interface IHeroInfo extends IHeroEquipment, IHeroStats {

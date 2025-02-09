@@ -38,8 +38,10 @@ export const getAllAppsHeroes = async (): Promise<GetAllAppsHeroesResponse> => {
   return data;
 };
 
-export const buyHero = async (heroId?: HeroId): Promise<void> => {
+export const buyHero = async (heroId: HeroId): Promise<HeroId> => {
   await apiClient.post(API_ENDPOINTS.POST.BUY_HERO, {
     idCharacter: heroId,
   });
+
+  return heroId;
 };

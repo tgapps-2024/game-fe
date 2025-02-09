@@ -37,6 +37,7 @@ apiClient.interceptors.response.use(
       console.warn("Unauthorized. Removing token.");
       Cookies.remove(AUTH_COOKIE_TOKEN);
     }
+
     return Promise.reject(error);
   },
 );

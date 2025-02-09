@@ -43,6 +43,7 @@ const toSelectedHero = (
   energy: config.energy,
   rarity: config.rarity,
   price: config.price,
+  currency: config.currency,
   auto: 0,
   background: 0,
   chain: 0,

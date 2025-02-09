@@ -182,11 +182,11 @@
       "SELECTED": "Selected",
       "GO_TO_SHOP": "Go to shop",
       "ENERGY": "Energy",
-      "INCOME_PER_HOUR": "Income/hour",
-      "INCOME_PER_TAP": "Income/tap",
+      "INCOME_PER_HOUR": "Earn/hour",
+      "INCOME_PER_TAP": "Earn/tap",
       "UNITS": {
         "ENERGY": "{num}/h",
-        "INCOME_PER_HOUR": "{num}c/h",
+        "INCOME_PER_HOUR": "{num}/h",
         "INCOME_PER_TAP": "{num}/tap"
       },
       "HERO_RARITY": {

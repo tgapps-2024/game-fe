@@ -65,6 +65,7 @@ export const PrimaryButton: FunctionComponent<Props> = ({
         { "h-10 rounded-xl": size === "small" },
         { "h-13 rounded-2xl": size === "medium" },
         { "h-14 rounded-2xl": size === "large" },
+        { "pointer-events-none": isLoading },
         buttonClassName,
       )}
       onClick={handleClick}

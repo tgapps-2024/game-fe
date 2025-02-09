@@ -2,13 +2,14 @@ import React, { FunctionComponent } from "react";
 
 import classNames from "classnames";
 
-import { useGetAllAppsHeroes } from "@/services/heroes/queries";
 import { HeroClothPiece, HeroId, HeroRarity } from "@/services/heroes/types";
 
 import { HeroPartImage } from "./components/hero-part-image/HeroPartImage";
 
 type Props = {
   heroId: HeroId;
+  heroRarity: HeroRarity;
+  source: "grid" | "preview";
   className?: string;
 };
 
@@ -17,14 +18,24 @@ export enum HeroBodyPart {
   HEAD = "head",
 }
 
-const HERO_PARTS = [
+/*
+  Rendering order should be as follows:
+    1. HeroBodyPart.BODY
+    2. HeroClothPiece.KIT
+    3. HeroClothPiece.CHAIN
+    4. HeroBodyPart.HEAD
+    5. HeroClothPiece.HAT
+    6. HeroClothPiece.GLASS
+    7. HeroClothPiece.WATCH
+*/
+
+const HERO_PARTS = [HeroBodyPart.BODY, HeroClothPiece.KIT, HeroBodyPart.HEAD];
+
+const DUROV_HERO_PARTS = [
   HeroBodyPart.BODY,
   HeroClothPiece.KIT,
-  HeroClothPiece.CHAIN,
   HeroBodyPart.HEAD,
   HeroClothPiece.HAT,
-  HeroClothPiece.GLASS,
-  HeroClothPiece.WATCH,
 ];
 
 const capitalizeFirstLetter = (str: string) => {
@@ -39,53 +50,47 @@ const srcBuilder = (
 ): string => {
   const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
   const capitalizedPart = capitalizeFirstLetter(part);
-  const endsWith = `/${capitalizedPart}.png`;
+  const endsWith =
+    typeof value === "number" ? `/${value}.webp` : `/${capitalizedPart}.webp`;
 
-  return typeof value === "number"
-    ? `${startsWith}${capitalizedPart}/${value}${endsWith}`
-    : `${startsWith}${capitalizedPart}${endsWith}`;
+  return `${startsWith}${capitalizedPart}${endsWith}`;
 };
 
-export const HeroView: FunctionComponent<Props> = ({ heroId, className }) => {
-  const { data: allHeroes } = useGetAllAppsHeroes();
-
-  if (!allHeroes) return null;
-
-  const hero = allHeroes[heroId];
+export const HeroView: FunctionComponent<Props> = ({
+  heroId,
+  heroRarity,
+  source,
+  className,
+}) => {
+  const sizes = source === "grid" ? "33vw" : "50vw";
+  const heroParts = heroId === HeroId.DUROV ? DUROV_HERO_PARTS : HERO_PARTS;
 
   return (
     <div className={classNames("absolute", className)}>
-      {HERO_PARTS.map((part) => {
+      {heroParts.map((part) => {
         if (part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD) {
           return (
             <HeroPartImage
               key={part}
-              src={srcBuilder(heroId, hero.rarity, part)}
+              src={srcBuilder(heroId, heroRarity, part)}
               quality={100}
               alt={part}
-              sizes="33vw"
+              sizes={sizes}
               fill
             />
           );
         }
 
-        const clothConfig = hero.cloth[part];
-
-        return clothConfig ? (
+        return (
           <HeroPartImage
             key={part}
-            src={srcBuilder(
-              heroId,
-              hero.rarity,
-              part,
-              part === HeroClothPiece.KIT ? 0 : 1,
-            )}
+            src={srcBuilder(heroId, heroRarity, part, 0)}
             quality={100}
             alt={part}
-            sizes="33vw"
+            sizes={sizes}
             fill
           />
-        ) : null;
+        );
       })}
     </div>
   );
