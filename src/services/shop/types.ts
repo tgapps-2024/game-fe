@@ -14,7 +14,7 @@ type ItemDetail = {
   value: string | null;
 };
 
-type ShopItem = {
+export type ShopItem = {
   id: number;
   type: ShopItemTypeEnum;
   price: number;

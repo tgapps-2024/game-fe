@@ -8,3 +8,11 @@ export const getShop = async (): Promise<IShop> => {
 
   return data;
 };
+
+export const buyShopItem = async (itemId: number) => {
+  const { data } = await apiClient.post(API_ENDPOINTS.POST.SHOP_BUY, {
+    item_id: itemId,
+  });
+
+  return data;
+};

@@ -34,3 +34,7 @@ export const useGetProfile = (enabled?: boolean) =>
 export const invalidateProfileQuery = (queryClient: QueryClient) => {
   return queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_PROFILE] });
 };
+
+export const invalidateReferralQuery = (queryClient: QueryClient) => {
+  return queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_REFERALS] });
+};
