@@ -76,6 +76,15 @@ export const InviteModal: FunctionComponent<Props> = ({
         invalidateReferralQuery(queryClient);
         invalidateProfileQuery(queryClient);
         onClose();
+        toast(
+          <Toast
+            type="done"
+            text={t(
+              `${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.BOUGHT_SUCCESSFULLY}`,
+              { number: selectedCard.amount },
+            )}
+          />,
+        );
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -136,7 +145,7 @@ export const InviteModal: FunctionComponent<Props> = ({
         </div>
         <PrimaryButton
           color="secondary"
-          className="text-stroke-1 w-full uppercase"
+          className="text-stroke-1 w-full uppercase text-shadow-sm"
           size="large"
           disabled={selectedCard === null}
           isLoading={isPending}
