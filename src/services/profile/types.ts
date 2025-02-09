@@ -1,10 +1,12 @@
+import { HeroId } from "../heroes/types";
+
 export interface IProfile {
   coins: number;
   stars: number;
   reward_per_hour: number;
   reward_per_tap: number;
   character: {
-    current: number;
+    current: HeroId;
     hat: number;
     glass: number;
     chain: number;

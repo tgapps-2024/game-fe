@@ -141,6 +141,8 @@ export default {
           "radial-gradient(50% 88.48% at 50% 50%, rgba(136, 51, 8, 0) 0%, #883308 100%), url('/assets/png/card-bg.png')",
         "card-indigo-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(64, 59, 183, 0) 0%, #403BB7 100%), url('/assets/png/card-bg.png')",
+        "card-dark-blue-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(32, 57, 80, 0) 0%, #203950 100%), url('/assets/png/card-bg.png')",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -264,6 +266,7 @@ export default {
       fontSize: {
         x: ["10px", "10px"],
         xs: ["12px", "12px"],
+        sm: ["14px", "14px"],
         "3xl": ["32px", "32px"],
       },
       touchAction: {

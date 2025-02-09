@@ -87,7 +87,7 @@ export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
                     )}
                   </div>
                   <div className="flex flex-col justify-center gap-1">
-                    <span className="text-stroke-1 text-sm font-black leading-none tracking-wide text-white text-shadow-sm">
+                    <span className="text-stroke-1 text-sm font-black tracking-wide text-white text-shadow-sm">
                       {friend.name}
                     </span>
                     <span className="text-xs font-medium text-gray-550">

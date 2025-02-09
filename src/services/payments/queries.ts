@@ -10,13 +10,12 @@ enum QueryKeys {
 }
 
 export const useStarsPayment = (
-  starsAmount: number,
   onSuccess?: (response: StarsPaymentResponse) => void,
   onError?: (error: AxiosError) => void,
 ) =>
-  useMutation<StarsPaymentResponse, AxiosError>({
+  useMutation<StarsPaymentResponse, AxiosError, number>({
     mutationKey: [QueryKeys.STARS_PAYMENT],
-    mutationFn: () => payStars(starsAmount),
+    mutationFn: payStars,
     onSuccess,
     onError,
   });

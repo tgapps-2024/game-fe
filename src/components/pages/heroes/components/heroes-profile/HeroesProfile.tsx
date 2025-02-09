@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ProfileHeader } from "@/components/common";
 import { useTelegram } from "@/context";
 import { HeroesContext } from "@/context/heroes-context/HeroesContext";
-import { useGetAllHeroes } from "@/services/heroes/queries";
+import { useGetAllHeroes, useSetHero } from "@/services/heroes/queries";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 import { HeroStats, HeroStatsCtaType } from "./components/hero-stats/HeroStats";
@@ -13,12 +13,8 @@ export const HeroesProfile = () => {
   const { webApp } = useTelegram();
 
   const { selection, currentHero } = useContext(HeroesContext);
-  const {
-    data: ownHeroes,
-    isFetching,
-    isPending,
-  } = useGetAllHeroes(!!webApp && !!selection?.hero);
-  const isOwnHeroesLoading = isFetching || isPending;
+  const { data: ownHeroes, isFetching: isOwnHeroesLoading } = useGetAllHeroes();
+  const { mutate: setProfileHero } = useSetHero();
 
   if (!webApp) return null;
 
@@ -29,7 +25,7 @@ export const HeroesProfile = () => {
     selection?.hero &&
     currentHero.characterId === selection.hero.characterId;
 
-  const isOwnHero =
+  const isSelectableHero =
     !isCurrentHeroSelected &&
     !!ownHeroes?.find((heroId) => heroId === selection?.hero?.characterId);
 
@@ -37,7 +33,7 @@ export const HeroesProfile = () => {
 
   if (isCurrentHeroSelected) {
     ctaType = HeroStatsCtaType.SELECTED;
-  } else if (isOwnHero) {
+  } else if (isSelectableHero) {
     ctaType = HeroStatsCtaType.SELECT;
   }
 
@@ -48,21 +44,30 @@ export const HeroesProfile = () => {
     >
       <ProfileHeader />
 
-      {selection?.hero && !isOwnHeroesLoading && (
-        <div className="absolute bottom-[10%] w-full pt-[77%]">
+      <div className="absolute bottom-[10%] w-full pt-[77%]">
+        {selection?.hero && (
           <HeroView
             className="left-0 top-0 h-full w-[56%]"
             heroId={selection.hero.characterId}
           />
+        )}
+        {selection?.hero && !isOwnHeroesLoading && (
           <HeroStats
+            heroId={selection.hero.characterId}
             energy={selection.hero.energy}
             earnPerHour={selection.hero.earn_per_hour}
             earnPerTap={selection.hero.earn_per_tap}
             heroRarity={selection.hero.rarity}
             ctaType={ctaType}
+            onCtaClick={() => 
+              isSelectableHero
+                ? () =>
+                    selection.hero && setProfileHero(selection.hero.characterId)
+                : undefined
+            }
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

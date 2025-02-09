@@ -32,6 +32,8 @@ export const API_ENDPOINTS = {
     GET_REWARD_FROM_BATTLEPASS: "/get_reward_from_battlepass",
     STARS_PAYMENT: "/stars_payment",
     SHOP_BUY: "/shop_buy",
+    SET_HERO: "/set_character",
+    BUY_HERO: "/buy_character",
   },
 };
 

@@ -94,14 +94,14 @@ export const CommonModal: FunctionComponent<Props> = ({
                   isDone: isInit,
                   description: (
                     <div className="flex flex-col gap-1">
-                      <p className="text-sm font-medium leading-none text-gray-550">
+                      <p className="text-sm font-medium text-gray-550">
                         {t(
                           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                         )}
                       </p>
                       <button
                         onClick={handleButtonClick}
-                        className="flex items-baseline gap-1 font-extrabold uppercase leading-none tracking-wide text-white text-shadow"
+                        className="flex items-baseline gap-1 font-extrabold uppercase tracking-wide text-white text-shadow"
                       >
                         {t(CHECK_TASKS_MODAL_TID[type])}
                         <ExternalSVG className="size-4" />
@@ -114,7 +114,7 @@ export const CommonModal: FunctionComponent<Props> = ({
                   isDone: false,
                   description: (
                     <div className="flex flex-col gap-1">
-                      <p className="text-sm font-medium leading-none text-gray-550">
+                      <p className="text-sm font-medium text-gray-550">
                         {t(
                           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.CHECK_ASSIGNMENTS}`,
                         )}

@@ -1,21 +1,27 @@
-import React, { FunctionComponent, RefObject } from "react";
+import React, {
+  ComponentProps,
+  FunctionComponent,
+  MouseEvent,
+  RefObject,
+} from "react";
 
 import classNames from "classnames";
 
-import { CollectButton, CollectButtonColor } from "@/components/ui";
+import { CollectButton } from "@/components/ui";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
 export enum CardType {
   BLUE = "blue",
   INDIGO = "indigo",
   ORANGE = "orange",
+  DARK_BLUE = "dark_blue",
 }
 
 type Props = {
   children: React.ReactNode;
-  badgeComponent: React.ReactNode;
-  buttonColor?: CollectButtonColor;
-  buttonText: string;
+  bottomBadge?: React.ReactNode;
+  topBadge?: React.ReactNode;
+  collectButtonProps?: Omit<ComponentProps<typeof CollectButton>, "className">;
   isAnimated?: boolean;
   isSelected?: boolean;
   type?: CardType;
@@ -25,9 +31,9 @@ type Props = {
 
 export const Card: FunctionComponent<Props> = ({
   children,
-  badgeComponent,
-  buttonColor,
-  buttonText,
+  bottomBadge,
+  topBadge,
+  collectButtonProps,
   isAnimated = false,
   isSelected = false,
   type = CardType.BLUE,
@@ -41,8 +47,13 @@ export const Card: FunctionComponent<Props> = ({
     onClick();
   };
 
-  const handleGetPrizes = () => {
+  const onCollectButtonClick = (event: MouseEvent) => {
     handleSelectionChanged();
+    event.stopPropagation();
+
+    if (collectButtonProps?.onClick) {
+      collectButtonProps?.onClick(event);
+    }
   };
 
   return (
@@ -54,18 +65,19 @@ export const Card: FunctionComponent<Props> = ({
           "bg-[#0069B1]": type === CardType.BLUE,
           "bg-[#403BB7]": type === CardType.INDIGO,
           "bg-[#A6552D]": type === CardType.ORANGE,
+          "bg-[#101C28]": type === CardType.DARK_BLUE,
           "scale-105": isSelected,
         },
       )}
       onClick={handleClick}
     >
-      <CollectButton
-        className="absolute -top-1 left-1/2 z-20 -translate-x-1/2"
-        color={buttonColor}
-        onClick={handleGetPrizes}
-      >
-        {buttonText}
-      </CollectButton>
+      {collectButtonProps && (
+        <CollectButton
+          className="absolute -top-1 left-1/2 z-20 -translate-x-1/2"
+          {...collectButtonProps}
+          onClick={onCollectButtonClick}
+        />
+      )}
       <div
         className={classNames(
           "h-full rounded-xl p-1 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.3)]",
@@ -75,6 +87,7 @@ export const Card: FunctionComponent<Props> = ({
             "bg-gradient-to-b from-[#9099FD] to-[#777AF0]":
               type === CardType.INDIGO,
             "bg-[#EFC609]": type === CardType.ORANGE,
+            "bg-[#203950]": type === CardType.DARK_BLUE,
           },
         )}
       >
@@ -85,6 +98,7 @@ export const Card: FunctionComponent<Props> = ({
               "bg-[#0069B1]": type === CardType.BLUE,
               "bg-[#883308]": type === CardType.ORANGE,
               "bg-[#403BB7]": type === CardType.INDIGO,
+              "bg-[#203950]": type === CardType.DARK_BLUE,
             },
           )}
         >
@@ -95,24 +109,43 @@ export const Card: FunctionComponent<Props> = ({
                 "bg-card-blue-bg-pattern": type === CardType.BLUE,
                 "bg-card-indigo-bg-pattern": type === CardType.INDIGO,
                 "bg-card-orange-bg-pattern": type === CardType.ORANGE,
+                "bg-card-dark-blue-bg-pattern": type === CardType.DARK_BLUE,
               },
             )}
           />
-          <div className="shadow-card-inner-shadow relative h-full w-full overflow-hidden rounded-xl">
+          <div className="relative h-full w-full overflow-hidden rounded-xl shadow-card-inner-shadow">
             {children}
           </div>
-          <div
-            className={classNames(
-              "absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md text-xs shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.3)]",
-              {
-                "bg-[#2596E4]": type === CardType.BLUE,
-                "bg-[#777AF0]": type === CardType.INDIGO,
-                "bg-[#EFC609]": type === CardType.ORANGE,
-              },
-            )}
-          >
-            {badgeComponent}
-          </div>
+          {topBadge && (
+            <div
+              className={classNames(
+                "absolute left-1/2 top-0 -translate-x-1/2 rounded-b-md text-xs shadow-[inset_0_-1px_0.5px_0_#FFFFFF33,0_1px_2px_0_#00000033]",
+                {
+                  "bg-[#2596E4]": type === CardType.BLUE,
+                  "bg-[#777AF0]": type === CardType.INDIGO,
+                  "bg-[#EFC609]": type === CardType.ORANGE,
+                  "bg-[#203950]": type === CardType.DARK_BLUE,
+                },
+              )}
+            >
+              {topBadge}
+            </div>
+          )}
+          {bottomBadge && (
+            <div
+              className={classNames(
+                "absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md text-xs shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.3)]",
+                {
+                  "bg-[#2596E4]": type === CardType.BLUE,
+                  "bg-[#777AF0]": type === CardType.INDIGO,
+                  "bg-[#EFC609]": type === CardType.ORANGE,
+                  "bg-[#203950]": type === CardType.DARK_BLUE,
+                },
+              )}
+            >
+              {bottomBadge}
+            </div>
+          )}
         </div>
       </div>
       {isAnimated && (

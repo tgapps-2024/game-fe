@@ -134,7 +134,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-sm font-extrabold leading-none text-white">
+                <span className="text-sm font-extrabold text-white">
                   {t(
                     `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.DEFAULT}.${NS.PAGES.REWARDS.BOOSTERS.ENERGY}`,
                   )}
@@ -200,7 +200,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-sm font-extrabold leading-none text-white">
+                <span className="text-sm font-extrabold text-white">
                   {t(
                     `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.DEFAULT}.${NS.PAGES.REWARDS.BOOSTERS.RECOVERY_ENERGY}`,
                   )}

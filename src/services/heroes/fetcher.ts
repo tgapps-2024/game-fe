@@ -16,6 +16,12 @@ export const getHero = async (heroId?: HeroId): Promise<IHeroInfo> => {
   return data;
 };
 
+export const setHero = async (heroId?: HeroId): Promise<void> => {
+  await apiClient.post(API_ENDPOINTS.POST.SET_HERO, {
+    idCharacter: heroId,
+  });
+};
+
 export const getAllHeroes = async (): Promise<HeroId[]> => {
   const { data } = await apiClient.get<GetAllHeroesResponse>(
     API_ENDPOINTS.GET.GET_ALL_HEROES,
@@ -30,4 +36,10 @@ export const getAllAppsHeroes = async (): Promise<GetAllAppsHeroesResponse> => {
   );
 
   return data;
+};
+
+export const buyHero = async (heroId?: HeroId): Promise<void> => {
+  await apiClient.post(API_ENDPOINTS.POST.BUY_HERO, {
+    idCharacter: heroId,
+  });
 };
