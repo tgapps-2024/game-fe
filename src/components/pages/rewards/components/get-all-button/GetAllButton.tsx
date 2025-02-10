@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -6,6 +6,7 @@ import classNames from "classnames";
 
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
+import { useCountdownTimer } from "@/hooks/useCountDownTimer";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { NotificationEnum } from "@/types/telegram";
 
@@ -23,46 +24,7 @@ export const GetAllButton: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged, handleNotificationOccurred } =
     useHapticFeedback();
-  const [timeLeft, setTimeLeft] = useState<{ h: string; m: string; s: string }>(
-    {
-      h: "00",
-      m: "00",
-      s: "00",
-    },
-  );
-
-  useEffect(() => {
-    const updateTimer = () => {
-      const now = new Date(Date.now() + new Date().getTimezoneOffset() * 60000); // Текущее время в GMT
-
-      const midnight = new Date(now);
-      midnight.setUTCHours(0, 0, 0, 0);
-      midnight.setUTCDate(midnight.getUTCDate() + 1);
-
-      const remaining = midnight.getTime() - now.getTime();
-
-      const hours = String(
-        Math.floor(remaining / (1000 * 60 * 60) - 3),
-      ).padStart(2, "0");
-      const minutes = String(
-        Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60)),
-      ).padStart(2, "0");
-      const seconds = String(
-        Math.floor((remaining % (1000 * 60)) / 1000),
-      ).padStart(2, "0");
-
-      setTimeLeft({
-        h: hours,
-        m: minutes,
-        s: seconds,
-      });
-    };
-
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(timerInterval);
-  }, []);
+  const timeLeft = useCountdownTimer();
 
   const handleCollectReward = () => {
     if (disabled) {

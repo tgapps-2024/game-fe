@@ -1,4 +1,4 @@
-import React, { FunctionComponent, MouseEvent, useState } from "react";
+import React, { FunctionComponent, MouseEvent, useMemo, useState } from "react";
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -10,12 +10,17 @@ import { Drawer } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BatteryImage from "@/public/assets/png/rewards/full-energy.webp";
-import StarSVG from "@/public/assets/svg/star.svg";
-import { useTempEnergyBooster } from "@/services/rewards/queries";
+import { invalidateProfileQuery } from "@/services/profile/queries";
+import {
+  invalidateBoostersQuery,
+  useTempEnergyBooster,
+} from "@/services/rewards/queries";
 import { TempEnergyBooster } from "@/services/rewards/types";
-import { formatNumber } from "@/utils/number";
+import { useBuyShopItem, useGetShop } from "@/services/shop/queries";
+import { ShopItemTypeEnum } from "@/services/shop/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { PremiumBoosterModal } from "./components/premium-booster-modal/PremiumBoosterModal";
@@ -26,15 +31,23 @@ type Props = {
 };
 
 export const PremiumBoosters: FunctionComponent<Props> = ({
-  booster,
   isAnimated,
+  booster,
 }) => {
-  const queryClient = useQueryClient();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { profile } = useTelegram();
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
-  const PRICE = 200000;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
   const { mutate } = useTempEnergyBooster(queryClient);
+  const { mutate: mutateBuyShopItem } = useBuyShopItem();
+  const { data } = useGetShop();
+  const [isRequesting, setRequesting] = useState(false);
+
+  const boosterShopItems = useMemo(
+    () => data?.items.filter((item) => item.type === ShopItemTypeEnum.BOOSTER),
+    [data],
+  );
 
   const handlePlankClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -46,16 +59,48 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
 
   const handleUseBoosterMutation = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
+    setRequesting(true);
     handleSelectionChanged();
 
     mutate(undefined, {
       onSuccess: () => {
+        invalidateBoostersQuery(queryClient);
         if (isModalOpen) setIsModalOpen(false);
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),
+      onSettled: () => setRequesting(false),
     });
+  };
+
+  const handleBuyBooster = (id: number) => {
+    setRequesting(true);
+    mutateBuyShopItem(id, {
+      onSuccess: () => {
+        invalidateBoostersQuery(queryClient);
+        invalidateProfileQuery(queryClient);
+        toast(
+          <Toast
+            type="done"
+            text={t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.SUCCESS_BUY_BOOSTER}`,
+            )}
+          />,
+        );
+      },
+      onError: (error) =>
+        toast(<Toast type="destructive" text={error.message} />),
+      onSettled: () => setRequesting(false),
+    });
+  };
+
+  const handleUseBooster = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (!booster?.amount) {
+      setIsModalOpen(true);
+    } else {
+      handleUseBoosterMutation(event);
+    }
   };
 
   return (
@@ -110,23 +155,33 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
           </div>
           <div className="pointer-events-auto w-[122px]">
             <PrimaryButton
-              onClick={handleUseBoosterMutation}
+              onClick={handleUseBooster}
               size="small"
-              color={PRICE ? "primary" : "secondary"}
+              isLoading={isRequesting}
+              color={!booster?.amount ? "primary" : "secondary"}
               buttonClassName="relative z-50"
               className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
             >
-              <div className="grid grid-cols-[16px_1fr] items-center gap-2">
-                <StarSVG className="size-4" />
-                {formatNumber(PRICE)}
-              </div>
+              {!booster?.amount
+                ? t(
+                    `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.BUY}`,
+                  )
+                : t(
+                    `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+                  )}
             </PrimaryButton>
           </div>
         </div>
       </div>
       <PremiumBoosterModal
         onSubmit={handleUseBoosterMutation}
-        booster={booster}
+        onBuyBooster={handleBuyBooster}
+        currentEnergy={profile?.max_energy ?? 0}
+        maxEnergy={(profile?.max_energy ?? 1) * 5}
+        endTime={booster.end}
+        boosterShopItems={boosterShopItems ?? []}
+        amount={booster.amount}
+        isRequesting={isRequesting}
       />
     </Drawer>
   );

@@ -129,8 +129,10 @@
       "AVAILABLE": "Доступно",
       "NOT_AVAILABLE": "Недоступно",
       "APPLY": "Применить",
+      "BUY": "Купить",
       "COUNT": "{num1} из {num2}",
       "LEVEL": "{num} ур.",
+      "SUCCESS_BUY_BOOSTER": "Успешная покупка бустера",
       "PREMIUM": {
         "TITLE": "Премиум усилители",
         "ENERGY_BOOSTERS": "Умножитель энергии"

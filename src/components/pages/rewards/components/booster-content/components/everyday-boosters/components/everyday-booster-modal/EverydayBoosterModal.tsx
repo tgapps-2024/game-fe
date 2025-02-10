@@ -16,18 +16,19 @@ import EnergyImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
 import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
 import UnionIcon from "@/public/assets/svg/rewards/union.svg";
-import { FullBooster } from "@/services/rewards/types";
 
 type Props = {
-  booster: FullBooster;
   disabled?: boolean;
   onSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
+  currentEnergy: number;
+  maxEnergy: number;
 };
 
 export const EverydayBoosterModal: FunctionComponent<Props> = ({
-  booster,
   disabled,
   onSubmit,
+  currentEnergy,
+  maxEnergy,
 }) => {
   return (
     <DrawerContent
@@ -68,7 +69,7 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
-              {booster?.fullRestore}
+              {currentEnergy}
             </span>
           </div>
         </div>
@@ -82,7 +83,7 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              {booster?.nextRestore}
+              {maxEnergy}
             </span>
           </div>
         </div>

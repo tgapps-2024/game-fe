@@ -104,7 +104,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
-              {formatNumber(capacity?.current)}
+              {capacity?.current}
             </span>
           </div>
         </div>
@@ -122,7 +122,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              {formatNumber(capacity?.new)}
+              {capacity?.new}
             </span>
           </div>
         </div>
