@@ -10,6 +10,7 @@ import { Drawer } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import BatteryImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import { useFullBooster } from "@/services/rewards/queries";
@@ -28,6 +29,7 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
   booster,
 }) => {
   const queryClient = useQueryClient();
+  const { profile } = useTelegram();
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = null;
@@ -135,7 +137,8 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
       <EverydayBoosterModal
         onSubmit={handleUseBoosterMutation}
         disabled={!isAvailable}
-        booster={booster}
+        currentEnergy={profile?.energy || 0}
+        maxEnergy={profile?.max_energy || 0}
       />
     </Drawer>
   );

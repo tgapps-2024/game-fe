@@ -128,8 +128,10 @@
       "AVAILABLE": "Available",
       "NOT_AVAILABLE": "Not available",
       "APPLY": "Apply",
+      "BUY": "Buy",
       "COUNT": "{num1} of {num2}",
       "LEVEL": "{num} lvl",
+      "SUCCESS_BUY_BOOSTER": "Successful booster purchase",
       "PREMIUM": {
         "TITLE": "Premium boosters",
         "ENERGY_BOOSTERS": "Energy multipliers"

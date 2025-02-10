@@ -156,6 +156,7 @@ export const NS = {
         AVAILABLE: "AVAILABLE",
         NOT_AVAILABLE: "NOT_AVAILABLE",
         APPLY: "APPLY",
+        BUY: "BUY",
         COUNT: "COUNT",
         LEVEL: "LEVEL",
         EVERYDAY: "EVERYDAY",
@@ -165,6 +166,7 @@ export const NS = {
         RECOVERY_ENERGY: "RECOVERY_ENERGY",
         TITLE: "TITLE",
         ENERGY: "ENERGY",
+        SUCCESS_BUY_BOOSTER: "SUCCESS_BUY_BOOSTER",
       },
       EVENTS: {
         ROOT: "EVENTS",

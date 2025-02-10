@@ -63,6 +63,10 @@ export const useGetBoosters = () =>
     staleTime: STALE_TIME,
   });
 
+export const invalidateBoostersQuery = (queryClient: QueryClient) => {
+  queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOSTERS] });
+};
+
 export const useFullBooster = (queryClient: QueryClient) =>
   useMutation({
     mutationKey: [QueryKeys.USE_FULL_BOOSTER],
