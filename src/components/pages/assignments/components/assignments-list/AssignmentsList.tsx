@@ -27,7 +27,7 @@ export const AssignmentsList: FunctionComponent<Props> = ({
     <>
       <div className="mt-6 flex flex-col gap-4 px-4">
         <div className="flex items-center justify-between">
-          <div className="text-nowrap text-2xl font-black leading-none tracking-[0.04em] text-white">
+          <div className="text-nowrap text-2xl font-black tracking-[0.04em] text-white">
             {t(`${NS.PAGES.ASSIGNMENTS.TYPES.ROOT}.${type}`)}
           </div>
           {isLoading ? (

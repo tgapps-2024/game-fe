@@ -58,7 +58,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({
           className="z-20"
         />
       </div>
-      <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
+      <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase text-white text-shadow-sm">
         Запас энергии
       </DrawerTitle>
       <DrawerDescription className="mb-6 text-sm font-medium tracking-wide text-white">

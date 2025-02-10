@@ -159,6 +159,7 @@
     "LABELS": {
       "GET": "Получить",
       "BUY": "Купить",
+      "BOUGHT": "Куплено",
       "SELECT": "Выбрать",
       "SELECTED": "Выбрано",
       "GO_TO_SHOP": "Перейти в магазин",
@@ -205,6 +206,14 @@
       "TRUMP": "Дональд Трамп",
       "ZUCKERBERG": "Марк Цукерберг"
     }
+  },
+  "SHOP": {
+    "TITLE": "Одежда",
+    "KIT": "{form, select, plural {Комплекты} full_plural {Комплекты одежды} full_singular {Комлект одежды} other {Комплект}}",
+    "HAT": "{form, select, plural {Шляпы} other {Шляпа}}",
+    "CHAIN": "{form, select, plural {Цепи} other {Цепь}}",
+    "GLASS": "Очки",
+    "WATCH": "Часы"
   },
   "ERRORS": {
     "notEnoughStars": "Недостаточно звезд",

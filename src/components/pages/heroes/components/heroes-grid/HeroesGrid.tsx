@@ -5,8 +5,9 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 
 import { PAGE_WRAPPER_ID } from "@/components/common";
+import { HSTitleBoard } from "@/components/hs-shared";
 import { NS } from "@/constants/ns";
-import { HeroesContext } from "@/context/heroes-context/HeroesContext";
+import { HSSharedContext } from "@/context/hs-shared-context/HSSharedContext";
 import {
   useGetAllAppsHeroes,
   useGetAllHeroes,
@@ -22,7 +23,7 @@ export const HeroesGrid = () => {
   const [selectedTab, setSelectedTab] = useState<HeroRarity>(HeroRarity.COMMON);
   const { data: heroes } = useGetAllAppsHeroes();
   const { data: ownHeroes, isPending: isOwnHeroesPending } = useGetAllHeroes();
-  const { currentHero, selectHero } = useContext(HeroesContext);
+  const { currentHero, selectHero } = useContext(HSSharedContext);
 
   const heroesByRarity = useMemo(
     () => (heroes ? groupAllAppsHeroesByRarity(heroes) : null),
@@ -41,16 +42,10 @@ export const HeroesGrid = () => {
 
   return (
     <div className="relative">
-      <div className="absolute inset-x-0 -top-[50px] mx-auto w-fit rounded-t-2xl bg-[#FFCE08] px-1 pt-1">
-        <div
-          className={classNames(
-            "w-fit rounded-b-md rounded-t-xl bg-orange-550 px-[30px] py-2 shadow-battle-pass-combined",
-            "text-stroke-half text-2xl font-black uppercase tracking-wide text-white text-shadow",
-          )}
-        >
-          {t(NS.PAGES.HEROES.TITLE)}
-        </div>
-      </div>
+      <HSTitleBoard
+        className="absolute inset-x-0 -top-[50px] mx-auto"
+        title={t(NS.PAGES.HEROES.TITLE)}
+      />
       <HeroesTabs selectedTab={selectedTab} onSelectTab={setSelectedTab} />
       <div className="overflow-y-auto bg-[#192632]">
         <div

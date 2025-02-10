@@ -79,13 +79,17 @@ export interface IHeroInfo extends IHeroEquipment, IHeroStats {
   current: HeroId;
 }
 
-export type GetAllHeroesResponse = {
-  characters: HeroId[];
-};
+export interface IHeroClothConfig extends IHeroStats {
+  id: number;
+  level_for_open: number;
+  price: number;
+  currency: HeroCurrency;
+}
+
+export type HeroClothPieceConfig = Record<string, IHeroClothConfig>;
 
 export interface IHeroConfig extends IHeroStats {
-  cloth: Record<HeroClothPiece, Record<string, string>>; // todo: Improve "cloth" type
-  currency: HeroCurrency;
+  cloth: Record<HeroClothPiece, HeroClothPieceConfig | null>;
   level_for_open: number;
   price: number;
   rarity: HeroRarity;
@@ -94,6 +98,10 @@ export interface IHeroConfig extends IHeroStats {
 export interface IHeroConfigWithId extends IHeroConfig {
   characterId: HeroId;
 }
+
+export type GetAllHeroesResponse = {
+  characters: HeroId[];
+};
 
 export type GetAllAppsHeroesResponse = Record<HeroId, IHeroConfig>;
 

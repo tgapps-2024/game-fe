@@ -183,6 +183,7 @@ export const NS = {
         ROOT: "LABELS",
         GET: "GET",
         BUY: "BUY",
+        BOUGHT: "BOUGHT",
         SELECT: "SELECT",
         SELECTED: "SELECTED",
         GO_TO_SHOP: "GO_TO_SHOP",
@@ -232,6 +233,15 @@ export const NS = {
         TRUMP: "TRUMP",
         ZUCKERBERG: "ZUCKERBERG",
       },
+    },
+    SHOP: {
+      ROOT: "SHOP",
+      TITLE: "TITLE",
+      KIT: "KIT",
+      HAT: "HAT",
+      CHAIN: "CHAIN",
+      GLASS: "GLASS",
+      WATCH: "WATCH",
     },
   },
   ERRORS: {
