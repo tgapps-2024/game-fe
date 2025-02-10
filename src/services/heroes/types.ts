@@ -90,6 +90,7 @@ export type HeroClothPieceConfig = Record<string, IHeroClothConfig>;
 
 export interface IHeroConfig extends IHeroStats {
   cloth: Record<HeroClothPiece, HeroClothPieceConfig | null>;
+  currency: HeroCurrency;
   level_for_open: number;
   price: number;
   rarity: HeroRarity;
