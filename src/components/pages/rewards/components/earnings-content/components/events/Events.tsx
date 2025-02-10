@@ -18,7 +18,7 @@ export const Events: FunctionComponent<Props> = ({ isAnimated }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-stroke-1 text-nowrap text-2xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+      <div className="text-stroke-1 text-nowrap text-2xl font-black tracking-[0.04em] text-white text-shadow-sm">
         Мероприятия
       </div>
       <div

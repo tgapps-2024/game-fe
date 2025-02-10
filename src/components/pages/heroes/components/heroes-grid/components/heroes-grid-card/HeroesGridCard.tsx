@@ -9,7 +9,7 @@ import { NS } from "@/constants/ns";
 import { HeroId, HeroRarity } from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
 
-import { HeroView } from "../../../heroes-profile/components/hero-view/HeroView";
+import { HeroView } from "../../../../../../hs-shared/hero-view/HeroView";
 
 type Props = {
   heroId: HeroId;

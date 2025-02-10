@@ -105,7 +105,7 @@ export const InviteModal: FunctionComponent<Props> = ({
         <CloseIcon />
       </DrawerClose>
 
-      <DrawerTitle className="!text-stroke-1 mb-3 text-center !text-2xl !font-black uppercase leading-none !tracking-wide text-white !text-shadow-sm">
+      <DrawerTitle className="!text-stroke-1 mb-3 text-center !text-2xl !font-black uppercase !tracking-wide text-white !text-shadow-sm">
         {t(`${NS.PAGES.FRIENDS.MODAL.ROOT}.${NS.PAGES.FRIENDS.MODAL.TITLE}`)}
       </DrawerTitle>
       <DrawerDescription className="mb-6 text-center text-sm font-medium leading-3 tracking-wide text-gray-550">

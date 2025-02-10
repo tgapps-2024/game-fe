@@ -1,9 +1,11 @@
 import React, { ComponentProps, FunctionComponent } from "react";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
+import { ROUTES } from "@/constants/routes";
 import { HeroId, HeroRarity } from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
 
@@ -18,6 +20,7 @@ import {
 
 export enum HeroStatsCtaType {
   BUY = "BUY",
+  BOUGHT = 'BOUGHT',
   GET = "GET",
   SELECT = "SELECT",
   SELECTED = "SELECTED",
@@ -32,7 +35,6 @@ type Props = {
   heroRarity: HeroRarity;
   isCtaLoading?: boolean;
   onCtaClick?: () => void;
-  onGoToShopClick?: () => void;
 };
 
 const calculateProgress = (current: number, max: number) =>
@@ -47,7 +49,6 @@ export const HeroStats: FunctionComponent<Props> = ({
   heroRarity,
   isCtaLoading,
   onCtaClick,
-  onGoToShopClick,
 }) => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
 
@@ -55,7 +56,8 @@ export const HeroStats: FunctionComponent<Props> = ({
     let color: ComponentProps<typeof PrimaryButton>["color"];
 
     switch (ctaType) {
-      case HeroStatsCtaType.BUY: {
+      case HeroStatsCtaType.BUY:
+      case HeroStatsCtaType.BOUGHT: {
         color = "secondary";
         break;
       }
@@ -151,14 +153,14 @@ export const HeroStats: FunctionComponent<Props> = ({
           {renderCta()}
           {(ctaType === HeroStatsCtaType.SELECT ||
             ctaType === HeroStatsCtaType.SELECTED) && (
-            <div
+            <Link
+              href={ROUTES.SHOP}
               className="text-center text-sm font-extrabold text-white"
-              onClick={onGoToShopClick}
             >
               {t(
                 `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.GO_TO_SHOP}`,
               )}
-            </div>
+            </Link>
           )}
         </div>
       </div>

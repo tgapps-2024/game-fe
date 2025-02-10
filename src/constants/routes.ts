@@ -5,6 +5,7 @@ export const ROUTES = {
   BATTLE_PASS: "/battle-pass",
   FRIENDS: "/friends",
   HEROES: "/heroes",
+  SHOP: "/shop",
   REWARDS: "/rewards",
 };
 

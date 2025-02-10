@@ -6,3 +6,4 @@ export * from "./heroes/Heroes";
 export * from "./home/Home";
 export * from "./rewards/Rewards";
 export * from "./settings/Settings";
+export * from './shop/Shop';

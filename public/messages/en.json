@@ -180,6 +180,7 @@
     "LABELS": {
       "GET": "Get",
       "BUY": "Buy",
+      "BOUGHT": "Bought",
       "SELECT": "Select",
       "SELECTED": "Selected",
       "GO_TO_SHOP": "Go to shop",
@@ -226,6 +227,14 @@
       "TRUMP": "Donald Trump",
       "ZUCKERBERG": "Mark Zuckerberg"
     }
+  },
+  "SHOP": {
+    "TITLE": "Cloth",
+    "KIT": "{form, select, plural {Kits} full_plural {Kits} full_singular {Kit} other {Kit}}",
+    "HAT": "{form, select, plural {Hats} single {Hat}}",
+    "CHAIN": "{form, select, plural {Chains} single {Chain}}",
+    "GLASS": "Glasses",
+    "WATCH": "Watch"
   },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",

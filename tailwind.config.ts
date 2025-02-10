@@ -127,6 +127,7 @@ export default {
           "linear-gradient(270deg, #FF86E5 0%, #FFFFFF 10.5%, rgba(255, 60, 213, 0.15) 100%)",
         "bp-bottom-menu-pattern":
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
+        "shop-inventory-bg-pattern": "linear-gradient(180deg, #FFDE60 0%, #FABF33 100%)",
         "card-glow-pattern":
           "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
         "booster-modal-pattern":
@@ -267,6 +268,7 @@ export default {
         x: ["10px", "10px"],
         xs: ["12px", "12px"],
         sm: ["14px", "14px"],
+        "2xl": ["24px", "24px"],
         "3xl": ["32px", "32px"],
       },
       touchAction: {
