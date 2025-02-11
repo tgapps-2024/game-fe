@@ -31,6 +31,7 @@ export const ShopProfile = () => {
             earnPerHour={selection.hero.earn_per_hour}
             earnPerTap={selection.hero.earn_per_tap}
             heroRarity={selection.hero.rarity}
+            source="shop"
             ctaType={HeroStatsCtaType.BUY}
             isCtaLoading={false}
           />

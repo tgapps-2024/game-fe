@@ -6,6 +6,7 @@ import {
   GetAllHeroesResponse,
   HeroId,
   IHeroInfo,
+  IOwnHeroCloth,
 } from "./types";
 
 export const getHero = async (heroId?: HeroId): Promise<IHeroInfo> => {
@@ -44,4 +45,18 @@ export const buyHero = async (heroId: HeroId): Promise<HeroId> => {
   });
 
   return heroId;
+};
+
+/* Heroes Cloth Shop */
+export const getClothHero = async (
+  heroId: HeroId,
+): Promise<IOwnHeroCloth> => {
+  const { data } = await apiClient.get<IOwnHeroCloth>(
+    API_ENDPOINTS.GET.GET_CLOTH_HERO,
+    {
+      params: { idCharacter: heroId },
+    },
+  );
+
+  return data;
 };

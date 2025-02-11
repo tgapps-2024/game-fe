@@ -180,7 +180,6 @@
     "LABELS": {
       "GET": "Get",
       "BUY": "Buy",
-      "BOUGHT": "Bought",
       "SELECT": "Select",
       "SELECTED": "Selected",
       "GO_TO_SHOP": "Go to shop",
@@ -230,6 +229,9 @@
   },
   "SHOP": {
     "TITLE": "Cloth",
+    "LABELS": {
+      "BUY": "Buy"
+    },
     "KIT": "{form, select, plural {Kits} full_plural {Kits} full_singular {Kit} other {Kit}}",
     "HAT": "{form, select, plural {Hats} single {Hat}}",
     "CHAIN": "{form, select, plural {Chains} single {Chain}}",

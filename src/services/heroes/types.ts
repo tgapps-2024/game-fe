@@ -27,6 +27,11 @@ export enum HeroId {
   ZUCKERBERG = "Zuckerberg",
 }
 
+export enum HeroBodyPart {
+  BODY = "body",
+  HEAD = "head",
+}
+
 export enum HeroClothPiece {
   CHAIN = "chain",
   HAT = "hat",
@@ -106,7 +111,16 @@ export type GetAllHeroesResponse = {
 
 export type GetAllAppsHeroesResponse = Record<HeroId, IHeroConfig>;
 
-export type AllAppsHeroesByRarity = Record<
-  HeroRarity,
-  Array<IHeroConfigWithId>
->;
+export type AllAppsHeroesByRarity = Record<HeroRarity, IHeroConfigWithId[]>;
+
+/* Heroes Cloth Shop */
+export interface IOwnHeroCloth {
+  character: HeroId;
+  cloth: {
+    chain: number[];
+    glass: number[];
+    hat: number[];
+    kit: number[];
+    watch: number[];
+  };
+}
