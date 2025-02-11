@@ -128,14 +128,21 @@
     "BOOSTERS": {
       "AVAILABLE": "Доступно",
       "NOT_AVAILABLE": "Недоступно",
-      "APPLY": "Применить",
+      "APPLY": "Применить усиление",
       "BUY": "Купить",
       "COUNT": "{num1} из {num2}",
       "LEVEL": "{num} ур.",
+      "COUNT_BOOSTERS": "{num} шт.",
+      "BUY_FOR": "Приобрести за",
       "SUCCESS_BUY_BOOSTER": "Успешная покупка бустера",
+      "SUCCESS_APPLY_BOOSTER": "Успешное применение бустера",
       "PREMIUM": {
         "TITLE": "Премиум усилители",
-        "ENERGY_BOOSTERS": "Умножитель энергии"
+        "ENERGY_BOOSTERS": "Умножитель энергии",
+        "MODAL_TITLE": "Временное увеличение запаса энергии",
+        "TEMP_ENERGY": "Временное увеличение максимального запаса энергии",
+        "MULTIPLE_TEMP_ENERGY": "Временное увеличение максимального запаса энергии в {amount} раз",
+        "COUNT": "Количество"
       },
       "EVERYDAY": {
         "TITLE": "Ежедневные усилители",

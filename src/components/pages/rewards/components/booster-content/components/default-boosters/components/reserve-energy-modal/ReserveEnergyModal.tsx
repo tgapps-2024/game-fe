@@ -65,28 +65,40 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({
         Увеличивает максимальный запас энергии
       </DrawerDescription>
       <div className="mb-6 flex w-full items-center justify-between px-3">
-        {Array(10)
+        {Array(11)
           .fill(0)
           .map((_, index) => {
-            const isLess = capacity?.level >= index + 1;
+            const isLess = capacity?.level > index;
+            const isCurrent = capacity?.level === index;
 
             return (
               <div key={index} className="flex flex-col items-center gap-2">
                 <div
                   key={index}
-                  className={classNames("size-2 rounded-full bg-gray-550", {
-                    "size-4 rounded-full": index === 0 || index === 9,
-                    "!bg-white": isLess,
-                    "mb-5": index !== 0 && index !== 9,
-                  })}
+                  className={classNames(
+                    "relative z-20 size-2 rounded-full bg-gray-550",
+                    {
+                      "size-4 rounded-full":
+                        index === 0 || index === 10 || isCurrent,
+                      "!bg-white": isLess,
+                      "z-10 mb-1 !bg-blue-500": isCurrent,
+                      "mb-5": !isCurrent && index !== 0 && index !== 10,
+                      "after:animate-pulse-wave after:absolute after:inset-0 after:z-10 after:size-full after:rounded-full after:bg-blue-500 after:content-['']":
+                        isCurrent,
+                    },
+                  )}
                 />
-                {index === 0 ? (
+                {isCurrent ? (
                   <span className="text-xs font-medium tracking-wide text-gray-550">
-                    {index + 1} ур.
+                    {index} ур.
                   </span>
-                ) : index === 9 ? (
+                ) : index === 10 ? (
                   <span className="text-xs font-medium tracking-wide text-gray-550">
-                    {index + 1} ур.
+                    {index} ур.
+                  </span>
+                ) : index === 0 && capacity?.level > 0 ? (
+                  <span className="text-xs font-medium tracking-wide text-gray-550">
+                    {index} ур.
                   </span>
                 ) : null}
               </div>

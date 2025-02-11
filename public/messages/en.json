@@ -127,14 +127,18 @@
     "BOOSTERS": {
       "AVAILABLE": "Available",
       "NOT_AVAILABLE": "Not available",
-      "APPLY": "Apply",
+      "APPLY": "Apply booster",
       "BUY": "Buy",
       "COUNT": "{num1} of {num2}",
       "LEVEL": "{num} lvl",
+      "COUNT_BOOSTERS": "{num} шт.",
+      "BUY_FOR": "Buy for",
       "SUCCESS_BUY_BOOSTER": "Successful booster purchase",
       "PREMIUM": {
         "TITLE": "Premium boosters",
-        "ENERGY_BOOSTERS": "Energy multipliers"
+        "ENERGY_BOOSTERS": "Energy multipliers",
+        "TEMP_ENERGY": "Temporary energy increase",
+        "MULTIPLE_TEMP_ENERGY": "Temporary increase maximum energy by {amount} times"
       },
       "EVERYDAY": {
         "TITLE": "Everyday boosters",

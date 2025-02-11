@@ -14,7 +14,7 @@ import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import EnergyImage from "@/public/assets/png/rewards/green-battery-half.webp";
 import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
-import FriendsIcon from "@/public/assets/svg/friends-coin.svg";
+import ClockIcon from "@/public/assets/svg/rewards/clock.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
 import { RecoveryBooster, UpgradeBoosterType } from "@/services/rewards/types";
 import { formatNumber } from "@/utils/number";
@@ -71,25 +71,37 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
         {Array(10)
           .fill(0)
           .map((_, index) => {
+            const isCurrent = recoveryBooster?.level === index;
             const isLess = LEVEL >= index + 1;
 
             return (
               <div key={index} className="flex flex-col items-center gap-2">
                 <div
                   key={index}
-                  className={classNames("size-2 rounded-full bg-gray-550", {
-                    "size-4 rounded-full": index === 0 || index === 9,
-                    "!bg-white": isLess,
-                    "mb-5": index !== 0 && index !== 9,
-                  })}
+                  className={classNames(
+                    "relative z-20 size-2 rounded-full bg-gray-550",
+                    {
+                      "size-4 rounded-full":
+                        index === 0 || index === 10 || isCurrent,
+                      "!bg-white": isLess,
+                      "z-10 mb-1 !bg-blue-500": isCurrent,
+                      "mb-5": !isCurrent && index !== 0 && index !== 10,
+                      "after:animate-pulse-wave after:absolute after:inset-0 after:z-10 after:size-full after:rounded-full after:bg-blue-500 after:content-['']":
+                        isCurrent,
+                    },
+                  )}
                 />
-                {index === 0 ? (
+                {isCurrent ? (
                   <span className="text-xs font-medium tracking-wide text-gray-550">
-                    {index + 1} ур.
+                    {index} ур.
                   </span>
-                ) : index === 9 ? (
+                ) : index === 10 ? (
                   <span className="text-xs font-medium tracking-wide text-gray-550">
-                    {index + 1} ур.
+                    {index} ур.
+                  </span>
+                ) : index === 0 && LEVEL > 0 ? (
+                  <span className="text-xs font-medium tracking-wide text-gray-550">
+                    {index} ур.
                   </span>
                 ) : null}
               </div>
@@ -105,15 +117,15 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
             Запас энергии
           </span>
           <div className="flex items-center gap-2">
-            <FriendsIcon className="size-5" />
+            <ClockIcon className="size-5" />
             <span className="text-lg font-semibold leading-none text-white">
               {recoveryBooster?.current}
             </span>
           </div>
         </div>
-        <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#35AFF1_0%,_#4DC0FF_50%,_#9EDDFF_100%)] px-3 py-2 text-sm font-semibold text-white text-shadow-sm">
-          <FriendsIcon className="mr-1 size-5" /> +
-          {(recoveryBooster?.new - recoveryBooster?.current).toFixed(1)}
+        <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#FFDE60_0%,_#FABF33_100%)] px-3 py-2 text-sm font-semibold text-white text-shadow-sm">
+          <ClockIcon className="mr-1 size-5" />
+          {(recoveryBooster?.new - recoveryBooster?.current).toFixed(2)}
         </div>
         <div className="flex w-full flex-col items-end gap-3 rounded-2xl bg-blue-700 p-3">
           <div className="mb-2 self-end rounded-full bg-[#0075FF] px-2.5 py-[5px] text-xs text-white">
@@ -123,8 +135,8 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
             Запас энергии
           </span>
           <div className="flex items-center gap-2">
-            <FriendsIcon className="size-5" />
-            <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
+            <ClockIcon className="size-5" />
+            <span className="inline-block bg-gradient-to-b from-[#FFDE60] to-[#FABF33] bg-clip-text text-lg font-bold leading-none text-transparent">
               {recoveryBooster?.new}
             </span>
           </div>
