@@ -30,21 +30,24 @@ type Props = {
   boosterShopItems: ShopItem[];
   amount: number;
   isRequesting: boolean;
+  selectedBooster: ShopItem | null;
+  setSelectedBooster: (booster: ShopItem) => void;
   onSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
-  onBuyBooster: (id: number) => void;
 };
 
 export const PremiumBoosterModal: FunctionComponent<Props> = ({
   onSubmit,
-  onBuyBooster,
   currentEnergy,
   maxEnergy,
   endTime,
   boosterShopItems,
   amount,
   isRequesting,
+  selectedBooster,
+  setSelectedBooster,
 }) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
+  const hasTimer = Date.now() < endTime * 1000;
 
   return (
     <DrawerContent
@@ -72,12 +75,21 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
         />
       </div>
       <DrawerTitle className="text-stroke-half mb-6 text-center text-2xl font-black uppercase leading-none text-white text-shadow-sm">
-        Полный запас энергии х2
+        {t(
+          `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.PREMIUM}.${NS.PAGES.REWARDS.BOOSTERS.MODAL_TITLE}`,
+        )}
       </DrawerTitle>
-      <DrawerDescription className="mb-6 text-sm font-medium tracking-wide text-white">
-        Полностью восстанавливает запас энергии
+      <DrawerDescription className="mb-6 text-center text-sm font-medium tracking-wide text-white">
+        {!selectedBooster?.amount || selectedBooster.amount === 1
+          ? t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.PREMIUM}.${NS.PAGES.REWARDS.BOOSTERS.TEMP_ENERGY}`,
+            )
+          : t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.PREMIUM}.${NS.PAGES.REWARDS.BOOSTERS.MULTIPLE_TEMP_ENERGY}`,
+              { amount: selectedBooster.amount },
+            )}
       </DrawerDescription>
-      {Date.now() < endTime && (
+      {hasTimer && (
         <div className="mb-6 w-full">
           <Timer epochTime={endTime} />
         </div>
@@ -104,36 +116,60 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              {maxEnergy}
+              {selectedBooster
+                ? currentEnergy * selectedBooster.amount + currentEnergy
+                : maxEnergy}
             </span>
           </div>
         </div>
       </div>
-
-      <div className="mb-6 grid w-full grid-cols-3 gap-2">
-        {boosterShopItems.map((item) => (
-          <PrimaryButton
-            key={item.id}
-            size="small"
-            isLoading={isRequesting}
-            className="flex gap-1 text-nowrap text-xs"
-            onClick={() => onBuyBooster(item.id)}
-          >
-            <StarSVG className="size-4" />
-            {item.price} ({item.amount})
-          </PrimaryButton>
-        ))}
+      <div className="mb-6 w-full">
+        <p className="mb-3 text-xs font-medium tracking-wide text-gray-550">
+          {t(
+            `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.PREMIUM}.${NS.PAGES.REWARDS.BOOSTERS.COUNT}`,
+          )}
+        </p>
+        <div className="grid w-full grid-cols-3 gap-2">
+          {boosterShopItems.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setSelectedBooster(item)}
+              className={classNames(
+                "flex w-full items-center justify-center gap-1 text-nowrap rounded-xl border border-solid border-black py-3 text-sm font-semibold",
+                {
+                  "border-2 !border-[#0075FF] bg-[#203950]":
+                    selectedBooster?.id === item.id,
+                },
+              )}
+            >
+              {t(
+                `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.COUNT_BOOSTERS}`,
+                { num: item.amount },
+              )}
+            </div>
+          ))}
+        </div>
       </div>
       <PrimaryButton
         onClick={onSubmit}
         size="large"
         disabled={!amount}
         isLoading={isRequesting}
-        color="secondary"
+        color={selectedBooster ? "primary" : "secondary"}
         className="flex gap-1 text-base uppercase"
       >
-        {t(
-          `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+        {selectedBooster ? (
+          <div className="flex items-center gap-1">
+            {t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.BUY_FOR}`,
+            )}
+            <StarSVG className="size-6" />
+            {selectedBooster.price}
+          </div>
+        ) : (
+          t(
+            `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+          )
         )}
       </PrimaryButton>
     </DrawerContent>

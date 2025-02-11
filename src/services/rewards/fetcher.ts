@@ -51,7 +51,7 @@ export const getUpgradeBooster = async (
   type: UpgradeBoosterType,
 ): Promise<{ status: string }> => {
   const { data } = await apiClient.post(API_ENDPOINTS.GET.UPGRADE_BOOSTER, {
-    type,
+    btype: type,
   });
 
   return data;

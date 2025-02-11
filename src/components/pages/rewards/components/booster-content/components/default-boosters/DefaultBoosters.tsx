@@ -10,6 +10,7 @@ import { Drawer } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { Toast } from "@/components/ui/toast";
 import { NS } from "@/constants/ns";
+import { useTelegram } from "@/context";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import GreenBatteryFullImage from "@/public/assets/png/rewards/green-battery-full.webp";
 import GreenBatteryHalfImage from "@/public/assets/png/rewards/green-battery-half.webp";
@@ -46,6 +47,15 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
   const isCapacityAvailable = useMemo(() => capacity?.level < 10, [capacity]);
   const isRecoveryAvailable = useMemo(() => recovery?.level < 10, [recovery]);
   const { mutate } = useUpgradeBooster(queryClient);
+  const { profile } = useTelegram();
+  const isRecoveryDisabled = useMemo(
+    () => recovery?.level >= 10 || recovery.price > (profile?.coins ?? 0),
+    [recovery, profile],
+  );
+  const isCapacityDisabled = useMemo(
+    () => capacity?.level >= 10 || capacity.price > (profile?.coins ?? 0),
+    [capacity, profile],
+  );
 
   const handleCapacityContainerClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -73,14 +83,6 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
       type === UpgradeBoosterType.CAPACITY
         ? isCapacityAvailable
         : isRecoveryAvailable;
-    const isModalOpen =
-      type === UpgradeBoosterType.CAPACITY
-        ? isCapacityModalOpen
-        : isRecoveryModalOpen;
-    const setIsModalOpen =
-      type === UpgradeBoosterType.CAPACITY
-        ? setIsCapacityModalOpen
-        : setIsRecoveryModalOpen;
 
     if (!isAvailable) return;
 
@@ -88,7 +90,14 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
 
     mutate(type, {
       onSuccess: () => {
-        if (isModalOpen) setIsModalOpen(false);
+        toast(
+          <Toast
+            type="done"
+            text={t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.SUCCESS_APPLY_BOOSTER}`,
+            )}
+          />,
+        );
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),
@@ -160,6 +169,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
                 onClick={(e) =>
                   handleUseBoosterMutation(e, UpgradeBoosterType.CAPACITY)
                 }
+                disabled={isCapacityDisabled}
                 size="small"
                 className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
               >
@@ -172,7 +182,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
           </div>
           <ReserveEnergyModal
             onSubmit={handleUseBoosterMutation}
-            disabled={capacity?.level >= 10}
+            disabled={isCapacityDisabled}
             capacity={capacity}
           />
         </Drawer>
@@ -213,8 +223,8 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
                     )}
                   </span>
                   <span className="flex items-center gap-1 text-xs font-semibold text-white">
-                    <FriendsIcon className="size-4" /> +
-                    {(recovery?.new - recovery?.current).toFixed(1)}
+                    <FriendsIcon className="size-4" />
+                    {(recovery?.new - recovery?.current).toFixed(2)} c
                   </span>
                 </div>
               </div>
@@ -224,6 +234,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
                 onClick={(e) =>
                   handleUseBoosterMutation(e, UpgradeBoosterType.RECOVERY)
                 }
+                disabled={isRecoveryDisabled}
                 size="small"
                 className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
               >
@@ -235,7 +246,7 @@ export const DefaultBoosters: FunctionComponent<Props> = ({
             </div>
           </div>
           <RecoveryEnergyModal
-            disabled={recovery?.level >= 10}
+            disabled={isRecoveryDisabled}
             onSubmit={handleUseBoosterMutation}
             recoveryBooster={recovery}
           />

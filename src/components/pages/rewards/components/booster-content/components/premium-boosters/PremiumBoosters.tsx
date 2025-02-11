@@ -20,7 +20,7 @@ import {
 } from "@/services/rewards/queries";
 import { TempEnergyBooster } from "@/services/rewards/types";
 import { useBuyShopItem, useGetShop } from "@/services/shop/queries";
-import { ShopItemTypeEnum } from "@/services/shop/types";
+import { ShopItem, ShopItemTypeEnum } from "@/services/shop/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { PremiumBoosterModal } from "./components/premium-booster-modal/PremiumBoosterModal";
@@ -39,10 +39,11 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const { handleSelectionChanged } = useHapticFeedback();
   const queryClient = useQueryClient();
+  const { data } = useGetShop();
   const { mutate } = useTempEnergyBooster(queryClient);
   const { mutate: mutateBuyShopItem } = useBuyShopItem();
-  const { data } = useGetShop();
   const [isRequesting, setRequesting] = useState(false);
+  const [selectedBooster, setSelectedBooster] = useState<ShopItem | null>(null);
 
   const boosterShopItems = useMemo(
     () => data?.items.filter((item) => item.type === ShopItemTypeEnum.BOOSTER),
@@ -73,7 +74,15 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
     });
   };
 
-  const handleBuyBooster = (id: number) => {
+  const handleBoosterClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (selectedBooster) {
+      handleBuyBooster(selectedBooster.id, () => setSelectedBooster(null));
+    } else {
+      handleUseBoosterMutation(e);
+    }
+  };
+
+  const handleBuyBooster = (id: number, onSuccess?: () => void) => {
     setRequesting(true);
     mutateBuyShopItem(id, {
       onSuccess: () => {
@@ -87,6 +96,7 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
             )}
           />,
         );
+        if (onSuccess) onSuccess(); // Только после успешной покупки сбрасываем selectedBooster
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),
@@ -103,8 +113,19 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
     }
   };
 
+  const handleSelectBooster = (booster: ShopItem) =>
+    setSelectedBooster(booster);
+
   return (
-    <Drawer open={isModalOpen} onOpenChange={setIsModalOpen}>
+    <Drawer
+      open={isModalOpen}
+      onOpenChange={(open) => {
+        setIsModalOpen(open);
+        if (!open) {
+          setSelectedBooster(null);
+        }
+      }}
+    >
       <div>
         <div className="mb-4 flex items-center justify-between">
           <div className="text-stroke-1 text-nowrap text-xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
@@ -174,8 +195,9 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
         </div>
       </div>
       <PremiumBoosterModal
-        onSubmit={handleUseBoosterMutation}
-        onBuyBooster={handleBuyBooster}
+        onSubmit={handleBoosterClick}
+        selectedBooster={selectedBooster}
+        setSelectedBooster={handleSelectBooster}
         currentEnergy={profile?.max_energy ?? 0}
         maxEnergy={(profile?.max_energy ?? 1) * 5}
         endTime={booster.end}
