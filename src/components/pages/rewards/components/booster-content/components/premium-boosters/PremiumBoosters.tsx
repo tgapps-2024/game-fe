@@ -67,6 +67,14 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
       onSuccess: () => {
         invalidateBoostersQuery(queryClient);
         if (isModalOpen) setIsModalOpen(false);
+        toast(
+          <Toast
+            type="done"
+            text={t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.SUCCESS_APPLY_BOOSTER}`,
+            )}
+          />,
+        );
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),
