@@ -13,13 +13,13 @@ import {
 import { HeroId, IHeroConfig, ISelectedHero } from "@/services/heroes/types";
 import { useGetProfile } from "@/services/profile/queries";
 
-type HeroesContextSelection = {
+type HSSharedContextSelection = {
   hero?: ISelectedHero;
 };
 
-type HeroesContextValue = {
+type HSSharedContextValue = {
   currentHero?: ISelectedHero;
-  selection: HeroesContextSelection;
+  selection: HSSharedContextSelection;
   selectHero: (hero: HeroId) => void;
 };
 
@@ -31,7 +31,8 @@ const DEFAULT_VALUE = {
   selectHero: () => {},
 };
 
-export const HeroesContext = createContext<HeroesContextValue>(DEFAULT_VALUE);
+export const HSSharedContext =
+  createContext<HSSharedContextValue>(DEFAULT_VALUE);
 
 const toSelectedHero = (
   heroId: HeroId,
@@ -53,7 +54,7 @@ const toSelectedHero = (
   watch: 0,
 });
 
-export const HeroesProvider: FunctionComponent<PropsWithChildren> = ({
+export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
   const { data: profile } = useGetProfile();
@@ -62,7 +63,7 @@ export const HeroesProvider: FunctionComponent<PropsWithChildren> = ({
 
   useGetAllHeroes();
 
-  const [selection, setSelection] = useState<HeroesContextSelection>({
+  const [selection, setSelection] = useState<HSSharedContextSelection>({
     hero: undefined,
   });
 
@@ -93,6 +94,8 @@ export const HeroesProvider: FunctionComponent<PropsWithChildren> = ({
   }, [currentProfileHero, selection, allHeroes]);
 
   return (
-    <HeroesContext.Provider value={value}>{children}</HeroesContext.Provider>
+    <HSSharedContext.Provider value={value}>
+      {children}
+    </HSSharedContext.Provider>
   );
 };

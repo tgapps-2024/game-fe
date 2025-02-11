@@ -24,7 +24,7 @@ export const HeroesTabs: FunctionComponent<Props> = ({
         <div className="h-1.5 w-full bg-[#FFCE08] shadow-inner-light" />
         <div className="relative h-0.5 w-full bg-[#E88C0E]" />
       </div>
-      <div className="relative z-10 flex flex-col">
+      <div className="flex flex-col">
         <div className="h-0.5 w-full bg-[#35637D]" />
         <div className="flex w-full gap-x-2 bg-gradient-to-b from-[#04A0F5] to-[#0A4CDE] p-4">
           {Object.keys(HeroRarity).map((key) => {

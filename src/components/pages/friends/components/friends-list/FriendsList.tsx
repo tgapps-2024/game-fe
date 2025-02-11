@@ -29,7 +29,7 @@ export const FriendsList: FunctionComponent<Props> = ({ referalsData }) => {
       transition={{ type: "spring", stiffness: 80, damping: 15 }}
     >
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-stroke-1 text-nowrap text-2xl font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+        <div className="text-stroke-1 text-nowrap text-2xl font-black tracking-[0.04em] text-white text-shadow-sm">
           {t(NS.PAGES.FRIENDS.TITLE)}
         </div>
         <div className="flex items-center gap-2 text-sm font-medium text-gray-550">

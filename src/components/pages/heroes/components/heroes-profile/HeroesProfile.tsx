@@ -3,10 +3,14 @@ import React, { useContext } from "react";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 
-import { ProfileHeader } from "@/components/common";
+import {
+  HeroStats,
+  HeroStatsCtaType,
+  HeroView,
+  HSProfile,
+} from "@/components/hs-shared";
 import { Toast } from "@/components/ui/toast";
-import { useTelegram } from "@/context";
-import { HeroesContext } from "@/context/heroes-context/HeroesContext";
+import { HSSharedContext } from "@/context/hs-shared-context/HSSharedContext";
 import { useSafeCoinsPayment } from "@/hooks/useSafeCoinsPayment";
 import { useSafeStarsPayment } from "@/hooks/useSafeStarsPayment";
 import {
@@ -17,18 +21,12 @@ import {
 } from "@/services/heroes/queries";
 import { HeroCurrency, HeroId } from "@/services/heroes/types";
 import { invalidateProfileQuery } from "@/services/profile/queries";
-import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { HeroStats, HeroStatsCtaType } from "./components/hero-stats/HeroStats";
-import { HeroView } from "./components/hero-view/HeroView";
-
 export const HeroesProfile = () => {
-  const { webApp } = useTelegram();
-
   const queryClient = useQueryClient();
 
-  const { selection, currentHero } = useContext(HeroesContext);
+  const { selection, currentHero } = useContext(HSSharedContext);
   const { data: ownHeroes, isPending: isOwnHeroesPending } = useGetAllHeroes();
   const { mutate: setProfileHero, isPending: isSettingProfileHero } =
     useSetHero(
@@ -46,7 +44,9 @@ export const HeroesProfile = () => {
     );
   const { mutate: buyHero, isPending: isBuyingHero } = useBuyHero(
     (response: HeroId) => {
+      invalidateProfileQuery(queryClient);
       updateGetAllHeroesQuery(queryClient, response);
+
       toast(<Toast type="done" text="Buying hero has complete!" />);
     },
     (error: AxiosError) => {
@@ -79,9 +79,6 @@ export const HeroesProfile = () => {
     }
   });
 
-  if (!webApp) return null;
-
-  const insetTop = getTgSafeAreaInsetTop(webApp);
 
   const isCurrentHeroSelected =
     currentHero &&
@@ -101,22 +98,20 @@ export const HeroesProfile = () => {
   }
 
   return (
-    <div
-      className="relative aspect-[0.78] bg-[url('/assets/png/heroes/bg.webp')] bg-cover bg-[32%_center] bg-no-repeat pt-28"
-      style={insetTop ? { paddingTop: insetTop } : undefined}
-    >
-      <ProfileHeader />
-
-      <div className="absolute bottom-[10%] w-full pt-[77%]">
-        {selection?.hero && (
+    <HSProfile
+      HeroViewNode={
+        selection?.hero && (
           <HeroView
             className="left-0 top-0 h-full w-[56%]"
             heroId={selection.hero.characterId}
             heroRarity={selection.hero.rarity}
             source="preview"
           />
-        )}
-        {selection?.hero && !isOwnHeroesPending && (
+        )
+      }
+      HeroStatsNode={
+        selection?.hero &&
+        !isOwnHeroesPending && (
           <HeroStats
             heroId={selection.hero.characterId}
             energy={selection.hero.energy}
@@ -143,8 +138,8 @@ export const HeroesProfile = () => {
                 : undefined
             }
           />
-        )}
-      </div>
-    </div>
+        )
+      }
+    />
   );
 };
