@@ -78,11 +78,18 @@ export const HeroesGridCard: FunctionComponent<Props> = ({
       type={type}
     >
       <HeroView
-        className="absolute h-full w-full"
+        className="h-full w-full"
         heroId={heroId}
         heroRarity={heroRarity}
         source="grid"
       />
+      {isOwnHero && (
+        <div className="absolute inset-x-0 bottom-2 mx-auto text-center text-xs font-bold text-white text-shadow">
+          {t(
+            `${NS.PAGES.HEROES.HERO_NAMES.ROOT}.${NS.PAGES.HEROES.HERO_NAMES[heroId.toUpperCase() as Uppercase<HeroId>]}`,
+          )}
+        </div>
+      )}
     </Card>
   );
 };

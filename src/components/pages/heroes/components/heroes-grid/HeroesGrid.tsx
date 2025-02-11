@@ -43,7 +43,7 @@ export const HeroesGrid = () => {
   return (
     <div className="relative">
       <HSTitleBoard
-        className="absolute inset-x-0 -top-[50px] mx-auto"
+        className="absolute inset-x-0 -top-[44px] mx-auto"
         title={t(NS.PAGES.HEROES.TITLE)}
       />
       <HeroesTabs selectedTab={selectedTab} onSelectTab={setSelectedTab} />

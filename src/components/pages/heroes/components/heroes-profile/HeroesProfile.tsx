@@ -79,7 +79,6 @@ export const HeroesProfile = () => {
     }
   });
 
-
   const isCurrentHeroSelected =
     currentHero &&
     selection?.hero &&
@@ -120,6 +119,7 @@ export const HeroesProfile = () => {
             heroRarity={selection.hero.rarity}
             ctaType={ctaType}
             isCtaLoading={isBuyingHero || isSettingProfileHero}
+            source="heroes"
             onCtaClick={
               !isCurrentHeroSelected
                 ? () => {
