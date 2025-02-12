@@ -9,16 +9,16 @@ import { HeroClothPiece } from "@/services/heroes/types";
 type Props = {
   label: string | null;
   clothPiece: HeroClothPiece;
-  clothNumber?: number;
+  clothId?: number;
 };
 
 export const InventoryCell: FunctionComponent<Props> = ({
   label,
   clothPiece,
-  clothNumber,
+  clothId,
 }) => {
   const onClick = () => {
-    if (!clothNumber) {
+    if (!clothId) {
       const target = document.getElementById(
         CLOTH_PIECE_CONTAINER_ID[clothPiece],
       );

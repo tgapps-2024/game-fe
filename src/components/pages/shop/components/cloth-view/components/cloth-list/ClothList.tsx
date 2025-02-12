@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { NS } from "@/constants/ns";
 import { HSSharedContext } from "@/context/hs-shared-context/HSSharedContext";
-import { useGetAllAppsHeroes } from "@/services/heroes/queries";
+import { useGetAllAppsHeroes, useGetClothHeroQuery } from "@/services/heroes/queries";
 import { HeroClothPiece } from "@/services/heroes/types";
 
 import { ClothListRow } from "./components/cloth-list-row/ClothListRow";
@@ -13,15 +13,18 @@ export const ClothList = () => {
   const t = useTranslations(NS.PAGES.SHOP.ROOT);
   const { selection } = useContext(HSSharedContext);
   const { data: heroes } = useGetAllAppsHeroes();
+  const { data: heroOwnCloth } = useGetClothHeroQuery(selection.hero?.characterId);
 
-  if (!selection.hero || !heroes) return null;
+  if (!selection.hero || !heroes || !heroOwnCloth) return null;
+
   const { characterId: heroId } = selection.hero;
   const hero = heroes[heroId];
 
   return (
-    <div className="flex flex-col gap-y-6 bg-[#35241C] px-4 pb-6 pt-4">
+    <div className="flex flex-col grow gap-y-6 bg-[#35241C] px-4 pb-6 pt-4">
       {Object.keys(hero.cloth).map((clothPiece) => {
         const clothPieceConfig = hero.cloth[clothPiece as HeroClothPiece];
+        const ownCloth = heroOwnCloth.cloth[clothPiece as HeroClothPiece];
 
         return (
           clothPieceConfig && (
@@ -35,6 +38,7 @@ export const ClothList = () => {
               clothPieceConfig={clothPieceConfig}
               heroId={heroId}
               heroRarity={hero.rarity}
+              ownCloth={ownCloth}
             />
           )
         );

@@ -12,7 +12,7 @@ export const ClothView: FunctionComponent = () => {
   const t = useTranslations(NS.PAGES.SHOP.ROOT);
 
   return (
-    <div className="relative">
+    <div className="relative flex flex-col grow">
       <HSTitleBoard
         className="absolute inset-x-0 -top-11 mx-auto"
         title={t(NS.PAGES.SHOP.TITLE)}

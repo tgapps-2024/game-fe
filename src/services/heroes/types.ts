@@ -51,6 +51,8 @@ export enum HeroCurrency {
   COINS = "coins",
 }
 
+export type SelectedCloth = Record<HeroClothPiece, number>;
+
 export interface IHeroIdentity {
   characterId: HeroId;
 }
@@ -61,23 +63,18 @@ export interface IHeroStats {
   energy: number;
 }
 
-export interface IHeroEquipment {
+export interface IHeroEquipment extends SelectedCloth {
   auto: number; // todo: future feature
   background: number; // todo: future feature
-  chain: number;
-  glass: number;
-  hat: number;
-  kit: number;
-  watch: number;
 }
 
-export interface ISelectedHero
-  extends IHeroIdentity,
-    IHeroEquipment,
-    IHeroStats {
+export interface ISelectedHero extends IHeroIdentity, IHeroStats {
+  auto: number; // todo: future feature
+  background: number; // todo: future feature
   rarity: HeroRarity;
   price: number;
   currency: HeroCurrency;
+  cloth: SelectedCloth;
 }
 
 export interface IHeroInfo extends IHeroEquipment, IHeroStats {
@@ -116,11 +113,5 @@ export type AllAppsHeroesByRarity = Record<HeroRarity, IHeroConfigWithId[]>;
 /* Heroes Cloth Shop */
 export interface IOwnHeroCloth {
   character: HeroId;
-  cloth: {
-    chain: number[];
-    glass: number[];
-    hat: number[];
-    kit: number[];
-    watch: number[];
-  };
+  cloth: Record<HeroClothPiece, number[]>;
 }

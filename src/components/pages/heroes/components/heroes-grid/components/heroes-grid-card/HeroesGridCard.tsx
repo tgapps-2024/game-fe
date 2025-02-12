@@ -3,13 +3,12 @@ import React, { FunctionComponent } from "react";
 import { useTranslations } from "next-intl";
 
 import { Card, CardType } from "@/components/common";
+import { HeroView } from "@/components/hs-shared/hero-view/HeroView";
 import { Badge } from "@/components/pages/friends/components/invite-modal/components/badge/Badge";
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import { HeroId, HeroRarity } from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
-
-import { HeroView } from "../../../../../../hs-shared/hero-view/HeroView";
 
 type Props = {
   heroId: HeroId;

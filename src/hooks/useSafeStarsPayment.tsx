@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { toast } from "sonner";
 
@@ -23,9 +23,10 @@ export const useSafeStarsPayment = (
   onStarsPaymentError?: () => void,
 ): UseSafeStarsPaymentConfig => {
   const queryClient = useQueryClient();
+  const [isStarsPaymentLoading, setIsStarsPaymentLoading] = useState(false);
   const { webApp } = useTelegram();
   const { data: profile } = useGetProfile();
-  const { mutate: buyStars, isPending: isStarsPaymentLoading } =
+  const { mutate: buyStars } =
     useStarsPayment(
       (response) => {
         if (webApp) {
@@ -74,6 +75,8 @@ export const useSafeStarsPayment = (
                 text={`Buying stars has failed. ${message}`}
               />,
             );
+          } finally {
+            setIsStarsPaymentLoading(false);
           }
         }
       },
@@ -88,6 +91,8 @@ export const useSafeStarsPayment = (
         if (onStarsPaymentError) {
           onStarsPaymentError();
         }
+
+        setIsStarsPaymentLoading(false);
       },
     );
 
@@ -96,6 +101,8 @@ export const useSafeStarsPayment = (
       if ((profile?.stars ?? 0) >= starsAmount) {
         buyItemFn();
       } else {
+        setIsStarsPaymentLoading(true);
+
         buyStars(starsAmount, {
           onSuccess: () => {
             invalidateProfileQuery(queryClient);
