@@ -122,7 +122,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             isProfileLoading ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
-              <BottomComponent value={profile?.friends ?? 0} />
+              <BottomComponent value={profile?.friends.toFixed(2) ?? 0} />
             )
           }
           imageNode={
@@ -142,7 +142,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             isProfileLoading ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
-              <BottomComponent value={profile?.stars ?? 0} />
+              <BottomComponent value={profile?.stars.toFixed(2) ?? 0} />
             )
           }
           imageNode={

@@ -160,7 +160,35 @@
       "LEADER_OF_MINDS": "Лидер мнений",
       "TAXI": "Такси",
       "INVITE_FRIENDS": "Пригласи друзей: {number}",
-      "LEVEL": "{num} ур."
+      "LEVEL": "{num} ур.",
+      "EVENTS_LIST": {
+        "STARSBANK": "Банк StarsBank",
+        "OILCOMPANY": "Нефтяная компания",
+        "GREENENERGY": "Зеленая энергия",
+        "CHARGINGSTATION": "Зарядная станция",
+        "PSYCHOLOGIST": "Психолог",
+        "SUCCESSFULTRADING": "Успешный трейдинг",
+        "BARBERSHOP": "Барбершоп",
+        "STREAMER": "Стример",
+        "COMPUTERCLUB": "Компьютерный клуб",
+        "GAMECOMPANY": "Игровая компания",
+        "SHOP": "Магазин",
+        "FOODDELIVERY": "Доставка еды",
+        "RESTAURANT": "Ресторан",
+        "EDUCATIONALCOURSES": "Образовательные курсы",
+        "CYBERSECURITY": "Кибербезопасность",
+        "STARLINK": "Starlink",
+        "STARTUP": "Стартап",
+        "ELECTICALCOMMERCY": "Электронная коммерция",
+        "SOCIALNETWORKS": "Социальные сети",
+        "BLOGGING": "Блоггинг",
+        "PODCASTER": "Подкастер",
+        "OPINIONLEADER": "Лидер мнений",
+        "CONFERENCE": "Конференция",
+        "TAXI": "Такси",
+        "HOTEL": "Отель",
+        "AUTOSALON": "Автосалон"
+      }
     }
   },
   "HEROES": {

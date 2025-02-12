@@ -8,11 +8,18 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import {
+  useGetAllAppsCards,
   useGetBoosters,
+  useGetCards,
   useGetDailyReward,
   useGetDailyRewardInfo,
 } from "@/services/rewards/queries";
-import { IBoosters, IDailyRewardInfo } from "@/services/rewards/types";
+import {
+  DataStructure,
+  Events,
+  IBoosters,
+  IDailyRewardInfo,
+} from "@/services/rewards/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { BoosterContent } from "./components/booster-content/BoosterContent";
@@ -30,6 +37,9 @@ export const Rewards = () => {
     useGetDailyRewardInfo();
   const { mutate: getDailyReward, isPending } = useGetDailyReward(queryClient);
   const { data, isLoading: isLoadingBoosters } = useGetBoosters();
+  const { data: appsCards, isLoading: isLoadingAppsCards } =
+    useGetAllAppsCards();
+  const { data: cards, isLoading: isLoadingCards } = useGetCards();
 
   useEffect(() => {
     if (!api) {
@@ -53,7 +63,12 @@ export const Rewards = () => {
   return (
     <PageWrapper
       className="flex flex-col bg-blue-800 pt-4"
-      isLoading={isLoadingDailyReward || isLoadingBoosters}
+      isLoading={
+        isLoadingDailyReward ||
+        isLoadingBoosters ||
+        isLoadingCards ||
+        isLoadingAppsCards
+      }
     >
       <ProfileHeader />
       <div className="mt-6 flex flex-1 flex-col gap-6">
@@ -65,7 +80,11 @@ export const Rewards = () => {
         <Carousel setApi={setApi}>
           <CarouselContent>
             <CarouselItem>
-              <EarningsContent isActive={current === 1} />
+              <EarningsContent
+                isActive={current === 1}
+                cards={cards ?? ({} as DataStructure)}
+                appsCards={appsCards ?? ({} as Events)}
+              />
             </CarouselItem>
             <CarouselItem>
               <RewardsContent

@@ -24,6 +24,8 @@ export const API_ENDPOINTS = {
     GET_ALL_HEROES: "/get_all_characters",
     GET_ALL_APPS_HEROES: "/get_all_apps_characters",
     GET_SHOP: "/get_shop",
+    GET_ALL_APPS_CARDS: "/get_all_apps_cards",
+    GET_CARDS: "/get_cards",
     GET_CLOTH_HERO: "/get_cloth_character",
   },
   POST: {
