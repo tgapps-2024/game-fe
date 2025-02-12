@@ -14,5 +14,5 @@ export const formatValue = (value: number): string => {
     index++;
   }
 
-  return value + suffixes[index];
+  return value.toFixed(0) + suffixes[index];
 };

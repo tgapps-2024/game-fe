@@ -2,6 +2,8 @@ import apiClient from "@/api/api-client";
 import { API_ENDPOINTS } from "@/constants/api";
 
 import {
+  DataStructure,
+  Events,
   IBoosters,
   IDailyReward,
   IDailyRewardInfo,
@@ -52,6 +54,26 @@ export const getUpgradeBooster = async (
 ): Promise<{ status: string }> => {
   const { data } = await apiClient.post(API_ENDPOINTS.GET.UPGRADE_BOOSTER, {
     btype: type,
+  });
+
+  return data;
+};
+
+export const getAllAppsCards = async (): Promise<Events> => {
+  const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_ALL_APPS_CARDS);
+
+  return data;
+};
+
+export const getCards = async (): Promise<DataStructure> => {
+  const { data } = await apiClient.get(API_ENDPOINTS.GET.GET_CARDS);
+
+  return data;
+};
+
+export const upgradeCard = async (idCard: string) => {
+  const { data } = await apiClient.post(API_ENDPOINTS.POST.UPGRADE_CARD, {
+    idCard,
   });
 
   return data;
