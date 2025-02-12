@@ -22,13 +22,13 @@ const srcBuilder = (
   heroId: HeroId,
   heroRarity: HeroRarity,
   part: HeroBodyPart | HeroClothPiece,
-  clothNumber?: number,
+  clothId?: number,
 ): string => {
   const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
   const capitalizedPart = capitalizeFirstLetter(part);
   const endsWith =
-    typeof clothNumber === "number"
-      ? `/${clothNumber}.webp`
+    typeof clothId === "number"
+      ? `/${clothId}.webp`
       : `/${capitalizedPart}.webp`;
 
   return `${startsWith}${capitalizedPart}${endsWith}`;
@@ -38,21 +38,21 @@ type Props = Omit<ComponentProps<typeof Image>, "src"> & {
   heroId: HeroId;
   heroRarity: HeroRarity;
   part: HeroBodyPart | HeroClothPiece;
-  clothNumber?: number;
+  clothId?: number;
 };
 
 export const HSPieceImage: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
   part,
-  clothNumber,
+  clothId,
   ...props
 }) => {
   const [isHidden, setIsHidden] = useState(false);
   const src =
     part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD
       ? srcBuilder(heroId, heroRarity, part)
-      : srcBuilder(heroId, heroRarity, part, clothNumber ?? 0);
+      : srcBuilder(heroId, heroRarity, part, clothId ?? 0);
 
   useEffect(() => {
     setIsHidden(false);

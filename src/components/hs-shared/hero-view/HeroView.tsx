@@ -7,6 +7,7 @@ import {
   HeroClothPiece,
   HeroId,
   HeroRarity,
+  SelectedCloth,
 } from "@/services/heroes/types";
 
 import { HSPieceImage } from "../hs-piece-image/HSPieceImage";
@@ -14,20 +15,20 @@ import { HSPieceImage } from "../hs-piece-image/HSPieceImage";
 type Props = {
   heroId: HeroId;
   heroRarity: HeroRarity;
+  heroCloth?: SelectedCloth;
   source: "grid" | "preview";
   className?: string;
 };
 
-/*
-  Rendering order should be as follows:
-    1. HeroBodyPart.BODY
-    2. HeroClothPiece.KIT
-    3. HeroClothPiece.CHAIN
-    4. HeroBodyPart.HEAD
-    5. HeroClothPiece.HAT
-    6. HeroClothPiece.GLASS
-    7. HeroClothPiece.WATCH
-*/
+const RENDERING_ORDER = {
+  [HeroBodyPart.BODY]: 0,
+  [HeroClothPiece.KIT]: 1,
+  [HeroClothPiece.CHAIN]: 2,
+  [HeroBodyPart.HEAD]: 3,
+  [HeroClothPiece.HAT]: 4,
+  [HeroClothPiece.GLASS]: 5,
+  [HeroClothPiece.WATCH]: 6,
+};
 
 const HERO_PARTS = [HeroBodyPart.BODY, HeroClothPiece.KIT, HeroBodyPart.HEAD];
 
@@ -38,14 +39,31 @@ const DUROV_HERO_PARTS = [
   HeroClothPiece.HAT,
 ];
 
+const isHeroBodyPart = (
+  part: HeroClothPiece | HeroBodyPart,
+): part is HeroBodyPart =>
+  part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD;
+
 export const HeroView: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
   source,
+  heroCloth,
   className,
 }) => {
   const sizes = source === "grid" ? "33vw" : "50vw";
-  const heroParts = heroId === HeroId.DUROV ? DUROV_HERO_PARTS : HERO_PARTS;
+
+  let heroParts: (HeroClothPiece | HeroBodyPart)[] = [];
+
+  if (heroCloth) {
+    const clothPieces = Object.keys(heroCloth) as HeroClothPiece[];
+
+    heroParts = [...Object.values(HeroBodyPart), ...clothPieces].sort(
+      (a, b) => RENDERING_ORDER[a] - RENDERING_ORDER[b],
+    );
+  } else {
+    heroParts = heroId === HeroId.DUROV ? DUROV_HERO_PARTS : HERO_PARTS;
+  }
 
   return (
     <div className={classNames("absolute", className)}>
@@ -55,6 +73,7 @@ export const HeroView: FunctionComponent<Props> = ({
           heroId={heroId}
           heroRarity={heroRarity}
           part={part}
+          clothId={isHeroBodyPart(part) ? 0 : heroCloth?.[part]}
           quality={100}
           alt={part}
           sizes={sizes}

@@ -104,6 +104,7 @@ export const HeroesProfile = () => {
             className="left-0 top-0 h-full w-[56%]"
             heroId={selection.hero.characterId}
             heroRarity={selection.hero.rarity}
+            heroCloth={selection.hero.cloth}
             source="preview"
           />
         )
@@ -119,6 +120,7 @@ export const HeroesProfile = () => {
             heroRarity={selection.hero.rarity}
             ctaType={ctaType}
             isCtaLoading={isBuyingHero || isSettingProfileHero}
+            isCurrentHeroSelected={isCurrentHeroSelected}
             source="heroes"
             onCtaClick={
               !isCurrentHeroSelected

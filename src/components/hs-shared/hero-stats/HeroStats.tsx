@@ -34,6 +34,7 @@ type Props = {
   heroRarity: HeroRarity;
   source: "heroes" | "shop";
   isCtaLoading?: boolean;
+  isCurrentHeroSelected?: boolean;
   onCtaClick?: () => void;
 };
 
@@ -49,6 +50,7 @@ export const HeroStats: FunctionComponent<Props> = ({
   heroRarity,
   source,
   isCtaLoading,
+  isCurrentHeroSelected,
   onCtaClick,
 }) => {
   const tHeroes = useTranslations(NS.PAGES.HEROES.ROOT);
@@ -162,7 +164,10 @@ export const HeroStats: FunctionComponent<Props> = ({
           {(ctaType === HeroStatsCtaType.SELECT ||
             ctaType === HeroStatsCtaType.SELECTED) && (
             <Link
-              href={ROUTES.SHOP}
+              href={{
+                pathname: ROUTES.SHOP,
+                query: isCurrentHeroSelected ? undefined : { heroId },
+              }}
               className="text-center text-sm font-extrabold text-white"
             >
               {tHeroes(

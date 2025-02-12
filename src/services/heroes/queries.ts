@@ -10,7 +10,12 @@ import {
   getHero,
   setHero,
 } from "./fetcher";
-import { GetAllAppsHeroesResponse, HeroId, IHeroInfo, IOwnHeroCloth } from "./types";
+import {
+  GetAllAppsHeroesResponse,
+  HeroId,
+  IHeroInfo,
+  IOwnHeroCloth,
+} from "./types";
 
 export enum QueryKeys {
   GET_HERO = "GET_HERO",
@@ -79,10 +84,11 @@ export const updateGetAllHeroesQuery = (
 };
 
 /* Heroes Cloth Shop */
-export const useGetClothHeroQuery = (heroId: HeroId) =>
+export const useGetClothHeroQuery = (heroId?: HeroId) =>
   useQuery<IOwnHeroCloth, AxiosError>({
     queryKey: [QueryKeys.GET_CLOTH_HERO, heroId],
-    queryFn: () => getClothHero(heroId),
+    queryFn: () => getClothHero(heroId!), // it's enabled only when heroId is defined
     retry: false,
+    enabled: !!heroId,
     staleTime: 1000 * 60 * 5,
   });
