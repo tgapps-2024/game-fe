@@ -6,10 +6,11 @@ import {
   buyHero,
   getAllAppsHeroes,
   getAllHeroes,
+  getClothHero,
   getHero,
   setHero,
 } from "./fetcher";
-import { GetAllAppsHeroesResponse, HeroId, IHeroInfo } from "./types";
+import { GetAllAppsHeroesResponse, HeroId, IHeroInfo, IOwnHeroCloth } from "./types";
 
 export enum QueryKeys {
   GET_HERO = "GET_HERO",
@@ -17,6 +18,7 @@ export enum QueryKeys {
   GET_ALL_APPS_HEROES = "GET_ALL_APPS_HEROES",
   SET_HERO = "SET_HERO",
   BUY_HERO = "BUY_HERO",
+  GET_CLOTH_HERO = "GET_CLOTH_HERO",
 }
 
 export const useGetHero = (heroId?: HeroId) =>
@@ -75,3 +77,12 @@ export const updateGetAllHeroesQuery = (
     (oldHeroes: HeroId[]) => [...oldHeroes, heroId],
   );
 };
+
+/* Heroes Cloth Shop */
+export const useGetClothHeroQuery = (heroId: HeroId) =>
+  useQuery<IOwnHeroCloth, AxiosError>({
+    queryKey: [QueryKeys.GET_CLOTH_HERO, heroId],
+    queryFn: () => getClothHero(heroId),
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });

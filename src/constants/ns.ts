@@ -220,7 +220,6 @@ export const NS = {
         ROOT: "LABELS",
         GET: "GET",
         BUY: "BUY",
-        BOUGHT: "BOUGHT",
         SELECT: "SELECT",
         SELECTED: "SELECTED",
         GO_TO_SHOP: "GO_TO_SHOP",
@@ -274,6 +273,10 @@ export const NS = {
     SHOP: {
       ROOT: "SHOP",
       TITLE: "TITLE",
+      LABELS: {
+        ROOT: "LABELS",
+        BUY: "BUY",
+      },
       KIT: "KIT",
       HAT: "HAT",
       CHAIN: "CHAIN",

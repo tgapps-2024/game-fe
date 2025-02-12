@@ -48,7 +48,7 @@ export const InviteModal: FunctionComponent<Props> = ({
   const { handleSelectionChanged, handleNotificationOccurred } =
     useHapticFeedback();
   const { mutate, isPending } = useBuyShopItem();
-  const { buy: buyFriendsFn } = useSafeStarsPayment(
+  const { buy: buyFriendsFn, isStarsPaymentLoading } = useSafeStarsPayment(
     () => {
       handleBuyFriends();
     },
@@ -148,7 +148,7 @@ export const InviteModal: FunctionComponent<Props> = ({
           className="text-stroke-1 w-full uppercase text-shadow-sm"
           size="large"
           disabled={selectedCard === null}
-          isLoading={isPending}
+          isLoading={isPending || isStarsPaymentLoading}
           onClick={() => buyFriendsFn(selectedCard?.price ?? 0)}
         >
           {t(NS.PAGES.FRIENDS.GET_FRIENDS)}

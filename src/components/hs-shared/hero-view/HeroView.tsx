@@ -2,9 +2,14 @@ import React, { FunctionComponent } from "react";
 
 import classNames from "classnames";
 
-import { HeroClothPiece, HeroId, HeroRarity } from "@/services/heroes/types";
+import {
+  HeroBodyPart,
+  HeroClothPiece,
+  HeroId,
+  HeroRarity,
+} from "@/services/heroes/types";
 
-import { HeroPartImage } from "./components/hero-part-image/HeroPartImage";
+import { HSPieceImage } from "../hs-piece-image/HSPieceImage";
 
 type Props = {
   heroId: HeroId;
@@ -12,11 +17,6 @@ type Props = {
   source: "grid" | "preview";
   className?: string;
 };
-
-export enum HeroBodyPart {
-  BODY = "body",
-  HEAD = "head",
-}
 
 /*
   Rendering order should be as follows:
@@ -38,24 +38,6 @@ const DUROV_HERO_PARTS = [
   HeroClothPiece.HAT,
 ];
 
-const capitalizeFirstLetter = (str: string) => {
-  return String(str).charAt(0).toUpperCase() + String(str).slice(1);
-};
-
-const srcBuilder = (
-  heroId: HeroId,
-  heroRarity: HeroRarity,
-  part: HeroBodyPart | HeroClothPiece,
-  value?: number,
-): string => {
-  const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
-  const capitalizedPart = capitalizeFirstLetter(part);
-  const endsWith =
-    typeof value === "number" ? `/${value}.webp` : `/${capitalizedPart}.webp`;
-
-  return `${startsWith}${capitalizedPart}${endsWith}`;
-};
-
 export const HeroView: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
@@ -67,31 +49,18 @@ export const HeroView: FunctionComponent<Props> = ({
 
   return (
     <div className={classNames("absolute", className)}>
-      {heroParts.map((part) => {
-        if (part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD) {
-          return (
-            <HeroPartImage
-              key={part}
-              src={srcBuilder(heroId, heroRarity, part)}
-              quality={100}
-              alt={part}
-              sizes={sizes}
-              fill
-            />
-          );
-        }
-
-        return (
-          <HeroPartImage
-            key={part}
-            src={srcBuilder(heroId, heroRarity, part, 0)}
-            quality={100}
-            alt={part}
-            sizes={sizes}
-            fill
-          />
-        );
-      })}
+      {heroParts.map((part) => (
+        <HSPieceImage
+          key={part}
+          heroId={heroId}
+          heroRarity={heroRarity}
+          part={part}
+          quality={100}
+          alt={part}
+          sizes={sizes}
+          fill
+        />
+      ))}
     </div>
   );
 };

@@ -19,7 +19,7 @@ export const HSTitleBoard: FunctionComponent<Props> = ({
   >
     <div
       className={classNames(
-        "w-fit rounded-b-md rounded-t-xl bg-orange-550 px-[30px] py-2 shadow-battle-pass-combined",
+        "w-fit rounded-b-md rounded-t-xl bg-[#A6562D] px-[30px] py-2 shadow-battle-pass-combined",
         "text-stroke-half text-2xl font-black uppercase tracking-wide text-white text-shadow",
       )}
     >
