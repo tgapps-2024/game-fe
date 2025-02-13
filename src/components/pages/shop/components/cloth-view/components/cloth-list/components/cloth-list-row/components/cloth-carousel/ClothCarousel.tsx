@@ -11,6 +11,7 @@ import {
   HeroId,
   HeroRarity,
   IHeroClothConfig,
+  SelectedCloth,
 } from "@/services/heroes/types";
 
 import { ClothCard } from "../cloth-card/ClothCard";
@@ -23,6 +24,8 @@ type Props = {
   heroId: HeroId;
   heroRarity: HeroRarity;
   ownCloth: number[];
+  heroCloth: SelectedCloth;
+  selectedHeroCloth: SelectedCloth;
   onCardClick: (clothPiece: HeroClothPiece, clothId: number) => void;
 };
 
@@ -32,6 +35,8 @@ export const ClothCarousel: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
   ownCloth,
+  heroCloth,
+  selectedHeroCloth,
   onCardClick,
 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -52,6 +57,8 @@ export const ClothCarousel: FunctionComponent<Props> = ({
               clothPieceConfig={cloth}
               heroId={heroId}
               heroRarity={heroRarity}
+              isCurrentCloth={heroCloth[clothPiece] === cloth.id}
+              isSelectedCloth={selectedHeroCloth[clothPiece] === cloth.id}
               isOwnCloth={ownCloth.includes(cloth.id)}
               onCardClick={onCardClick}
             />

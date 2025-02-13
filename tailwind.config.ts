@@ -132,7 +132,8 @@ export default {
           "linear-gradient(270deg, #FF86E5 0%, #FFFFFF 10.5%, rgba(255, 60, 213, 0.15) 100%)",
         "bp-bottom-menu-pattern":
           "linear-gradient(181.48deg, #5B6F89 1.35%, #424D63 98.84%)",
-        "shop-inventory-bg-pattern": "linear-gradient(180deg, #FFDE60 0%, #FABF33 100%)",
+        "shop-inventory-bg-pattern":
+          "linear-gradient(180deg, #FFDE60 0%, #FABF33 100%)",
         "card-glow-pattern":
           "linear-gradient(270deg, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 100%)",
         "booster-modal-pattern":
@@ -149,6 +150,8 @@ export default {
           "radial-gradient(50% 88.48% at 50% 50%, rgba(64, 59, 183, 0) 0%, #403BB7 100%), url('/assets/png/card-bg.png')",
         "card-dark-blue-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(32, 57, 80, 0) 0%, #203950 100%), url('/assets/png/card-bg.png')",
+        "card-green-bg-pattern":
+          "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 159, 0, 0) 0%, #009F00 100%), url('/assets/png/card-bg.png')",
       },
       textShadow: {
         sm: "0 1px 0px #000",

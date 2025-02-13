@@ -32,6 +32,8 @@ export const HeroesProfile = () => {
     useSetHero(
       () => {
         invalidateProfileQuery(queryClient);
+
+        toast(<Toast type="done" text="Setting hero has complete!" />);
       },
       (error: AxiosError) => {
         toast(
@@ -53,13 +55,13 @@ export const HeroesProfile = () => {
       toast(
         <Toast
           type="destructive"
-          text={`Buing hero has failed: ${error.message}`}
+          text={`Buying hero has failed: ${error.message}`}
         />,
       );
     },
   );
 
-  const { buy: tryBuyStarsHero } = useSafeStarsPayment(
+  const { buy: tryBuyStarsHero, isStarsPaymentLoading } = useSafeStarsPayment(
     () => {
       if (selection.hero) {
         buyHero(selection.hero.characterId);
@@ -70,7 +72,6 @@ export const HeroesProfile = () => {
         buyHero(selection.hero.characterId);
       }
     },
-    () => {},
   );
 
   const tryBuyCoinsHero = useSafeCoinsPayment(() => {
@@ -119,7 +120,9 @@ export const HeroesProfile = () => {
             earnPerTap={selection.hero.earn_per_tap}
             heroRarity={selection.hero.rarity}
             ctaType={ctaType}
-            isCtaLoading={isBuyingHero || isSettingProfileHero}
+            isCtaLoading={
+              isBuyingHero || isSettingProfileHero || isStarsPaymentLoading
+            }
             isCurrentHeroSelected={isCurrentHeroSelected}
             source="heroes"
             onCtaClick={

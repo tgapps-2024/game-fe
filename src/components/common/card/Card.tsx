@@ -15,6 +15,7 @@ export enum CardType {
   INDIGO = "indigo",
   ORANGE = "orange",
   DARK_BLUE = "dark_blue",
+  GREEN = "green",
 }
 
 type Props = {
@@ -66,6 +67,7 @@ export const Card: FunctionComponent<Props> = ({
           "bg-[#403BB7]": type === CardType.INDIGO,
           "bg-[#A6552D]": type === CardType.ORANGE,
           "bg-[#101C28]": type === CardType.DARK_BLUE,
+          "bg-[#009F00]": type === CardType.GREEN,
           "scale-105": isSelected,
         },
       )}
@@ -88,6 +90,7 @@ export const Card: FunctionComponent<Props> = ({
               type === CardType.INDIGO,
             "bg-[#EFC609]": type === CardType.ORANGE,
             "bg-[#203950]": type === CardType.DARK_BLUE,
+            "bg-[#02DB07]": type === CardType.GREEN,
           },
         )}
       >
@@ -99,6 +102,7 @@ export const Card: FunctionComponent<Props> = ({
               "bg-[#883308]": type === CardType.ORANGE,
               "bg-[#403BB7]": type === CardType.INDIGO,
               "bg-[#203950]": type === CardType.DARK_BLUE,
+              "bg-[#02DB07]": type === CardType.GREEN,
             },
           )}
         >
@@ -110,6 +114,7 @@ export const Card: FunctionComponent<Props> = ({
                 "bg-card-indigo-bg-pattern": type === CardType.INDIGO,
                 "bg-card-orange-bg-pattern": type === CardType.ORANGE,
                 "bg-card-dark-blue-bg-pattern": type === CardType.DARK_BLUE,
+                "bg-card-green-bg-pattern": type === CardType.GREEN,
               },
             )}
           />
@@ -125,6 +130,7 @@ export const Card: FunctionComponent<Props> = ({
                   "bg-[#777AF0]": type === CardType.INDIGO,
                   "bg-[#EFC609]": type === CardType.ORANGE,
                   "bg-[#203950]": type === CardType.DARK_BLUE,
+                  "bg-[#02DB07]": type === CardType.GREEN,
                 },
               )}
             >
@@ -140,6 +146,7 @@ export const Card: FunctionComponent<Props> = ({
                   "bg-[#777AF0]": type === CardType.INDIGO,
                   "bg-[#EFC609]": type === CardType.ORANGE,
                   "bg-[#203950]": type === CardType.DARK_BLUE,
+                  "bg-[#02DB07]": type === CardType.GREEN,
                 },
               )}
             >

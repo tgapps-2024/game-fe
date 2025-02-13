@@ -23,6 +23,8 @@ type Props = {
   heroId: HeroId;
   heroRarity: HeroRarity;
   isOwnCloth: boolean;
+  isCurrentCloth: boolean;
+  isSelectedCloth: boolean;
   onCardClick: (clothPiece: HeroClothPiece, clothId: number) => void;
 };
 
@@ -40,25 +42,42 @@ export const ClothCard: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
   isOwnCloth,
+  isCurrentCloth,
+// isSelectedCloth,
   onCardClick,
 }) => {
   const t = useTranslations(NS.PAGES.HEROES.ROOT);
 
+  let type = CardType.ORANGE;
+
+  if (isCurrentCloth) {
+    type = CardType.DARK_BLUE;
+  } else if (isOwnCloth) {
+    type = CardType.GREEN;
+  }
+
+  const isSelectableCloth = isOwnCloth && !isCurrentCloth;
+
   return (
     <Card
-      type={CardType.ORANGE}
+      type={type}
       collectButtonProps={
-        !isOwnCloth
+        !isOwnCloth || isSelectableCloth
           ? {
               color: CollectButtonColor.GREEN,
-              children: t(
-                `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.BUY}`,
-              ),
+              children: isSelectableCloth
+                ? t(
+                    `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECT}`,
+                  )
+                : t(
+                    `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.BUY}`,
+                  ),
+              onClick: () => onCardClick(clothPiece, clothPieceConfig.id),
             }
           : undefined
       }
       topBadge={
-        isOwnCloth && (
+        isCurrentCloth && (
           <div className="text-stroke-1 px-3 py-1 text-xs font-extrabold text-white text-shadow-sm">
             {t(
               `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECTED}`,

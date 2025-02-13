@@ -115,3 +115,13 @@ export interface IOwnHeroCloth {
   character: HeroId;
   cloth: Record<HeroClothPiece, number[]>;
 }
+
+export type GetAllHeroesWithClothResponse = {
+  characters: (IHeroIdentity & SelectedCloth)[];
+};
+
+export type ClothFetcherParams = {
+  heroId: HeroId;
+  clothId: number;
+  clothPiece: HeroClothPiece;
+};

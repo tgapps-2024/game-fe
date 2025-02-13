@@ -8,7 +8,9 @@ import {
   HeroClothPieceConfig,
   HeroId,
   HeroRarity,
+  SelectedCloth,
 } from "@/services/heroes/types";
+import { getDefaultClothPiece } from "@/utils/heroes";
 
 import { ClothCarousel } from "./components/cloth-carousel/ClothCarousel";
 import { ThreeClothSet } from "./components/three-cloth-set/ThreeClothSet";
@@ -19,6 +21,8 @@ type Props = {
   clothPieceConfig: HeroClothPieceConfig;
   heroId: HeroId;
   heroRarity: HeroRarity;
+  heroCloth: SelectedCloth;
+  selectedHeroCloth: SelectedCloth;
   ownCloth: number[];
 };
 
@@ -28,9 +32,15 @@ export const ClothListRow: FunctionComponent<Props> = ({
   clothPieceConfig,
   heroId,
   heroRarity,
+  heroCloth,
+  selectedHeroCloth,
   ownCloth,
 }) => {
-  const clothPieceConfigs = Object.values(clothPieceConfig);
+  const defaultClothPiece = getDefaultClothPiece(heroId, clothPiece);
+  const clothPieceConfigs = defaultClothPiece
+    ? [defaultClothPiece, ...Object.values(clothPieceConfig)]
+    : Object.values(clothPieceConfig);
+  const ownClothList = defaultClothPiece ? [0, ...ownCloth] : ownCloth;
   const { selectCloth } = useContext(HSSharedContext);
 
   const onSelectCloth = (clothPiece: HeroClothPiece, clothId: number) => {
@@ -51,7 +61,7 @@ export const ClothListRow: FunctionComponent<Props> = ({
       <div className="flex items-center justify-between text-white">
         <div className="text-2xl font-black text-shadow">{title}</div>
         <div className="rounded-[20px] bg-[#713110] px-3 py-1 text-sm font-extrabold text-white text-shadow">
-          {Object.keys(clothPieceConfig).length}
+          {clothPieceConfigs.length}
         </div>
       </div>
       {clothPieceConfigs.length > 3 ? (
@@ -60,7 +70,9 @@ export const ClothListRow: FunctionComponent<Props> = ({
           clothPieceConfigs={clothPieceConfigs}
           heroId={heroId}
           heroRarity={heroRarity}
-          ownCloth={ownCloth}
+          ownCloth={ownClothList}
+          heroCloth={heroCloth}
+          selectedHeroCloth={selectedHeroCloth}
           onCardClick={onSelectCloth}
         />
       ) : (
@@ -69,7 +81,9 @@ export const ClothListRow: FunctionComponent<Props> = ({
           clothPieceConfigs={clothPieceConfigs}
           heroId={heroId}
           heroRarity={heroRarity}
-          ownCloth={ownCloth}
+          ownCloth={ownClothList}
+          heroCloth={heroCloth}
+          selectedHeroCloth={selectedHeroCloth}
           onCardClick={onSelectCloth}
         />
       )}

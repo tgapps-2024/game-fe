@@ -7,12 +7,13 @@ import { HeroView } from "@/components/hs-shared/hero-view/HeroView";
 import { Badge } from "@/components/pages/friends/components/invite-modal/components/badge/Badge";
 import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
-import { HeroId, HeroRarity } from "@/services/heroes/types";
+import { HeroId, HeroRarity, SelectedCloth } from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
 
 type Props = {
   heroId: HeroId;
   heroRarity: HeroRarity;
+  heroCloth: SelectedCloth;
   heroPrice: number;
   isOwnHero?: boolean;
   isCurrentHero?: boolean;
@@ -23,6 +24,7 @@ type Props = {
 export const HeroesGridCard: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
+  heroCloth,
   heroPrice,
   isOwnHero,
   isCurrentHero,
@@ -80,6 +82,7 @@ export const HeroesGridCard: FunctionComponent<Props> = ({
         className="h-full w-full"
         heroId={heroId}
         heroRarity={heroRarity}
+        heroCloth={heroCloth}
         source="grid"
       />
       {isOwnHero && (

@@ -11,13 +11,13 @@ import { ClothListRow } from "./components/cloth-list-row/ClothListRow";
 
 export const ClothList = () => {
   const t = useTranslations(NS.PAGES.SHOP.ROOT);
-  const { selection } = useContext(HSSharedContext);
+  const { selection, currentHero } = useContext(HSSharedContext);
   const { data: heroes } = useGetAllAppsHeroes();
   const { data: heroOwnCloth } = useGetClothHeroQuery(selection.hero?.characterId);
 
-  if (!selection.hero || !heroes || !heroOwnCloth) return null;
+  if (!selection.hero || !heroes || !heroOwnCloth || !currentHero) return null;
 
-  const { characterId: heroId } = selection.hero;
+  const { characterId: heroId, cloth } = selection.hero;
   const hero = heroes[heroId];
 
   return (
@@ -38,6 +38,8 @@ export const ClothList = () => {
               clothPieceConfig={clothPieceConfig}
               heroId={heroId}
               heroRarity={hero.rarity}
+              heroCloth={currentHero.cloth}
+              selectedHeroCloth={cloth}
               ownCloth={ownCloth}
             />
           )

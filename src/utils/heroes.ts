@@ -1,7 +1,10 @@
 import {
   AllAppsHeroesByRarity,
   GetAllAppsHeroesResponse,
+  HeroClothPiece,
+  HeroCurrency,
   HeroId,
+  IHeroClothConfig,
 } from "@/services/heroes/types";
 
 export const groupAllAppsHeroesByRarity = (
@@ -23,3 +26,31 @@ export const groupAllAppsHeroesByRarity = (
     };
   }, initialGroups);
 };
+
+export const hasHeroDefaultCloth = (
+  heroId: HeroId,
+  clothPiece: HeroClothPiece,
+): boolean => {
+  return (
+    clothPiece === HeroClothPiece.KIT ||
+    (heroId === HeroId.DUROV && clothPiece === HeroClothPiece.HAT)
+  );
+};
+
+const DEFAULT_CLOTH_PIECE_CONFIG: IHeroClothConfig = {
+  id: 0,
+  level_for_open: 1,
+  price: 0,
+  currency: HeroCurrency.COINS,
+  earn_per_hour: 0,
+  earn_per_tap: 0,
+  energy: 0,
+};
+
+export const getDefaultClothPiece = (
+  heroId: HeroId,
+  clothPiece: HeroClothPiece,
+): IHeroClothConfig | undefined =>
+  hasHeroDefaultCloth(heroId, clothPiece)
+    ? DEFAULT_CLOTH_PIECE_CONFIG
+    : undefined;

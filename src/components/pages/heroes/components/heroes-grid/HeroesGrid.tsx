@@ -23,7 +23,8 @@ export const HeroesGrid = () => {
   const [selectedTab, setSelectedTab] = useState<HeroRarity>(HeroRarity.COMMON);
   const { data: heroes } = useGetAllAppsHeroes();
   const { data: ownHeroes, isPending: isOwnHeroesPending } = useGetAllHeroes();
-  const { currentHero, selectHero } = useContext(HSSharedContext);
+  const { currentHero, currentClothByHeroId, selectHero } =
+    useContext(HSSharedContext);
 
   const heroesByRarity = useMemo(
     () => (heroes ? groupAllAppsHeroesByRarity(heroes) : null),
@@ -55,7 +56,7 @@ export const HeroesGrid = () => {
             "bg-[#2F1A60]": selectedTab === HeroRarity.EPIC,
           })}
         >
-          {heroesByRarity && !isOwnHeroesPending
+          {heroesByRarity && currentClothByHeroId && !isOwnHeroesPending
             ? heroesByRarity[selectedTab].map((hero) => {
                 const isOwnHero = ownHeroes?.includes(hero.characterId);
                 const isCurrentHero =
@@ -68,6 +69,7 @@ export const HeroesGrid = () => {
                     heroId={hero.characterId}
                     heroRarity={hero.rarity}
                     heroPrice={hero.price}
+                    heroCloth={currentClothByHeroId[hero.characterId]}
                     isOwnHero={isOwnHero}
                     isCurrentHero={isCurrentHero}
                     isSelectableHero={isSelectableHero}

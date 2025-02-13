@@ -35,6 +35,7 @@ type Props = {
   source: "heroes" | "shop";
   isCtaLoading?: boolean;
   isCurrentHeroSelected?: boolean;
+  isShopLinkHidden?: boolean;
   onCtaClick?: () => void;
 };
 
@@ -51,6 +52,7 @@ export const HeroStats: FunctionComponent<Props> = ({
   source,
   isCtaLoading,
   isCurrentHeroSelected,
+  isShopLinkHidden,
   onCtaClick,
 }) => {
   const tHeroes = useTranslations(NS.PAGES.HEROES.ROOT);
@@ -161,20 +163,21 @@ export const HeroStats: FunctionComponent<Props> = ({
         </div>
         <div className="flex flex-col gap-y-3">
           {renderCta()}
-          {(ctaType === HeroStatsCtaType.SELECT ||
-            ctaType === HeroStatsCtaType.SELECTED) && (
-            <Link
-              href={{
-                pathname: ROUTES.SHOP,
-                query: isCurrentHeroSelected ? undefined : { heroId },
-              }}
-              className="text-center text-sm font-extrabold text-white"
-            >
-              {tHeroes(
-                `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.GO_TO_SHOP}`,
-              )}
-            </Link>
-          )}
+          {!isShopLinkHidden &&
+            (ctaType === HeroStatsCtaType.SELECT ||
+              ctaType === HeroStatsCtaType.SELECTED) && (
+              <Link
+                href={{
+                  pathname: ROUTES.SHOP,
+                  query: isCurrentHeroSelected ? undefined : { heroId },
+                }}
+                className="text-center text-sm font-extrabold text-white"
+              >
+                {tHeroes(
+                  `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.GO_TO_SHOP}`,
+                )}
+              </Link>
+            )}
         </div>
       </div>
     </div>
