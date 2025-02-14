@@ -142,6 +142,8 @@ export default {
           "linear-gradient(to bottom, #FFE04E 0%, #F19F33 35%, #192632 55%, #192632 100%)",
         "default-booster-modal-pattern":
           "linear-gradient(to bottom, #29D6FF 0%, #2596E4 35%, #192632 55%, #192632 100%)",
+        "top-players-pattern":
+          "linear-gradient(to bottom, #6420B9 7%, #8948FA 50%, #6420B9 100%)",
         "card-blue-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 105, 177, 0) 0%, #0069B1 100%), url('/assets/png/card-bg.png')",
         "card-orange-bg-pattern":
@@ -276,6 +278,7 @@ export default {
         x: ["10px", "10px"],
         xs: ["12px", "12px"],
         sm: ["14px", "14px"],
+        lg: ["18px", "18px"],
         "2xl": ["24px", "24px"],
         "3xl": ["32px", "32px"],
       },

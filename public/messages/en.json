@@ -251,6 +251,24 @@
     "GLASS": "Glasses",
     "WATCH": "Watch"
   },
+  "TOP_PLAYERS": {
+    "TITLE": "Top players",
+    "MENU_ITEMS": {
+      "LEAGUE": "League",
+      "WORLD": "World",
+      "FRIENDS": "Friends"
+    },
+    "TOURNAMENTS": {
+      "DIAMOND": "Diamond Tournament",
+      "DESCRIPTION": "Top-10 go to semi-finals"
+    },
+    "BEST_PLAYERS": "Best Players",
+    "WINNERS": "Winners",
+    "LEAGUES": {
+      "DIAMOND": "Diamond League",
+      "GOLD": "Gold League"
+    }
+  },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",
     "userNotFound": "User not found"
