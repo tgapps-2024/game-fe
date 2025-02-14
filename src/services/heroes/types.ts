@@ -125,3 +125,8 @@ export type ClothFetcherParams = {
   clothId: number;
   clothPiece: HeroClothPiece;
 };
+
+export type BatchBuyClothFetcherParams = {
+  heroId: HeroId;
+  cloth: Record<HeroClothPiece, number>;
+};

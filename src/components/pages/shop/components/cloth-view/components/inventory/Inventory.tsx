@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 
-import { useTranslations } from "next-intl";
-
 import classNames from "classnames";
 
-import { NS } from "@/constants/ns";
 import { HSSharedContext } from "@/context/hs-shared-context/HSSharedContext";
 import { useGetAllAppsHeroes } from "@/services/heroes/queries";
 import { HeroClothPiece } from "@/services/heroes/types";
@@ -12,12 +9,17 @@ import { HeroClothPiece } from "@/services/heroes/types";
 import { InventoryCell } from "./components/inventory-cell/InventoryCell";
 
 export const Inventory = () => {
-  const t = useTranslations(NS.PAGES.SHOP.ROOT);
-  const { selection } = useContext(HSSharedContext);
+  const {
+    selection: { hero },
+    currentHero,
+    selectCloth,
+  } = useContext(HSSharedContext);
   const { data: heroes } = useGetAllAppsHeroes();
 
-  const heroId = selection.hero?.characterId;
-  const cloth = heroId ? heroes?.[heroId]?.cloth : undefined;
+  const heroId = hero?.characterId;
+  const clothConfig = heroId ? heroes?.[heroId]?.cloth : undefined;
+
+  const isLoading = !clothConfig || !currentHero;
 
   return (
     <div className="bg-black pb-0.5">
@@ -30,24 +32,30 @@ export const Inventory = () => {
         <div
           className={classNames(
             "flex justify-center gap-x-2 bg-shop-inventory-bg-pattern px-2 pb-2 pt-1.5",
-            { "h-25": !cloth },
+            { "h-25": isLoading },
           )}
         >
-          {cloth &&
-            Object.keys(cloth).map((clothPiece) => {
-              const clothPieceConfig = cloth[clothPiece as HeroClothPiece];
-
-              return clothPieceConfig ? (
+          {clothConfig &&
+            currentHero &&
+            hero &&
+            (Object.keys(clothConfig) as HeroClothPiece[]).map((clothPiece) =>
+              clothConfig[clothPiece] ? (
                 <InventoryCell
                   key={clothPiece}
+                  heroId={hero.characterId}
+                  heroRarity={hero.rarity}
                   clothPiece={clothPiece as HeroClothPiece}
-                  label={t(
-                    `${NS.PAGES.SHOP[clothPiece.toUpperCase() as Uppercase<HeroClothPiece>]}`,
-                    { form: "single" },
-                  )}
+                  clothId={
+                    currentHero.cloth[clothPiece] !== hero?.cloth[clothPiece]
+                      ? hero?.cloth[clothPiece]
+                      : 0
+                  }
+                  onRemoveClick={() =>
+                    selectCloth(clothPiece, currentHero.cloth[clothPiece])
+                  }
                 />
-              ) : null;
-            })}
+              ) : null,
+            )}
         </div>
       </div>
       <div className="flex w-full flex-col">

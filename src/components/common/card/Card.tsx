@@ -9,6 +9,7 @@ import classNames from "classnames";
 
 import { CollectButton } from "@/components/ui";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import { NotificationEnum } from "@/types/telegram";
 
 export enum CardType {
   BLUE = "blue",
@@ -25,6 +26,7 @@ type Props = {
   collectButtonProps?: Omit<ComponentProps<typeof CollectButton>, "className">;
   isAnimated?: boolean;
   isSelected?: boolean;
+  isDisabled?: boolean;
   type?: CardType;
   onClick: () => void;
   ref?: RefObject<HTMLDivElement>;
@@ -37,19 +39,31 @@ export const Card: FunctionComponent<Props> = ({
   collectButtonProps,
   isAnimated = false,
   isSelected = false,
+  isDisabled = false,
   type = CardType.BLUE,
   ref,
   onClick,
 }) => {
-  const { handleSelectionChanged } = useHapticFeedback();
+  const { handleSelectionChanged, handleNotificationOccurred } =
+    useHapticFeedback();
 
   const handleClick = () => {
-    handleSelectionChanged();
+    if (!isDisabled) {
+      handleSelectionChanged();
+    } else {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    }
+
     onClick();
   };
 
   const onCollectButtonClick = (event: MouseEvent) => {
-    handleSelectionChanged();
+    if (!isDisabled) {
+      handleSelectionChanged();
+    } else {
+      handleNotificationOccurred(NotificationEnum.ERROR);
+    }
+
     event.stopPropagation();
 
     if (collectButtonProps?.onClick) {

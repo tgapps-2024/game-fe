@@ -15,6 +15,7 @@ import {
   HeroRarity,
   IHeroClothConfig,
 } from "@/services/heroes/types";
+import { useGetProfile } from "@/services/profile/queries";
 import { formatValue } from "@/utils/lib/utils";
 
 type Props = {
@@ -23,7 +24,6 @@ type Props = {
   heroId: HeroId;
   heroRarity: HeroRarity;
   isOwnCloth: boolean;
-  isCurrentCloth: boolean;
   isSelectedCloth: boolean;
   onCardClick: (clothPiece: HeroClothPiece, clothId: number) => void;
 };
@@ -42,21 +42,30 @@ export const ClothCard: FunctionComponent<Props> = ({
   heroId,
   heroRarity,
   isOwnCloth,
-  isCurrentCloth,
-// isSelectedCloth,
+  isSelectedCloth,
   onCardClick,
 }) => {
-  const t = useTranslations(NS.PAGES.HEROES.ROOT);
+  const tHeroes = useTranslations(NS.PAGES.HEROES.ROOT);
+  const tShop = useTranslations(NS.PAGES.SHOP.ROOT);
+  const { data: profile } = useGetProfile();
 
   let type = CardType.ORANGE;
 
-  if (isCurrentCloth) {
+  if (isSelectedCloth) {
     type = CardType.DARK_BLUE;
-  } else if (isOwnCloth) {
-    type = CardType.GREEN;
   }
 
-  const isSelectableCloth = isOwnCloth && !isCurrentCloth;
+  const isSelectableCloth = isOwnCloth && !isSelectedCloth;
+  const clothLevel = clothPieceConfig.level_for_open;
+  const isBlocked = clothLevel > (profile?.level ?? 0);
+
+  const isTopBadgeShown = isSelectedCloth && isOwnCloth;
+
+  const handleOnCardClick = () => {
+    if (!isBlocked) {
+      onCardClick(clothPiece, clothPieceConfig.id);
+    }
+  };
 
   return (
     <Card
@@ -64,22 +73,26 @@ export const ClothCard: FunctionComponent<Props> = ({
       collectButtonProps={
         !isOwnCloth || isSelectableCloth
           ? {
-              color: CollectButtonColor.GREEN,
+              color:
+                isSelectableCloth || isBlocked
+                  ? CollectButtonColor.YELLOW
+                  : CollectButtonColor.GREEN,
               children: isSelectableCloth
-                ? t(
+                ? tHeroes(
                     `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECT}`,
                   )
-                : t(
+                : tHeroes(
                     `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.BUY}`,
                   ),
-              onClick: () => onCardClick(clothPiece, clothPieceConfig.id),
+              isLocked: isBlocked,
+              onClick: handleOnCardClick,
             }
           : undefined
       }
       topBadge={
-        isCurrentCloth && (
+        isTopBadgeShown && (
           <div className="text-stroke-1 px-3 py-1 text-xs font-extrabold text-white text-shadow-sm">
-            {t(
+            {tHeroes(
               `${NS.PAGES.HEROES.LABELS.ROOT}.${NS.PAGES.HEROES.LABELS.SELECTED}`,
             )}
           </div>
@@ -90,7 +103,8 @@ export const ClothCard: FunctionComponent<Props> = ({
           <Badge value={formatValue(clothPieceConfig.price)} />
         ) : undefined
       }
-      onClick={() => onCardClick(clothPiece, clothPieceConfig.id)}
+      isDisabled={isBlocked}
+      onClick={handleOnCardClick}
     >
       <HSPieceImage
         className={classNames(
@@ -105,6 +119,14 @@ export const ClothCard: FunctionComponent<Props> = ({
         sizes="33vw"
         fill
       />
+      {isBlocked && (
+        <div className="absolute inset-0 flex items-center bg-black/50 px-3 text-center text-xs font-black text-shadow">
+          {tShop(
+            `${NS.PAGES.SHOP.LABELS.ROOT}.${NS.PAGES.SHOP.LABELS.BLOCKED}`,
+            { level: clothLevel },
+          )}
+        </div>
+      )}
     </Card>
   );
 };

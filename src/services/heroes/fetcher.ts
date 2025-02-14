@@ -2,10 +2,12 @@ import apiClient from "@/api/api-client";
 import { API_ENDPOINTS } from "@/constants/api";
 
 import {
+  BatchBuyClothFetcherParams,
   ClothFetcherParams,
   GetAllAppsHeroesResponse,
   GetAllHeroesResponse,
   GetAllHeroesWithClothResponse,
+  HeroClothPiece,
   HeroId,
   IHeroInfo,
   IOwnHeroCloth,
@@ -105,3 +107,39 @@ export const buyCloth = async ({
     clothPiece,
   };
 };
+
+export const batchBuyCloth = async ({
+  heroId,
+  cloth,
+}: BatchBuyClothFetcherParams) =>
+  new Promise<BatchBuyClothFetcherParams>(async (resolve, reject) => {
+    const responses = await Promise.allSettled(
+      Object.entries(cloth).map(([clothPiece, clothId]) =>
+        buyCloth({
+          heroId,
+          clothPiece: clothPiece as HeroClothPiece,
+          clothId,
+        }),
+      ),
+    );
+
+    let rejected = true;
+
+    const resultCloth = Object.fromEntries(
+      responses
+        .map((response) => {
+          if (response.status === "fulfilled") {
+            rejected = false;
+
+            return [response.value.clothPiece, response.value.clothId];
+          }
+        })
+        .filter((entry) => !!entry),
+    ) as Record<HeroClothPiece, number>;
+
+    if (!rejected) {
+      resolve({ heroId, cloth: resultCloth });
+    } else {
+      reject((responses[0] as PromiseRejectedResult).reason);
+    }
+  });

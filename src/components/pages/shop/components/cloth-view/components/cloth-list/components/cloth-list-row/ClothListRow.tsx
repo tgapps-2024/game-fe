@@ -1,16 +1,27 @@
 import React, { FunctionComponent, useContext } from "react";
 
+import { AxiosError } from "axios";
+import { toast } from "sonner";
+
 import { PAGE_WRAPPER_ID } from "@/components/common";
 import { CLOTH_PIECE_CONTAINER_ID } from "@/components/pages/shop/constants";
+import { Toast } from "@/components/ui/toast";
 import { HSSharedContext } from "@/context/hs-shared-context/HSSharedContext";
 import {
+  updateGetAllHeroesWithClothQuery,
+  useSetCloth,
+} from "@/services/heroes/queries";
+import {
+  ClothFetcherParams,
   HeroClothPiece,
   HeroClothPieceConfig,
   HeroId,
   HeroRarity,
   SelectedCloth,
 } from "@/services/heroes/types";
+import { invalidateProfileQuery } from "@/services/profile/queries";
 import { getDefaultClothPiece } from "@/utils/heroes";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { ClothCarousel } from "./components/cloth-carousel/ClothCarousel";
 import { ThreeClothSet } from "./components/three-cloth-set/ThreeClothSet";
@@ -21,7 +32,6 @@ type Props = {
   clothPieceConfig: HeroClothPieceConfig;
   heroId: HeroId;
   heroRarity: HeroRarity;
-  heroCloth: SelectedCloth;
   selectedHeroCloth: SelectedCloth;
   ownCloth: number[];
 };
@@ -32,25 +42,59 @@ export const ClothListRow: FunctionComponent<Props> = ({
   clothPieceConfig,
   heroId,
   heroRarity,
-  heroCloth,
   selectedHeroCloth,
   ownCloth,
 }) => {
+  const queryClient = useQueryClient();
+
   const defaultClothPiece = getDefaultClothPiece(heroId, clothPiece);
   const clothPieceConfigs = defaultClothPiece
     ? [defaultClothPiece, ...Object.values(clothPieceConfig)]
     : Object.values(clothPieceConfig);
   const ownClothList = defaultClothPiece ? [0, ...ownCloth] : ownCloth;
-  const { selectCloth } = useContext(HSSharedContext);
+  const { currentHero, selection, selectCloth } = useContext(HSSharedContext);
 
-  const onSelectCloth = (clothPiece: HeroClothPiece, clothId: number) => {
+  const { mutate: setCloth } = useSetCloth(
+    (response: ClothFetcherParams) => {
+      invalidateProfileQuery(queryClient);
+      updateGetAllHeroesWithClothQuery(
+        queryClient,
+        response.heroId,
+        response.clothPiece,
+        response.clothId,
+      );
+
+      toast(<Toast type="done" text="Setting cloth has complete!" />);
+      selectCloth(response.clothPiece, response.clothId);
+    },
+    (error: AxiosError) => {
+      toast(
+        <Toast
+          type="destructive"
+          text={`Cloth selection has failed: ${error.message}`}
+        />,
+      );
+    },
+  );
+
+  const onCardClick = (clothPiece: HeroClothPiece, clothId: number) => {
     const pageWrapper = document.getElementById(PAGE_WRAPPER_ID);
 
     if (pageWrapper) {
       pageWrapper.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    selectCloth(clothPiece, clothId);
+    const isOwnCloth = ownClothList.includes(clothId);
+
+    if (!isOwnCloth || currentHero?.cloth[clothPiece] === clothId) {
+      selectCloth(clothPiece, clothId);  
+    } else if (selection.hero) {
+      setCloth({
+        heroId: selection.hero.characterId,
+        clothPiece: clothPiece,
+        clothId: clothId,
+      });
+    }
   };
 
   return (
@@ -71,9 +115,8 @@ export const ClothListRow: FunctionComponent<Props> = ({
           heroId={heroId}
           heroRarity={heroRarity}
           ownCloth={ownClothList}
-          heroCloth={heroCloth}
           selectedHeroCloth={selectedHeroCloth}
-          onCardClick={onSelectCloth}
+          onCardClick={onCardClick}
         />
       ) : (
         <ThreeClothSet
@@ -82,9 +125,8 @@ export const ClothListRow: FunctionComponent<Props> = ({
           heroId={heroId}
           heroRarity={heroRarity}
           ownCloth={ownClothList}
-          heroCloth={heroCloth}
           selectedHeroCloth={selectedHeroCloth}
-          onCardClick={onSelectCloth}
+          onCardClick={onCardClick}
         />
       )}
     </div>
