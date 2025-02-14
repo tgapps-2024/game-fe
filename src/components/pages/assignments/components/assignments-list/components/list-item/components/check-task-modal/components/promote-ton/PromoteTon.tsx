@@ -81,12 +81,12 @@ export const PromoteTon: FunctionComponent<Props> = ({
           text={t(`${NS.COMMON.TOAST.ROOT}.${NS.COMMON.TOAST.DONE}`)}
         />,
         {
-          duration: 5000,
+          duration: 3000,
         },
       );
     } catch {
       toast(<Toast type="destructive" text="Ошибка транзакции" />, {
-        duration: 5000,
+        duration: 3000,
       });
     }
   };

@@ -27,7 +27,7 @@ export const CARDS = [
   {
     buttonText: "-20%",
     buttonColor: CollectButtonColor.VIOLET,
-    number: 5000,
+    number: 3000,
     badgeValue: 1450,
     image: Coins6,
   },

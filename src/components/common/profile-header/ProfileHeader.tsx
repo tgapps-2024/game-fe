@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useMemo } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -27,6 +27,10 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
   const { pathname } = useRouter();
   const isFriendsPage = pathname === ROUTES.FRIENDS;
+  const progress = useMemo(
+    () => ((Number(profile?.exp) / Number(profile?.need_exp)) * 100).toFixed(0),
+    [profile],
+  );
 
   return (
     <div
@@ -45,7 +49,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
                 <div
                   className="transition-width absolute h-full rounded-full bg-gradient-to-b from-[#F9E50F] via-[#F9E50F] to-[#EFC609] shadow-green-shadow duration-300"
                   style={{
-                    width: `${45}%`,
+                    width: `${50}%`,
                   }}
                 />
               </div>
@@ -82,7 +86,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
                 <div
                   className="transition-width absolute h-full rounded-full bg-gradient-to-b from-[#F9E50F] via-[#F9E50F] to-[#EFC609] shadow-green-shadow duration-300"
                   style={{
-                    width: `${50}%`,
+                    width: `${progress}%`,
                   }}
                 />
               </div>
