@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { toast } from "sonner";
 
 import { Toast } from "@/components/ui/toast";
+import { invalidateProfileQuery } from "@/services/profile/queries";
 import { useUpgradeCard } from "@/services/rewards/queries";
 import { DataStructure, Events as EventsType } from "@/services/rewards/types";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,7 +19,8 @@ type Props = {
 };
 
 export const EarningsContent = ({ isActive, cards, appsCards }: Props) => {
-  const { mutate: upgradeCard } = useUpgradeCard(useQueryClient());
+  const queryClient = useQueryClient();
+  const { mutate: upgradeCard } = useUpgradeCard(queryClient);
   const preparedCards = useMemo(() => prepareCards(cards.cards), [cards.cards]);
 
   const preparedEvents = useMemo(
@@ -34,6 +36,7 @@ export const EarningsContent = ({ isActive, cards, appsCards }: Props) => {
   const handleUpgradeCard = (name: string) => {
     upgradeCard(name, {
       onSuccess: () => {
+        invalidateProfileQuery(queryClient);
         toast(<Toast type="done" text="Карта обновлена" />);
       },
       onError: () => {

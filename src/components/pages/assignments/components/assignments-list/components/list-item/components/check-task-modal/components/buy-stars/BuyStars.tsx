@@ -51,7 +51,7 @@ export const BuyStars: FunctionComponent<Props> = ({
           switch (status) {
             case InvoiceStatus.PAID:
               toast(<Toast type="done" text={status} />, {
-                duration: 5000,
+                duration: 3000,
               });
               setTimeout(() => {
                 setIsChecked(true);
@@ -59,12 +59,12 @@ export const BuyStars: FunctionComponent<Props> = ({
               break;
             case InvoiceStatus.FAILED:
               toast(<Toast type="destructive" text={status} />, {
-                duration: 5000,
+                duration: 3000,
               });
               break;
             default:
               toast(<Toast type="warning" text={status} />, {
-                duration: 5000,
+                duration: 3000,
               });
               break;
           }
@@ -73,7 +73,7 @@ export const BuyStars: FunctionComponent<Props> = ({
     },
     (error) => {
       toast(<Toast type="destructive" text={error.message} />, {
-        duration: 5000,
+        duration: 3000,
       });
       setIsChecked(true);
     },
@@ -132,7 +132,10 @@ export const BuyStars: FunctionComponent<Props> = ({
                       `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CHECK_ASSIGNMENTS.DO_ASSIGNMENT}`,
                     )}
                   </p>
-                  <PrimaryButton size="small" onClick={() => mutate(value ? +value : 1,)}>
+                  <PrimaryButton
+                    size="small"
+                    onClick={() => mutate(value ? +value : 1)}
+                  >
                     {t(CHECK_TASKS_MODAL_TID[type])}
                   </PrimaryButton>
                 </div>

@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -20,11 +20,6 @@ import { ProfileLink } from "./components/profile-link/ProfileLink";
 import { TonDisconnectModal } from "./components/ton-disconnect-modal/TonDisconnectModal";
 import { PROFILE_BALANCE_ITEMS } from "./constants";
 
-const MOCK_DATA = {
-  currentLevel: 32,
-  progress: 43,
-};
-
 export const Settings: FC = () => {
   const t = useTranslations(NS.PAGES.SETTINGS.ROOT);
   const buttonRef = useRef(null);
@@ -33,6 +28,10 @@ export const Settings: FC = () => {
 
   const { isModalVisible } = useModalVisibility();
   const { webApp, profile } = useTelegram();
+  const progress = useMemo(
+    () => ((Number(profile?.exp) / Number(profile?.need_exp)) * 100).toFixed(0),
+    [profile],
+  );
   const [isTonDisconnectModalVisible, setTonDisconnectModalVisible] =
     useState(false);
 
@@ -68,7 +67,7 @@ export const Settings: FC = () => {
               />
               <LevelIndicator
                 currentLevel={profile?.level || 1}
-                progress={MOCK_DATA.progress}
+                progress={+progress}
               />
               <motion.div
                 whileTap={{ scale: 0.98 }}
