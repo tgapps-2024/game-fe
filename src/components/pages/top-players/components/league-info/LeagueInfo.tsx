@@ -12,7 +12,7 @@ export const LeagueInfo = () => {
   const t = useTranslations(NS.PAGES.TOP_PLAYERS.ROOT);
 
   return (
-    <div className="mt-[110px] h-[3000px] w-full px-4">
+    <div className="mt-30 w-full px-4">
       <div className="grid w-full grid-cols-[48px_48px_84px_48px_48px] items-center justify-center gap-5 pb-5">
         {Object.values(LEAGUE_TYPES).map((icon, index) =>
           createElement(icon, {

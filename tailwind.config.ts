@@ -154,6 +154,8 @@ export default {
           "radial-gradient(50% 88.48% at 50% 50%, rgba(32, 57, 80, 0) 0%, #203950 100%), url('/assets/png/card-bg.png')",
         "card-green-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 159, 0, 0) 0%, #009F00 100%), url('/assets/png/card-bg.png')",
+        "top-players-list-pattern":
+          "linear-gradient(#FFB900 0%, #FDC42D 50%, #FFB900 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -269,6 +271,8 @@ export default {
           "0px -2px 4px 0px #00000026 inset, 0px 4px 4px 0px #00000040 inset",
         "heroes-stat-indicator-inner-dim": "-1px 2px 1px 0px #00000033 inset",
         "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099",
+        "leaderbord-list-pattern":
+          "inset 0 -2px 0 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],

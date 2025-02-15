@@ -4,7 +4,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
-// import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 
 import { Toaster } from "@/components/ui/sonner";
