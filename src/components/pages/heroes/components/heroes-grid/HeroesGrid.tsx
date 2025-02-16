@@ -42,13 +42,13 @@ export const HeroesGrid = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative flex flex-grow flex-col">
       <HSTitleBoard
         className="absolute inset-x-0 -top-[44px] mx-auto"
         title={t(NS.PAGES.HEROES.TITLE)}
       />
       <HeroesTabs selectedTab={selectedTab} onSelectTab={setSelectedTab} />
-      <div className="overflow-y-auto bg-[#192632]">
+      <div className="flex-grow bg-[#192632]">
         <div
           className={classNames("grid grid-cols-3 grid-rows-3 gap-2 p-4", {
             "bg-[#192632]": selectedTab === HeroRarity.COMMON,

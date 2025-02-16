@@ -7,6 +7,7 @@ type UseSafeCoinsPaymentConfig = (coinsAmount: number) => void;
 
 export const useSafeCoinsPayment = (
   buyItemFn: () => void,
+  onNotEnoughCoins?: () => void,
 ): UseSafeCoinsPaymentConfig => {
   const { data: profile } = useGetProfile();
 
@@ -14,6 +15,10 @@ export const useSafeCoinsPayment = (
     if ((profile?.coins ?? 0) >= coinsAmount) {
       buyItemFn();
     } else {
+      if (onNotEnoughCoins) {
+        onNotEnoughCoins();
+      }
+
       toast(
         <Toast
           type="destructive"

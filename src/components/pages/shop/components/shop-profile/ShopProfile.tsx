@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { AxiosError } from "axios";
 import { toast } from "sonner";
@@ -16,18 +16,35 @@ import { useSafeStarsPayment } from "@/hooks/useSafeStarsPayment";
 import {
   updateGetAllHeroesWithClothQuery,
   updateGetClothHeroQuery,
-  useBuyCloth,
+  useBatchBuyCloth,
+  useGetAllAppsHeroes,
   useGetClothHeroQuery,
   useSetCloth,
 } from "@/services/heroes/queries";
-import { ClothFetcherParams, HeroCurrency } from "@/services/heroes/types";
+import {
+  BatchBuyClothFetcherParams,
+  ClothFetcherParams,
+  HeroClothPiece,
+  HeroCurrency,
+} from "@/services/heroes/types";
 import { invalidateProfileQuery } from "@/services/profile/queries";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const ShopProfile = () => {
   const queryClient = useQueryClient();
-
-  const { selection, currentHero } = useContext(HSSharedContext);
+  const [buyClothConfig, setBuyClothConfig] = useState<{
+    cloth?: Record<HeroClothPiece, number>;
+    isBuyingCloth: boolean;
+    starsCheck: boolean;
+    coinsCheck: boolean;
+  }>({
+    cloth: undefined,
+    isBuyingCloth: false,
+    starsCheck: false,
+    coinsCheck: false,
+  });
+  const { selection } = useContext(HSSharedContext);
+  const { data: allHeroes } = useGetAllAppsHeroes();
   const { data: heroOwnCloth } = useGetClothHeroQuery(
     selection.hero?.characterId,
   );
@@ -54,17 +71,27 @@ export const ShopProfile = () => {
     },
   );
 
-  const { mutate: buyCloth, isPending: isBuyingCloth } = useBuyCloth(
-    (response: ClothFetcherParams) => {
+  const { mutate: batchBuyCloth } = useBatchBuyCloth(
+    (response: BatchBuyClothFetcherParams) => {
       invalidateProfileQuery(queryClient);
-      updateGetClothHeroQuery(
-        queryClient,
-        response.heroId,
-        response.clothPiece,
-        response.clothId,
-      );
+      updateGetClothHeroQuery(queryClient, response.heroId, response.cloth);
+
+      Object.entries(response.cloth).map(([clothPiece, clothId]) => {
+        selectCloth({
+          heroId: response.heroId,
+          clothId,
+          clothPiece: clothPiece as HeroClothPiece,
+        });
+      });
 
       toast(<Toast type="done" text="Buying cloth has complete!" />);
+
+      setBuyClothConfig({
+        cloth: undefined,
+        isBuyingCloth: false,
+        starsCheck: false,
+        coinsCheck: false,
+      });
     },
     (error: AxiosError) => {
       toast(
@@ -73,60 +100,135 @@ export const ShopProfile = () => {
           text={`Buying cloth has failed: ${error.message}`}
         />,
       );
+      setBuyClothConfig({
+        cloth: undefined,
+        isBuyingCloth: false,
+        starsCheck: false,
+        coinsCheck: false,
+      });
     },
   );
+
+  useEffect(() => {
+    if (
+      buyClothConfig.coinsCheck &&
+      buyClothConfig.starsCheck &&
+      buyClothConfig.cloth &&
+      selection.hero
+    ) {
+      batchBuyCloth({
+        heroId: selection.hero?.characterId,
+        cloth: buyClothConfig.cloth,
+      });
+    }
+  }, [selection.hero, buyClothConfig, batchBuyCloth]);
 
   const { buy: tryBuyStarsCloth, isStarsPaymentLoading } = useSafeStarsPayment(
     () => {
-      if (selection.hero && selection.cloth) {
-        buyCloth({
-          heroId: selection.hero.characterId,
-          clothPiece: selection.cloth.clothPiece,
-          clothId: selection.cloth.id,
-        });
-      }
+      setBuyClothConfig((prev) => ({
+        ...prev,
+        starsCheck: true,
+      }));
     },
     () => {
-      if (selection.hero && selection.cloth) {
-        buyCloth({
-          heroId: selection.hero.characterId,
-          clothPiece: selection.cloth.clothPiece,
-          clothId: selection.cloth.id,
-        });
-      }
+      setBuyClothConfig((prev) => ({
+        ...prev,
+        starsCheck: true,
+      }));
+    },
+    () => {
+      setBuyClothConfig({
+        cloth: undefined,
+        isBuyingCloth: false,
+        starsCheck: false,
+        coinsCheck: false,
+      });
     },
   );
 
-  const tryBuyCoinsHero = useSafeCoinsPayment(() => {
-    if (selection.hero && selection.cloth) {
-      buyCloth({
-        heroId: selection.hero.characterId,
-        clothPiece: selection.cloth.clothPiece,
-        clothId: selection.cloth.id,
+  const tryBuyCoinsCloth = useSafeCoinsPayment(
+    () => {
+      setBuyClothConfig((prev) => ({
+        ...prev,
+        coinsCheck: true,
+      }));
+    },
+    () => {
+      setBuyClothConfig({
+        cloth: undefined,
+        isBuyingCloth: false,
+        starsCheck: false,
+        coinsCheck: false,
       });
+    },
+  );
+
+  const tryBuySelectedCloth = () => {
+    if (selection.hero && allHeroes) {
+      const { cloth, characterId: heroId } = selection.hero;
+
+      let neededStars = 0;
+      let neededCoins = 0;
+
+      let clothToBuy = {} as Record<HeroClothPiece, number>;
+
+      Object.entries(cloth).forEach(([clothPiece, clothId]) => {
+        const isDefaultCloth = clothId === 0;
+        const isOwnCloth =
+          heroOwnCloth?.cloth[clothPiece as HeroClothPiece].includes(clothId);
+
+        if (!isDefaultCloth && !isOwnCloth) {
+          const clothConfig =
+            allHeroes[heroId].cloth[clothPiece as HeroClothPiece]?.[clothId];
+
+          if (clothConfig?.currency === HeroCurrency.STARS) {
+            neededStars += clothConfig?.price ?? 0;
+          } else {
+            neededCoins += clothConfig?.price ?? 0;
+          }
+
+          clothToBuy = {
+            ...clothToBuy,
+            [clothPiece]: clothId,
+          };
+        }
+      });
+
+      setBuyClothConfig((prev) => ({
+        ...prev,
+        cloth: clothToBuy,
+        isBuyingCloth: true,
+        coinsCheck: neededCoins === 0,
+        starsCheck: neededCoins === 0,
+      }));
+
+      if (neededCoins > 0) {
+        tryBuyCoinsCloth(neededCoins);
+      }
+
+      if (neededStars > 0) {
+        tryBuyStarsCloth(neededStars);
+      }
     }
-  });
+  };
 
-  let ctaType = HeroStatsCtaType.BUY;
-  let isSelectableCloth = false;
+  let ctaType = HeroStatsCtaType.SELECTED;
 
-  if (!selection?.cloth) {
-    ctaType = HeroStatsCtaType.SELECTED;
-  } else {
-    const { cloth } = selection;
-    const isCurrentClothPieceSelected =
-      currentHero?.cloth[cloth.clothPiece] === cloth.id;
+  if (selection.hero) {
+    const {
+      hero: { cloth },
+    } = selection;
 
-    isSelectableCloth =
-      !isCurrentClothPieceSelected &&
-      !!heroOwnCloth?.cloth[cloth.clothPiece].includes(
-        selection.hero?.cloth?.[cloth.clothPiece] as number,
-      );
+    const isBuyable = Object.entries(cloth).some(([clothPiece, clothId]) => {
+      const isDefaultCloth = clothId === 0;
+      const isOwnCloth =
+        heroOwnCloth?.cloth[clothPiece as HeroClothPiece].includes(clothId);
 
-    if (isCurrentClothPieceSelected) {
-      ctaType = HeroStatsCtaType.SELECTED;
-    } else if (isSelectableCloth) {
-      ctaType = HeroStatsCtaType.SELECT;
+      return !isDefaultCloth && !isOwnCloth;
+    });
+
+    if (isBuyable) {
+      ctaType = HeroStatsCtaType.BUY;
     }
   }
 
@@ -154,29 +256,13 @@ export const ShopProfile = () => {
             source="shop"
             ctaType={ctaType}
             isCtaLoading={
-              isSettingCloth || isBuyingCloth || isStarsPaymentLoading
+              isSettingCloth ||
+              buyClothConfig.isBuyingCloth ||
+              isStarsPaymentLoading
             }
             onCtaClick={
               ctaType !== HeroStatsCtaType.SELECTED
-                ? () => {
-                    const { hero, cloth } = selection;
-
-                    if (hero && cloth) {
-                      if (ctaType === HeroStatsCtaType.SELECT) {
-                        selectCloth({
-                          heroId: hero.characterId,
-                          clothPiece: cloth.clothPiece,
-                          clothId: cloth.id,
-                        });
-                      } else if (
-                        cloth?.currency === HeroCurrency.STARS
-                      ) {
-                        tryBuyStarsCloth(cloth.price);
-                      } else {
-                        tryBuyCoinsHero(cloth.price);
-                      }
-                    }
-                  }
+                ? tryBuySelectedCloth
                 : undefined
             }
             isShopLinkHidden

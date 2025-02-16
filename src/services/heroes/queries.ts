@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 import {
+  batchBuyCloth,
   buyCloth,
   buyHero,
   getAllAppsHeroes,
@@ -14,6 +15,7 @@ import {
   setHero,
 } from "./fetcher";
 import {
+  BatchBuyClothFetcherParams,
   ClothFetcherParams,
   GetAllAppsHeroesResponse,
   GetAllHeroesWithClothResponse,
@@ -33,6 +35,7 @@ export enum QueryKeys {
   GET_ALL_HEROES_WITH_CLOTH = "GET_ALL_HEROES_WITH_CLOTH",
   SET_CLOTH = "SET_CLOTH",
   BUY_CLOTH = "BUY_CLOTH",
+  BATCH_BUY_CLOTH = "BATCH_BUY_CLOTH",
 }
 
 export const useGetHero = (heroId?: HeroId) =>
@@ -132,6 +135,17 @@ export const useBuyCloth = (
     onError,
   });
 
+export const useBatchBuyCloth = (
+  onSuccess?: (response: BatchBuyClothFetcherParams) => void,
+  onError?: (error: AxiosError) => void,
+) =>
+  useMutation({
+    mutationKey: [QueryKeys.BATCH_BUY_CLOTH],
+    mutationFn: batchBuyCloth,
+    onSuccess,
+    onError,
+  });
+
 export const updateGetAllHeroesWithClothQuery = (
   queryClient: QueryClient,
   heroId: HeroId,
@@ -158,17 +172,27 @@ export const updateGetAllHeroesWithClothQuery = (
 export const updateGetClothHeroQuery = (
   queryClient: QueryClient,
   heroId: HeroId,
-  heroClothPiece: HeroClothPiece,
-  clothId: number,
+  cloth: Record<HeroClothPiece, number>,
 ) => {
   queryClient.setQueryData(
     [QueryKeys.GET_CLOTH_HERO, heroId],
-    (oldOwnHeroCloth: IOwnHeroCloth) => ({
-      ...oldOwnHeroCloth,
-      cloth: {
-        ...oldOwnHeroCloth.cloth,
-        [heroClothPiece]: [...oldOwnHeroCloth.cloth[heroClothPiece], clothId],
-      },
-    }),
+    (oldOwnHeroCloth: IOwnHeroCloth) => {
+      let nextOwnHeroCloth = oldOwnHeroCloth;
+
+      Object.entries(cloth).forEach(([clothPiece, clothId]) => {
+        nextOwnHeroCloth = {
+          ...nextOwnHeroCloth,
+          cloth: {
+            ...nextOwnHeroCloth.cloth,
+            [clothPiece]: [
+              ...nextOwnHeroCloth.cloth[clothPiece as HeroClothPiece],
+              clothId,
+            ],
+          },
+        };
+      });
+
+      return nextOwnHeroCloth;
+    },
   );
 };

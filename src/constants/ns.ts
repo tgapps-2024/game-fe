@@ -273,15 +273,15 @@ export const NS = {
     SHOP: {
       ROOT: "SHOP",
       TITLE: "TITLE",
-      LABELS: {
-        ROOT: "LABELS",
-        BUY: "BUY",
-      },
       KIT: "KIT",
       HAT: "HAT",
       CHAIN: "CHAIN",
       GLASS: "GLASS",
       WATCH: "WATCH",
+      LABELS: {
+        ROOT: "LABELS",
+        BLOCKED: "BLOCKED"
+      }
     },
   },
   ERRORS: {

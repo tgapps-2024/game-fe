@@ -38,7 +38,7 @@ export const API_ENDPOINTS = {
     SHOP_BUY: "/shop_buy",
     SET_HERO: "/set_character",
     BUY_HERO: "/buy_character",
-    SET_CLOTH: "/set_character",
+    SET_CLOTH: "/set_cloth_character",
     BUY_CLOTH: "/buy_cloth_character",
   },
 };

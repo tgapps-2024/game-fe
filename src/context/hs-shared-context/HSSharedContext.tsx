@@ -56,23 +56,6 @@ const DEFAULT_VALUE = {
 export const HSSharedContext =
   createContext<HSSharedContextValue>(DEFAULT_VALUE);
 
-const toSelectedHero = (
-  heroId: HeroId,
-  config: IHeroConfig,
-  clothConfig: SelectedCloth,
-): ISelectedHero => ({
-  characterId: heroId,
-  earn_per_hour: config.earn_per_hour,
-  earn_per_tap: config.earn_per_tap,
-  energy: config.energy,
-  rarity: config.rarity,
-  price: config.price,
-  currency: config.currency,
-  auto: 0,
-  background: 0,
-  cloth: clothConfig,
-});
-
 const numOrZero = (num?: number) => num ?? 0;
 
 const setHeroCloth = (
@@ -104,6 +87,43 @@ const setHeroCloth = (
       numOrZero(prevClothConfig?.energy) +
       numOrZero(nextClothConfig?.energy),
   };
+};
+
+const toSelectedHero = (
+  heroId: HeroId,
+  config: IHeroConfig,
+  selectedCloth: SelectedCloth,
+): ISelectedHero => {
+  let nextHero = {
+    characterId: heroId,
+    earn_per_hour: config.earn_per_hour,
+    earn_per_tap: config.earn_per_tap,
+    energy: config.energy,
+    rarity: config.rarity,
+    price: config.price,
+    currency: config.currency,
+    auto: 0,
+    background: 0,
+    cloth: selectedCloth,
+  };
+
+  (Object.keys(nextHero.cloth) as HeroClothPiece[]).forEach((clothPiece) => {
+    const clothId = nextHero.cloth[clothPiece];
+
+    if (clothId !== 0) {
+      const clothConfig = config.cloth[clothPiece]?.[clothId];
+      nextHero = {
+        ...nextHero,
+        earn_per_hour:
+          nextHero.earn_per_hour + numOrZero(clothConfig?.earn_per_hour),
+        earn_per_tap:
+          nextHero.earn_per_tap + numOrZero(clothConfig?.earn_per_tap),
+        energy: nextHero.energy + numOrZero(clothConfig?.energy),
+      };
+    }
+  });
+
+  return nextHero;
 };
 
 const parseQueryHeroId = (
@@ -217,16 +237,20 @@ export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
     [allHeroes, currentHeroId, currentClothByHeroId],
   );
 
-  const value = useMemo(() => {
-    if (currentHeroId && allHeroes && currentClothByHeroId) {
-      const hero = currentHeroId
+  const hero = useMemo(
+    () =>
+      currentHeroId && allHeroes && currentClothByHeroId
         ? toSelectedHero(
             currentHeroId,
             allHeroes[currentHeroId],
             currentClothByHeroId[currentHeroId],
           )
-        : undefined;
+        : undefined,
+    [currentHeroId, allHeroes, currentClothByHeroId],
+  );
 
+  const value = useMemo(() => {
+    if (hero) {
       return {
         currentHero: hero,
         selection: {
@@ -240,14 +264,7 @@ export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
     }
 
     return DEFAULT_VALUE;
-  }, [
-    currentHeroId,
-    selection,
-    allHeroes,
-    currentClothByHeroId,
-    selectHero,
-    selectCloth,
-  ]);
+  }, [hero, currentClothByHeroId, selection, selectHero, selectCloth]);
 
   return (
     <HSSharedContext.Provider value={value}>

@@ -244,12 +244,15 @@
     }
   },
   "SHOP": {
-    "TITLE": "Clothing",
+    "TITLE": "Cart",
     "KIT": "{form, select, plural {Kits} full_plural {Clothing Kits} full_singular {Clothing Kit} other {Kit}}",
     "HAT": "{form, select, plural {Hats} other {Hat}}",
     "CHAIN": "{form, select, plural {Chains} other {Chain}}",
     "GLASS": "Glasses",
-    "WATCH": "Watch"
+    "WATCH": "Watch",
+    "LABELS": {
+      "BLOCKED": "Unlocked at {level} level"
+    }
   },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",

@@ -6,7 +6,7 @@ import { HeroesGrid } from "./components/heroes-grid/HeroesGrid";
 import { HeroesProfile } from "./components/heroes-profile/HeroesProfile";
 
 export const Heroes = () => (
-  <HSRoot>
+  <HSRoot wrapperClassName="flex flex-col">
     <HeroesProfile />
     <HeroesGrid />
   </HSRoot>
