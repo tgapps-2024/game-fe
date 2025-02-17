@@ -8,15 +8,14 @@ import { NS } from "@/constants/ns";
 import FriendsSVG from "@/public/assets/svg/top-players/friends.svg";
 import ShieldSVG from "@/public/assets/svg/top-players/small-shield.svg";
 import WorldSVG from "@/public/assets/svg/top-players/world.svg";
+import { LeaderboardEnum } from "@/services/leaderboard/types";
 import { IWebApp } from "@/types/telegram";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
-import { LeagueEnum } from "../../types";
-
 type Props = {
-  league: LeagueEnum;
+  league: LeaderboardEnum;
   webApp: IWebApp;
-  onSetLeague: (league: LeagueEnum) => void;
+  onSetLeague: (league: LeaderboardEnum) => void;
 };
 
 export const TopPlayersHeader: FunctionComponent<Props> = ({
@@ -42,9 +41,9 @@ export const TopPlayersHeader: FunctionComponent<Props> = ({
           className={classNames(
             "relative rounded-xl border border-solid border-black/50 bg-[#6A8098] pb-1 transition-all duration-75",
             "active:scale-[0.98]",
-            { "opacity-30": league !== LeagueEnum.LEAGUE },
+            { "opacity-30": league !== LeaderboardEnum.LEAGUE },
           )}
-          onClick={() => onSetLeague(LeagueEnum.LEAGUE)}
+          onClick={() => onSetLeague(LeaderboardEnum.LEAGUE)}
         >
           <div
             className={classNames(
@@ -64,9 +63,9 @@ export const TopPlayersHeader: FunctionComponent<Props> = ({
           className={classNames(
             "rounded-xl border border-solid border-black/50 bg-[#6A8098] pb-1 transition-all duration-75",
             "active:scale-[0.98]",
-            { "opacity-30": league !== LeagueEnum.WORLD },
+            { "opacity-30": league !== LeaderboardEnum.WORLD },
           )}
-          onClick={() => onSetLeague(LeagueEnum.WORLD)}
+          onClick={() => onSetLeague(LeaderboardEnum.WORLD)}
         >
           <div
             className={classNames(
@@ -86,9 +85,9 @@ export const TopPlayersHeader: FunctionComponent<Props> = ({
           className={classNames(
             "rounded-xl border border-solid border-black/50 bg-[#6A8098] pb-1 transition-all duration-75",
             "active:scale-[0.98]",
-            { "opacity-30": league !== LeagueEnum.FRIENDS },
+            { "opacity-30": league !== LeaderboardEnum.FRIEND },
           )}
-          onClick={() => onSetLeague(LeagueEnum.FRIENDS)}
+          onClick={() => onSetLeague(LeaderboardEnum.FRIEND)}
         >
           <div
             className={classNames(

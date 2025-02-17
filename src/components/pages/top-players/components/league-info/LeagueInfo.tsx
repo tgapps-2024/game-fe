@@ -16,6 +16,7 @@ export const LeagueInfo = () => {
       <div className="grid w-full grid-cols-[48px_48px_84px_48px_48px] items-center justify-center gap-5 pb-5">
         {Object.values(LEAGUE_TYPES).map((icon, index) =>
           createElement(icon, {
+            key: index,
             className: classNames("w-full h-auto", {
               "mt-12":
                 index === 0 || index === Object.values(LEAGUE_TYPES).length - 1,

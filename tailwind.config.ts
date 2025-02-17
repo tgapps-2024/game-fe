@@ -273,6 +273,8 @@ export default {
         "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099",
         "leaderbord-list-pattern":
           "inset 0 -2px 0 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
+        "leaderboard-tape-shadow":
+          "box-shadow: 0px 2px 24px 0px rgba(0, 0, 0, 0.80), 0px 6px 6px 0px rgba(0, 0, 0, 0.60)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],

@@ -28,6 +28,7 @@ export const API_ENDPOINTS = {
     GET_CARDS: "/get_cards",
     GET_CLOTH_HERO: "/get_cloth_character",
     GET_ALL_HEROES_WITH_CLOTH: "/get_all_characters_with_cloth",
+    LEADERBOARD: "/leaderboard",
   },
   POST: {
     AUTH: "/auth",

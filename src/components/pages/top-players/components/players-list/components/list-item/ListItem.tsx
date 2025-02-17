@@ -2,19 +2,20 @@ import React, { FunctionComponent } from "react";
 
 import classNames from "classnames";
 
+import { Leader } from "@/services/leaderboard/types";
+
 import { PlayerAvatar } from "./components/player-avatar/PlayerAvatar";
 import { PlayerInfo } from "./components/player-info/PlayerInfo";
 import { PlayerValue } from "./components/player-value/PlayerValue";
 import { Rank } from "./components/rank/Rank";
 
 type Props = {
-  rank: number;
+  leader: Leader;
 };
 
-export const ListItem: FunctionComponent<Props> = ({ rank }) => {
-  const src =
-    "https://t.me/i/userpic/320/wP8cleJ13mVfqhTdRg5m3a5AR63pQwAzTdKT0zZDa50.svg";
-
+export const ListItem: FunctionComponent<Props> = ({
+  leader: { rank, name, photo_url, value },
+}) => {
   return (
     <div
       className={classNames(
@@ -29,9 +30,9 @@ export const ListItem: FunctionComponent<Props> = ({ rank }) => {
       >
         <div className="relative z-10 flex w-full gap-2">
           <Rank rank={rank} />
-          <PlayerAvatar url={src} />
-          <PlayerInfo name="Player name" league="League name" />
-          <PlayerValue value={580000} />
+          <PlayerAvatar url={photo_url} />
+          <PlayerInfo name={name} league="League name" />
+          <PlayerValue value={value} />
         </div>
       </div>
     </div>
