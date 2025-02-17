@@ -48,4 +48,4 @@ export const AUTH_COOKIE_TOKEN = "authToken";
 
 export const STALE_TIME = 1000 * 60 * 60;
 
-export const DEFAULT_COUNT_TOP_PLAYERS = 16;
+export const DEFAULT_COUNT_TOP_PLAYERS = 15;

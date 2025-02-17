@@ -8,11 +8,16 @@ import { NS } from "@/constants/ns";
 
 import { LEAGUE_TYPES } from "./constants";
 
-export const LeagueInfo = () => {
+export const LeagueInfo = ({ insetTop }: { insetTop: number }) => {
   const t = useTranslations(NS.PAGES.TOP_PLAYERS.ROOT);
 
+  const calculatedMarginTop = insetTop ? insetTop + 120 : 120;
+
   return (
-    <div className="mt-30 w-full px-4">
+    <div
+      className="mt-30 w-full px-4"
+      style={{ marginTop: calculatedMarginTop }}
+    >
       <div className="grid w-full grid-cols-[48px_48px_84px_48px_48px] items-center justify-center gap-5 pb-5">
         {Object.values(LEAGUE_TYPES).map((icon, index) =>
           createElement(icon, {

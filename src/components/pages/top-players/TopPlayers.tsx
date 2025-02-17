@@ -5,6 +5,7 @@ import { BottomMenu } from "@/components/common/bottom-menu/BottomMenu";
 import { useTelegram } from "@/context";
 import { useInfiniteLeaderboard } from "@/services/leaderboard/queries";
 import { LeaderboardEnum } from "@/services/leaderboard/types";
+import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 import { LeagueInfo } from "./components/league-info/LeagueInfo";
 import { PlayersList } from "./components/players-list/PlayersList";
@@ -20,6 +21,9 @@ export const TopPlayers = () => {
     useInfiniteLeaderboard(league);
   if (!webApp) return null;
 
+  const insetTop = getTgSafeAreaInsetTop(webApp);
+  const calculatedPaddingTop = insetTop ? insetTop - 32 : 16;
+
   return (
     <PageWrapper
       className="bg-top-players-pattern pb-36"
@@ -30,8 +34,9 @@ export const TopPlayers = () => {
         league={league}
         webApp={webApp}
         onSetLeague={setLeague}
+        paddingTop={calculatedPaddingTop}
       />
-      <LeagueInfo />
+      <LeagueInfo insetTop={insetTop} />
       {!isLoading ? (
         <PlayersList
           leaders={data?.pages.flatMap((page) => page.leaders) || []}
