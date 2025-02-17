@@ -23,8 +23,9 @@ export const PlayersList: FunctionComponent<Props> = ({
   hasNextPage,
 }) => {
   const t = useTranslations(NS.PAGES.TOP_PLAYERS.ROOT);
-
+  const MAX_TOP_RECORDS = 300;
   const handleFetchNextPage = () => {
+    if (leaders.length >= MAX_TOP_RECORDS) return;
     fetchNextPage();
   };
 
