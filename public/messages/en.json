@@ -251,7 +251,36 @@
     "GLASS": "Glasses",
     "WATCH": "Watch",
     "LABELS": {
-      "BLOCKED": "Unlocked at {level} level"
+      "BLOCKED": "Unlocked at {level} level",
+      "CLOTH": {
+        "BAFFET": "{cloth, select, other {Kit}}",
+        "BEARD": "{cloth, select, watch_1 {Watch №1} watch_2 {Watch №2} watch_3 {Watch №3} watch_4 {Watch №4} watch_5 {Watch №5} other {Kit}}",
+        "BEAST": "{cloth, select, hat_1 {Hat Bright} hat_2 {Hat Black} hat_3 {Hat Turquoise} other {Kit}}",
+        "BLONDE": "{cloth, select, hat_1 {Hat Prada} hat_2 {Hat Liu Jo} hat_3 {Hat Timberland} glass_1 {Glasses Gucci} glass_2 {Glasses Blue} glass_3 {Glasses Khaki} glass_4 {Glasses Green} other {Kit}}",
+        "BOY": "{cloth, select, hat_1 {Cap NY} hat_2 {Cap Audi} hat_3 {Cap Kappa} glass_1 {Glasses Lacoste} glass_2 {Glasses Burgundy} glass_3 {Glasses Khaki} watch_1 {Watch №1} watch_2 {Watch №2} watch_3 {Watch №3} other {Kit}}",
+        "BROWNHAIRED": "{cloth, select, hat_1 {Cap Chanel} hat_2 {Cap Under armor} hat_3 {Cap Levi's} hat_4 {Cap Champion} watch_1 {Wristbands Adidas} watch_2 {Wristbands Puma} watch_3 {Wristbands Violet} watch_4 {Wristbands Under armor} other {Wristbands №5}}",
+        "BUTEREN": "{cloth, select, hat_1 {Cap Jordan} hat_2 {Cap New Balance} hat_3 {Cap Ethereum} hat_4 {Cap Timberland} other {Kit}}",
+        "CAPTAINAMERICA": "{cloth, select, other {Kit}}",
+        "DEADPOOL": "{cloth, select, other {Kit}}",
+        "DEFAULT": "{cloth, select, hat_1 {Hat Fendi} hat_2 {Hat Gucci} hat_3 {Hat The North Face} hat_4 {Hat Giorgio Armani} glass_1 {Glasses Dior} glass_2 {Glasses Givenchy} glass_3 {Glasses №3} glass_4 {Glasses Prada} watch_1 {Watch №1} watch_2 {Watch №2} watch_3 {Watch №3} watch_4 {Watch №4} other {Kit}}",
+        "DEFAULTHQ": "{cloth, select, hat_1 {Panama Hat Supreme} hat_2 {Panama Hat The North Face} hat_3 {Panama Hat №3} hat_4 {Panama Hat Versace} glass_1 {Glasses Gucci} glass_2 {Glasses Violet} glass_3 {Glasses Pink} glass_4 {Glasses Turquoise} other {Kit}}",
+        "DUROV": "{cloth, select, hat_0 {Cap Telegram} hat_1 {Cap Lacoste} hat_2 {Cap Givenchy} hat_3 {Cap Balenciaga} hat_4 {Cap Louis Vuitton} glass_1 {Glasses Fendi} glass_2 {Glasses Dolce&Gabbana} glass_3 {Glasses Fred Perry} glass_4 {Glasses Violet} glass_5 {Glasses Burgundy} other {Kit}}",
+        "GIRL": "{cloth, select, hat_1 {Panama Hat Tommy Hilfiger} hat_2 {Panama Hat Patrizia Pepe} hat_3 {Panama Hat Off White} hat_4 {Panama Hat Armani Exchange} glass_1 {Glasses Louis Vuitton} glass_2 {Glasses Black-n-blue} glass_3 {Glasses Black-n-pink} glass_4 {Glasses Yves Saint Laurent} other {Kit}}",
+        "GRETTATUMBERG": "{cloth, select, other {Kit}}",
+        "HASBIK": "{cloth, select, hat_1 {Skullcap Burgundy} hat_2 {Skullcap Blue} hat_3 {Skullcap Violet} glass_1 {Glasses Gucci} glass_2 {Glasses Black-n-green} glass_3 {Glasses Black-n-violet} chain_1 {Chain №1} chain_2 {Chain №2} chain_3 {Chain №3} other {Kit}}",
+        "IRONMAN": "{cloth, select, other {Kit}}",
+        "JONES": "{cloth, select, hat_1 {Panama Hat №1} hat_2 {Panama Hat №2} hat_3 {Panama Hat №3} hat_4 {Panama Hat №4} hat_5 {Panama Hat №5} glass_1 {Glasses №1} glass_2 {Glasses №2} glass_3 {Glasses №3} glass_4 {Glasses №4} glass_5 {Glasses №5} other {Kit}}",
+        "MESSI": "{cloth, select, glass_1 {Glasses Prada} glass_2 {Glasses Black-n-blue} glass_3 {Glasses Black-n-bluish} other {Kit}}",
+        "MUSK": "{cloth, select, hat_1 {Cap LA} hat_2 {Cap MAKE AMERICA GREAT AGAIN} hat_3 {Cap Givenchy} glass_1 {Glasses Valentino} glass_2 {Glasses №2} glass_3 {Glasses №3} other {Kit}}",
+        "OBGUY": "{cloth, select, glass_1 {Glasses Boss} glass_2 {Glasses Black} glass_3 {Glasses Levi's} glass_4 {Glasses Playboy} hat_1 {Panama Hat №1} hat_2 {Panama Hat №2} hat_3 {Panama Hat №3} hat_4 {Panama Hat №4} other {Kit}}",
+        "QUEEN": "{cloth, select, glass_1 {Glasses Versace} glass_2 {Glasses Violet} glass_3 {Glasses Black-n-red} glass_4 {Glasses Brown} other {Kit}}",
+        "REDHEAD": "{cloth, select, hat_1 {Cap Guess} hat_2 {Cap Umbro} hat_3 {Cap Fendi} hat_4 {Cap Fila} glass_1 {Glasses Balenciaga} glass_2 {Glasses Khaki} glass_3 {Glasses Green} other {Kit}}",
+        "ROSSOMAHA": "{cloth, select, other {Kit}}",
+        "SPIDERMAN": "{cloth, select, other {Kit}}",
+        "STRANGE": "{cloth, select, other {Kit}}",
+        "TRUMP": "{cloth, select, hat_1 {Cap Reebok} hat_2 {Cap MAKE AMERICA GREAT AGAIN (Red)} hat_3 {Cap MAKE AMERICA GREAT AGAIN (Blue)} glass_1 {Glasses Emporio Armani} glass_2 {Glasses Brown} glass_3 {Glasses Dark blue} other {Kit}}",
+        "ZUCKERBERG": "{cloth, select, hat_1 {Panama Hat PlayBoy} hat_2 {Cap Dolce&Gabbana} hat_3 {Cap Hugo Boss} hat_4 {Cap Balenciaga} watch_1 {Watch №1} watch_2 {Watch №2} watch_3 {Watch №3} watch_4 {Watch №4} other {Kit}}"
+      }
     }
   },
   "TOP_PLAYERS": {

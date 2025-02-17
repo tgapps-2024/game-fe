@@ -115,10 +115,8 @@ export const HeroesProfile = () => {
         !isOwnHeroesPending && (
           <HeroStats
             heroId={selection.hero.characterId}
-            energy={selection.hero.energy}
-            earnPerHour={selection.hero.earn_per_hour}
-            earnPerTap={selection.hero.earn_per_tap}
             heroRarity={selection.hero.rarity}
+            heroCloth={selection.hero.cloth}
             ctaType={ctaType}
             isCtaLoading={
               isBuyingHero || isSettingProfileHero || isStarsPaymentLoading

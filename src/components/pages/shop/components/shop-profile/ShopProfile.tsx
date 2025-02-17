@@ -199,7 +199,7 @@ export const ShopProfile = () => {
         cloth: clothToBuy,
         isBuyingCloth: true,
         coinsCheck: neededCoins === 0,
-        starsCheck: neededCoins === 0,
+        starsCheck: neededStars === 0,
       }));
 
       if (neededCoins > 0) {
@@ -249,10 +249,8 @@ export const ShopProfile = () => {
         selection?.hero && (
           <HeroStats
             heroId={selection.hero.characterId}
-            energy={selection.hero.energy}
-            earnPerHour={selection.hero.earn_per_hour}
-            earnPerTap={selection.hero.earn_per_tap}
             heroRarity={selection.hero.rarity}
+            heroCloth={selection.hero.cloth}
             source="shop"
             ctaType={ctaType}
             isCtaLoading={

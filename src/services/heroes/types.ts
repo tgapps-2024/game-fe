@@ -1,5 +1,6 @@
 export enum HeroId {
   BEARD = "Beard",
+  BEAST = "Beast",
   BAFFET = "Baffet",
   BLONDE = "Blonde",
   BOY = "Boy",
