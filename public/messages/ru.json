@@ -254,6 +254,24 @@
       "BLOCKED": "Доступно на {level} уровне"
     }
   },
+  "TOP_PLAYERS": {
+    "TITLE": "Топ игроков",
+    "MENU_ITEMS": {
+      "LEAGUE": "Лига",
+      "WORLD": "Мир",
+      "FRIENDS": "Друзья"
+    },
+    "TOURNAMENTS": {
+      "DIAMOND": "Бриллиантовый турнир",
+      "DESCRIPTION": "Топ-10 выходят в полуфинал"
+    },
+    "BEST_PLAYERS": "Лучшие Игроки",
+    "WINNERS": "Победители",
+    "LEAGUES": {
+      "DIAMOND": "Бриллиантовая лига",
+      "GOLD": "Золотая лига"
+    }
+  },
   "ERRORS": {
     "notEnoughStars": "Недостаточно звезд",
     "userNotFound": "Пользователь не найден"

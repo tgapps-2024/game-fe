@@ -142,6 +142,8 @@ export default {
           "linear-gradient(to bottom, #FFE04E 0%, #F19F33 35%, #192632 55%, #192632 100%)",
         "default-booster-modal-pattern":
           "linear-gradient(to bottom, #29D6FF 0%, #2596E4 35%, #192632 55%, #192632 100%)",
+        "top-players-pattern":
+          "linear-gradient(to bottom, #6420B9 7%, #8948FA 50%, #6420B9 100%)",
         "card-blue-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 105, 177, 0) 0%, #0069B1 100%), url('/assets/png/card-bg.png')",
         "card-orange-bg-pattern":
@@ -152,6 +154,8 @@ export default {
           "radial-gradient(50% 88.48% at 50% 50%, rgba(32, 57, 80, 0) 0%, #203950 100%), url('/assets/png/card-bg.png')",
         "card-green-bg-pattern":
           "radial-gradient(50% 88.48% at 50% 50%, rgba(0, 159, 0, 0) 0%, #009F00 100%), url('/assets/png/card-bg.png')",
+        "top-players-list-pattern":
+          "linear-gradient(#FFB900 0%, #FDC42D 50%, #FFB900 100%)",
       },
       textShadow: {
         sm: "0 1px 0px #000",
@@ -267,6 +271,10 @@ export default {
           "0px -2px 4px 0px #00000026 inset, 0px 4px 4px 0px #00000040 inset",
         "heroes-stat-indicator-inner-dim": "-1px 2px 1px 0px #00000033 inset",
         "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099",
+        "leaderbord-list-pattern":
+          "inset 0 -2px 0 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
+        "leaderboard-tape-shadow":
+          "box-shadow: 0px 2px 24px 0px rgba(0, 0, 0, 0.80), 0px 6px 6px 0px rgba(0, 0, 0, 0.60)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
@@ -276,6 +284,7 @@ export default {
         x: ["10px", "10px"],
         xs: ["12px", "12px"],
         sm: ["14px", "14px"],
+        lg: ["18px", "18px"],
         "2xl": ["24px", "24px"],
         "3xl": ["32px", "32px"],
       },

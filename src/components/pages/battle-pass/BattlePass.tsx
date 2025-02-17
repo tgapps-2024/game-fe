@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import { PageWrapper } from "@/components/common";
+import { BottomMenu } from "@/components/common/bottom-menu/BottomMenu";
 
 import { BattlePassHeader } from "./components/battle-pass-header/BattlePassHeader";
 import { BattlePassList } from "./components/battle-pass-list/BattlePassList";
-import { BottomMenu } from "./components/bottom-menu/BottomMenu";
 
 export const BattlePass = () => {
   const [bgScaleDelta, setBgScaleDelta] = useState(0);

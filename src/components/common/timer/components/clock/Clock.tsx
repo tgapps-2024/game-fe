@@ -14,8 +14,8 @@ export const Clock: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="relative z-30 w-fit rounded-full bg-gradient-to-b from-[#FFDE60] to-[#FABF33] p-[3px]">
-      <div className="relative flex size-[22.4px] items-center justify-center overflow-hidden rounded-full bg-white">
+    <div className="relative z-30 h-full w-full rounded-full bg-gradient-to-b from-[#FFDE60] to-[#FABF33] p-[3px]">
+      <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-white">
         <div className="absolute -left-[1px] size-[3.73px] rounded-r-full bg-[#883308]" />
         <div className="absolute -right-[1px] size-[3.73px] rounded-l-full bg-[#883308]" />
         <div className="absolute -bottom-[1px] size-[3.73px] -rotate-90 rounded-r-full bg-[#883308]" />

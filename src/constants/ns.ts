@@ -283,6 +283,27 @@ export const NS = {
         BLOCKED: "BLOCKED"
       }
     },
+    TOP_PLAYERS: {
+      ROOT: "TOP_PLAYERS",
+      TITLE: "TITLE",
+      MENU_ITEMS: {
+        ROOT: "MENU_ITEMS",
+        LEAGUE: "LEAGUE",
+        WORLD: "WORLD",
+        FRIENDS: "FRIENDS",
+      },
+      TOURNAMENTS: {
+        ROOT: "TOURNAMENTS",
+        DIAMOND: "DIAMOND",
+        DESCRIPTION: "DESCRIPTION",
+      },
+      BEST_PLAYERS: "BEST_PLAYERS",
+      WINNERS: "WINNERS",
+      LEAGUES: {
+        DIAMOND: "DIAMOND",
+        GOLD: "GOLD",
+      },
+    },
   },
   ERRORS: {
     ROOT: "ERRORS",

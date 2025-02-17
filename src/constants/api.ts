@@ -28,6 +28,7 @@ export const API_ENDPOINTS = {
     GET_CARDS: "/get_cards",
     GET_CLOTH_HERO: "/get_cloth_character",
     GET_ALL_HEROES_WITH_CLOTH: "/get_all_characters_with_cloth",
+    LEADERBOARD: "/leaderboard",
   },
   POST: {
     AUTH: "/auth",
@@ -45,4 +46,6 @@ export const API_ENDPOINTS = {
 
 export const AUTH_COOKIE_TOKEN = "authToken";
 
-export const STALE_TIME = 1000 * 60 * 60; // 1 час
+export const STALE_TIME = 1000 * 60 * 60;
+
+export const DEFAULT_COUNT_TOP_PLAYERS = 16;

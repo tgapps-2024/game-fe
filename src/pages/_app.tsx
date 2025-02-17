@@ -4,7 +4,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
-// import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 
 import { Toaster } from "@/components/ui/sonner";
@@ -23,8 +22,6 @@ import "@/styles/globals.css";
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const { locale } = useRouter();
-
-  console.log("ERUDA ENABLED:", process.env.NEXT_PUBLIC_IS_ENABLED_ERUDA);
 
   return (
     <NextIntlClientProvider
