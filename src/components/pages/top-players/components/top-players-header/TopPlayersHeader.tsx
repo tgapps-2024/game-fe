@@ -10,28 +10,25 @@ import ShieldSVG from "@/public/assets/svg/top-players/small-shield.svg";
 import WorldSVG from "@/public/assets/svg/top-players/world.svg";
 import { LeaderboardEnum } from "@/services/leaderboard/types";
 import { IWebApp } from "@/types/telegram";
-import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 type Props = {
   league: LeaderboardEnum;
   webApp: IWebApp;
   onSetLeague: (league: LeaderboardEnum) => void;
+  paddingTop: number;
 };
 
 export const TopPlayersHeader: FunctionComponent<Props> = ({
   league,
-  webApp,
   onSetLeague,
+  paddingTop,
 }) => {
   const t = useTranslations(NS.PAGES.TOP_PLAYERS.ROOT);
-
-  const insetTop = getTgSafeAreaInsetTop(webApp);
-  const calculatedPaddingTop = insetTop ? insetTop - 32 : 16;
 
   return (
     <div
       className="fixed left-0 right-0 top-0 z-50 flex flex-col rounded-b-4xl bg-white/[1%] px-4 pb-5 backdrop-blur-lg"
-      style={{ paddingTop: `${calculatedPaddingTop}px` }}
+      style={{ paddingTop: `${paddingTop}px` }}
     >
       <h2 className="text-stroke-1 mb-5 text-center text-lg font-extrabold tracking-wide text-white text-shadow-sm">
         {t(`${NS.PAGES.TOP_PLAYERS.TITLE}`)}
