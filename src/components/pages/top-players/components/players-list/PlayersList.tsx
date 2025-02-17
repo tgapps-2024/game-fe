@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { Spinner } from "@/components/common";
 import { NS } from "@/constants/ns";
 import { Leader } from "@/services/leaderboard/types";
 
@@ -51,7 +50,7 @@ export const PlayersList: FunctionComponent<Props> = ({
         dataLength={leaders.length}
         next={handleFetchNextPage}
         hasMore={hasNextPage}
-        loader={<Spinner />}
+        loader={<></>}
         scrollableTarget="top-players"
       >
         <div className="top-list-shadows relative z-20 flex w-full flex-col items-center rounded-t-4xl bg-top-players-list-pattern px-2 pb-3 pt-5">

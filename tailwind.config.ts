@@ -16,8 +16,6 @@ export default {
           "collect-button-vertical-sway 1s infinite linear",
         "collect-button-coloring": "collect-button-coloring 1s infinite linear",
         "collect-button-locked-coloring":
-          "collect-button-locked-coloring 1s infinite linear",
-        "collect-button-violet-coloring":
           "collect-button-violet-coloring 1s infinite linear",
         "bp-glow-running": "bp-glow-running 2s infinite linear",
         "card-glow-running": "card-glow-running 2s infinite linear",
@@ -275,6 +273,7 @@ export default {
           "inset 0 -2px 0 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
         "leaderboard-tape-shadow":
           "box-shadow: 0px 2px 24px 0px rgba(0, 0, 0, 0.80), 0px 6px 6px 0px rgba(0, 0, 0, 0.60)",
+        "modal-shadow": "0 -8px 12px 0 rgba(5, 22, 37, 0.6)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
