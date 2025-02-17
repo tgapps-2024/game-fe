@@ -56,7 +56,9 @@ const DEFAULT_VALUE = {
 export const HSSharedContext =
   createContext<HSSharedContextValue>(DEFAULT_VALUE);
 
-const numOrZero = (num?: number) => num ?? 0;
+const STAT_MULTIPLIER = 100000;
+
+const getStat = (num?: number) => (num ? num * STAT_MULTIPLIER : 0);
 
 const setHeroCloth = (
   hero: ISelectedHero,
@@ -76,16 +78,16 @@ const setHeroCloth = (
     },
     earn_per_hour:
       hero.earn_per_hour -
-      numOrZero(prevClothConfig?.earn_per_hour) +
-      numOrZero(nextClothConfig?.earn_per_hour),
+      getStat(prevClothConfig?.earn_per_hour) +
+      getStat(nextClothConfig?.earn_per_hour),
     earn_per_tap:
       hero.earn_per_tap -
-      numOrZero(prevClothConfig?.earn_per_tap) +
-      numOrZero(nextClothConfig?.earn_per_tap),
+      getStat(prevClothConfig?.earn_per_tap) +
+      getStat(nextClothConfig?.earn_per_tap),
     energy:
       hero.energy -
-      numOrZero(prevClothConfig?.energy) +
-      numOrZero(nextClothConfig?.energy),
+      getStat(prevClothConfig?.energy) +
+      getStat(nextClothConfig?.energy),
   };
 };
 
@@ -115,10 +117,10 @@ const toSelectedHero = (
       nextHero = {
         ...nextHero,
         earn_per_hour:
-          nextHero.earn_per_hour + numOrZero(clothConfig?.earn_per_hour),
+          nextHero.earn_per_hour + getStat(clothConfig?.earn_per_hour),
         earn_per_tap:
-          nextHero.earn_per_tap + numOrZero(clothConfig?.earn_per_tap),
-        energy: nextHero.energy + numOrZero(clothConfig?.energy),
+          nextHero.earn_per_tap + getStat(clothConfig?.earn_per_tap),
+        energy: nextHero.energy + getStat(clothConfig?.energy),
       };
     }
   });

@@ -40,7 +40,6 @@ const isHeroBodyPart = (
 
 export const HeroView: FunctionComponent<Props> = ({
   heroId,
-  heroRarity,
   source,
   heroCloth,
   className,
@@ -69,7 +68,6 @@ export const HeroView: FunctionComponent<Props> = ({
         <HSPieceImage
           key={part}
           heroId={heroId}
-          heroRarity={heroRarity}
           part={part}
           clothId={isHeroBodyPart(part) ? 0 : heroCloth?.[part]}
           quality={100}

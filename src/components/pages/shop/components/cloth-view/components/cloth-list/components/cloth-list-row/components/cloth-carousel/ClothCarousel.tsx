@@ -9,7 +9,6 @@ import Chevron from "@/public/assets/png/chevron.webp";
 import {
   HeroClothPiece,
   HeroId,
-  HeroRarity,
   IHeroClothConfig,
   SelectedCloth,
 } from "@/services/heroes/types";
@@ -22,7 +21,6 @@ type Props = {
   clothPiece: HeroClothPiece;
   clothPieceConfigs: IHeroClothConfig[];
   heroId: HeroId;
-  heroRarity: HeroRarity;
   ownCloth: number[];
   selectedHeroCloth: SelectedCloth;
   onCardClick: (clothPiece: HeroClothPiece, clothId: number) => void;
@@ -32,7 +30,6 @@ export const ClothCarousel: FunctionComponent<Props> = ({
   clothPiece,
   clothPieceConfigs,
   heroId,
-  heroRarity,
   ownCloth,
   selectedHeroCloth,
   onCardClick,
@@ -54,7 +51,6 @@ export const ClothCarousel: FunctionComponent<Props> = ({
               clothPiece={clothPiece}
               clothPieceConfig={cloth}
               heroId={heroId}
-              heroRarity={heroRarity}
               isSelectedCloth={selectedHeroCloth[clothPiece] === cloth.id}
               isOwnCloth={ownCloth.includes(cloth.id)}
               onCardClick={onCardClick}

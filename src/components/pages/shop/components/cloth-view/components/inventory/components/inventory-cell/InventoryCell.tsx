@@ -31,7 +31,6 @@ const clothPieceClassName = {
 
 export const InventoryCell: FunctionComponent<Props> = ({
   heroId,
-  heroRarity,
   clothPiece,
   clothId,
   onRemoveClick,
@@ -70,7 +69,6 @@ export const InventoryCell: FunctionComponent<Props> = ({
                 >
                   <HSPieceImage
                     heroId={heroId}
-                    heroRarity={heroRarity}
                     part={clothPiece}
                     clothId={clothId}
                     quality={100}

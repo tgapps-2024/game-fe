@@ -42,7 +42,6 @@ export const ClothList = () => {
               clothPiece={clothPiece as HeroClothPiece}
               clothPieceConfig={clothPieceConfig}
               heroId={heroId}
-              heroRarity={hero.rarity}
               selectedHeroCloth={cloth}
               ownCloth={ownCloth}
             />

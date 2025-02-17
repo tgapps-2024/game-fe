@@ -5,65 +5,57 @@ import React, {
   useState,
 } from "react";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
-import {
-  HeroBodyPart,
-  HeroClothPiece,
-  HeroId,
-  HeroRarity,
-} from "@/services/heroes/types";
+import { HeroBodyPart, HeroClothPiece, HeroId } from "@/services/heroes/types";
+
+import * as images from "./images";
 
 const capitalizeFirstLetter = (str: string) => {
   return String(str).charAt(0).toUpperCase() + String(str).slice(1);
 };
 
-const srcBuilder = (
+const imageBuilder = (
   heroId: HeroId,
-  heroRarity: HeroRarity,
   part: HeroBodyPart | HeroClothPiece,
   clothId?: number,
-): string => {
-  const startsWith = `/assets/png/heroes/${heroRarity}/${heroId}/`;
+): StaticImageData => {
   const capitalizedPart = capitalizeFirstLetter(part);
-  const endsWith =
-    typeof clothId === "number"
-      ? `/${clothId}.webp`
-      : `/${capitalizedPart}.webp`;
-
-  return `${startsWith}${capitalizedPart}${endsWith}`;
+  const endsWith = typeof clothId === "number" ? clothId : "";
+  const imageKey = heroId + capitalizedPart + endsWith;
+  // @ts-expect-error imported module
+  return images[imageKey];
 };
 
 type Props = Omit<ComponentProps<typeof Image>, "src"> & {
   heroId: HeroId;
-  heroRarity: HeroRarity;
   part: HeroBodyPart | HeroClothPiece;
   clothId?: number;
 };
 
 export const HSPieceImage: FunctionComponent<Props> = ({
   heroId,
-  heroRarity,
   part,
   clothId,
   ...props
 }) => {
   const [isHidden, setIsHidden] = useState(false);
-  const src =
+
+  const img =
     part === HeroBodyPart.BODY || part === HeroBodyPart.HEAD
-      ? srcBuilder(heroId, heroRarity, part)
-      : srcBuilder(heroId, heroRarity, part, clothId ?? 0);
+      ? imageBuilder(heroId, part)
+      : imageBuilder(heroId, part, clothId ?? 0);
 
   useEffect(() => {
     setIsHidden(false);
-  }, [src]);
+  }, [heroId, part, clothId]);
 
   return (
     !isHidden && (
       <Image
         {...props}
         alt={props.alt} // to appease eslint
-        src={src}
+        src={img}
         onError={() => {
           if (!isHidden) {
             setIsHidden(true);

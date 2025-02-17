@@ -12,7 +12,6 @@ import { NS } from "@/constants/ns";
 import {
   HeroClothPiece,
   HeroId,
-  HeroRarity,
   IHeroClothConfig,
 } from "@/services/heroes/types";
 import { useGetProfile } from "@/services/profile/queries";
@@ -22,7 +21,6 @@ type Props = {
   clothPiece: HeroClothPiece;
   clothPieceConfig: IHeroClothConfig;
   heroId: HeroId;
-  heroRarity: HeroRarity;
   isOwnCloth: boolean;
   isSelectedCloth: boolean;
   onCardClick: (clothPiece: HeroClothPiece, clothId: number) => void;
@@ -40,7 +38,6 @@ export const ClothCard: FunctionComponent<Props> = ({
   clothPieceConfig,
   clothPiece,
   heroId,
-  heroRarity,
   isOwnCloth,
   isSelectedCloth,
   onCardClick,
@@ -112,7 +109,6 @@ export const ClothCard: FunctionComponent<Props> = ({
           clothPieceClassName[clothPiece],
         )}
         heroId={heroId}
-        heroRarity={heroRarity}
         part={clothPiece}
         clothId={clothPieceConfig.id}
         alt={`${clothPiece}-${clothPieceConfig.id}`}

@@ -16,7 +16,6 @@ import {
   HeroClothPiece,
   HeroClothPieceConfig,
   HeroId,
-  HeroRarity,
   SelectedCloth,
 } from "@/services/heroes/types";
 import { invalidateProfileQuery } from "@/services/profile/queries";
@@ -31,7 +30,6 @@ type Props = {
   clothPiece: HeroClothPiece;
   clothPieceConfig: HeroClothPieceConfig;
   heroId: HeroId;
-  heroRarity: HeroRarity;
   selectedHeroCloth: SelectedCloth;
   ownCloth: number[];
 };
@@ -41,7 +39,6 @@ export const ClothListRow: FunctionComponent<Props> = ({
   clothPiece,
   clothPieceConfig,
   heroId,
-  heroRarity,
   selectedHeroCloth,
   ownCloth,
 }) => {
@@ -87,7 +84,7 @@ export const ClothListRow: FunctionComponent<Props> = ({
     const isOwnCloth = ownClothList.includes(clothId);
 
     if (!isOwnCloth || currentHero?.cloth[clothPiece] === clothId) {
-      selectCloth(clothPiece, clothId);  
+      selectCloth(clothPiece, clothId);
     } else if (selection.hero) {
       setCloth({
         heroId: selection.hero.characterId,
@@ -113,7 +110,6 @@ export const ClothListRow: FunctionComponent<Props> = ({
           clothPiece={clothPiece}
           clothPieceConfigs={clothPieceConfigs}
           heroId={heroId}
-          heroRarity={heroRarity}
           ownCloth={ownClothList}
           selectedHeroCloth={selectedHeroCloth}
           onCardClick={onCardClick}
@@ -123,7 +119,6 @@ export const ClothListRow: FunctionComponent<Props> = ({
           clothPiece={clothPiece}
           clothPieceConfigs={clothPieceConfigs}
           heroId={heroId}
-          heroRarity={heroRarity}
           ownCloth={ownClothList}
           selectedHeroCloth={selectedHeroCloth}
           onCardClick={onCardClick}
