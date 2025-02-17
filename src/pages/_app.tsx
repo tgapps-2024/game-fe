@@ -23,8 +23,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const { locale } = useRouter();
 
-  console.log("ERUDA ENABLED:", process.env.NEXT_PUBLIC_IS_ENABLED_ERUDA);
-
   return (
     <NextIntlClientProvider
       locale={locale}

@@ -25,6 +25,7 @@ type Props = {
   disableSafeAreaInset?: boolean;
   placeholder?: ReactNode;
   overscrollBehaviour?: OverscrollBehavior;
+  id?: string;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export const PageWrapper: FunctionComponent<Props> = ({
@@ -34,6 +35,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
   placeholder,
   overscrollBehaviour = OverscrollBehavior.CONTAIN,
   disableSafeAreaInset = false,
+  id = PAGE_WRAPPER_INTERNAL_ID,
   ...props
 }) => {
   const { webApp, isAuthenticating } = useTelegram();
@@ -46,7 +48,7 @@ export const PageWrapper: FunctionComponent<Props> = ({
 
   return (
     <div
-      id={PAGE_WRAPPER_INTERNAL_ID}
+      id={id}
       className={classNames(
         "h-screen max-h-screen w-full overflow-y-auto",
         {

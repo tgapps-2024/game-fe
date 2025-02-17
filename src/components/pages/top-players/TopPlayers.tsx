@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { PageWrapper } from "@/components/common";
 import { BottomMenu } from "@/components/common/bottom-menu/BottomMenu";
 import { useTelegram } from "@/context";
-import { useGetLeaderboard } from "@/services/leaderboard/fetcher";
+import { useInfiniteLeaderboard } from "@/services/leaderboard/queries";
 import { LeaderboardEnum } from "@/services/leaderboard/types";
 
 import { LeagueInfo } from "./components/league-info/LeagueInfo";
@@ -15,15 +15,16 @@ import { TopPlayersHeader } from "./components/top-players-header/TopPlayersHead
 export const TopPlayers = () => {
   const [league, setLeague] = useState(LeaderboardEnum.LEAGUE);
   const { webApp } = useTelegram();
-  const { data, isLoading } = useGetLeaderboard(league);
 
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    useInfiniteLeaderboard(league);
   if (!webApp) return null;
 
   return (
     <PageWrapper
-      isLoading={isLoading}
       className="bg-top-players-pattern pb-36"
       disableSafeAreaInset
+      id="top-players"
     >
       <TopPlayersHeader
         league={league}
@@ -31,7 +32,13 @@ export const TopPlayers = () => {
         onSetLeague={setLeague}
       />
       <LeagueInfo />
-      <PlayersList leaders={data?.leaders || []} />
+      {!isLoading ? (
+        <PlayersList
+          leaders={data?.pages.flatMap((page) => page.leaders) || []}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+        />
+      ) : null}
       <TimerBlock />
       <RewardsBlock />
       <BottomMenu />

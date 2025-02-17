@@ -14,4 +14,5 @@ export type Leader = {
 export type ILeaderboard = {
   player_rank: number;
   leaders: Leader[];
+  hasNextPage: boolean;
 };
