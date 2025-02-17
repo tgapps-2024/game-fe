@@ -78,13 +78,15 @@ export const HeroesGridCard: FunctionComponent<Props> = ({
       onClick={() => onSelectHero(heroId)}
       type={type}
     >
-      <HeroView
-        className="h-full w-full"
-        heroId={heroId}
-        heroRarity={heroRarity}
-        heroCloth={heroCloth}
-        source="grid"
-      />
+      <div className="absolute inset-0 translate-y-[26%] scale-[1.5]">
+        <HeroView
+          className="h-full w-full"
+          heroId={heroId}
+          heroRarity={heroRarity}
+          heroCloth={heroCloth}
+          source="grid"
+        />
+      </div>
       {isOwnHero && (
         <div className="absolute inset-x-0 bottom-2 mx-auto text-center text-xs font-bold text-white text-shadow">
           {t(

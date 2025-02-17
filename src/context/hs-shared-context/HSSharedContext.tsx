@@ -3,12 +3,14 @@ import React, {
   FunctionComponent,
   PropsWithChildren,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 
 import { useRouter } from "next/router";
 
+import { ROUTES } from "@/constants/routes";
 import {
   useGetAllAppsHeroes,
   useGetAllHeroes,
@@ -56,77 +58,34 @@ const DEFAULT_VALUE = {
 export const HSSharedContext =
   createContext<HSSharedContextValue>(DEFAULT_VALUE);
 
-const STAT_MULTIPLIER = 100000;
-
-const getStat = (num?: number) => (num ? num * STAT_MULTIPLIER : 0);
-
 const setHeroCloth = (
   hero: ISelectedHero,
   clothPiece: HeroClothPiece,
   clothId: number,
-  heroConfig: IHeroConfig,
-): ISelectedHero => {
-  const clothPieceConfig = heroConfig.cloth[clothPiece];
-  const prevClothConfig = clothPieceConfig?.[hero.cloth[clothPiece]];
-  const nextClothConfig = clothPieceConfig?.[clothId];
-
-  return {
-    ...hero,
-    cloth: {
-      ...hero.cloth,
-      [clothPiece]: clothId,
-    },
-    earn_per_hour:
-      hero.earn_per_hour -
-      getStat(prevClothConfig?.earn_per_hour) +
-      getStat(nextClothConfig?.earn_per_hour),
-    earn_per_tap:
-      hero.earn_per_tap -
-      getStat(prevClothConfig?.earn_per_tap) +
-      getStat(nextClothConfig?.earn_per_tap),
-    energy:
-      hero.energy -
-      getStat(prevClothConfig?.energy) +
-      getStat(nextClothConfig?.energy),
-  };
-};
+): ISelectedHero => ({
+  ...hero,
+  cloth: {
+    ...hero.cloth,
+    [clothPiece]: clothId,
+  },
+});
 
 const toSelectedHero = (
   heroId: HeroId,
   config: IHeroConfig,
   selectedCloth: SelectedCloth,
-): ISelectedHero => {
-  let nextHero = {
-    characterId: heroId,
-    earn_per_hour: config.earn_per_hour,
-    earn_per_tap: config.earn_per_tap,
-    energy: config.energy,
-    rarity: config.rarity,
-    price: config.price,
-    currency: config.currency,
-    auto: 0,
-    background: 0,
-    cloth: selectedCloth,
-  };
-
-  (Object.keys(nextHero.cloth) as HeroClothPiece[]).forEach((clothPiece) => {
-    const clothId = nextHero.cloth[clothPiece];
-
-    if (clothId !== 0) {
-      const clothConfig = config.cloth[clothPiece]?.[clothId];
-      nextHero = {
-        ...nextHero,
-        earn_per_hour:
-          nextHero.earn_per_hour + getStat(clothConfig?.earn_per_hour),
-        earn_per_tap:
-          nextHero.earn_per_tap + getStat(clothConfig?.earn_per_tap),
-        energy: nextHero.energy + getStat(clothConfig?.energy),
-      };
-    }
-  });
-
-  return nextHero;
-};
+): ISelectedHero => ({
+  characterId: heroId,
+  earn_per_hour: config.earn_per_hour,
+  earn_per_tap: config.earn_per_tap,
+  energy: config.energy,
+  rarity: config.rarity,
+  price: config.price,
+  currency: config.currency,
+  auto: 0,
+  background: 0,
+  cloth: selectedCloth,
+});
 
 const parseQueryHeroId = (
   queryHeroId?: string | string[],
@@ -135,15 +94,30 @@ const parseQueryHeroId = (
   return (Array.isArray(queryHeroId) ? queryHeroId[0] : queryHeroId) as HeroId;
 };
 
+let persistedHero: ISelectedHero | undefined;
+
 export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  const { query } = useRouter();
-  const queryHeroId = parseQueryHeroId(query.heroId);
+  const router = useRouter();
+  const queryHeroId = parseQueryHeroId(router.query.heroId);
   const { data: profile } = useGetProfile();
   const { data: allHeroes } = useGetAllAppsHeroes();
   const { data: allHeroesWithCloth } = useGetAllHeroesWithCloth();
   const currentHeroId = queryHeroId ?? profile?.character?.current;
+
+  const [selection, setSelection] = useState<HSSharedContextSelection>(() => {
+    if (!persistedHero) return DEFAULT_VALUE.selection;
+
+    const nextSelection = {
+      ...DEFAULT_VALUE.selection,
+      hero: persistedHero,
+    };
+
+    persistedHero = undefined;
+
+    return nextSelection;
+  });
 
   useGetAllHeroes();
 
@@ -185,9 +159,31 @@ export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
     );
   }, [allHeroes, allHeroesWithCloth]);
 
-  const [selection, setSelection] = useState<HSSharedContextSelection>(
-    DEFAULT_VALUE.selection,
+  const hero = useMemo(
+    () =>
+      currentHeroId && allHeroes && currentClothByHeroId
+        ? toSelectedHero(
+            currentHeroId,
+            allHeroes[currentHeroId],
+            currentClothByHeroId[currentHeroId],
+          )
+        : undefined,
+    [currentHeroId, allHeroes, currentClothByHeroId],
   );
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (router.pathname === ROUTES.SHOP && url === ROUTES.HEROES) {
+        persistedHero = hero;
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router, hero, selection.hero]);
 
   const selectHero = useCallback(
     (heroId: HeroId) => {
@@ -224,7 +220,7 @@ export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
 
         return {
           ...prevSelection,
-          hero: setHeroCloth(prevHero, clothPiece, clothId, heroConfig),
+          hero: setHeroCloth(prevHero, clothPiece, clothId),
           cloth: {
             id: clothId,
             clothPiece,
@@ -237,18 +233,6 @@ export const HSSharedProvider: FunctionComponent<PropsWithChildren> = ({
       });
     },
     [allHeroes, currentHeroId, currentClothByHeroId],
-  );
-
-  const hero = useMemo(
-    () =>
-      currentHeroId && allHeroes && currentClothByHeroId
-        ? toSelectedHero(
-            currentHeroId,
-            allHeroes[currentHeroId],
-            currentClothByHeroId[currentHeroId],
-          )
-        : undefined,
-    [currentHeroId, allHeroes, currentClothByHeroId],
   );
 
   const value = useMemo(() => {

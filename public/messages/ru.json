@@ -251,7 +251,36 @@
     "GLASS": "Очки",
     "WATCH": "Часы",
     "LABELS": {
-      "BLOCKED": "Доступно на {level} уровне"
+      "BLOCKED": "Доступно на {level} уровне",
+      "CLOTH": {
+        "BAFFET": "{cloth, select, other {Комплект одежды}}",
+        "BEARD": "{cloth, select, watch_1 {Часы №1} watch_2 {Часы №2} watch_3 {Часы №3} watch_4 {Часы №4} watch_5 {Часы №5} other {Комплект одежды}}",
+        "BEAST": "{cloth, select, hat_1 {Шапка Светлая} hat_2 {Шапка Чёрная} hat_3 {Шапка Бирюзовая} other {Комплект одежды}}",
+        "BLONDE": "{cloth, select, hat_1 {Шапка Prada} hat_2 {Шапка Liu Jo} hat_3 {Шапка Timberland} glass_1 {Очки Gucci} glass_2 {Очки Голубые} glass_3 {Очки Хакки} glass_4 {Очки Зелёные} other {Комплект одежды}}",
+        "BOY": "{cloth, select, hat_1 {Кепка NY} hat_2 {Кепка Audi} hat_3 {Кепка Kappa} glass_1 {Очки Lacoste} glass_2 {Очки Бордовые} glass_3 {Очки Хакки} watch_1 {Часы №1} watch_2 {Часы №2} watch_3 {Часы №3} other {Комплект одежды}}",
+        "BROWNHAIRED": "{cloth, select, hat_1 {Кепка Chanel} hat_2 {Кепка Under armor} hat_3 {Кепка Levi's} hat_4 {Кепка Champion} watch_1 {Напульсники Adidas} watch_2 {Напульсники Puma} watch_3 {Напульсники Фиолетовые} watch_4 {Напульсники Under armor} other {Напульсники №5}}",
+        "BUTEREN": "{cloth, select, hat_1 {Кепка Jordan} hat_2 {Кепка New Balance} hat_3 {Кепка Ethereum} hat_4 {Кепка Timberland} other {Комплект одежды}}",
+        "CAPTAINAMERICA": "{cloth, select, other {Комплект одежды}}",
+        "DEADPOOL": "{cloth, select, other {Комплект одежды}}",
+        "DEFAULT": "{cloth, select, hat_1 {Шапка Fendi} hat_2 {Шапка Gucci} hat_3 {Шапка The North Face} hat_4 {Шапка Giorgio Armani} glass_1 {Очки Dior} glass_2 {Очки Givenchy} glass_3 {Очки №3} glass_4 {Очки Prada} watch_1 {Часы №1} watch_2 {Часы №2} watch_3 {Часы №3} watch_4 {Часы №4} other {Комплект одежды}}",
+        "DEFAULTHQ": "{cloth, select, hat_1 {Панама Supreme} hat_2 {Панама The North Face} hat_3 {Панама №3} hat_4 {Панама Versace} glass_1 {Очки Gucci} glass_2 {Очки Фиолетовые} glass_3 {Очки Розовые} glass_4 {Очки Бирюзовые} other {Комплект одежды}}",
+        "DUROV": "{cloth, select, hat_0 {Кепка Telegram} hat_1 {Кепка Lacoste} hat_2 {Кепка Givenchy} hat_3 {Кепка Balenciaga} hat_4 {Кепка Louis Vuitton} glass_1 {Очки Fendi} glass_2 {Очки Dolce&Gabbana} glass_3 {Очки Fred Perry} glass_4 {Очки Фиолетовые} glass_5 {Очки Бордовые} other {Комплект одежды}}",
+        "GIRL": "{cloth, select, hat_1 {Панама Tommy Hilfiger} hat_2 {Панама Patrizia Pepe} hat_3 {Панама Off White} hat_4 {Панама Armani Exchange} glass_1 {Очки Louis Vuitton} glass_2 {Очки Чёрно-голубые} glass_3 {Очки Чёрно-розовые} glass_4 {Очки Yves Saint Laurent} other {Комплект одежды}}",
+        "GRETTATUMBERG": "{cloth, select, other {Комплект одежды}}",
+        "HASBIK": "{cloth, select, hat_1 {Тюбетейка Бордовая} hat_2 {Тюбетейка Синяя} hat_3 {Тюбетейка Фиолетовая} glass_1 {Очки Gucci} glass_2 {Очки Чёрно-зелёные} glass_3 {Очки Чёрно-фиолетовые} chain_1 {Цепь №1} chain_2 {Цепь №2} chain_3 {Цепь №3} other {Комплект одежды}}",
+        "IRONMAN": "{cloth, select, other {Комплект одежды}}",
+        "JONES": "{cloth, select, hat_1 {Панама №1} hat_2 {Панама №2} hat_3 {Панама №3} hat_4 {Панама №4} hat_5 {Панама №5} glass_1 {Очки №1} glass_2 {Очки №2} glass_3 {Очки №3} glass_4 {Очки №4} glass_5 {Очки №5} other {Комплект одежды}}",
+        "MESSI": "{cloth, select, glass_1 {Очки Prada} glass_2 {Очки Чёрно-синие} glass_3 {Очки Чёрно-голубые} other {Комплект одежды}}",
+        "MUSK": "{cloth, select, hat_1 {Кепка LA} hat_2 {Кепка MAKE AMERICA GREAT AGAIN} hat_3 {Кепка Givenchy} glass_1 {Очки Valentino} glass_2 {Очки №2} glass_3 {Очки №3} other {Комплект одежды}}",
+        "OBGUY": "{cloth, select, glass_1 {Очки Boss} glass_2 {Очки Чёрные} glass_3 {Очки Levi's} glass_4 {Очки Playboy} hat_1 {Панама №1} hat_2 {Панама №2} hat_3 {Панама №3} hat_4 {Панама №4} other {Комплект одежды}}",
+        "QUEEN": "{cloth, select, glass_1 {Очки Versace} glass_2 {Очки Фиолетовые} glass_3 {Очки Чёрно-красные} glass_4 {Очки Коричневые} other {Комплект одежды}}",
+        "REDHEAD": "{cloth, select, hat_1 {Кепка Guess} hat_2 {Кепка Umbro} hat_3 {Кепка Fendi} hat_4 {Кепка Fila} glass_1 {Очки Balenciaga} glass_2 {Очки Хакки} glass_3 {Очки Зелёные} other {Комплект одежды}}",
+        "ROSSOMAHA": "{cloth, select, other {Комплект одежды}}",
+        "SPIDERMAN": "{cloth, select, other {Комплект одежды}}",
+        "STRANGE": "{cloth, select, other {Комплект одежды}}",
+        "TRUMP": "{cloth, select, hat_1 {Кепка Reebok} hat_2 {Кепка MAKE AMERICA GREAT AGAIN (Red)} hat_3 {Кепка MAKE AMERICA GREAT AGAIN (Blue)} glass_1 {Очки Emporio Armani} glass_2 {Очки Коричневые} glass_3 {Очки Тёмно-синие} other {Комплект одежды}}",
+        "ZUCKERBERG": "{cloth, select, hat_1 {Панама PlayBoy} hat_2 {Панама Dolce&Gabbana} hat_3 {Панама Hugo Boss} hat_4 {Панама Balenciaga} watch_1 {Часы №1} watch_2 {Часы №2} watch_3 {Часы №3} watch_4 {Часы №4} other {Комплект одежды}}"
+      }
     }
   },
   "ERRORS": {

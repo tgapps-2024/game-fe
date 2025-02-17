@@ -1,4 +1,4 @@
-import React, { ComponentProps, FunctionComponent } from "react";
+import React, { ComponentProps, FunctionComponent, useMemo } from "react";
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -6,7 +6,8 @@ import { useTranslations } from "next-intl";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
-import { HeroId, HeroRarity } from "@/services/heroes/types";
+import { useGetAllAppsHeroes } from "@/services/heroes/queries";
+import { HeroClothPiece, HeroId, HeroRarity } from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
 
 import { Coin, CoinType } from "./components/coin/Coin";
@@ -26,12 +27,10 @@ export enum HeroStatsCtaType {
 }
 
 type Props = {
-  energy: number;
-  earnPerHour: number;
-  earnPerTap: number;
   ctaType: HeroStatsCtaType;
   heroId: HeroId;
   heroRarity: HeroRarity;
+  heroCloth: Record<HeroClothPiece, number>;
   source: "heroes" | "shop";
   isCtaLoading?: boolean;
   isCurrentHeroSelected?: boolean;
@@ -42,13 +41,13 @@ type Props = {
 const calculateProgress = (current: number, max: number) =>
   (current / max) * 100;
 
+const calculateStat = (base: number, rate: number) => base * rate;
+
 export const HeroStats: FunctionComponent<Props> = ({
-  energy,
-  earnPerHour,
-  earnPerTap,
   ctaType,
   heroId,
   heroRarity,
+  heroCloth,
   source,
   isCtaLoading,
   isCurrentHeroSelected,
@@ -57,6 +56,7 @@ export const HeroStats: FunctionComponent<Props> = ({
 }) => {
   const tHeroes = useTranslations(NS.PAGES.HEROES.ROOT);
   const tShop = useTranslations(NS.PAGES.SHOP.ROOT);
+  const { data: heroes } = useGetAllAppsHeroes();
 
   const renderCta = () => {
     let color: ComponentProps<typeof PrimaryButton>["color"];
@@ -99,6 +99,44 @@ export const HeroStats: FunctionComponent<Props> = ({
   const ribbonTranslationKey =
     heroRarity.toUpperCase() as Uppercase<HeroRarity>;
   const isShopPage = source === "shop";
+
+  const { energy, earnPerHour, earnPerTap } = useMemo(() => {
+    if (!heroes)
+      return {
+        energy: 0,
+        earnPerHour: 0,
+        earnPerTap: 0,
+      };
+
+    const heroConfig = heroes[heroId];
+    let calculatedEnergy = heroConfig.energy;
+    let calculatedEarnPerHour = heroConfig.earn_per_hour;
+    let calculatedEarnPerTap = heroConfig.earn_per_tap;
+
+    Object.entries(heroCloth).map(([clothPiece, clothId]) => {
+      const clothConfig =
+        heroConfig.cloth[clothPiece as HeroClothPiece]?.[clothId];
+
+      calculatedEnergy += calculateStat(
+        heroConfig.energy,
+        clothConfig?.energy ?? 0,
+      );
+      calculatedEarnPerHour += calculateStat(
+        heroConfig.earn_per_hour,
+        clothConfig?.earn_per_hour ?? 0,
+      );
+      calculatedEarnPerTap += calculateStat(
+        heroConfig.earn_per_tap,
+        clothConfig?.earn_per_tap ?? 0,
+      );
+    });
+
+    return {
+      energy: calculatedEnergy,
+      earnPerHour: calculatedEarnPerHour,
+      earnPerTap: calculatedEarnPerTap,
+    };
+  }, [heroes, heroCloth, heroId]);
 
   return (
     <div className="absolute inset-y-0 right-4 my-auto max-h-fit w-1/2 rounded-2xl border border-[#EFC609]">

@@ -123,6 +123,22 @@ export const ClothCard: FunctionComponent<Props> = ({
           )}
         </div>
       )}
+      {!isBlocked && (
+        <div
+          className={classNames(
+            "absolute inset-x-0 bottom-2 mx-auto text-center text-xs font-bold text-white text-shadow",
+            {
+              "bottom-2": isOwnCloth,
+              "bottom-6": !isOwnCloth,
+            },
+          )}
+        >
+          {tShop(
+            `${NS.PAGES.SHOP.LABELS.ROOT}.${NS.PAGES.SHOP.LABELS.CLOTH.ROOT}.${heroId.toUpperCase()}`,
+            { cloth: `${clothPiece}_${clothPieceConfig.id}` },
+          )}
+        </div>
+      )}
     </Card>
   );
 };
