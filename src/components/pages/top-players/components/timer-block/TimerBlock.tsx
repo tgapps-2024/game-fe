@@ -8,7 +8,7 @@ export const TimerBlock = () => {
   return (
     <div className="fixed bottom-30 left-4 z-50 h-[70px] w-[78px] rounded-xl border border-solid border-black/50 bg-[#6D1F93] pb-1">
       <div className="h-full w-full rounded-xl bg-gradient-to-b from-[#5409A4] to-[#8C42D7] shadow-[inset_0_-2px_4px_0_rgba(207,114,255,0.6),inset_0_-1px_0_0_rgba(207,114,255,0.8)]">
-        <div className="absolute -top-1.5 left-1/2 z-[55] size-8 -translate-x-1/2">
+        <div className="absolute -top-2 left-1/2 z-[55] size-9 -translate-x-1/2 rounded-full border border-solid border-black">
           <Clock />
         </div>
         <div

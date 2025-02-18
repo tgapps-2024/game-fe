@@ -31,7 +31,7 @@ export const LeagueInfo = ({ insetTop }: { insetTop: number }) => {
           }),
         )}
       </div>
-      <h3 className="text-stroke-1 mb-2 text-center text-2xl font-black tracking-wide text-white text-shadow-sm">
+      <h3 className="text-stroke-half mb-2 text-center text-2xl font-black uppercase tracking-wide text-white text-shadow">
         {t(
           `${NS.PAGES.TOP_PLAYERS.TOURNAMENTS.ROOT}.${NS.PAGES.TOP_PLAYERS.TOURNAMENTS.DIAMOND}`,
         )}
