@@ -252,6 +252,7 @@
     "WATCH": "Часы",
     "LABELS": {
       "BLOCKED": "Доступно на {level} уровне",
+      "TOTAL": "Итого:",
       "CLOTH": {
         "BAFFET": "{cloth, select, other {Комплект одежды}}",
         "BEARD": "{cloth, select, watch_1 {Часы №1} watch_2 {Часы №2} watch_3 {Часы №3} watch_4 {Часы №4} watch_5 {Часы №5} other {Комплект одежды}}",

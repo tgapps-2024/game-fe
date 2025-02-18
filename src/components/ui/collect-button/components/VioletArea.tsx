@@ -9,7 +9,7 @@ export const VioletArea = () => (
     viewBox="0 0 60 31"
   >
     <mask
-      id="a"
+      id="violet-mask-a"
       width={60}
       height={31}
       x={0}
@@ -24,12 +24,12 @@ export const VioletArea = () => (
         d="M0 6a6 6 0 0 1 6-6h48a6 6 0 0 1 6 6v10.675a6 6 0 0 1-4.103 5.692l-24 8a6 6 0 0 1-3.794 0l-24-8A6 6 0 0 1 0 16.675V6Z"
       />
     </mask>
-    <g mask="url(#a)">
+    <g mask="url(#violet-mask-a)">
       <path
         fill="#5658A7"
         d="M0 6a6 6 0 0 1 6-6h48a6 6 0 0 1 6 6v10.675a6 6 0 0 1-4.103 5.692l-24 8a6 6 0 0 1-3.794 0l-24-8A6 6 0 0 1 0 16.675V6Z"
       />
-      <g filter="url(#b)">
+      <g filter="url(#violet-filter-b)">
         <path
           className="animate-collect-button-violet-coloring"
           fill="#7E81F3"
@@ -50,7 +50,7 @@ export const VioletArea = () => (
     </g>
     <defs>
       <filter
-        id="b"
+        id="violet-filter-b"
         width={60}
         height={29.176}
         x={0}

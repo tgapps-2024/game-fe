@@ -116,7 +116,7 @@ export const HeroesProfile = () => {
           <HeroStats
             heroId={selection.hero.characterId}
             heroRarity={selection.hero.rarity}
-            heroCloth={selection.hero.cloth}
+            selectedHeroCloth={selection.hero.cloth}
             ctaType={ctaType}
             isCtaLoading={
               isBuyingHero || isSettingProfileHero || isStarsPaymentLoading

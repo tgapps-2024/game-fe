@@ -52,7 +52,7 @@ const ProfileBalanceItem: FC<ItemProps> = ({
           <p className="font-inter text-x font-medium text-gray-550 text-shadow-sm">
             {t(tidKey)}
           </p>
-          <p className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+          <p className="text-stroke-1 text-nowrap text-base font-black tracking-[0.04em] text-white text-shadow-sm">
             {formatValue(value)} {postfix && postfix}
           </p>
         </div>

@@ -110,7 +110,7 @@ export const BuyStars: FunctionComponent<Props> = ({
         {reward.map(({ type, value }) => (
           <div
             key={type}
-            className="flex items-center gap-1 text-base font-extrabold leading-none text-yellow-500"
+            className="flex items-center gap-1 text-base font-extrabold text-yellow-500"
           >
             {React.createElement(REWARD_ICONS[type], {
               className: "size-6",

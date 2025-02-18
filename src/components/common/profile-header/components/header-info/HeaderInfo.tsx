@@ -14,7 +14,7 @@ export const HeaderInfo: FunctionComponent<Props> = ({
       <div className="font-inter text-xs font-medium text-white">
         {topComponent}
       </div>
-      <div className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+      <div className="text-stroke-1 text-nowrap text-base font-black tracking-[0.04em] text-white text-shadow-sm">
         {bottomComponent}
       </div>
     </div>

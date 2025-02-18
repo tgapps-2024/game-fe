@@ -3,11 +3,17 @@ import React, { ComponentProps, FunctionComponent, useMemo } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
+import { Badge } from "@/components/pages/friends/components/invite-modal/components/badge/Badge";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
 import { useGetAllAppsHeroes } from "@/services/heroes/queries";
-import { HeroClothPiece, HeroId, HeroRarity } from "@/services/heroes/types";
+import {
+  HeroClothPiece,
+  HeroCurrency,
+  HeroId,
+  HeroRarity,
+} from "@/services/heroes/types";
 import { formatValue } from "@/utils/lib/utils";
 
 import { Coin, CoinType } from "./components/coin/Coin";
@@ -30,11 +36,11 @@ type Props = {
   ctaType: HeroStatsCtaType;
   heroId: HeroId;
   heroRarity: HeroRarity;
-  heroCloth: Record<HeroClothPiece, number>;
+  selectedHeroCloth: Record<HeroClothPiece, number>;
+  currentHeroCloth?: Record<HeroClothPiece, number>;
   source: "heroes" | "shop";
   isCtaLoading?: boolean;
   isCurrentHeroSelected?: boolean;
-  isShopLinkHidden?: boolean;
   onCtaClick?: () => void;
 };
 
@@ -47,11 +53,11 @@ export const HeroStats: FunctionComponent<Props> = ({
   ctaType,
   heroId,
   heroRarity,
-  heroCloth,
+  selectedHeroCloth,
+  currentHeroCloth,
   source,
   isCtaLoading,
   isCurrentHeroSelected,
-  isShopLinkHidden,
   onCtaClick,
 }) => {
   const tHeroes = useTranslations(NS.PAGES.HEROES.ROOT);
@@ -100,20 +106,24 @@ export const HeroStats: FunctionComponent<Props> = ({
     heroRarity.toUpperCase() as Uppercase<HeroRarity>;
   const isShopPage = source === "shop";
 
-  const { energy, earnPerHour, earnPerTap } = useMemo(() => {
+  const { energy, earnPerHour, earnPerTap, coins, stars } = useMemo(() => {
     if (!heroes)
       return {
         energy: 0,
         earnPerHour: 0,
         earnPerTap: 0,
+        coins: 0,
+        stars: 0,
       };
 
     const heroConfig = heroes[heroId];
     let calculatedEnergy = heroConfig.energy;
     let calculatedEarnPerHour = heroConfig.earn_per_hour;
     let calculatedEarnPerTap = heroConfig.earn_per_tap;
+    let coins = 0;
+    let stars = 0;
 
-    Object.entries(heroCloth).map(([clothPiece, clothId]) => {
+    Object.entries(selectedHeroCloth).map(([clothPiece, clothId]) => {
       const clothConfig =
         heroConfig.cloth[clothPiece as HeroClothPiece]?.[clothId];
 
@@ -129,14 +139,24 @@ export const HeroStats: FunctionComponent<Props> = ({
         heroConfig.earn_per_tap,
         clothConfig?.earn_per_tap ?? 0,
       );
+
+      if (currentHeroCloth?.[clothPiece as HeroClothPiece] !== clothId) {
+        if (clothConfig?.currency === HeroCurrency.STARS) {
+          stars += clothConfig.price;
+        } else {
+          coins += clothConfig?.price ?? 0;
+        }
+      }
     });
 
     return {
       energy: calculatedEnergy,
       earnPerHour: calculatedEarnPerHour,
       earnPerTap: calculatedEarnPerTap,
+      coins,
+      stars,
     };
-  }, [heroes, heroCloth, heroId]);
+  }, [heroes, selectedHeroCloth, heroId, currentHeroCloth]);
 
   return (
     <div className="absolute inset-y-0 right-4 my-auto max-h-fit w-1/2 rounded-2xl border border-[#EFC609]">
@@ -200,8 +220,21 @@ export const HeroStats: FunctionComponent<Props> = ({
           </div>
         </div>
         <div className="flex flex-col gap-y-3">
+          {isShopPage && (
+            <div className="flex flex-col gap-y-2">
+              <div className="text-stroke-1 text-center text-base font-extrabold text-white text-shadow">
+                {tShop(
+                  `${NS.PAGES.SHOP.LABELS.ROOT}.${NS.PAGES.SHOP.LABELS.TOTAL}`,
+                )}
+              </div>
+              <div className="flex justify-center gap-x-2">
+                <Badge value={formatValue(coins)} suppressPadding />
+                <Badge value={formatValue(stars)} suppressPadding />
+              </div>
+            </div>
+          )}
           {renderCta()}
-          {!isShopLinkHidden &&
+          {!isShopPage &&
             (ctaType === HeroStatsCtaType.SELECT ||
               ctaType === HeroStatsCtaType.SELECTED) && (
               <Link

@@ -16,6 +16,8 @@ export default {
           "collect-button-vertical-sway 1s infinite linear",
         "collect-button-coloring": "collect-button-coloring 1s infinite linear",
         "collect-button-locked-coloring":
+          "collect-button-locked-coloring 1s infinite linear",
+        "collect-button-violet-coloring":
           "collect-button-violet-coloring 1s infinite linear",
         "bp-glow-running": "bp-glow-running 2s infinite linear",
         "card-glow-running": "card-glow-running 2s infinite linear",
@@ -283,6 +285,7 @@ export default {
         x: ["10px", "10px"],
         xs: ["12px", "12px"],
         sm: ["14px", "14px"],
+        base: ["16px", "16px"],
         lg: ["18px", "18px"],
         "2xl": ["24px", "24px"],
         "3xl": ["32px", "32px"],
