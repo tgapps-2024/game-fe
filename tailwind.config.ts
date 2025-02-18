@@ -270,9 +270,9 @@ export default {
         "heroes-stat-indicator-inner-dim": "-1px 2px 1px 0px #00000033 inset",
         "heroes-stat-indicator-glow": "0px 0px 4px 0px #FFCC0099",
         "leaderbord-list-pattern":
-          "inset 0 -2px 0 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
+          "inset 0 -2px 2px 0 rgba(0, 0, 0, 0.2), inset 0 4px 2px 0 rgba(0, 0, 0, 0.2)",
         "leaderboard-tape-shadow":
-          "box-shadow: 0px 2px 24px 0px rgba(0, 0, 0, 0.80), 0px 6px 6px 0px rgba(0, 0, 0, 0.60)",
+          "box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.80), 0 6px 6px rgba(0, 0, 0, 0.60)",
         "modal-shadow": "0 -8px 12px 0 rgba(5, 22, 37, 0.6)",
       },
       fontFamily: {
