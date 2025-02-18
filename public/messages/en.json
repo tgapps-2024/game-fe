@@ -316,6 +316,15 @@
       "TOP": "Top {num}"
     }
   },
+  "BUY_STARS": {
+    "TITLE": "Stars",
+    "DESCRIPTION": "Stars are awarded after 21 days from the date of earning.",
+    "TOTAL_BALANCE": "Total balance",
+    "AVAILABLE_TO_WITHDRAW": "Available for withdrawal",
+    "AVAILABLE_BALANCE": "Available balance",
+    "BUTTON_TEXT": "Refill",
+    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD."
+  },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",
     "userNotFound": "User not found"
