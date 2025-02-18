@@ -1,5 +1,14 @@
 import { HeroId } from "../heroes/types";
 
+export enum League {
+  BRONZE = "bronze",
+  SILVER = "silver",
+  GOLD = "gold",
+  BRILLIANT = "diamond",
+  PLATINUM = "platinum",
+  BILLIARD = "billiard",
+}
+
 export interface IProfile {
   coins: number;
   stars: number;
@@ -21,6 +30,7 @@ export interface IProfile {
   background: number;
   auto: number;
   haveBattlePass: boolean;
+  league: League;
 }
 
 export type Referal = {

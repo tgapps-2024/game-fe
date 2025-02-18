@@ -1,23 +1,3 @@
-<svg width="92" height="110" viewBox="0 0 92 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_ii_9207_22748)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M42.8496 1.20804C44.8776 0.430654 47.1214 0.430655 49.1493 1.20804L86.1827 15.4042C89.586 16.7088 91.8329 19.9764 91.8329 23.6212V28.2012V79.2154V83.7954C91.8329 87.2657 89.7934 90.4119 86.6255 91.8287L49.5921 108.391C47.3061 109.413 44.6928 109.413 42.4068 108.391L5.37339 91.8287C2.20549 90.412 0.166016 87.2657 0.166016 83.7954V79.2154V28.2013V23.6212C0.166016 19.9764 2.41288 16.7088 5.81619 15.4042L42.8496 1.20804Z" fill="#0078B1"/>
-</g>
-<defs>
-<filter id="filter0_ii_9207_22748" x="-1.83398" y="-1.375" width="95.667" height="112.531" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="2" dy="2"/>
-<feGaussianBlur stdDeviation="1"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="shape" result="effect1_innerShadow_9207_22748"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-2" dy="-2"/>
-<feGaussianBlur stdDeviation="1"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="effect1_innerShadow_9207_22748" result="effect2_innerShadow_9207_22748"/>
-</filter>
-</defs>
+<svg width="92" height="109" viewBox="0 0 92 109" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M42.8501 1.05179C44.8781 0.274404 47.1218 0.274405 49.1498 1.05179L86.1832 15.2479C89.5865 16.5525 91.8334 19.8201 91.8334 23.4649V28.045V79.0591V83.6392C91.8334 87.1095 89.7939 90.2557 86.626 91.6725L49.5926 108.235C47.3066 109.257 44.6933 109.257 42.4073 108.235L5.37388 91.6725C2.20598 90.2557 0.166504 87.1095 0.166504 83.6392V79.0591V28.045V23.4649C0.166504 19.8201 2.41337 16.5525 5.81668 15.2479L42.8501 1.05179Z" fill="#0078B1"/>
 </svg>

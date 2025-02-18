@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import classNames from "classnames";
 
 type Props = {
-  rank: number;
+  rank: number | string;
 };
 
 export const Rank: FunctionComponent<Props> = ({ rank }) => {
@@ -19,7 +19,7 @@ export const Rank: FunctionComponent<Props> = ({ rank }) => {
           "bg-[#FDE333]": rank === 1,
           "bg-[#D6E4EF]": rank === 2,
           "bg-[#E6AE7D]": rank === 3,
-          "bg-[#C9D7F1]": rank > 3,
+          "bg-[#C9D7F1]": typeof rank === "string" || rank > 3,
         })}
       >
         <div
@@ -29,7 +29,7 @@ export const Rank: FunctionComponent<Props> = ({ rank }) => {
               "bg-[#FEC701]": rank === 1,
               "bg-[#C3D1DE]": rank === 2,
               "bg-[#D09C6E]": rank === 3,
-              "bg-[#8E9EB7]": rank > 3,
+              "bg-[#8E9EB7]": typeof rank === "string" || rank > 3,
             },
           )}
         >
