@@ -5,13 +5,12 @@ import { useTranslations } from "next-intl";
 import classNames from "classnames";
 
 import { PageWrapper } from "@/components/common";
+import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
 import { NS } from "@/constants/ns";
 import { useTelegram } from "@/context";
 import StarSVG from "@/public/assets/svg/star.svg";
-import { getTgSafeAreaInsetTop } from "@/utils/telegram";
-import { formatNumber } from "@/utils/number";
 import { formatValue } from "@/utils/lib/utils";
-import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 export const BuyStars = () => {
   const t = useTranslations(NS.PAGES.BUY_STARS.ROOT);
