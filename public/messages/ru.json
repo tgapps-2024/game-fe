@@ -316,6 +316,15 @@
       "TOP": "Топ {num}"
     }
   },
+  "BUY_STARS": {
+    "TITLE": "Звезды",
+    "DESCRIPTION": "Старсы начисляются на доступный для вывода баланс спустя 21 день после их заработка. ",
+    "TOTAL_BALANCE": "Общий баланс",
+    "AVAILABLE_TO_WITHDRAW": "Доступно для вывода",
+    "AVAILABLE_BALANCE": "Доступный баланс",
+    "BUTTON_TEXT": "Пополнить",
+    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD."
+  },
   "ERRORS": {
     "notEnoughStars": "Недостаточно звезд",
     "userNotFound": "Пользователь не найден"

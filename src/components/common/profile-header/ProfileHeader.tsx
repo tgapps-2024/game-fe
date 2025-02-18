@@ -134,25 +134,27 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
           }
         />
       ) : (
-        <HeaderItem
-          topInfoComponent={
-            <TopComponent
-              text={t(
-                `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
-              )}
-            />
-          }
-          bottomInfoComponent={
-            isProfileLoading ? (
-              <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
-            ) : (
-              <BottomComponent value={profile?.stars.toFixed(2) ?? 0} />
-            )
-          }
-          imageNode={
-            <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
-          }
-        />
+        <Link href={ROUTES.BUY_STARS}>
+          <HeaderItem
+            topInfoComponent={
+              <TopComponent
+                text={t(
+                  `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
+                )}
+              />
+            }
+            bottomInfoComponent={
+              isProfileLoading ? (
+                <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
+              ) : (
+                <BottomComponent value={profile?.stars.toFixed(2) ?? 0} />
+              )
+            }
+            imageNode={
+              <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
+            }
+          />
+        </Link>
       )}
     </div>
   );
