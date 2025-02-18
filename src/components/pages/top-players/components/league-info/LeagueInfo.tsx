@@ -11,7 +11,7 @@ import { LEAGUE_TYPES } from "./constants";
 export const LeagueInfo = ({ insetTop }: { insetTop: number }) => {
   const t = useTranslations(NS.PAGES.TOP_PLAYERS.ROOT);
 
-  const calculatedMarginTop = insetTop ? insetTop + 120 : 120;
+  const calculatedMarginTop = insetTop ? insetTop + 80 : 120;
 
   return (
     <div
