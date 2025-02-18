@@ -148,7 +148,7 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
         size="large"
         className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
       >
-        <div className="flex items-center gap-1 text-base uppercase leading-none">
+        <div className="flex items-center gap-1 text-base uppercase">
           Улучшить за
           <div className="grid grid-cols-[16px_1fr] items-center gap-1">
             <StarSVG className="size-4" />

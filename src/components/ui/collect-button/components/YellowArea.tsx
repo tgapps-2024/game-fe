@@ -29,7 +29,7 @@ export const YellowArea = () => (
         fill="#A6552D"
         d="M0 6a6 6 0 0 1 6-6h48a6 6 0 0 1 6 6v10.675a6 6 0 0 1-4.103 5.692l-24 8a6 6 0 0 1-3.794 0l-24-8A6 6 0 0 1 0 16.675V6Z"
       />
-      <g filter="url(#b)">
+      <g filter="url(#locked_filter_b)">
         <path
           className="animate-collect-button-locked-coloring"
           fill="#EFC609"
@@ -50,7 +50,7 @@ export const YellowArea = () => (
     </g>
     <defs>
       <filter
-        id="b"
+        id="locked_filter_b"
         width={60}
         height={29.176}
         x={0}

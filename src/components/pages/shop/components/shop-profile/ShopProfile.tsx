@@ -43,7 +43,7 @@ export const ShopProfile = () => {
     starsCheck: false,
     coinsCheck: false,
   });
-  const { selection } = useContext(HSSharedContext);
+  const { selection, currentHero } = useContext(HSSharedContext);
   const { data: allHeroes } = useGetAllAppsHeroes();
   const { data: heroOwnCloth } = useGetClothHeroQuery(
     selection.hero?.characterId,
@@ -250,7 +250,8 @@ export const ShopProfile = () => {
           <HeroStats
             heroId={selection.hero.characterId}
             heroRarity={selection.hero.rarity}
-            heroCloth={selection.hero.cloth}
+            selectedHeroCloth={selection.hero.cloth}
+            currentHeroCloth={currentHero?.cloth}
             source="shop"
             ctaType={ctaType}
             isCtaLoading={
@@ -263,7 +264,6 @@ export const ShopProfile = () => {
                 ? tryBuySelectedCloth
                 : undefined
             }
-            isShopLinkHidden
           />
         )
       }

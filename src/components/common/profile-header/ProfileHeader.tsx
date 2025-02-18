@@ -72,7 +72,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             ) : null}
           </div>
           <div className="relative flex flex-col gap-y-1">
-            <p className="text-stroke-1 text-nowrap text-base font-black leading-none tracking-[0.04em] text-white text-shadow-sm">
+            <p className="text-stroke-1 text-nowrap text-base font-black tracking-[0.04em] text-white text-shadow-sm">
               {user?.first_name}
             </p>
             <div className="relative -left-5 flex h-5 items-center">

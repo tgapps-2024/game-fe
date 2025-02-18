@@ -281,6 +281,7 @@ export const NS = {
       LABELS: {
         ROOT: "LABELS",
         BLOCKED: "BLOCKED",
+        TOTAL: "TOTAL",
         CLOTH: {
           ROOT: "CLOTH",
           BAFFET: "BAFFET",

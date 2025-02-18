@@ -252,6 +252,7 @@
     "WATCH": "Watch",
     "LABELS": {
       "BLOCKED": "Unlocked at {level} level",
+      "TOTAL": "Total:",
       "CLOTH": {
         "BAFFET": "{cloth, select, other {Kit}}",
         "BEARD": "{cloth, select, watch_1 {Watch №1} watch_2 {Watch №2} watch_3 {Watch №3} watch_4 {Watch №4} watch_5 {Watch №5} other {Kit}}",
