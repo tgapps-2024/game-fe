@@ -40,7 +40,7 @@ export const PlayersList: FunctionComponent<Props> = ({
       )}
     >
       <div className="relative top-6 z-30 flex justify-center">
-        <Tape className="shadow-leaderboard-tape-shadow relative z-20" />
+        <Tape className="drop-shadow-tape" />
         <div
           className={classNames(
             "text-stroke-1 absolute inset-0 z-30 flex items-center justify-center pb-4 text-center text-2xl font-extrabold leading-4 tracking-wide text-white text-shadow-sm",

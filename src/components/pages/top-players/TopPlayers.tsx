@@ -6,6 +6,7 @@ import { Drawer } from "@/components/ui/drawer";
 import { useTelegram } from "@/context";
 import { useInfiniteLeaderboard } from "@/services/leaderboard/queries";
 import { LeaderboardEnum } from "@/services/leaderboard/types";
+import { League } from "@/services/profile/types";
 import { getTgSafeAreaInsetTop } from "@/utils/telegram";
 
 import { LeagueInfo } from "./components/league-info/LeagueInfo";
@@ -17,7 +18,7 @@ import { TopPlayersHeader } from "./components/top-players-header/TopPlayersHead
 
 export const TopPlayers = () => {
   const [league, setLeague] = useState(LeaderboardEnum.LEAGUE);
-  const { webApp } = useTelegram();
+  const { webApp, profile } = useTelegram();
 
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useInfiniteLeaderboard(league);
@@ -39,7 +40,10 @@ export const TopPlayers = () => {
           onSetLeague={setLeague}
           paddingTop={calculatedPaddingTop}
         />
-        <LeagueInfo insetTop={insetTop} />
+        <LeagueInfo
+          insetTop={insetTop}
+          league={profile?.league ?? League.BRONZE}
+        />
         {!isLoading ? (
           <PlayersList
             leaders={data?.pages.flatMap((page) => page.leaders) || []}
@@ -50,7 +54,7 @@ export const TopPlayers = () => {
         <TimerBlock />
         <RewardsBlock />
         <BottomMenu />
-        <RewardsModal />
+        <RewardsModal league={profile?.league ?? League.BRONZE} />
       </Drawer>
     </PageWrapper>
   );

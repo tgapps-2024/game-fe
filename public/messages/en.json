@@ -298,8 +298,22 @@
     "BEST_PLAYERS": "Best Players",
     "WINNERS": "Winners",
     "LEAGUES": {
-      "DIAMOND": "Diamond League",
-      "GOLD": "Gold League"
+      "BRILLIANT": "Diamond League",
+      "GOLD": "Golden League",
+      "PLATINUM": "Platinum League",
+      "BILLIARD": "Milliard League",
+      "SILVER": "Silver League",
+      "BRONZE": "Bronze League"
+    },
+    "MODAL": {
+      "BRILLIANT_LEAGUE": "Diamond League",
+      "BRONZE_LEAGUE": "Bronze League",
+      "SILVER_LEAGUE": "Silver League",
+      "GOLD_LEAGUE": "Gold League",
+      "PLATINUM_LEAGUE": "Platinum League",
+      "BILLIARD_LEAGUE": "Milliard League",
+      "DESCRIPTION": "You can make friends who will bring you passive income.",
+      "TOP": "Top {num}"
     }
   },
   "ERRORS": {

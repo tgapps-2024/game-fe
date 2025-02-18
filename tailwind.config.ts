@@ -277,6 +277,10 @@ export default {
           "box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.80), 0 6px 6px rgba(0, 0, 0, 0.60)",
         "modal-shadow": "0 -8px 12px 0 rgba(5, 22, 37, 0.6)",
       },
+      dropShadow: {
+        union: "0 2px 2px rgba(0,0,0,0.6)",
+        tape: "0 2px 24px rgba(0, 0, 0, 0.80), 0 2px 8px rgba(0, 0, 0, 0.60), 0 6px 6px rgba(0, 0, 0, 0.60)",
+      },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
         inter: ["Inter, sans-serif"],
