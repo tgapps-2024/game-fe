@@ -21,84 +21,84 @@ export const useSafeStarsPayment = (
   buyItemFn: () => void,
   onStarsPaymentSuccess?: () => void,
   onStarsPaymentError?: () => void,
+  hasCheckingBalance = true,
 ): UseSafeStarsPaymentConfig => {
   const queryClient = useQueryClient();
   const [isStarsPaymentLoading, setIsStarsPaymentLoading] = useState(false);
   const { webApp } = useTelegram();
   const { data: profile } = useGetProfile();
-  const { mutate: buyStars } =
-    useStarsPayment(
-      (response) => {
-        if (webApp) {
-          try {
-            webApp.openInvoice(response.url, (status) => {
-              switch (status) {
-                case InvoiceStatus.PAID: {
-                  toast(
-                    <Toast
-                      type="done"
-                      text={`Buying stars has complete. Status: ${status}`}
-                    />,
-                  );
+  const { mutate: buyStars } = useStarsPayment(
+    (response) => {
+      if (webApp) {
+        try {
+          webApp.openInvoice(response.url, (status) => {
+            switch (status) {
+              case InvoiceStatus.PAID: {
+                toast(
+                  <Toast
+                    type="done"
+                    text={`Buying stars has complete. Status: ${status}`}
+                  />,
+                );
 
-                  if (onStarsPaymentSuccess) {
-                    onStarsPaymentSuccess();
-                  }
-
-                  break;
+                if (onStarsPaymentSuccess) {
+                  onStarsPaymentSuccess();
                 }
 
-                case InvoiceStatus.FAILED:
-                  toast(
-                    <Toast
-                      type="destructive"
-                      text={`Buying stars has failed. Status: ${status}`}
-                    />,
-                  );
-                  break;
-                default:
-                  toast(
-                    <Toast
-                      type="warning"
-                      text={`Buying stars has failed. Status: ${status}`}
-                    />,
-                  );
-                  break;
+                break;
               }
-            });
-          } catch (e) {
-            const message = `${(e as Error).message}`;
 
-            toast(
-              <Toast
-                type="warning"
-                text={`Buying stars has failed. ${message}`}
-              />,
-            );
-          } finally {
-            setIsStarsPaymentLoading(false);
-          }
+              case InvoiceStatus.FAILED:
+                toast(
+                  <Toast
+                    type="destructive"
+                    text={`Buying stars has failed. Status: ${status}`}
+                  />,
+                );
+                break;
+              default:
+                toast(
+                  <Toast
+                    type="warning"
+                    text={`Buying stars has failed. Status: ${status}`}
+                  />,
+                );
+                break;
+            }
+          });
+        } catch (e) {
+          const message = `${(e as Error).message}`;
+
+          toast(
+            <Toast
+              type="warning"
+              text={`Buying stars has failed. ${message}`}
+            />,
+          );
+        } finally {
+          setIsStarsPaymentLoading(false);
         }
-      },
-      (error) => {
-        toast(
-          <Toast
-            type="destructive"
-            text={`Buying stars has failed. ${error.message}`}
-          />,
-        );
+      }
+    },
+    (error) => {
+      toast(
+        <Toast
+          type="destructive"
+          text={`Buying stars has failed. ${error.message}`}
+        />,
+      );
 
-        if (onStarsPaymentError) {
-          onStarsPaymentError();
-        }
+      if (onStarsPaymentError) {
+        onStarsPaymentError();
+      }
 
-        setIsStarsPaymentLoading(false);
-      },
-    );
+      setIsStarsPaymentLoading(false);
+    },
+  );
 
   return {
     buy: (starsAmount: number) => {
-      if ((profile?.stars ?? 0) >= starsAmount) {
+      if (hasCheckingBalance && (profile?.stars ?? 0) >= starsAmount) {
         buyItemFn();
       } else {
         setIsStarsPaymentLoading(true);

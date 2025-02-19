@@ -45,6 +45,8 @@ export const RefillModal: FunctionComponent<Props> = ({
     () => {
       toast(<Toast type="destructive" text="Ошибка приобретения звезд" />);
     },
+    () => {},
+    false,
   );
 
   const handleCardClick = (item: ShopItem) => {
