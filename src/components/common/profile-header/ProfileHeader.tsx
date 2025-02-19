@@ -95,6 +95,7 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
         </Link>
       )}
       <HeaderItem
+        hasBorder
         topInfoComponent={
           <TopComponent
             text={t(
@@ -134,7 +135,10 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
           }
         />
       ) : (
-        <Link href={ROUTES.BUY_STARS}>
+        <Link
+          href={ROUTES.BUY_STARS}
+          className="transition-all active:scale-95"
+        >
           <HeaderItem
             topInfoComponent={
               <TopComponent

@@ -14,7 +14,10 @@
       "WARNING": "I am a warning notification. Just take note.",
       "UPDATE_TELEGRAM": "This method is not supported in the current version of Telegram. Please update the app to the latest version."
     },
-    "OK": "OK"
+    "OK": "OK",
+    "BUY": "Buy",
+    "SALE": "-20%",
+    "STARS": "{count} stars"
   },
   "SETTINGS": {
     "TITLE": "Settings",
@@ -323,7 +326,13 @@
     "AVAILABLE_TO_WITHDRAW": "Available for withdrawal",
     "AVAILABLE_BALANCE": "Available balance",
     "BUTTON_TEXT": "Refill",
-    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD."
+    "WITHDRAW": "Withdraw",
+    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD.",
+    "MODAL": {
+      "TITLE": "Refill balance",
+      "DESCRIPTION": "You can refill your balance with stars.",
+      "BUTTON": "Buy stars"
+    }
   },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",
