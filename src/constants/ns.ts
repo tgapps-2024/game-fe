@@ -18,6 +18,9 @@ export const NS = {
       UPDATE_TELEGRAM: "UPDATE_TELEGRAM",
     },
     OK: "OK",
+    BUY: "BUY",
+    SALE: "SALE",
+    STARS: "STARS",
   },
   PAGES: {
     SETTINGS: {
@@ -357,10 +360,17 @@ export const NS = {
       TITLE: "TITLE",
       DESCRIPTION: "DESCRIPTION",
       BUTTON_TEXT: "BUTTON_TEXT",
+      WITHDRAW: "WITHDRAW",
       TOTAL_BALANCE: "TOTAL_BALANCE",
       AVAILABLE_TO_WITHDRAW: "AVAILABLE_TO_WITHDRAW",
       AVAILABLE_BALANCE: "AVAILABLE_BALANCE",
       AVAILABLE_BALANCE_DESCRIPTION: "AVAILABLE_BALANCE_DESCRIPTION",
+      MODAL: {
+        ROOT: "MODAL",
+        TITLE: "TITLE",
+        DESCRIPTION: "DESCRIPTION",
+        BUTTON: "BUTTON",
+      },
     },
   },
   ERRORS: {

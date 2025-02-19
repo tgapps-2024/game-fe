@@ -14,7 +14,10 @@
       "WARNING": "Я предупреждающее увемдомление. Просто прими к сведению.",
       "UPDATE_TELEGRAM": "В текущей версии Telegram этот метод не поддерживается. Пожалуйста, обновите приложение до новой версии."
     },
-    "OK": "ОК"
+    "OK": "ОК",
+    "BUY": "Купить",
+    "SALE": "-20%",
+    "STARS": "{count} звезд"
   },
   "SETTINGS": {
     "TITLE": "Настройки",
@@ -323,7 +326,13 @@
     "AVAILABLE_TO_WITHDRAW": "Доступно для вывода",
     "AVAILABLE_BALANCE": "Доступный баланс",
     "BUTTON_TEXT": "Пополнить",
-    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD."
+    "WITHDRAW": "Вывод",
+    "AVAILABLE_BALANCE_DESCRIPTION": "Crypto ipsum bitcoin ethereum dogecoin litecoin. Ethereum enjin WAX XRP binance binance livepeer. Livepeer stellar aave loopring terraUSD.",
+    "MODAL": {
+      "TITLE": "Пополнение баланса",
+      "DESCRIPTION": "Вы можете пополнить баланс звезд.",
+      "BUTTON": "Купить звезды"
+    }
   },
   "ERRORS": {
     "notEnoughStars": "Недостаточно звезд",
