@@ -28,6 +28,7 @@ export default {
           "heroes-coin-glow-running 3s linear infinite",
         tilt: "tilt 1.5s ease-in-out infinite",
         "pulse-wave": "pulse-wave 1.5s infinite ease-out",
+        "reel-spin": "reel-spin 0.5s linear infinite",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -109,6 +110,10 @@ export default {
         "pulse-wave": {
           "0%": { transform: "scale(1)", opacity: "0.7" },
           "100%": { transform: "scale(2)", opacity: "0" },
+        },
+        "reel-spin": {
+          "0%": { backgroundPositionY: "0%" },
+          "100%": { backgroundPositionY: "200%" },
         },
       },
       backgroundImage: {

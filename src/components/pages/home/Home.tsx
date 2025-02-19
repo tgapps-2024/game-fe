@@ -1,10 +1,7 @@
 import Link from "next/link";
 
-import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
-import { Toast } from "@/components/ui/toast";
 import { ROUTES } from "@/constants/routes";
 
 export const Home = () => {
@@ -59,15 +56,11 @@ export const Home = () => {
             </Button>
           </Link>
 
-          <Button
-            onClick={() => {
-              toast(<Toast type="destructive" text="Test toast 🚀" />);
-            }}
-            variant="link"
-            className="text-white"
-          >
-            Toast
-          </Button>
+          <Link href={ROUTES.SLOT_MACHINE}>
+            <Button variant="link" className="w-full text-white">
+              Slot machine
+            </Button>
+          </Link>
         </div>
       </div>
     </Drawer>
