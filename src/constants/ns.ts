@@ -34,6 +34,7 @@ export const NS = {
         ROOT: "BALANCE",
         TITLE: "TITLE",
         STARS: "STARS",
+        FRIENDS: "FRIENDS",
         TON: "TON",
       },
       GENERAL_SETTINGS: {
@@ -371,6 +372,11 @@ export const NS = {
         DESCRIPTION: "DESCRIPTION",
         BUTTON: "BUTTON",
       },
+    },
+    FORBIDDEN: {
+      ROOT: "FORBIDDEN",
+      TITLE: "TITLE",
+      DESCRIPTION: "DESCRIPTION",
     },
   },
   ERRORS: {

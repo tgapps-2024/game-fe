@@ -280,6 +280,7 @@ export default {
       dropShadow: {
         union: "0 2px 2px rgba(0,0,0,0.6)",
         tape: "0 2px 24px rgba(0, 0, 0, 0.80), 0 2px 8px rgba(0, 0, 0, 0.60), 0 6px 6px rgba(0, 0, 0, 0.60)",
+        "social-icons": "0 1px 0 rgba(0, 0, 0, 1)",
       },
       fontFamily: {
         rubik: ["Rubik, sans-serif"],
@@ -310,6 +311,7 @@ export default {
     },
   },
   plugins: [
+    require("tailwind-scrollbar-hide"),
     require("tailwindcss-animate"),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(

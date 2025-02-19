@@ -64,7 +64,10 @@ export const Friends = () => {
         />
         <div className="relative box-border flex h-[90%] flex-col">
           <div className="relative z-10 w-full">
-            <ProfileHeader />
+            <ProfileHeader
+              shopItemsForBuyFriends={friendsShopItems}
+              hasFriendsBlock
+            />
             <p className="text-stroke-1 mx-4 mt-6 w-48 text-justify font-rubik text-xl font-black uppercase leading-none text-white text-shadow-sm">
               {t(`${NS.PAGES.FRIENDS.PROPOSAL}`)}
             </p>

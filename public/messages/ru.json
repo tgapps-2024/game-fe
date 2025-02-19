@@ -28,7 +28,8 @@
     "BALANCE": {
       "TITLE": "Баланс",
       "STARS": "Звезды",
-      "TON": "Toncoin"
+      "TON": "Toncoin",
+      "FRIENDS": "Друзья"
     },
     "GENERAL_SETTINGS": {
       "TITLE": "Основные настройки",
@@ -333,6 +334,10 @@
       "DESCRIPTION": "Вы можете пополнить баланс звезд.",
       "BUTTON": "Купить звезды"
     }
+  },
+  "FORBIDDEN": {
+    "TITLE": "Играй на своем телефоне",
+    "DESCRIPTION": "Наведи камеру и открой ссылку"
   },
   "ERRORS": {
     "notEnoughStars": "Недостаточно звезд",

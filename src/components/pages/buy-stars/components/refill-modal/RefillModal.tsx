@@ -19,8 +19,10 @@ import { NS } from "@/constants/ns";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useSafeStarsPayment } from "@/hooks/useSafeStarsPayment";
 import CloseIcon from "@/public/assets/svg/close.svg";
+import { invalidateProfileQuery } from "@/services/profile/queries";
 import { ShopItem } from "@/services/shop/types";
 import { formatNumber } from "@/utils/number";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { CARDS } from "./cards.data";
 
@@ -33,19 +35,20 @@ export const RefillModal: FunctionComponent<Props> = ({
   starsShopItems,
   onClose,
 }) => {
+  const queryClient = useQueryClient();
   const tStars = useTranslations(NS.PAGES.BUY_STARS.ROOT);
   const tCommon = useTranslations(NS.COMMON.ROOT);
   const [selectedCard, setSelectedCard] = useState<ShopItem | null>(null);
   const { handleSelectionChanged } = useHapticFeedback();
   const { buy: buyStarsFn, isStarsPaymentLoading } = useSafeStarsPayment(
+    () => {},
     () => {
+      invalidateProfileQuery(queryClient);
       onClose();
-      toast(<Toast type="done" text="Звезды успешно приобретены" />);
     },
     () => {
       toast(<Toast type="destructive" text="Ошибка приобретения звезд" />);
     },
-    () => {},
     false,
   );
 

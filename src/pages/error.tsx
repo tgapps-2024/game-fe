@@ -2,8 +2,6 @@ import React from "react";
 
 import { Error } from "@/components/pages";
 
-const ErrorPage = () => {
-  return <Error />;
-};
+const ErrorPage = () => <Error />;
 
 export default ErrorPage;

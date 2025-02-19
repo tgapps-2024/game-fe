@@ -9,6 +9,7 @@ export const ROUTES = {
   REWARDS: "/rewards",
   TOP_PLAYERS: "/top",
   BUY_STARS: "/buy-stars",
+  FORBIDDEN: "/forbidden",
 };
 
 export const ROUTES_WITH_CLOSE_BUTTON = [ROUTES.INDEX];

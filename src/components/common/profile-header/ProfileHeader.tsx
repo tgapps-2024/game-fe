@@ -1,18 +1,20 @@
-import { FunctionComponent, useMemo } from "react";
+import { FunctionComponent, useMemo, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
+import { InviteModal } from "@/components/pages/friends/components/invite-modal/InviteModal";
 import { Level } from "@/components/ui";
+import { Drawer } from "@/components/ui/drawer";
 import { NS } from "@/constants/ns";
 import { ROUTES } from "@/constants/routes";
 import { useTelegram } from "@/context";
 import FrindsSvg from "@/public/assets/svg/friends-coin.svg";
 import StarSVG from "@/public/assets/svg/star.svg";
+import { ShopItem } from "@/services/shop/types";
 
 import { BottomComponent } from "./components/bottom-component/BottomComponent";
 import { HeaderItem } from "./components/header-item/HeaderItem";
@@ -20,13 +22,18 @@ import { TopComponent } from "./components/top-component/TopComponent";
 
 type Props = {
   className?: string;
+  hasFriendsBlock?: boolean;
+  shopItemsForBuyFriends?: ShopItem[];
 };
 
-export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
-  const { user, isProfileLoading, profile } = useTelegram();
+export const ProfileHeader: FunctionComponent<Props> = ({
+  className,
+  hasFriendsBlock = false,
+  shopItemsForBuyFriends,
+}) => {
   const t = useTranslations(NS.PAGES.ASSIGNMENTS.ROOT);
-  const { pathname } = useRouter();
-  const isFriendsPage = pathname === ROUTES.FRIENDS;
+  const { user, isProfileLoading, profile } = useTelegram();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const progress = useMemo(
     () => ((Number(profile?.exp) / Number(profile?.need_exp)) * 100).toFixed(0),
     [profile],
@@ -94,32 +101,38 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
           </div>
         </Link>
       )}
-      <HeaderItem
-        hasBorder
-        topInfoComponent={
-          <TopComponent
-            text={t(
-              `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.TITLE}`,
-            )}
+      {hasFriendsBlock ? (
+        <Link
+          href={ROUTES.BUY_STARS}
+          className="transition-all active:scale-95"
+        >
+          <HeaderItem
+            topInfoComponent={
+              <TopComponent
+                text={t(
+                  `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.STARS}`,
+                )}
+              />
+            }
+            bottomInfoComponent={
+              isProfileLoading ? (
+                <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
+              ) : (
+                <BottomComponent value={profile?.stars.toFixed(2) ?? 0} />
+              )
+            }
+            imageNode={
+              <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
+            }
           />
-        }
-        bottomInfoComponent={
-          isProfileLoading ? (
-            <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
-          ) : (
-            <BottomComponent value={profile?.coins ?? 0} />
-          )
-        }
-        imageNode={
-          <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
-        }
-      />
-      {isFriendsPage ? (
+        </Link>
+      ) : (
         <HeaderItem
+          hasBorder
           topInfoComponent={
             <TopComponent
               text={t(
-                `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.FRIENDS}`,
+                `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.TITLE}`,
               )}
             />
           }
@@ -127,13 +140,41 @@ export const ProfileHeader: FunctionComponent<Props> = ({ className }) => {
             isProfileLoading ? (
               <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
             ) : (
-              <BottomComponent value={profile?.friends.toFixed(2) ?? 0} />
+              <BottomComponent value={profile?.coins ?? 0} />
             )
           }
           imageNode={
-            <FrindsSvg className="col-span-1 row-span-2 size-8 object-contain" />
+            <StarSVG className="col-span-1 row-span-2 size-8 object-contain" />
           }
         />
+      )}
+      {hasFriendsBlock ? (
+        <Drawer open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <HeaderItem
+            topInfoComponent={
+              <TopComponent
+                text={t(
+                  `${NS.PAGES.ASSIGNMENTS.HEADER.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.ROOT}.${NS.PAGES.ASSIGNMENTS.HEADER.BALANCE.FRIENDS}`,
+                )}
+              />
+            }
+            bottomInfoComponent={
+              isProfileLoading ? (
+                <div className="h-4 w-17 animate-pulse rounded-[20px] bg-blue-700" />
+              ) : (
+                <BottomComponent value={profile?.friends.toFixed(2) ?? 0} />
+              )
+            }
+            imageNode={
+              <FrindsSvg className="col-span-1 row-span-2 size-8 object-contain" />
+            }
+            onClick={() => setIsModalOpen(true)}
+          />
+          <InviteModal
+            friendsShopItems={shopItemsForBuyFriends ?? []}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Drawer>
       ) : (
         <Link
           href={ROUTES.BUY_STARS}

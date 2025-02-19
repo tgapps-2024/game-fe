@@ -9,6 +9,7 @@ type Props = {
   bottomInfoComponent: ReactNode;
   imageNode: ReactNode;
   hasBorder?: boolean;
+  onClick?: () => void;
 };
 
 export const HeaderItem: FunctionComponent<Props> = ({
@@ -16,6 +17,7 @@ export const HeaderItem: FunctionComponent<Props> = ({
   bottomInfoComponent,
   imageNode,
   hasBorder,
+  onClick,
 }) => (
   <div
     className={classNames(
@@ -24,8 +26,9 @@ export const HeaderItem: FunctionComponent<Props> = ({
         "border-r border-solid border-white/10": hasBorder,
       },
     )}
+    onClick={onClick}
   >
-    <div className="flex h-full w-full flex-1 flex-row items-center justify-center gap-x-[9px]">
+    <div className="flex h-full w-full flex-1 flex-row items-center justify-center gap-x-[9px] transition-all active:scale-95">
       {imageNode}
       <HeaderInfo
         topComponent={topInfoComponent}

@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from "react";
+import React, { ButtonHTMLAttributes, FunctionComponent } from "react";
 
 import classNames from "classnames";
-import { HTMLMotionProps, motion } from "framer-motion";
 
 import { Spinner } from "@/components/common";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
@@ -19,7 +18,7 @@ type Props = {
   isLoading?: boolean;
   fontSize?: number;
   innerClassname?: string;
-} & HTMLMotionProps<"button">;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const PrimaryButton: FunctionComponent<Props> = ({
   children,
@@ -51,11 +50,9 @@ export const PrimaryButton: FunctionComponent<Props> = ({
   };
 
   return (
-    <motion.button
-      whileTap={disabled ? {} : { scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+    <button
       className={classNames(
-        "group w-full cursor-pointer overflow-hidden border border-black",
+        "group w-full cursor-pointer overflow-hidden border border-black transition-all active:scale-[0.98]",
         { "bg-[#0655a4]": color === "primary" },
         { "bg-[#009F00]": color === "secondary" },
         { "bg-[#A6552D]": color === "yellow" },
@@ -114,6 +111,6 @@ export const PrimaryButton: FunctionComponent<Props> = ({
           {isLoading ? <Spinner /> : children}
         </div>
       </div>
-    </motion.button>
+    </button>
   );
 };

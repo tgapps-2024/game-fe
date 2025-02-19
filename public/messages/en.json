@@ -28,7 +28,8 @@
     "BALANCE": {
       "TITLE": "Balance",
       "STARS": "Stars",
-      "TON": "Toncoin"
+      "TON": "Toncoin",
+      "FRIENDS": "Friends"
     },
     "GENERAL_SETTINGS": {
       "TITLE": "General Settings",
@@ -333,6 +334,10 @@
       "DESCRIPTION": "You can refill your balance with stars.",
       "BUTTON": "Buy stars"
     }
+  },
+  "FORBIDDEN": {
+    "TITLE": "Play on your phone",
+    "DESCRIPTION": "Point the camera and open the link"
   },
   "ERRORS": {
     "notEnoughStars": "Not enough stars",

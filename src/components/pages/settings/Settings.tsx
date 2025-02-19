@@ -125,7 +125,7 @@ export const Settings: FC = () => {
                 items={PROFILE_BALANCE_ITEMS({
                   coins: profile?.coins ?? 0,
                   stars: profile?.stars ?? 0,
-                  ton: 0,
+                  friends: profile?.friends ?? 0,
                 })}
               />
               <ProfileLink />

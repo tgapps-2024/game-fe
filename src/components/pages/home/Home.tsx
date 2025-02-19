@@ -53,6 +53,12 @@ export const Home = () => {
             </Button>
           </Link>
 
+          <Link href={ROUTES.FORBIDDEN}>
+            <Button variant="link" className="w-full text-white">
+              Forbidden page
+            </Button>
+          </Link>
+
           <Button
             onClick={() => {
               toast(<Toast type="destructive" text="Test toast 🚀" />);
