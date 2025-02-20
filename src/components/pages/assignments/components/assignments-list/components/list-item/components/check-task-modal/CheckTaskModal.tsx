@@ -39,6 +39,19 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   const { handleSelectionChanged } = useHapticFeedback();
   const { webApp } = useTelegram();
 
+  const handleCompleteTask = (id: string) => {
+    setCompleteTask(id, {
+      onSuccess: () => {
+        toast(
+          <Toast
+            type="warning"
+            text="Выше задание находится на рассмотрении у модерации"
+          />,
+        );
+      },
+    });
+  };
+
   const handleClick = async () => {
     setIsLoading(true);
     handleSelectionChanged();
@@ -107,7 +120,10 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         }, 3000);
         break;
       case TaskType.BOOST_CHANNEL:
-        // Call the method specific to BOOST_CHANNEL
+        setTimeout(() => {
+          setIsInit(true);
+          setIsLoading(false);
+        }, 3000);
         break;
       default:
         // setIsClicked(true);
@@ -141,7 +157,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         isInit,
         onClick: handleClick,
         onCheck: handleCheck,
-        onSubmit: setCompleteTask,
+        onSubmit: handleCompleteTask,
         onClose,
       })}
     </DrawerContent>
