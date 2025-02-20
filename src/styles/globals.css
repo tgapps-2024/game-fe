@@ -145,6 +145,11 @@ body {
     -webkit-text-stroke: 4px black;
   }
 
+  .text-stroke-brown-1\.5 {
+    paint-order: stroke fill;
+    -webkit-text-stroke: 1.5px #542E00;
+  }
+
   .level-text {
     paint-order: stroke fill;
     -webkit-text-stroke: 0.6px black;
