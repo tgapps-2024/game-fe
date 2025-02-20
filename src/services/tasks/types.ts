@@ -12,6 +12,7 @@ export enum TaskType {
 export enum TaskStatus {
   AVAILABLE = "available",
   COMPLETED = "completed",
+  IN_PROGRESS = "in_progress",
 }
 
 export enum TaskRewardType {

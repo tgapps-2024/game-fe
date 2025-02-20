@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
+import { Spinner } from "@/components/common";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import ArrowIcon from "@/public/assets/svg/arrow.svg";
@@ -89,6 +90,8 @@ export const ListItem: FunctionComponent<Props> = ({
 
             {status === TaskStatus.AVAILABLE ? (
               <ArrowIcon className="ml-auto size-6 stroke-white" />
+            ) : status === TaskStatus.IN_PROGRESS ? (
+              <Spinner className="stroke-gray-550" />
             ) : (
               <DoneSvg className="ml-auto size-4" />
             )}

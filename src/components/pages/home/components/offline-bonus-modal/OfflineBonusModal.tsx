@@ -30,7 +30,7 @@ export const OfflineBonusModal: FunctionComponent<Props> = ({
 }) => {
   const tOfflineBonus = useTranslations(NS.PAGES.HOME.ROOT);
   return (
-    <DrawerContent className="flex w-full flex-col items-center rounded-t-3xl bg-gradient-to-b from-[#FAD22C] to-[#FEEE3D] p-[5px] pb-0 shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
+    <DrawerContent className="flex w-full flex-col items-center rounded-t-3xl border-none bg-gradient-to-b from-[#FAD22C] to-[#FEEE3D] p-[5px] pb-0 shadow-[0_-8px_12px_0_rgba(5,22,37,0.6)]">
       <div className="relative flex w-full flex-col items-center rounded-t-3xl bg-[#5E0820] px-3 pb-7 pt-8">
         <DrawerClose
           asChild
