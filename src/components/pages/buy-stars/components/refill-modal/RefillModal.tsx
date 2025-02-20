@@ -85,7 +85,6 @@ export const RefillModal: FunctionComponent<Props> = ({
               <Card
                 key={`buy_friends_card_${index}`}
                 collectButtonProps={{
-                  color: staticCardData.buttonColor,
                   children: tCommon(staticCardData.buttonText),
                 }}
                 isSelected={card.id === selectedCard?.id}
