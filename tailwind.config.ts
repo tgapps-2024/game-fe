@@ -28,7 +28,12 @@ export default {
           "heroes-coin-glow-running 3s linear infinite",
         tilt: "tilt 1.5s ease-in-out infinite",
         "pulse-wave": "pulse-wave 1.5s infinite ease-out",
-        "reel-spin": "reel-spin 0.5s linear infinite",
+        "slot-reel-spin": "slot-reel-spin 0.2s linear infinite",
+        "slot-left-chevron-spin": "slot-left-chevron-spin 0.2s linear infinite",
+        "slot-right-chevron-spin":
+          "slot-right-chevron-spin 0.2s linear infinite",
+        "slot-win-view-text-pulse":
+          "slot-win-view-text-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -111,9 +116,25 @@ export default {
           "0%": { transform: "scale(1)", opacity: "0.7" },
           "100%": { transform: "scale(2)", opacity: "0" },
         },
-        "reel-spin": {
+        "slot-reel-spin": {
           "0%": { backgroundPositionY: "0%" },
-          "100%": { backgroundPositionY: "200%" },
+          "100%": { backgroundPositionY: "100%" },
+        },
+        "slot-left-chevron-spin": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "80%": { transform: "rotate(-30deg)" },
+        },
+        "slot-right-chevron-spin": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "80%": { transform: "rotate(30deg)" },
+        },
+        "slot-win-view-text-pulse": {
+          "0%, 100%": {
+            opacity: "0.5",
+          },
+          "50%": {
+            opacity: "0",
+          },
         },
       },
       backgroundImage: {
@@ -166,6 +187,7 @@ export default {
         sm: "0 1px 0px #000",
         DEFAULT: "0px 2px 0px black",
         lg: "0 8px 16px #000",
+        win: "0px 2px 0px #542E00",
       },
       backgroundPosition: {
         "center-top": "center top",
