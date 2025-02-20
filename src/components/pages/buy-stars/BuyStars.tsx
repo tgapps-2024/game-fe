@@ -62,13 +62,15 @@ export const BuyStars = () => {
                 <StarSVG className="size-5" />
                 <div>
                   <span className="text-stroke-half text-lg font-semibold leading-none tracking-wide text-white text-shadow-sm">
-                    {formatNumber(profile?.stars)}
+                    {profile?.stars ? formatNumber(profile?.stars) : "0"}
                   </span>{" "}
                   <span className="text-str text-xs font-normal text-gray-550">
                     ≈$
-                    {formatNumber(
-                      +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
-                    )}
+                    {profile?.stars
+                      ? formatNumber(
+                          +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
+                        )
+                      : "0"}
                   </span>
                 </div>
               </div>
@@ -81,13 +83,15 @@ export const BuyStars = () => {
                 <StarSVG className="size-5" />
                 <div>
                   <span className="text-stroke-half text-lg font-semibold leading-none tracking-wide text-white text-shadow-sm">
-                    {formatNumber(profile?.stars)}
+                    {profile?.stars ? formatNumber(profile?.stars) : "0"}
                   </span>{" "}
                   <span className="text-str text-xs font-normal text-gray-550">
                     ≈$
-                    {formatNumber(
-                      +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
-                    )}
+                    {profile?.stars
+                      ? formatNumber(
+                          +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
+                        )
+                      : "0"}
                   </span>
                 </div>
               </div>
@@ -108,14 +112,16 @@ export const BuyStars = () => {
               <div className="flex items-center gap-2">
                 <StarSVG className="size-9" />
                 <span className="text-stroke-1 text-4xl font-black leading-none tracking-wider text-white text-shadow">
-                  {formatNumber(profile?.stars)}
+                  {profile?.stars ? formatNumber(profile?.stars) : "0"}
                 </span>
               </div>
               <span className="font-normal text-gray-550">
                 ≈$
-                {formatNumber(
-                  +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
-                )}
+                {profile?.stars
+                  ? formatNumber(
+                      +(Number(profile?.stars) * STARS_PRICE).toFixed(2),
+                    )
+                  : "0"}
               </span>
             </div>
             <div className="grid grid-cols-[2fr_1fr] gap-2">

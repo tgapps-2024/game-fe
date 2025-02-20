@@ -19,6 +19,14 @@
     "SALE": "-20%",
     "STARS": "{count} stars"
   },
+  "HOME": {
+    "OFFLINE_BONUS": {
+      "TITLE": "Offline Bonus",
+      "DESCRIPTION": "Come back every 3 hours to earn profit! You can buy a Booster to increase the offline bonus period.",
+      "GET_BONUS": "Get Bonus",
+      "BUY_BONUS": "Buy Booster"
+    }
+  },
   "SETTINGS": {
     "TITLE": "Settings",
     "WALLET": {

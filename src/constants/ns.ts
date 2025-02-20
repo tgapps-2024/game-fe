@@ -23,6 +23,16 @@ export const NS = {
     STARS: "STARS",
   },
   PAGES: {
+    HOME: {
+      ROOT: "HOME",
+      OFFLINE_BONUS: {
+        ROOT: "OFFLINE_BONUS",
+        TITLE: "TITLE",
+        DESCRIPTION: "DESCRIPTION",
+        GET_BONUS: "GET_BONUS",
+        BUY_BONUS: "BUY_BONUS",
+      },
+    },
     SETTINGS: {
       ROOT: "SETTINGS",
       WALLET: {

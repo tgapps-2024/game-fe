@@ -1,4 +1,3 @@
-import { CollectButtonColor } from "@/components/ui";
 import { NS } from "@/constants/ns";
 import Coins1 from "@/public/assets/png/shop/stars/1.webp";
 import Coins2 from "@/public/assets/png/shop/stars/2.webp";
@@ -12,18 +11,15 @@ export const CARDS = [
   { buttonText: NS.COMMON.BUY, image: Coins2 },
   { buttonText: NS.COMMON.BUY, image: Coins3 },
   {
-    buttonText: NS.COMMON.SALE,
-    buttonColor: CollectButtonColor.VIOLET,
+    buttonText: NS.COMMON.BUY,
     image: Coins4,
   },
   {
-    buttonText: NS.COMMON.SALE,
-    buttonColor: CollectButtonColor.VIOLET,
+    buttonText: NS.COMMON.BUY,
     image: Coins5,
   },
   {
-    buttonText: NS.COMMON.SALE,
-    buttonColor: CollectButtonColor.VIOLET,
+    buttonText: NS.COMMON.BUY,
     image: Coins6,
   },
 ];
