@@ -328,6 +328,11 @@
       "TOP": "Top {num}"
     }
   },
+  "SLOT_MACHINE": {
+    "LABELS": {
+      "TAP_TO_CONTINUE": "Tap to continue"
+    }
+  },
   "BUY_STARS": {
     "TITLE": "Stars",
     "DESCRIPTION": "Stars are awarded after 21 days from the date of earning.",
