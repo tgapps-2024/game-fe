@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "@/components/ui/sonner";
 import { SettingsProvider } from "@/context";
 import { TelegramProvider } from "@/context/telegram-context/TelegramContext";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import {
   HydrationBoundary,
   QueryClient,
@@ -18,6 +19,8 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/styles/globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? "";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -29,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       timeZone="Europe/Moscow"
       messages={pageProps.messages}
     >
+      <GoogleAnalytics gaId={GA_ID} />
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps.dehydratedState}>
           <TonConnectUIProvider manifestUrl="https://taiga-labs.github.io/gorelko.json">
