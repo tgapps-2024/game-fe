@@ -60,7 +60,10 @@ export const RewardsContent: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className="relative mx-4 flex flex-col gap-4">
+    <div
+      aria-roledescription={isActive ? "slide-content" : undefined}
+      className="relative mx-4 flex flex-col gap-4"
+    >
       <div className="grid grid-cols-4 gap-2 pb-26">
         {Array(20)
           .fill(0)

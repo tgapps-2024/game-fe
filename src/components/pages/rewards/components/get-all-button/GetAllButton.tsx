@@ -39,7 +39,7 @@ export const GetAllButton: FunctionComponent<Props> = ({
   return (
     <div
       className={classNames(
-        "fixed bottom-0 left-0 z-10 w-full bg-gradient-to-b from-[#192632]/0 via-[#192632]/100 to-[#192632]/100 px-4 pb-8 pt-18",
+        "animate-slideUp fixed bottom-0 left-0 z-10 w-full bg-gradient-to-b from-[#192632]/0 via-[#192632]/100 to-[#192632]/100 px-4 pb-8 pt-18",
       )}
     >
       <PrimaryButton

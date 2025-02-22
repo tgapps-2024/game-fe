@@ -46,7 +46,10 @@ export const EarningsContent = ({ isActive, cards, appsCards }: Props) => {
   };
 
   return (
-    <div className="mx-4 mb-6 flex flex-col gap-[30px]">
+    <div
+      aria-roledescription={isActive ? "slide-content" : undefined}
+      className="mx-4 mb-6 flex flex-col gap-[30px]"
+    >
       <Combo isAnimated={isActive} cards={cards} />
       <Events
         isAnimated={isActive}

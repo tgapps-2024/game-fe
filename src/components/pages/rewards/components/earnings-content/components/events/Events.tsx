@@ -50,7 +50,7 @@ export const Events: FunctionComponent<Props> = ({
             return (
               <div
                 key={name}
-                className="relative z-10 flex w-full items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]"
+                className="relative z-10 flex w-full max-w-[calc(100vw_-_2rem)] items-center justify-between gap-2 rounded-2xl bg-blue-700 p-3 shadow-[inset_1px_1px_0_0_rgba(255,255,255,0.1),inset_-1px_-1px_0_0_rgba(255,255,255,0.1)]"
               >
                 <div className="grid grid-cols-[60px_1fr] items-center gap-3">
                   <div className="relative flex size-15 items-center justify-center rounded-lg bg-gradient-to-b from-[#FFE04E] to-[#F19F33] p-1.5 shadow-[inset_2px_2px_2px_0_rgba(255,255,255,0.4)]">

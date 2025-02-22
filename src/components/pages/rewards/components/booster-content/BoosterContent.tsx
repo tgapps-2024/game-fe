@@ -16,7 +16,10 @@ export const BoosterContent: FunctionComponent<Props> = ({
   boosters,
 }) => {
   return (
-    <div className="mx-4 flex flex-col gap-6">
+    <div
+      aria-roledescription={isActive ? "slide-content" : undefined}
+      className="mx-4 flex flex-col gap-6"
+    >
       <PremiumBoosters isAnimated={isActive} booster={boosters.temp_energy} />
       <EverydayBoosters isAnimated={isActive} booster={boosters.full} />
       <DefaultBoosters

@@ -34,7 +34,6 @@ export const TelegramProvider = ({
   children: React.ReactNode;
 }) => {
   const [webApp, setWebApp] = useState<IWebApp | null>(null);
-  console.log("🚀 ~ webApp:", webApp?.initDataUnsafe);
   const {
     isPending: isAuthenticating,
     isSuccess: isAuthSuccess,
