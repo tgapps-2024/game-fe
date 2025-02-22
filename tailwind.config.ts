@@ -34,6 +34,7 @@ export default {
           "slot-right-chevron-spin 0.2s linear infinite",
         "slot-win-view-text-pulse":
           "slot-win-view-text-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        slideUp: "slideUp 0.5s ease-out forwards",
       },
       keyframes: {
         "collect-button-vertical-sway": {
@@ -135,6 +136,10 @@ export default {
           "50%": {
             opacity: "0",
           },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
         },
       },
       backgroundImage: {

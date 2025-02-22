@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { PageWrapper, ProfileHeader } from "@/components/common";
 import {
@@ -32,7 +32,10 @@ import { TabsEnum } from "./enums";
 export const Rewards = () => {
   const queryClient = useQueryClient();
   const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [slideHeight, setSlideHeight] = useState<number>(0);
+
   const { data: dailyRewardInfo, isLoading: isLoadingDailyReward } =
     useGetDailyRewardInfo();
   const { mutate: getDailyReward, isPending } = useGetDailyReward(queryClient);
@@ -41,17 +44,37 @@ export const Rewards = () => {
     useGetAllAppsCards();
   const { data: cards, isLoading: isLoadingCards } = useGetCards();
 
-  useEffect(() => {
-    if (!api) {
-      return;
+  const updateSlideHeight = () => {
+    if (containerRef.current) {
+      const activeSlide = containerRef.current.querySelector(
+        '[aria-roledescription="slide-content"]',
+      );
+
+      if (activeSlide) {
+        const newHeight = activeSlide.scrollHeight;
+        setSlideHeight(newHeight);
+      }
     }
+  };
+
+  useEffect(() => {
+    if (!api) return;
 
     setCurrent(api.selectedScrollSnap() + 1);
+    updateSlideHeight();
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      updateSlideHeight();
+      if (containerRef.current) {
+        containerRef.current.scrollTop = 0;
+      }
     });
   }, [api]);
+
+  useLayoutEffect(() => {
+    updateSlideHeight();
+  }, [current]);
 
   const handleTabChange = (index: number) => {
     setCurrent(index);
@@ -77,30 +100,42 @@ export const Rewards = () => {
           setActiveTab={handleTabChange}
           tabs={Object.values(TabsEnum)}
         />
-        <Carousel setApi={setApi}>
-          <CarouselContent>
-            <CarouselItem>
-              <EarningsContent
-                isActive={current === 1}
-                cards={cards ?? ({} as DataStructure)}
-                appsCards={appsCards ?? ({} as Events)}
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <RewardsContent
-                onCollectReward={getDailyReward}
-                dailyRewardInfo={dailyRewardInfo ?? ({} as IDailyRewardInfo)}
-                isActive={current === 2}
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <BoosterContent
-                boosters={data ?? ({} as IBoosters)}
-                isActive={current === 3}
-              />
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
+        <div
+          ref={containerRef}
+          className="overflow-hidden transition-all duration-300"
+          style={{ height: slideHeight || "auto" }}
+        >
+          <Carousel setApi={setApi}>
+            <CarouselContent>
+              <CarouselItem
+                className={current === 1 ? "carousel-item-active" : ""}
+              >
+                <EarningsContent
+                  isActive={current === 1}
+                  cards={cards ?? ({} as DataStructure)}
+                  appsCards={appsCards ?? ({} as Events)}
+                />
+              </CarouselItem>
+              <CarouselItem
+                className={current === 2 ? "carousel-item-active" : ""}
+              >
+                <RewardsContent
+                  onCollectReward={getDailyReward}
+                  dailyRewardInfo={dailyRewardInfo ?? ({} as IDailyRewardInfo)}
+                  isActive={current === 2}
+                />
+              </CarouselItem>
+              <CarouselItem
+                className={current === 3 ? "carousel-item-active" : ""}
+              >
+                <BoosterContent
+                  boosters={data ?? ({} as IBoosters)}
+                  isActive={current === 3}
+                />
+              </CarouselItem>
+            </CarouselContent>
+          </Carousel>
+        </div>
       </div>
       {current === 2 && (
         <GetAllButton
