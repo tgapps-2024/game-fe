@@ -116,9 +116,7 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
             <span className="inline-block bg-gradient-to-tr from-[#61C2F6] to-[#CCE8F7] bg-clip-text text-lg font-bold leading-none text-transparent">
-              {selectedBooster
-                ? currentEnergy * selectedBooster.amount + currentEnergy
-                : maxEnergy}
+              {maxEnergy}
             </span>
           </div>
         </div>

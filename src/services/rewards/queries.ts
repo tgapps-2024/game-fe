@@ -86,7 +86,7 @@ export const useFullBooster = (queryClient: QueryClient) =>
 export const useTempEnergyBooster = (queryClient: QueryClient) =>
   useMutation({
     mutationKey: [QueryKeys.USE_TEMP_ENERGY_BOOSTER],
-    mutationFn: async () => getTempEnergyBooster(),
+    mutationFn: async (count: number) => getTempEnergyBooster(count),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOSTERS] });
       invalidateProfileQuery(queryClient);

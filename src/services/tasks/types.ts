@@ -32,6 +32,7 @@ export interface ITask {
   };
   type: TaskType;
   status: TaskStatus;
+  needValidate: boolean;
   value: null | number | string;
   reward: [
     {

@@ -63,10 +63,9 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
     setRequesting(true);
     handleSelectionChanged();
 
-    mutate(undefined, {
+    mutate(1, {
       onSuccess: () => {
         invalidateBoostersQuery(queryClient);
-        if (isModalOpen) setIsModalOpen(false);
         toast(
           <Toast
             type="done"
@@ -206,8 +205,8 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
         onSubmit={handleBoosterClick}
         selectedBooster={selectedBooster}
         setSelectedBooster={handleSelectBooster}
-        currentEnergy={profile?.max_energy ?? 0}
-        maxEnergy={(profile?.max_energy ?? 1) * 5}
+        currentEnergy={profile?.energy ?? 0}
+        maxEnergy={profile?.max_energy ?? 1}
         endTime={booster.end}
         boosterShopItems={boosterShopItems ?? []}
         amount={booster.amount}

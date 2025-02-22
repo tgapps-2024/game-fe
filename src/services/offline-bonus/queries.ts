@@ -19,6 +19,12 @@ export const useGetOfflineBonus = () =>
     staleTime: STALE_TIME,
   });
 
+export const invalidateOfflineBonusQuery = (queryClient: QueryClient) => {
+  return queryClient.invalidateQueries({
+    queryKey: [QueryKeys.GET_OFFLINE_REWARD],
+  });
+};
+
 export const useConfirmOfflineBonus = (queryClient: QueryClient) =>
   useMutation({
     mutationFn: confirmOfflineBonus,
