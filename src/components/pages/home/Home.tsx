@@ -10,6 +10,7 @@ import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { Toast } from "@/components/ui/toast";
 import { ROUTES } from "@/constants/routes";
 import {
+  invalidateOfflineBonusQuery,
   useConfirmOfflineBonus,
   useGetOfflineBonus,
 } from "@/services/offline-bonus/queries";
@@ -21,29 +22,41 @@ import { OfflineBonusModal } from "./components/offline-bonus-modal/OfflineBonus
 export const Home = () => {
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClaimed, setIsClaimed] = useState(false);
   const { data: offlineBonus, isLoading } = useGetOfflineBonus();
   const { mutate, isPending } = useConfirmOfflineBonus(queryClient);
 
   const handleConfirmOfflineBonus = () => {
     mutate(undefined, {
       onSuccess: () => {
+        invalidateOfflineBonusQuery(queryClient);
         toast(<Toast type="done" text="Бонус получен" />);
         setIsModalOpen(false);
+        setIsClaimed(true);
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),
     });
   };
 
+  const handleClose = () => {
+    setIsModalOpen(false);
+    handleConfirmOfflineBonus();
+  };
+
   useEffect(() => {
-    if (offlineBonus?.reward) {
+    if (offlineBonus?.reward && !isClaimed) {
       setIsModalOpen(true);
     }
-  }, [offlineBonus]);
+  }, [offlineBonus, isClaimed]);
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <Drawer open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Drawer
+        onClose={handleClose}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+      >
         <div className="flex h-screen max-h-screen w-full flex-col items-center justify-center overflow-y-auto overscroll-contain bg-blue-800">
           <h1 className="text-stroke-1 mb-5 text-center text-3xl font-black tracking-wide text-white text-shadow">
             Главная страница

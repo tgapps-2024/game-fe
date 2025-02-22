@@ -41,9 +41,14 @@ export const getFullBooster = async (): Promise<{ status: string }> => {
   return data;
 };
 
-export const getTempEnergyBooster = async (): Promise<{ status: string }> => {
-  const { data } = await apiClient.get(
+export const getTempEnergyBooster = async (
+  count: number = 1,
+): Promise<{ status: string }> => {
+  const { data } = await apiClient.post(
     API_ENDPOINTS.GET.USE_TEMP_ENERGY_BOOSTER,
+    {
+      count,
+    },
   );
 
   return data;
