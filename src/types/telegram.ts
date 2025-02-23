@@ -118,5 +118,5 @@ export interface IWebApp {
     params?: any,
     callback?: (result: any) => void,
   ) => void;
-  onEvent: (event: string, callback: (...args: any[]) => void) => void;
+  checkHomeScreenStatus: (callback?: (result: any) => void) => void;
 }

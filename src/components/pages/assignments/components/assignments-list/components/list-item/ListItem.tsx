@@ -35,7 +35,7 @@ export const ListItem: FunctionComponent<Props> = ({
     useHapticFeedback();
 
   const handleOpenChange = (open: boolean) => {
-    if (status === TaskStatus.COMPLETED) {
+    if (status === TaskStatus.COMPLETED || status === TaskStatus.IN_PROGRESS) {
       setIsOpen(false);
     } else {
       setIsOpen(open);
@@ -49,9 +49,15 @@ export const ListItem: FunctionComponent<Props> = ({
           className={classNames(
             "border-b border-solid border-white/10 px-4 py-3",
             "last:border-none",
-            { "bg-blue-950": status === TaskStatus.COMPLETED },
             {
-              "cursor-not-allowed": status === TaskStatus.COMPLETED,
+              "bg-blue-950":
+                status === TaskStatus.COMPLETED ||
+                status === TaskStatus.IN_PROGRESS,
+            },
+            {
+              "cursor-not-allowed":
+                status === TaskStatus.COMPLETED ||
+                status === TaskStatus.IN_PROGRESS,
             },
           )}
         >
