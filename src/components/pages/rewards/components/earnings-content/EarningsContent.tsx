@@ -20,7 +20,7 @@ type Props = {
 
 export const EarningsContent = ({ isActive, cards, appsCards }: Props) => {
   const queryClient = useQueryClient();
-  const { mutate: upgradeCard } = useUpgradeCard(queryClient);
+  const { mutate: upgradeCard, isPending } = useUpgradeCard(queryClient);
   const preparedCards = useMemo(() => prepareCards(cards.cards), [cards.cards]);
 
   const preparedEvents = useMemo(
@@ -55,6 +55,7 @@ export const EarningsContent = ({ isActive, cards, appsCards }: Props) => {
         isAnimated={isActive}
         appsCards={mergedCards}
         onUpgradeCard={handleUpgradeCard}
+        isPending={isPending}
       />
     </div>
   );

@@ -48,9 +48,9 @@ export const RewardsContent: FunctionComponent<Props> = ({
   const getStatusForDay = (dayIndex: number) => {
     const { combo, available } = dailyRewardInfo;
 
-    if (dayIndex < combo) {
+    if (dayIndex + 1 < combo) {
       return RewardsStatusEnum.AVAILABLE;
-    } else if (dayIndex === combo) {
+    } else if (dayIndex + 1 === combo) {
       return available
         ? RewardsStatusEnum.CURRENT
         : RewardsStatusEnum.UNAVAILABLE;

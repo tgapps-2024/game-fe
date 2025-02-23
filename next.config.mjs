@@ -1,9 +1,7 @@
 const nextConfig = {
   /* config options here */
   reactStrictMode: false,
-  images: {
-    domains: ["picsum.photos"],
-  },
+  images: { unoptimized: true, domains: ["picsum.photos"] },
   i18n: {
     locales: ["en", "ru"],
     defaultLocale: "ru",

@@ -28,7 +28,7 @@ import {
 type Props = Pick<ITask, "id" | "type" | "reward" | "title" | "value"> & {
   isPending: boolean;
   onClick: (hasVerify?: boolean) => void;
-  onCheck: () => void;
+  onCheck: (id: string) => void;
   onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
 };

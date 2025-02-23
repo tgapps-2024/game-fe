@@ -24,7 +24,7 @@ type Props = {
   isPending: boolean;
   onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
-  onCheck: () => void;
+  onCheck: (id: string) => void;
 };
 
 export const DoubleCheck: FunctionComponent<Props> = ({
@@ -116,20 +116,14 @@ export const DoubleCheck: FunctionComponent<Props> = ({
           )}
         </PrimaryButton>
       </DrawerClose>
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        transition={{
-          type: "spring",
-          stiffness: 200,
-          damping: 20,
-        }}
-        onClick={onCheck}
-        className="mt-5 text-sm font-bold uppercase tracking-wide text-white"
+      <button
+        onClick={() => onCheck(id)}
+        className="mt-5 text-sm font-bold uppercase tracking-wide text-white transition-all active:scale-95"
       >
         {t(
           `${NS.PAGES.ASSIGNMENTS.MODALS.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.ROOT}.${NS.PAGES.ASSIGNMENTS.MODALS.CONFIRMATION_MODAL.DOUBLE_CHECK}`,
         )}
-      </motion.button>
+      </button>
     </motion.div>
   );
 };

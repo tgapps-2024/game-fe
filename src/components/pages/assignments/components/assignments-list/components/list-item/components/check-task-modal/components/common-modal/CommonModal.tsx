@@ -27,7 +27,7 @@ type Props = Pick<ITask, "id" | "type" | "reward" | "title"> & {
   isChecked: boolean;
   isInit: boolean;
   isPending: boolean;
-  onCheck: () => void;
+  onCheck: (id: string) => void;
   onClick: () => void;
   onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
@@ -56,7 +56,7 @@ export const CommonModal: FunctionComponent<Props> = ({
 
   const handleCheck = () => {
     if (!isInit) return;
-    onCheck();
+    onCheck(id);
   };
 
   return (

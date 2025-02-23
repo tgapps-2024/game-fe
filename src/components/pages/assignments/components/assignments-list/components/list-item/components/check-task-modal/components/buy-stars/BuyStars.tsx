@@ -26,7 +26,7 @@ import { CHECK_TASKS_MODAL_TID } from "../../constants";
 
 type Props = Pick<ITask, "id" | "type" | "reward" | "title" | "value"> & {
   onClick: (hasVerify?: boolean) => void;
-  onCheck: () => void;
+  onCheck: (id: string) => void;
   onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
 };
