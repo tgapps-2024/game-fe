@@ -17,7 +17,8 @@
     "OK": "ОК",
     "BUY": "Купить",
     "SALE": "-20%",
-    "STARS": "{count} звезд"
+    "STARS": "{count} звезд",
+    "TAP_TO_CONTINUE": "Нажмите, чтобы продолжить"
   },
   "HOME": {
     "OFFLINE_BONUS": {
@@ -326,11 +327,6 @@
       "BILLIARD_LEAGUE": "Лига Миллиардеров",
       "DESCRIPTION": "Вы можете завести друзей, которые будут приносить вам пассивный доход.",
       "TOP": "Топ {num}"
-    }
-  },
-  "SLOT_MACHINE": {
-    "LABELS": {
-      "TAP_TO_CONTINUE": "Нажмите, чтобы продолжить"
     }
   },
   "BUY_STARS": {

@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 
+import classNames from "classnames";
+
 import { Chevron } from "./components/chevron/Chevron";
+import { EnergyBar } from "./components/energy-bar/EnergyBar";
+import { MultiplierButton } from "./components/multiplier-button/MultiplierButton";
 import { ReelPane } from "./components/reel-pane/ReelPane";
 import { SpinButton } from "./components/spin-button/SpinButton";
+import { SwitchButton } from "./components/switch-button/SwitchButton";
 import { WinView } from "./components/win-view/WinView";
 import { Face } from "./types";
 
-const faces = ["chest", "booster", "bucket"];
+const faces = ["chest", "booster", "bucket", "super_booster", "bag"];
 
 function getRandomFace() {
   const minCeiled = Math.ceil(0);
-  const maxFloored = Math.floor(2);
+  const maxFloored = Math.floor(4);
   const num = Math.floor(
     Math.random() * (maxFloored - minCeiled + 1) + minCeiled,
   );
@@ -19,6 +24,7 @@ function getRandomFace() {
 }
 
 export const Machine = () => {
+  const [isVip, setIsVip] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [isWinViewMode, setIsWinViewMode] = useState(false);
   const [combination, setCombination] = useState<Face[]>([]);
@@ -84,14 +90,30 @@ export const Machine = () => {
   return (
     <div className="flex min-h-0 grow flex-col">
       <div className="mt-auto aspect-[0.51] max-h-full w-full">
-        <div className="relative h-full w-full bg-[url('/assets/png/slot-machine/slot-machine-red.webp')] bg-[length:100%_100%]">
+        <div
+          className={classNames(
+            "relative h-full w-full bg-[length:100%_100%]",
+            {
+              "bg-[url('/assets/png/slot-machine/slot-machine-red.webp')]":
+                !isVip,
+              "bg-[url('/assets/png/slot-machine/slot-machine-blue.webp')]":
+                isVip,
+            },
+          )}
+        >
+          <SwitchButton
+            label={isVip ? "BASE" : "VIP ROOM"}
+            onClick={() => setIsVip(!isVip)}
+          />
+          {!isVip && <EnergyBar />}
           <ReelPane combination={combination} isSpinning={isSpinning} />
 
-          <Chevron combination={combination} isSpinning={isSpinning} />
+          <Chevron isSpinning={isSpinning} />
 
-          <Chevron combination={combination} isSpinning={isSpinning} isRight />
+          <Chevron isSpinning={isSpinning} isRight />
 
           <SpinButton
+            isVip={isVip}
             onSpinClick={() => {
               if (!isSpinning) {
                 setIsSpinning(true);
@@ -99,6 +121,12 @@ export const Machine = () => {
               }
             }}
           />
+
+          <MultiplierButton />
+          {/* Balance */}
+          <div className="text-stroke-2 absolute left-[17.6%] top-[83.5%] font-black leading-none text-white text-shadow [font-size:min(4.6vw,2.1vh)]">
+            50
+          </div>
 
           <WinView
             combination={combination}

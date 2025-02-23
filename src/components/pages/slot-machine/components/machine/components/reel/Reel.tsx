@@ -20,9 +20,11 @@ type Props = {
 };
 
 const stopClassNames: Record<Face, string> = {
-  chest: "[background-position-y:0%]",
-  booster: "[background-position-y:33.33%]",
-  bucket: "[background-position-y:66.66%]",
+  super_booster: "[background-position-y:0%]",
+  booster: "[background-position-y:10%]",
+  chest: "[background-position-y:20%]",
+  bucket: "[background-position-y:30%]",
+  bag: "[background-position-y:40%]",
 };
 
 export const Reel: FunctionComponent<Props> = ({
@@ -37,15 +39,10 @@ export const Reel: FunctionComponent<Props> = ({
   if (position === "left") {
     return (
       <div className="absolute bottom-[28.4%] left-[12.5%] top-[41.8%] w-[24%] overflow-hidden">
-        <Image
-          src={ReelSideBg1}
-          alt=""
-          fill
-          quality={100}
-        />
+        <Image src={ReelSideBg1} alt="" fill sizes="33vw" quality={100} />
         <div
           className={classNames(
-            "absolute bottom-0 left-[20.6%] right-[14.1%] h-[300%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
+            "absolute bottom-0 left-[20.6%] right-[14.1%] h-[500%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
             {
               "[background-position-y:0%]": !reelFace1,
               "animate-slot-reel-spin": isSpinning && !reelFace1,
@@ -53,26 +50,16 @@ export const Reel: FunctionComponent<Props> = ({
             },
           )}
         />
-        <Image
-          src={ReelSideBg2}
-          alt=""
-          fill
-          quality={100}
-        />
+        <Image src={ReelSideBg2} alt="" fill sizes="33vw" quality={100} />
       </div>
     );
   } else if (position === "center") {
     return (
       <div className="absolute bottom-[28.4%] left-[38.8%] top-[41.5%] w-[22.5%] overflow-hidden">
-        <Image
-          src={ReelCenterBg1}
-          alt=""
-          fill
-          quality={100}
-        />
+        <Image src={ReelCenterBg1} alt="" fill sizes="33vw" quality={100} />
         <div
           className={classNames(
-            "absolute bottom-0 left-[14.7%] right-[14.7%] h-[300%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
+            "absolute bottom-0 left-[14.7%] right-[14.7%] h-[500%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
             {
               "[background-position-y:0%]": !reelFace2,
               "animate-slot-reel-spin": isSpinning && !reelFace2,
@@ -80,12 +67,7 @@ export const Reel: FunctionComponent<Props> = ({
             },
           )}
         />
-        <Image
-          src={ReelCenterBg2}
-          alt=""
-          fill
-          quality={100}
-        />
+        <Image src={ReelCenterBg2} alt="" fill sizes="33vw" quality={100} />
       </div>
     );
   } else {
@@ -96,11 +78,12 @@ export const Reel: FunctionComponent<Props> = ({
           src={ReelSideBg1}
           alt=""
           fill
+          sizes="33vw"
           quality={100}
         />
         <div
           className={classNames(
-            "absolute bottom-0 left-[20.6%] right-[14.1%] h-[300%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
+            "absolute bottom-0 left-[20.6%] right-[14.1%] h-[500%] bg-[url('/assets/png/slot-machine/reel-symbols-bg.webp')] bg-[length:100%_33.3%] [background-position-x:100%]",
             {
               "[background-position-y:0%]": !reelFace3,
               "animate-slot-reel-spin": isSpinning && !reelFace3,
@@ -116,6 +99,7 @@ export const Reel: FunctionComponent<Props> = ({
           src={ReelSideBg2}
           alt=""
           fill
+          sizes="33vw"
           quality={100}
         />
       </div>

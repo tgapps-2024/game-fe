@@ -7,6 +7,7 @@ import classNames from "classnames";
 
 import { NS } from "@/constants/ns";
 import WinPaneImg from "@/public/assets/png/slot-machine/win-pane.webp";
+import CoinSvg from "@/public/assets/svg/heroes/hour-income-coin.svg";
 
 import { Face } from "../../types";
 import { ReelPane } from "../reel-pane/ReelPane";
@@ -22,32 +23,27 @@ export const WinView: FunctionComponent<Props> = ({
   combination,
   onClick,
 }) => {
-  const t = useTranslations(NS.PAGES.SLOT_MACHINE.ROOT);
+  const t = useTranslations(NS.COMMON.ROOT);
 
   return (
     <div
-      className={classNames("absolute inset-0", {
+      className={classNames("absolute inset-0 z-20", {
         visible: isActive,
         invisible: !isActive,
       })}
+      onClick={onClick}
     >
-      <div
-        className="absolute bottom-0 left-0 h-screen w-screen bg-black/80"
-        onClick={onClick}
-      >
-        <div className="animate-slot-win-view-text-pulse absolute inset-x-10 bottom-20 text-center text-[30px] font-black uppercase italic leading-[36px] text-white text-shadow">
-          {t(
-            `${NS.PAGES.SLOT_MACHINE.LABELS.ROOT}.${NS.PAGES.SLOT_MACHINE.LABELS.TAP_TO_CONTINUE}`,
-          )}
-        </div>
+      <div className="absolute bottom-0 left-0 h-screen w-screen bg-black/80" />
+      <div className="absolute inset-x-10 top-[85%] animate-slot-win-view-text-pulse text-center font-black uppercase italic leading-[36px] text-white text-shadow [font-size:min(7.6vw,3.5vh)]">
+        {t(`${NS.COMMON.TAP_TO_CONTINUE}`)}
       </div>
       <ReelPane combination={combination} />
       <div className="absolute inset-x-0 top-[47.6%] h-[18%]">
         <Image src={WinPaneImg} alt="" fill quality={100} />
-        <div className="absolute left-1/2 top-[10%] -translate-x-1/2 font-black uppercase text-[#542E00]">
+        <div className="absolute left-1/2 top-[13%] -translate-x-1/2 font-black uppercase leading-none text-[#542E00] [font-size:min(4vw,1.8vh)]">
           Выигрыш
         </div>
-        {/* <div className="absolute left-1/2 top-[51%] h-[26%] -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute left-1/2 top-[51%] h-[26%] -translate-x-1/2 -translate-y-1/2">
           <div className="flex h-full items-center gap-x-2.5">
             <div className="h-full shrink-0">
               <CoinSvg
@@ -57,11 +53,11 @@ export const WinView: FunctionComponent<Props> = ({
                 preserveAspectRatio="none"
               />
             </div>
-            <div className="text-shadow-win text-stroke-brown-1.5 text-[5cqw] font-black text-[#FDEC50]">
+            <div className="text-stroke-brown-1.5 font-black leading-none text-[#FDEC50] text-shadow-win [font-size:min(8.2vw,3.7vh)]">
               10.000
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
