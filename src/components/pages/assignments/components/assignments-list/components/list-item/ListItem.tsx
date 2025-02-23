@@ -26,6 +26,7 @@ export const ListItem: FunctionComponent<Props> = ({
   title,
   status,
   id,
+  needValidate,
   value,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,6 +107,7 @@ export const ListItem: FunctionComponent<Props> = ({
         reward={reward}
         status={status}
         value={value}
+        needValidate={needValidate}
       />
     </Drawer>
   );

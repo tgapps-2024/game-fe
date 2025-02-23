@@ -15,7 +15,7 @@ import { COMPONENTS_MAP } from "./constants";
 
 type Props = Pick<
   ITask,
-  "type" | "title" | "reward" | "id" | "status" | "value"
+  "type" | "title" | "reward" | "id" | "status" | "value" | "needValidate"
 > & {
   onClose: () => void;
 };
@@ -27,6 +27,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
   status,
   id,
   value,
+  needValidate,
   onClose,
 }) => {
   const queryClient = useQueryClient();
@@ -48,6 +49,7 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
             text="Выше задание находится на рассмотрении у модерации"
           />,
         );
+        onClose();
       },
     });
   };
@@ -99,11 +101,24 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
         break;
       case TaskType.EMOJI_SET:
         try {
-          webApp?.setEmojiStatus(value as string);
-          setTimeout(() => {
-            setIsInit(true);
+          webApp?.setEmojiStatus(value as string, {}, (result) => {
+            if (result) {
+              setIsInit(true);
+            } else {
+              toast(
+                <Toast
+                  type="destructive"
+                  text="Добавление emoji status отменено"
+                />,
+              );
+            }
             setIsLoading(false);
-          }, 3000);
+          });
+
+          // setTimecoout(() => {
+          //   setIsInit(true);
+          //   setIsLoading(false);
+          // }, 3000);
         } catch (error) {
           toast(<Toast type="destructive" text={(error as Error).message} />);
           setIsLoading(false);
@@ -132,9 +147,13 @@ export const CheckTaskModal: FunctionComponent<Props> = ({
     }
   };
 
-  const handleCheck = () => {
+  const handleCheck = (id: string) => {
     handleSelectionChanged();
-    setIsChecked(!isChecked);
+    if (needValidate) {
+      handleCompleteTask(id);
+    } else {
+      setIsChecked(!isChecked);
+    }
   };
 
   return (

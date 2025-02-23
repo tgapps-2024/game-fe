@@ -113,5 +113,10 @@ export interface IWebApp {
   openTelegramLink: (url: string) => void;
   shareToStory: (media_url: string, params?: StoryShareParams) => void;
   addToHomeScreen: () => void;
-  setEmojiStatus: (custom_emoji_id: string) => void;
+  setEmojiStatus: (
+    custom_emoji_id: string,
+    params?: any,
+    callback?: (result: any) => void,
+  ) => void;
+  onEvent: (event: string, callback: (...args: any[]) => void) => void;
 }

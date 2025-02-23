@@ -45,8 +45,12 @@ export const mergeCards = (
   preparedEvents: PreparedEvent[],
   preparedCards: PreparedCard[],
 ) => {
-  return preparedEvents.map((event) => {
-    const matchingCard = preparedCards.find((card) => card.name === event.name);
-    return matchingCard || event;
-  });
+  return preparedEvents
+    .map((event) => {
+      const matchingCard = preparedCards.find(
+        (card) => card.name === event.name,
+      );
+      return matchingCard || event;
+    })
+    .sort((a, b) => Number(b.isValid) - Number(a.isValid));
 };

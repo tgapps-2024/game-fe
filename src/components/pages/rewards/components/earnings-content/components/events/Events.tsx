@@ -23,11 +23,13 @@ type Props = {
   isAnimated: boolean;
   appsCards: (PreparedCard | PreparedEvent)[];
   onUpgradeCard: (name: string) => void;
+  isPending?: boolean;
 };
 
 export const Events: FunctionComponent<Props> = ({
   appsCards,
   onUpgradeCard,
+  isPending,
 }) => {
   const t = useTranslations(NS.PAGES.REWARDS.ROOT);
 
@@ -89,6 +91,7 @@ export const Events: FunctionComponent<Props> = ({
                 ) : (
                   <div className="pointer-events-auto w-[122px]">
                     <PrimaryButton
+                      isLoading={isPending}
                       size="small"
                       className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
                       onClick={() => onUpgradeCard(name)}

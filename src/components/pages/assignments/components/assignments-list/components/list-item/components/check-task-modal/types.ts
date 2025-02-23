@@ -10,7 +10,7 @@ export type ModalProps = Pick<
   isChecked: boolean;
   isPending: boolean;
   onClick: (hasVerify?: boolean) => void;
-  onCheck: () => void;
+  onCheck: (id: string) => void;
   onSubmit: UseMutateFunction<void, unknown, string, unknown>;
   onClose: () => void;
 };
