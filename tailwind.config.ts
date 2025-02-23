@@ -28,7 +28,7 @@ export default {
           "heroes-coin-glow-running 3s linear infinite",
         tilt: "tilt 1.5s ease-in-out infinite",
         "pulse-wave": "pulse-wave 1.5s infinite ease-out",
-        "slot-reel-spin": "slot-reel-spin 0.2s linear infinite",
+        "slot-reel-spin": "slot-reel-spin 0.4s linear infinite",
         "slot-left-chevron-spin": "slot-left-chevron-spin 0.2s linear infinite",
         "slot-right-chevron-spin":
           "slot-right-chevron-spin 0.2s linear infinite",
@@ -145,6 +145,8 @@ export default {
       backgroundImage: {
         "body-pattern": "linear-gradient(#192632 0%, #0075FF 100%)",
         "settings-pattern": "linear-gradient(#0075FF 50%, #192632 50%)",
+        "energy-bar-progress-pattern":
+          "linear-gradient(0deg, #0090EE, #0090EE), linear-gradient(180deg, #3AB5F9 0%, #058EE6 50%, #0054C3 100%)",
         "bp-regular-item-unlocked-pattern":
           "linear-gradient(to bottom, #09376B, #093069)",
         "bp-regular-item-locked-pattern":
@@ -193,6 +195,7 @@ export default {
         DEFAULT: "0px 2px 0px black",
         lg: "0 8px 16px #000",
         win: "0px 2px 0px #542E00",
+        blue: "0px 1.24px 0px #18549C"
       },
       backgroundPosition: {
         "center-top": "center top",
@@ -308,6 +311,7 @@ export default {
         "leaderboard-tape-shadow":
           "box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.80), 0 6px 6px rgba(0, 0, 0, 0.60)",
         "modal-shadow": "0 -8px 12px 0 rgba(5, 22, 37, 0.6)",
+        "energy-bar-shadow": "0px 2px 12px 0px rgba(0, 0, 0, 0.6)",
       },
       dropShadow: {
         union: "0 2px 2px rgba(0,0,0,0.6)",
