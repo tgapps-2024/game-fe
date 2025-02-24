@@ -114,7 +114,15 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
         disabled={disabled}
         color="secondary"
         onClick={onSubmit}
-        className="flex gap-1 text-base uppercase"
+        className={classNames(
+          "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+          {
+            "!bg-[#1B3044]": disabled,
+          },
+        )}
+        innerClassname={classNames({
+          "!bg-[#1B3044]": disabled,
+        })}
       >
         {!disabled
           ? t(

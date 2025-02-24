@@ -187,6 +187,7 @@ export const NS = {
         MULTIPLE_TEMP_ENERGY: "MULTIPLE_TEMP_ENERGY",
         TEMP_ENERGY: "TEMP_ENERGY",
         MODAL_TITLE: "MODAL_TITLE",
+        INSUFFICIENT_FUNDS: "INSUFFICIENT_FUNDS",
       },
       EVENTS: {
         ROOT: "EVENTS",

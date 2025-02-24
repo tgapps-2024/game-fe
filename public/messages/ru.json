@@ -142,6 +142,7 @@
       "NOT_AVAILABLE": "Усиление недоступно",
       "APPLY": "Применить усиление",
       "BUY": "Купить",
+      "INSUFFICIENT_FUNDS": "Недостаточно средств",
       "COUNT": "{num1} из {num2}",
       "LEVEL": "{num} ур.",
       "COUNT_BOOSTERS": "{num} шт.",
