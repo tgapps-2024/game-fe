@@ -115,7 +115,7 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
         color="secondary"
         onClick={onSubmit}
         className={classNames(
-          "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+          "text-stroke-1 font-black uppercase tracking-wide text-shadow-sm",
           {
             "!bg-[#1B3044]": disabled,
           },

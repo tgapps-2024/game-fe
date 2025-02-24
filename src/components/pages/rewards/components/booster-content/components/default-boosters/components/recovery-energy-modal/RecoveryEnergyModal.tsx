@@ -171,7 +171,7 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
         disabled={disabled}
         size="large"
         className={classNames(
-          "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+          "text-stroke-1 font-black uppercase tracking-wide text-shadow-sm",
           {
             "!bg-[#1B3044]": disabled,
           },
