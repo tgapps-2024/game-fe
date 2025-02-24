@@ -169,7 +169,7 @@ export const ReserveEnergyModal: FunctionComponent<Props> = ({
         size="large"
         disabled={disabled}
         className={classNames(
-          "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+          "text-stroke-1 font-black uppercase tracking-wide text-shadow-sm",
           {
             "!bg-[#1B3044]": disabled,
           },
