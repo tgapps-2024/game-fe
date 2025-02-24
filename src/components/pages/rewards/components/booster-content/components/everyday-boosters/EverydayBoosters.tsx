@@ -34,7 +34,12 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
   const { handleSelectionChanged } = useHapticFeedback();
   const PRICE = null;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isAvailable = useMemo(() => booster?.amount > 0, [booster]);
+  const isAvailable = useMemo(
+    () =>
+      booster?.amount > 0 &&
+      Number(profile?.energy) < Number(profile?.max_energy),
+    [booster, profile],
+  );
   const { mutate } = useFullBooster(queryClient);
 
   const handlePlankClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -48,7 +53,23 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
   const handleUseBoosterMutation = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
 
-    if (!isAvailable) return;
+    if (!isAvailable) {
+      toast(
+        <Toast
+          type="destructive"
+          text={
+            booster.amount === 0
+              ? t(
+                  `${NS.PAGES.REWARDS.TOASTS.ROOT}.${NS.PAGES.REWARDS.TOASTS.NOT_AVAILABLE}`,
+                )
+              : t(
+                  `${NS.PAGES.REWARDS.TOASTS.ROOT}.${NS.PAGES.REWARDS.TOASTS.FULL_ENERGY}`,
+                )
+          }
+        />,
+      );
+      return;
+    }
 
     handleSelectionChanged();
 
@@ -134,11 +155,23 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
             size="small"
             disabled={!isAvailable}
             color={PRICE ? "primary" : "secondary"}
-            className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
-          >
-            {t(
-              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+            className={classNames(
+              "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+              {
+                "!bg-[#1B3044]": !isAvailable,
+              },
             )}
+            innerClassname={classNames({
+              "!bg-[#1B3044]": !isAvailable,
+            })}
+          >
+            {isAvailable
+              ? t(
+                  `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+                )
+              : t(
+                  `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.NOT_AVAILABLE}`,
+                )}
           </PrimaryButton>
         </div>
       </div>
@@ -147,6 +180,7 @@ export const EverydayBoosters: FunctionComponent<Props> = ({
         disabled={!isAvailable}
         currentEnergy={profile?.energy || 0}
         maxEnergy={profile?.max_energy || 0}
+        amount={booster?.amount || 0}
       />
     </Drawer>
   );

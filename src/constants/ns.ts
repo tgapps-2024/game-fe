@@ -227,6 +227,11 @@ export const NS = {
           TAXI: "TAXI",
         },
       },
+      TOASTS: {
+        ROOT: "TOASTS",
+        FULL_ENERGY: "FULL_ENERGY",
+        NOT_AVAILABLE: "NOT_AVAILABLE",
+      },
     },
     HEROES: {
       ROOT: "HEROES",

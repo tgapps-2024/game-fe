@@ -140,7 +140,7 @@
     },
     "BOOSTERS": {
       "AVAILABLE": "Доступно",
-      "NOT_AVAILABLE": "Недоступно",
+      "NOT_AVAILABLE": "Усиление недоступно",
       "APPLY": "Применить усиление",
       "BUY": "Купить",
       "COUNT": "{num1} из {num2}",
@@ -202,6 +202,10 @@
         "HOTEL": "Отель",
         "AUTOSALON": "Автосалон"
       }
+    },
+    "TOASTS": {
+      "FULL_ENERGY": "У вас полный запас энергии",
+      "NOT_AVAILABLE": "Недостаточно усилений"
     }
   },
   "HEROES": {

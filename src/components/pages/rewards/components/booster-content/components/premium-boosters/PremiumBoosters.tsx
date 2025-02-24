@@ -58,12 +58,15 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
     }
   };
 
-  const handleUseBoosterMutation = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleUseBoosterMutation = (
+    event: MouseEvent<HTMLButtonElement>,
+    amount?: number,
+  ) => {
     event.stopPropagation();
     setRequesting(true);
     handleSelectionChanged();
 
-    mutate(1, {
+    mutate(amount ?? 1, {
       onSuccess: () => {
         invalidateBoostersQuery(queryClient);
         toast(
@@ -84,7 +87,7 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
   const handleBoosterClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (selectedBooster) {
       handleBuyBooster(selectedBooster.id, () => setSelectedBooster(null));
-    } else {
+    } else if (booster.amount > 0) {
       handleUseBoosterMutation(e);
     }
   };
@@ -92,9 +95,26 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
   const handleBuyBooster = (id: number, onSuccess?: () => void) => {
     setRequesting(true);
     mutateBuyShopItem(id, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await mutate(selectedBooster?.amount ?? 1, {
+          onSuccess: async () => {
+            toast(
+              <Toast
+                type="done"
+                text={t(
+                  `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.SUCCESS_APPLY_BOOSTER}`,
+                )}
+              />,
+            );
+          },
+          onError: (error) =>
+            toast(<Toast type="destructive" text={error.message} />),
+        });
+
         invalidateBoostersQuery(queryClient);
         invalidateProfileQuery(queryClient);
+        handleSelectionChanged();
+
         toast(
           <Toast
             type="done"
@@ -103,7 +123,7 @@ export const PremiumBoosters: FunctionComponent<Props> = ({
             )}
           />,
         );
-        if (onSuccess) onSuccess(); // Только после успешной покупки сбрасываем selectedBooster
+        if (onSuccess) onSuccess();
       },
       onError: (error) =>
         toast(<Toast type="destructive" text={error.message} />),

@@ -1,6 +1,7 @@
 import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
@@ -11,6 +12,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { NS } from "@/constants/ns";
 import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import EnergyImage from "@/public/assets/png/rewards/yellow-battery.webp";
 import CloseIcon from "@/public/assets/svg/close.svg";
@@ -22,6 +24,7 @@ type Props = {
   onSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
   currentEnergy: number;
   maxEnergy: number;
+  amount: number;
 };
 
 export const EverydayBoosterModal: FunctionComponent<Props> = ({
@@ -29,7 +32,11 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
   onSubmit,
   currentEnergy,
   maxEnergy,
+  amount,
 }) => {
+  console.log("🚀 ~ disabled:", disabled);
+  const t = useTranslations(NS.PAGES.REWARDS.ROOT);
+
   return (
     <DrawerContent
       className={classNames(
@@ -61,10 +68,24 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
       <DrawerDescription className="mb-6 text-sm font-medium tracking-wide text-white">
         Полностью восстанавливает запас энергии
       </DrawerDescription>
+      <div className="mb-6 flex items-center gap-2 rounded-2xl bg-blue-700/30 p-2 text-xs font-medium capitalize tracking-wide text-gray-550">
+        {t(
+          `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.AVAILABLE}`,
+        )}{" "}
+        <span className="text-stroke-1 inline-block rounded-md bg-blue-700 px-3 py-1 text-sm font-semibold lowercase text-white text-shadow-sm">
+          {t(
+            `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.COUNT}`,
+            {
+              num1: amount,
+              num2: 5,
+            },
+          )}
+        </span>
+      </div>
       <div className="relative mb-6 grid w-full grid-cols-2 gap-2">
         <div className="flex w-full flex-col gap-3 rounded-2xl bg-blue-700 p-3">
           <span className="text-xs font-medium tracking-wide text-gray-550">
-            Текущий
+            Доступно
           </span>
           <div className="flex items-center gap-2">
             <FriendsIcon className="size-5" />
@@ -95,7 +116,13 @@ export const EverydayBoosterModal: FunctionComponent<Props> = ({
         onClick={onSubmit}
         className="flex gap-1 text-base uppercase"
       >
-        Применить усиление
+        {!disabled
+          ? t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+            )
+          : t(
+              `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.NOT_AVAILABLE}`,
+            )}
       </PrimaryButton>
     </DrawerContent>
   );
