@@ -1,6 +1,7 @@
 import React, { FunctionComponent, MouseEvent } from "react";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import classNames from "classnames";
 
@@ -11,6 +12,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { PrimaryButton } from "@/components/ui/primary-button/PrimaryButton";
+import { NS } from "@/constants/ns";
 import EnergyImage from "@/public/assets/png/rewards/green-battery-half.webp";
 import LigntningImage from "@/public/assets/png/rewards/lumin.png";
 import CloseIcon from "@/public/assets/svg/close.svg";
@@ -33,6 +35,7 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
   onSubmit,
   disabled,
 }) => {
+  const t = useTranslations(NS.PAGES.REWARDS.ROOT);
   const LEVEL = recoveryBooster?.level;
   const PRICE = recoveryBooster?.price;
 
@@ -167,15 +170,29 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
         onClick={(e) => onSubmit(e, UpgradeBoosterType.RECOVERY)}
         disabled={disabled}
         size="large"
-        className="text-stroke-1 text-xs font-extrabold text-shadow-sm"
+        className={classNames(
+          "text-stroke-1 text-xs font-extrabold text-shadow-sm",
+          {
+            "!bg-[#1B3044]": disabled,
+          },
+        )}
+        innerClassname={classNames({
+          "!bg-[#1B3044]": disabled,
+        })}
       >
-        <div className="flex items-center gap-1 text-base uppercase">
-          Улучшить за
-          <div className="grid grid-cols-[16px_1fr] items-center gap-1">
-            <StarSVG className="size-4" />
-            {formatNumber(PRICE)}
+        {disabled ? (
+          t(
+            `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.INSUFFICIENT_FUNDS}`,
+          )
+        ) : (
+          <div className="flex items-center gap-1 text-base uppercase">
+            Улучшить за
+            <div className="grid grid-cols-[16px_1fr] items-center gap-1">
+              <StarSVG className="size-4" />
+              {formatNumber(PRICE)}
+            </div>
           </div>
-        </div>
+        )}
       </PrimaryButton>
     </DrawerContent>
   );

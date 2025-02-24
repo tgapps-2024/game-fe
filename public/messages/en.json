@@ -143,6 +143,7 @@
       "NOT_AVAILABLE": "Not Available",
       "APPLY": "Apply Booster",
       "BUY": "Buy",
+      "INSUFFICIENT_FUNDS": "Insufficient Funds",
       "COUNT": "{num1} of {num2}",
       "LEVEL": "{num} lvl.",
       "COUNT_BOOSTERS": "{num} pcs.",
