@@ -36,7 +36,7 @@ export const getBoosters = async (): Promise<IBoosters> => {
 };
 
 export const getFullBooster = async (): Promise<{ status: string }> => {
-  const { data } = await apiClient.get(API_ENDPOINTS.GET.USE_FULL_BOOSTER);
+  const { data } = await apiClient.post(API_ENDPOINTS.GET.USE_FULL_BOOSTER);
 
   return data;
 };

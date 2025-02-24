@@ -36,6 +36,8 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
   const LEVEL = recoveryBooster?.level;
   const PRICE = recoveryBooster?.price;
 
+  const isZeroLevel = recoveryBooster?.level === 0;
+
   return (
     <DrawerContent
       className={classNames(
@@ -86,7 +88,7 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
                       "!bg-white": isLess,
                       "z-10 mb-1 !bg-blue-500": isCurrent,
                       "mb-5": !isCurrent && index !== 0 && index !== 10,
-                      "after:animate-pulse-wave after:absolute after:inset-0 after:z-10 after:size-full after:rounded-full after:bg-blue-500 after:content-['']":
+                      "after:absolute after:inset-0 after:z-10 after:size-full after:animate-pulse-wave after:rounded-full after:bg-blue-500 after:content-['']":
                         isCurrent,
                     },
                   )}
@@ -108,39 +110,58 @@ export const RecoveryEnergyModal: FunctionComponent<Props> = ({
             );
           })}
       </div>
-      <div className="relative mb-6 grid w-full grid-cols-2 gap-2">
-        <div className="flex w-full flex-col gap-3 rounded-2xl bg-blue-700 p-3">
+      <div
+        className={classNames("relative mb-6 grid w-full grid-cols-2 gap-2", {
+          "grid-cols-1": isZeroLevel,
+        })}
+      >
+        <div
+          className={classNames(
+            "flex w-full flex-col gap-3 rounded-2xl bg-blue-700 p-3",
+            { "!flex-row justify-between": isZeroLevel },
+          )}
+        >
           <div className="mb-2 self-start rounded-full bg-white/5 px-2.5 py-[5px] text-xs text-gray-550">
             {LEVEL} ур.
           </div>
-          <span className="text-xs font-medium tracking-wide text-gray-550">
-            Запас энергии
-          </span>
-          <div className="flex items-center gap-2">
-            <ClockIcon className="size-5" />
-            <span className="text-lg font-semibold leading-none text-white">
-              {recoveryBooster?.current}
+          <div
+            className={classNames({
+              "flex flex-col items-end justify-start gap-2": isZeroLevel,
+            })}
+          >
+            <span className="text-xs font-medium tracking-wide text-gray-550">
+              Запас энергии
             </span>
+            <div className="flex items-center gap-2">
+              <ClockIcon className="size-5" />
+              <span className="text-lg font-semibold leading-none text-white">
+                {recoveryBooster?.current}
+              </span>
+            </div>
           </div>
         </div>
-        <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#FFDE60_0%,_#FABF33_100%)] px-3 py-2 text-sm font-semibold text-white text-shadow-sm">
-          <ClockIcon className="mr-1 size-5" />
-          {(recoveryBooster?.new - recoveryBooster?.current).toFixed(2)}
-        </div>
-        <div className="flex w-full flex-col items-end gap-3 rounded-2xl bg-blue-700 p-3">
-          <div className="mb-2 self-end rounded-full bg-[#0075FF] px-2.5 py-[5px] text-xs text-white">
-            {LEVEL + 1} ур.
-          </div>
-          <span className="text-xs font-medium tracking-wide text-gray-550">
-            Запас энергии
-          </span>
-          <div className="flex items-center gap-2">
-            <ClockIcon className="size-5" />
-            <span className="inline-block bg-gradient-to-b from-[#FFDE60] to-[#FABF33] bg-clip-text text-lg font-bold leading-none text-transparent">
-              {recoveryBooster?.new}
-            </span>
-          </div>
-        </div>
+        {!isZeroLevel && (
+          <>
+            <div className="text-stroke-1 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-solid border-[#192632] bg-[linear-gradient(45deg,_#FFDE60_0%,_#FABF33_100%)] px-3 py-2 text-sm font-semibold text-white text-shadow-sm">
+              <ClockIcon className="mr-1 size-5" />
+              {(recoveryBooster?.new - recoveryBooster?.current).toFixed(2)}
+            </div>
+            <div className="flex w-full flex-col items-end gap-3 rounded-2xl bg-blue-700 p-3">
+              <div className="mb-2 self-end rounded-full bg-[#0075FF] px-2.5 py-[5px] text-xs text-white">
+                {LEVEL + 1} ур.
+              </div>
+              <span className="text-xs font-medium tracking-wide text-gray-550">
+                Запас энергии
+              </span>
+              <div className="flex items-center gap-2">
+                <ClockIcon className="size-5" />
+                <span className="inline-block bg-gradient-to-b from-[#FFDE60] to-[#FABF33] bg-clip-text text-lg font-bold leading-none text-transparent">
+                  {recoveryBooster?.new}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <PrimaryButton
         onClick={(e) => onSubmit(e, UpgradeBoosterType.RECOVERY)}

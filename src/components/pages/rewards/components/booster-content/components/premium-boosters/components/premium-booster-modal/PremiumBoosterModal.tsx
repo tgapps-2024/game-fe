@@ -133,9 +133,9 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
               key={item.id}
               onClick={() => setSelectedBooster(item)}
               className={classNames(
-                "flex w-full items-center justify-center gap-1 text-nowrap rounded-xl border border-solid border-black py-3 text-sm font-semibold",
+                "flex w-full items-center justify-center gap-1 text-nowrap rounded-xl border border-solid border-black bg-[#242C34] py-3 text-sm font-semibold",
                 {
-                  "border-2 !border-[#0075FF] bg-[#203950]":
+                  "border-2 !border-[#0075FF] !bg-[#203950]":
                     selectedBooster?.id === item.id,
                 },
               )}
@@ -151,10 +151,17 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
       <PrimaryButton
         onClick={onSubmit}
         size="large"
-        disabled={!amount}
+        disabled={selectedBooster !== null ? false : amount ? false : true}
         isLoading={isRequesting}
         color={selectedBooster ? "primary" : "secondary"}
-        className="flex gap-1 text-base uppercase"
+        className={classNames("flex gap-1 text-base uppercase", {
+          "!bg-[#1B3044]":
+            selectedBooster !== null ? false : amount ? false : true,
+        })}
+        innerClassname={classNames({
+          "!bg-[#1B3044]":
+            selectedBooster !== null ? false : amount ? false : true,
+        })}
       >
         {selectedBooster ? (
           <div className="flex items-center gap-1">
@@ -164,9 +171,13 @@ export const PremiumBoosterModal: FunctionComponent<Props> = ({
             <StarSVG className="size-6" />
             {selectedBooster.price}
           </div>
-        ) : (
+        ) : amount ? (
           t(
             `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.APPLY}`,
+          )
+        ) : (
+          t(
+            `${NS.PAGES.REWARDS.BOOSTERS.ROOT}.${NS.PAGES.REWARDS.BOOSTERS.NOT_AVAILABLE}`,
           )
         )}
       </PrimaryButton>

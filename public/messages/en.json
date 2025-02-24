@@ -201,6 +201,10 @@
         "HOTEL": "Hotel",
         "AUTOSALON": "Autosalon"
       }
+    },
+    "TOASTS": {
+      "FULL_ENERGY": "You have full energy",
+      "NOT_AVAILABLE": "Not enough boosters"
     }
   },
   "HEROES": {
